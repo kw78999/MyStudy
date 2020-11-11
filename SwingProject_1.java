@@ -35,6 +35,13 @@ public class SwingProject_1 implements ActionListener{
 	JButton btn3 = new JButton("수정");
 	JButton btn4 = new JButton("삭제");
 	JLabel lab1 = new JLabel("ISBN 검색");
+	JLabel lab2 = new JLabel("등록 번호");
+	JLabel lab3 = new JLabel("제목");
+	JLabel lab4 = new JLabel("저자");
+	JLabel lab5 = new JLabel("출판사");
+	JLabel lab6 = new JLabel("ISBN");
+	JLabel lab7 = new JLabel("도서상태");
+	
 	JTable table;
 	
 	DefaultTableModel model;
@@ -95,6 +102,12 @@ public SwingProject_1() {
     btn.setBounds(150, 55, 300, 30);
     btn3.setBounds(80, 540, 170, 50);
     btn4.setBounds(280, 540, 170, 50);
+    lab2.setBounds(50, 50, 170, 30);
+    lab3.setBounds(50, 100, 170, 30);
+    lab4.setBounds(50, 150, 170, 30);
+    lab5.setBounds(50, 200, 170, 30);
+    lab6.setBounds(50, 250, 170, 30);
+    lab7.setBounds(50, 300, 170, 30);
     lmpanel.setPreferredSize(new Dimension(650,700));
     table.getColumnModel().getColumn(0).setPreferredWidth(20);  //JTable 의 컬럼 길이 조절
     table.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -108,6 +121,12 @@ public SwingProject_1() {
     rpanel2.add(btn);
     rpanel.add(btn3);
 	rpanel.add(btn4);
+	rpanel.add(lab2);
+	rpanel.add(lab3);
+	rpanel.add(lab4);
+	rpanel.add(lab5);
+	rpanel.add(lab6);
+	rpanel.add(lab7);
     btn.addActionListener(this);
 	
 	rpanel.setPreferredSize(new Dimension(650,600));
@@ -165,7 +184,7 @@ public class SwingProject_newf implements ActionListener{
 		JFrame newf = new JFrame();
 		newf.setBackground(new  Color(170,220,255));
 		newf.setVisible(true);
-		newf.setSize(920,725);
+		newf.setSize(1020,725);
 		newf.setLocationRelativeTo(null);
 		
 		lpanel.setLayout(new BorderLayout());
@@ -210,7 +229,7 @@ public class SwingProject_newf implements ActionListener{
 		lab1.setBounds(30, 55, 80, 30);
 	    tf1.setBounds(110, 55, 200, 30);
 	    btn.setBounds(350, 55, 100, 30);
-	    lmpanel.setPreferredSize(new Dimension(640,500));
+	    lmpanel.setPreferredSize(new Dimension(570,500));
 	    table.getColumnModel().getColumn(0).setPreferredWidth(30);  //JTable 의 컬럼 길이 조절
 	    table.getColumnModel().getColumn(1).setPreferredWidth(200);
 	    table.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -272,27 +291,4 @@ public class SwingProject_newf implements ActionListener{
 			table.updateUI();
 		}
 	}}
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
