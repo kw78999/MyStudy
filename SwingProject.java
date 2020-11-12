@@ -10,6 +10,8 @@ import java.awt.LayoutManager;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,8 +25,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
-public class  SwingProject {
+public class  SwingProject implements MouseListener{
 	private static final LayoutManager FlowLayout = null;
 
 	JTextField tf8 = new JTextField(12);
@@ -35,11 +38,26 @@ public class  SwingProject {
 	JTextField tf13 = new JTextField(50);
 	ImageIcon icon;
 	Font fon = new Font( "Times", Font.BOLD, 16 );
-	
+	JTable table;
+	JTable table1;
+	TextField tf = new TextField(10);
+	JTextField tf1 = new JTextField(12);
+	JTextField tf2 = new JTextField(12);
+	JTextField tf3 = new JTextField(12);
+	JTextField tf4 = new JTextField(12);
+	JTextField tf5 = new JTextField(7);
+	JTextField tf6 = new JTextField(13);
+	JTextField tf7 = new JTextField(50);
+	JTextField tf9 = new JTextField(12);
+	JTextField tf14 = new JTextField(12);
+	JTextArea ta1 = new JTextArea(6,30);
+	JTextArea ta2 = new JTextArea(6,30);
+	DefaultTableModel model;
+	JScrollPane scr;
 	public SwingProject() {
 		JPanel panel = new JPanel();
 		JPanel inpanel = new JPanel();
-		JPanel panel1 = new JPanel();
+		JPanel tabpanel = new JPanel();
 		JPanel inpanel1 = new JPanel(); 
 		JTabbedPane t = new JTabbedPane();
 		t.setBackground(new Color(170,220,255));
@@ -53,66 +71,57 @@ public class  SwingProject {
 		label1.setFont(new Font("Times",Font.BOLD,25));
 		JPanel p = new JPanel();
 		JPanel p1 = new JPanel();
-		TextField tf = new TextField(10);
-		JTextField tf1 = new JTextField(12);
-		JTextField tf2 = new JTextField(12);
-		JTextField tf3 = new JTextField(12);
-		JTextField tf4 = new JTextField(12);
-		JTextField tf5 = new JTextField(7);
-		JTextField tf6 = new JTextField(13);
-		JTextField tf7 = new JTextField(50);
-		JTextField tf9 = new JTextField(12);
-		JTextField tf14 = new JTextField(12);
-		JTextArea ta1 = new JTextArea(6,30);
+		
+		
 		JButton btn = new JButton("회원 검색");
-		String col[] = {"순번","회원번호","회원명","회원상태","회원등급","전화번호"};
-		String row[][] = {{"1","101","홍길동","일반","일반","0"}};
-		String col1[] = {"순번","도서상태","등록번호","서명","저자","대출일"};
+		String col[] = {"회원번호","회원 이름","회원 등급","전화번호","대여기간"};
+		String row[][] = {{"1","홍길동","고급","010-8821-1129","4일"}};
+		String col1[] = {"도서번호","도서이름","저자","출판사","도서상태"};
 		String row1[][] = {{"1","101","홍길동","일반","일반","0"}};
 		frame.setLayout(new BorderLayout());
 		inpanel1.setLayout(new BorderLayout());
 		p1.setLayout(new BorderLayout());
 		p.setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
-		panel1.setLayout(new BorderLayout());
+		tabpanel.setLayout(new BorderLayout());
 		JPanel panel13 = new JPanel();
 		JPanel panel14 = new JPanel();
 	JPanel panel15 = new JPanel();
 	
 	/*	icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
-		JPanel panel13 = new JPanel() {
-			public void paintComponent(Graphics g) {
-		//  Approach 1: Dispaly image at at full size 
-				Dimension d = getSize();
-	            g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
-	        //  Approach 2: Scale image to size of component
-	        // Dimension d = getSize();
-	        // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
-	        // Approach 3: Fix the image position in the scroll pane
-	        // Point p = scrollPane.getViewport().getViewPosition();
-	        // g.drawImage(icon.getImage(), p.x, p.y, null);
-	        setOpaque(false);
-	        super.paintComponent(g);
+	JPanel panel13 = new JPanel() {
+		public void paintComponent(Graphics g) {
+	//  Approach 1: Dispaly image at at full size 
+			Dimension d = getSize();
+            g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+        //  Approach 2: Scale image to size of component
+        // Dimension d = getSize();
+        // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+        // Approach 3: Fix the image position in the scroll pane
+        // Point p = scrollPane.getViewport().getViewPosition();
+        // g.drawImage(icon.getImage(), p.x, p.y, null);
+        setOpaque(false);
+        super.paintComponent(g);
 
-		}}; 패널에 이미지 삽입 */
-	
-	
-		/*icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
-		JPanel panel14 = new JPanel() {
-			public void paintComponent(Graphics g) {
-		//  Approach 1: Dispaly image at at full size 
-				Dimension d = getSize();
-	            g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
-	        //  Approach 2: Scale image to size of component
-	        // Dimension d = getSize();
-	        // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
-	        // Approach 3: Fix the image position in the scroll pane
-	        // Point p = scrollPane.getViewport().getViewPosition();
-	        // g.drawImage(icon.getImage(), p.x, p.y, null);
-	        setOpaque(false);
-	        super.paintComponent(g);
+	}}; 패널에 이미지 삽입 */
 
-		}}; 패널에 이미지 삽입*/
+
+	/*icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
+	JPanel panel14 = new JPanel() {
+		public void paintComponent(Graphics g) {
+	//  Approach 1: Dispaly image at at full size 
+			Dimension d = getSize();
+            g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+        //  Approach 2: Scale image to size of component
+        // Dimension d = getSize();
+        // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+        // Approach 3: Fix the image position in the scroll pane
+        // Point p = scrollPane.getViewport().getViewPosition();
+        // g.drawImage(icon.getImage(), p.x, p.y, null);
+        setOpaque(false);
+        super.paintComponent(g);
+
+	}}; 패널에 이미지 삽입*/
 
 
 	
@@ -120,7 +129,7 @@ public class  SwingProject {
 		panel14.setLayout(null);
 		JPanel panel12 = new JPanel();
 		panel12.setLayout(new BorderLayout());
-		panel15.setLayout(new GridLayout(2,1));
+	panel15.setLayout(new GridLayout(2,1));
 		frame.add(inpanel,BorderLayout.NORTH);
 		
 		
@@ -138,7 +147,7 @@ public class  SwingProject {
 		t1.add("반납",new JTextArea());
 		t1.add("이용 현황",sp_s.mpanel);
 		t1.setFont( new Font( "Times", Font.BOLD, 18 ) );
-		panel1.add(t);
+		tabpanel.add(t);
 		JLabel lab = new JLabel("회원번호");
 		JLabel lab1= new JLabel("회원명");
 		JLabel lab2= new JLabel("전화번호");
@@ -155,20 +164,26 @@ public class  SwingProject {
 		JLabel lab14= new JLabel("ISBN");
 		JLabel lab13= new JLabel("소장위치");
 		JLabel lab12= new JLabel("도서상태");
+		JLabel lab15= new JLabel("메모");
 		
-		JButton btn2 = new JButton("특별대여" );
 		JButton btn3 = new JButton("도서검색");
 		JButton btn4 = new JButton("대출");
 		
 		
 		
-		JTable table = new JTable(row,col);
-		table.setPreferredScrollableViewportSize(new Dimension(600,290));
-		table.setFillsViewportHeight(true);
+		
+	//	table.setFillsViewportHeight(true);
 		p.add(label,BorderLayout.NORTH);
-	p.add(new JScrollPane(table),BorderLayout.CENTER);
-    table.setFont(new Font( "Times", Font.BOLD, 20) );
-    table.setRowHeight(25);
+	
+   // table.setFont(new Font( "Times", Font.BOLD, 20) );
+  //  table.setRowHeight(25);
+    
+    model = new DefaultTableModel(row,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
+	table = new JTable(model);
+	scr = new JScrollPane(table);
+	table.addMouseListener(this);
+	table.setPreferredScrollableViewportSize(new Dimension(600,290));
+	p.add(scr);
 		
 	JTable table1 = new JTable(row1,col1);
 	table1.setPreferredScrollableViewportSize(new Dimension(600,290));
@@ -189,6 +204,7 @@ new TitledBorder(new LineBorder(Color.white),"회원정보");
     TitledBorder jtx1= 
     		new TitledBorder(new LineBorder(Color.white),"대출자료정보");
     panel13.setBorder(jtx);
+  //  panel13.setPreferredSize(new Dimension(580,490));
     lab.setBounds(20, 40, 80, 30);
     lab.setFont(fon);
     panel13.add(lab);
@@ -248,34 +264,39 @@ new TitledBorder(new LineBorder(Color.white),"회원정보");
   tf9.setBounds(370, 30, 160, 30);
   panel14.add(tf9);
   
-  lab10.setBounds(20, 90, 80, 30);
+  lab10.setBounds(20, 70, 80, 30);
   lab10.setFont(fon);
   panel14.add(lab10);
-  tf10.setBounds(100, 90, 160, 30);
+  tf10.setBounds(100, 70, 160, 30);
   panel14.add(tf10);
   
   lab12.setFont(fon);
-  lab12.setBounds(290, 90, 80, 30);
+  lab12.setBounds(290, 70, 80, 30);
   panel14.add(lab12);
-  tf12.setBounds(370, 90, 160, 30);
+  tf12.setBounds(370, 70, 160, 30);
   panel14.add(tf12);
   lab13.setFont(fon);
   
-  lab13.setBounds(20, 150, 80, 30);
+  lab13.setBounds(20, 110, 80, 30);
   panel14.add(lab13);
-  tf13.setBounds(100, 150, 160, 30);
+  tf13.setBounds(100, 110, 160, 30);
   panel14.add(tf13);
-  lab11.setBounds(290, 150, 80, 30);
+  lab11.setBounds(290, 110, 80, 30);
   lab11.setFont(fon);
-  panel14.add(lab14);
-  tf14.setBounds(370, 150, 160, 30);
-  panel14.add(tf14);
-  lab14.setBounds(20, 210, 80, 30);
-  lab14.setFont(fon);
-  tf11.setBounds(100, 210, 430, 30);
   panel14.add(lab11);
+  panel14.add(lab14);
+  tf14.setBounds(370, 110, 160, 30);
+  panel14.add(tf14);
+  lab14.setBounds(20, 150, 80, 30);
+  lab14.setFont(fon);
+  tf11.setBounds(100, 150, 430, 30);
   panel14.add(tf11);
-  panel14.add(btn2);
+  lab15.setBounds(20, 190, 80, 30);
+  lab15.setFont(fon);
+  panel14.add(lab15);
+  ta2.setBounds(100, 200, 320, 80);
+  panel14.add(ta2);
+  btn3.setBounds(430, 200, 100, 80);
   panel14.add(btn3);
   panel14.add(btn4);
   panel15.add(panel13);
@@ -285,22 +306,49 @@ new TitledBorder(new LineBorder(Color.white),"회원정보");
     jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     panel13.setBackground(new  Color(170,220,255));
     panel14.setBackground(new  Color(170,220,255));
-    panel.add(panel15,BorderLayout.CENTER);
+    panel.add(panel15);
     panel.setBackground(new Color(170,220,255));
 
     
     
 	
-	frame.add(panel1,BorderLayout.NORTH);
+	frame.add(tabpanel,BorderLayout.NORTH);
 	frame.setBackground(new  Color(170,220,255));
 		 frame.setVisible(true);
 		 frame.setSize(1200,825);
 		 frame.setLocationRelativeTo(null);
 		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		String str0 = (String) table.getValueAt(table.getSelectedRow(),0);            //Object 타입을 모두 정수형으로 변환
+		String str1 = (String) table.getValueAt(table.getSelectedRow(),1);            //Object 타입을 모두 정수형으로 변환
+		String str2 = (String) table.getValueAt(table.getSelectedRow(),2);
+		String str3 = (String) table.getValueAt(table.getSelectedRow(),3);
+		String str4 = (String) table.getValueAt(table.getSelectedRow(),4);
+		
+		tf1.setText(str0);
+		tf2.setText(str1);
+		tf3.setText(str3);
+		tf4.setText(str4);
+		tf5.setText(str2);
+		tf6.setText("일반");
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent arg0) {}
+	@Override
+	public void mouseExited(MouseEvent arg0) {}
+	@Override
+	public void mousePressed(MouseEvent arg0) {}
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
+	
+	
 	
 	
 	public static void main(String[] args) {
 		new SwingProject();
 	}
+
 }
