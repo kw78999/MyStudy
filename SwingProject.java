@@ -34,6 +34,7 @@ public class  SwingProject {
 	JTextField tf12 = new JTextField(50);
 	JTextField tf13 = new JTextField(50);
 	ImageIcon icon;
+	Font fon = new Font( "Times", Font.BOLD, 16 );
 	
 	public SwingProject() {
 		JPanel panel = new JPanel();
@@ -63,6 +64,7 @@ public class  SwingProject {
 		JTextField tf9 = new JTextField(12);
 		JTextField tf14 = new JTextField(12);
 		JTextArea ta1 = new JTextArea(6,30);
+		JButton btn = new JButton("회원 검색");
 		String col[] = {"순번","회원번호","회원명","회원상태","회원등급","전화번호"};
 		String row[][] = {{"1","101","홍길동","일반","일반","0"}};
 		String col1[] = {"순번","도서상태","등록번호","서명","저자","대출일"};
@@ -73,10 +75,11 @@ public class  SwingProject {
 		p.setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
 		panel1.setLayout(new BorderLayout());
-		//JPanel panel13 = new JPanel();
-		//JPanel panel14 = new JPanel();
+		JPanel panel13 = new JPanel();
+		JPanel panel14 = new JPanel();
 	JPanel panel15 = new JPanel();
-		icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
+	
+	/*	icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
 		JPanel panel13 = new JPanel() {
 			public void paintComponent(Graphics g) {
 		//  Approach 1: Dispaly image at at full size 
@@ -91,8 +94,10 @@ public class  SwingProject {
 	        setOpaque(false);
 	        super.paintComponent(g);
 
-		}};
-		icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
+		}}; 패널에 이미지 삽입 */
+	
+	
+		/*icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
 		JPanel panel14 = new JPanel() {
 			public void paintComponent(Graphics g) {
 		//  Approach 1: Dispaly image at at full size 
@@ -107,11 +112,12 @@ public class  SwingProject {
 	        setOpaque(false);
 	        super.paintComponent(g);
 
-		}};
+		}}; 패널에 이미지 삽입*/
 
 
-	//	panel14.setLayout(new FlowLayout());
+	
 		panel13.setLayout(null);
+		panel14.setLayout(null);
 		JPanel panel12 = new JPanel();
 		panel12.setLayout(new BorderLayout());
 		panel15.setLayout(new GridLayout(2,1));
@@ -120,6 +126,8 @@ public class  SwingProject {
 		
 		SwingProject_1 sp_1 = new SwingProject_1();
 		SwingProject_2 sp_2 = new SwingProject_2();
+		SwingProject_state sp_s = new SwingProject_state();
+		
 		t.add("대출 / 반납",t1);
 		t.add("도서관리",sp_1.t_1);
 		t.add("회원관리",sp_2.t_2);
@@ -128,25 +136,26 @@ public class  SwingProject {
 		t.setBackground(new  Color(170,220,255));
 		t1.add("대여",panel);
 		t1.add("반납",new JTextArea());
-		t1.add("이용 현황",new JTextArea());
+		t1.add("이용 현황",sp_s.mpanel);
 		t1.setFont( new Font( "Times", Font.BOLD, 18 ) );
 		panel1.add(t);
-		JLabel lab = new JLabel("회원정보");
+		JLabel lab = new JLabel("회원번호");
 		JLabel lab1= new JLabel("회원명");
 		JLabel lab2= new JLabel("전화번호");
-		JLabel lab3= new JLabel("대출/가능권수");
+		JLabel lab3= new JLabel("대여기간");
 		JLabel lab4= new JLabel("회원등급");
 		JLabel lab5= new JLabel("회원상태");
 		JLabel lab6= new JLabel("주소");
 		JLabel lab7= new JLabel("메모");
-		JLabel lab8= new JLabel("등록번호");
-		JLabel lab9= new JLabel("대출일");
-		JLabel lab10= new JLabel("반납예정일");
-		JLabel lab11= new JLabel("지은이");
-		JLabel lab12= new JLabel("ISBN");
-		JLabel lab13= new JLabel("출판사");
-		JLabel lab14= new JLabel("제목");
-		JButton btn1 = new JButton("회원검색");
+		
+		JLabel lab8= new JLabel("도서 번호");
+		JLabel lab9= new JLabel("도서 이름");
+		JLabel lab10= new JLabel("저자");
+		JLabel lab11= new JLabel("출판사");
+		JLabel lab14= new JLabel("ISBN");
+		JLabel lab13= new JLabel("소장위치");
+		JLabel lab12= new JLabel("도서상태");
+		
 		JButton btn2 = new JButton("특별대여" );
 		JButton btn3 = new JButton("도서검색");
 		JButton btn4 = new JButton("대출");
@@ -181,51 +190,89 @@ new TitledBorder(new LineBorder(Color.white),"회원정보");
     		new TitledBorder(new LineBorder(Color.white),"대출자료정보");
     panel13.setBorder(jtx);
     lab.setBounds(20, 40, 80, 30);
+    lab.setFont(fon);
     panel13.add(lab);
     tf1.setBounds(90, 40, 160, 30);
   panel13.add(tf1);
-  lab1.setBounds(300, 40, 80, 30);
+  lab1.setBounds(290, 40, 80, 30);
+  lab1.setFont(fon);
   panel13.add(lab1);
   tf2.setBounds(360, 40, 160, 30);
  panel13.add(tf2);
  
- lab2.setBounds(20, 90, 80, 30);
+ lab2.setBounds(20, 80, 80, 30);
+ lab2.setFont(fon);
  panel13.add(lab2);
- tf3.setBounds(90, 90, 160, 30);
+ tf3.setBounds(90, 80, 160, 30);
   panel13.add(tf3);
-  lab3.setBounds(270, 90, 80, 30);
+  lab3.setBounds(290, 80, 80, 30);
+  lab3.setFont(fon);
   panel13.add(lab3);
-  tf4.setBounds(360, 90, 160, 30);
+  tf4.setBounds(360, 80, 160, 30);
   panel13.add(tf4);
   
-  lab4.setBounds(20, 140, 80, 30);
+  lab4.setBounds(20, 120, 80, 30);
+  lab4.setFont(fon);
  panel13.add(lab4);
- tf5.setBounds(90, 140, 160, 30);
+ tf5.setBounds(90, 120, 160, 30);
   panel13.add(tf5);
-  lab5.setBounds(290, 140, 80, 30);
+  lab5.setBounds(290, 120, 80, 30);
+  lab5.setFont(fon);
   panel13.add(lab5);
-  tf6.setBounds(360, 140,160, 30);
+  tf6.setBounds(360, 120,160, 30);
   panel13.add(tf6);
   
-/*  lab6.setBounds(4, 40, 80, 30);
+  lab6.setBounds(20, 160, 80, 30);
+  lab6.setFont(fon);
   panel13.add(lab6);
+  tf7.setBounds(90, 160, 430, 30);
   panel13.add(tf7);
+  lab7.setBounds(20, 200, 80, 30);
+  lab7.setFont(fon);
   panel13.add(lab7);
+  ta1.setBounds(90, 210, 320, 80);
   panel13.add(ta1);
-  panel13.add(btn1);*/
+  btn.setBounds(420, 210, 100, 80);
+  panel13.add(btn);
+  
   panel14.setBorder(jtx1);
+  lab8.setBounds(20, 30, 80, 30);
+  lab8.setFont(fon);
   panel14.add(lab8);
+  tf8.setBounds(100, 30, 160, 30);
   panel14.add(tf8);
+  
+  lab9.setBounds(290, 30, 80, 30);
+  lab9.setFont(fon);
   panel14.add(lab9);
+  tf9.setBounds(370, 30, 160, 30);
   panel14.add(tf9);
+  
+  lab10.setBounds(20, 90, 80, 30);
+  lab10.setFont(fon);
   panel14.add(lab10);
+  tf10.setBounds(100, 90, 160, 30);
   panel14.add(tf10);
+  
+  lab12.setFont(fon);
+  lab12.setBounds(290, 90, 80, 30);
   panel14.add(lab12);
+  tf12.setBounds(370, 90, 160, 30);
   panel14.add(tf12);
+  lab13.setFont(fon);
+  
+  lab13.setBounds(20, 150, 80, 30);
   panel14.add(lab13);
+  tf13.setBounds(100, 150, 160, 30);
   panel14.add(tf13);
+  lab11.setBounds(290, 150, 80, 30);
+  lab11.setFont(fon);
   panel14.add(lab14);
+  tf14.setBounds(370, 150, 160, 30);
   panel14.add(tf14);
+  lab14.setBounds(20, 210, 80, 30);
+  lab14.setFont(fon);
+  tf11.setBounds(100, 210, 430, 30);
   panel14.add(lab11);
   panel14.add(tf11);
   panel14.add(btn2);

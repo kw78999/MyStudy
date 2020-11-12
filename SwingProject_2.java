@@ -122,10 +122,7 @@ public class SwingProject_2 implements ActionListener,ItemListener,MouseListener
 		 
 		 rpanel.add(lab1);
 		 lab1.setBounds(30, 240, 120, 30);
-		 lab1.setOpaque(true); 
-		 lab1.setBackground(bg);
-		 lab1.setForeground(Color.white);
-		 lab1.setFont(new Font("Times",Font.BOLD,15));
+		 lab1.setFont(new Font("Times",Font.BOLD,20));
 		 
 		 rpanel.add(tf1);
 		 tf1.setBounds(150,240,180,30);
