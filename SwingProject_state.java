@@ -45,9 +45,9 @@ public class SwingProject_state {
         	 mpanel.setBackground(new  Color(170,220,255));
         	 npanel.setBackground(new  Color(170,220,255));
              npanel.setLayout(null);
-             mpanel.setLayout(new BorderLayout());
+             mpanel.setLayout(null);
              
-         	TitledBorder jtx= 
+         	TitledBorder jtx=          //검색창 보더
     	    		new TitledBorder(new LineBorder(Color.white),"검색");
     		 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     		 
@@ -56,7 +56,7 @@ public class SwingProject_state {
     		 cho.add("도서 번호");
     		 cho.setBounds(250, 50, 150, 50);
     		 tf.setBounds(430,50 , 150, 27);
-    		 
+    	
     		 
     		 btn.setBounds(580, 50, 100, 27);
     	     	model = new DefaultTableModel(row,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
@@ -77,9 +77,11 @@ public class SwingProject_state {
     	 npanel.add(tf);
     	 npanel.add(btn);
     	 npanel.add(cho);
+    	 npanel.setBounds(0, 0, 1200, 120);
     	 mpanel.add(scr);
+    	 scr.setBounds(0, 120, 1200, 300);
     	 npanel.setBorder(jtx);
-    	 mpanel.add(npanel,BorderLayout.NORTH);
+    	 mpanel.add(npanel);
     	 npanel.setPreferredSize(new Dimension(1200,120));	 
             	 
             	 

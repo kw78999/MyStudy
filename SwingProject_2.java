@@ -217,37 +217,26 @@ public class SwingProject_2 implements ActionListener,ItemListener,MouseListener
 			
 		}else if (cmd.equals(btn3.getText())) {
 			m2.removeRow(table7.getSelectedRow());       //어느 열을 눌러도 행 전체 삭제
-			
-			
 		}}
-	@Override
+	
+	@Override             //마우스 색 바꾸기
 	public void mouseClicked(MouseEvent e) {
 		JButton btn1 = (JButton)e.getSource();
         btn1.setBackground(Color.gray);
 	}
-
 	@Override
-	public void mousePressed(MouseEvent e) {
-	}
-
+	public void mousePressed(MouseEvent e) {}
 	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
-
+	public void mouseReleased(MouseEvent e) {}
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		JButton btn1 = (JButton)e.getSource();
         btn1.setBackground(Color.gray);
-
-
 	}
 	 @Override
 	    public void mouseExited(MouseEvent e) {
 			JButton btn1 = (JButton)e.getSource();
 	        btn1.setBackground(bg);   
 	 }
-
-			
-		
-			
+	
 		}

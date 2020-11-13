@@ -25,7 +25,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class SwingProject_1 implements ActionListener,MouseListener{
+public class SwingProject_1 implements MouseListener{
 	String col[] = {"NO.","제목","저자","출판사","ISBN","도서상태"};
 	String row[][] ;
 	ImageIcon img;
@@ -39,17 +39,15 @@ public class SwingProject_1 implements ActionListener,MouseListener{
 	JPanel rpanel2 = new JPanel();
 	JPanel rmpanel = new JPanel();
 	JPanel mpanel = new JPanel();
-	JButton btn = new JButton("찾기"); ;
+	JButton btn;
 	JButton btn3 = new JButton("수정");
 	JButton btn4 = new JButton("삭제");
-	JLabel lab1 = new JLabel("ISBN 검색");
 	JLabel lab2 = new JLabel("등록 번호");
 	JLabel lab3 = new JLabel("제목");
 	JLabel lab4 = new JLabel("저자");
 	JLabel lab5 = new JLabel("출판사");
 	JLabel lab6 = new JLabel("ISBN");
 	JLabel lab7 = new JLabel("도서상태");
-	JLabel lab8 = new JLabel("메모");
 	
 	JTextArea ta = new JTextArea();
 	JTextField tf1 = new JTextField(10);
@@ -71,7 +69,7 @@ public SwingProject_1() {
 	lpanel.setLayout(new BorderLayout());
 	lmpanel.setLayout(new BorderLayout());
 	rpanel.setLayout(null);
-	rmpanel.setLayout(new BorderLayout());
+	rmpanel.setLayout(null);
 	rpanel2.setLayout(null);
 	mpanel.setLayout(new BorderLayout());
 	mpanel.setBackground(new  Color(170,220,255));
@@ -81,8 +79,7 @@ public SwingProject_1() {
 	rpanel.setBackground(new  Color(170,220,255));
 	rmpanel.setBackground(new  Color(170,220,255));
 	
-	mpanel.add(lmpanel,BorderLayout.WEST);
-	mpanel.add(rmpanel,BorderLayout.CENTER);
+	
 	
 	TitledBorder jtx= 
     		new TitledBorder(new LineBorder(Color.white),"매장 보유 도서");
@@ -98,8 +95,8 @@ public SwingProject_1() {
 
 
 	
-	btn3.addActionListener(this);
-	btn4.addActionListener(this);
+	//btn3.addActionListener();
+	//btn4.addActionListener();
 	lmpanel.add(lpanel,BorderLayout.CENTER);
 	lmpanel.add(lpanel2,BorderLayout.SOUTH);
 	m3 =(DefaultTableModel)table7.getModel()	;
@@ -124,39 +121,35 @@ public SwingProject_1() {
 	
    JLabel imlabel = new JLabel(changeicon); //라벨에 부착
    rpanel.add(imlabel);
-   imlabel.setBounds(280, 40, 230, 320);   //라벨과 이미지 사이즈 맞추기 280,320
+   imlabel.setBounds(280, 20, 230, 320);   //라벨과 이미지 사이즈 맞추기 280,320
    
    Image btnimg = normalIcon.getImage();
-   Image change1 = btnimg.getScaledInstance(40, 29, Image.SCALE_SMOOTH);
+   Image change1 = btnimg.getScaledInstance(40, 30, Image.SCALE_SMOOTH);
    ImageIcon changeicon1 = new ImageIcon(change1);
 	
-   JButton btn = new JButton("찾기",changeicon1);
+   JButton btn = new JButton(changeicon1);
    btn.setBackground(Color.white);
+   btn.setBounds(96, 0, 40, 30);
    
-	lab1.setBounds(30, 55, 120, 30);
-	lab1.setFont(fon);
-    btn.setBounds(150, 55, 300, 30);
     btn3.setBounds(80, 540, 170, 50);
     btn4.setBounds(280, 540, 170, 50);
     
-    lab2.setBounds(20, 40, 170, 30);
-    lab3.setBounds(20, 110, 170, 30);
-    lab4.setBounds(20, 170, 170, 30);
-    lab5.setBounds(20, 230, 170, 30);
-    lab6.setBounds(20, 290, 170, 30);
-    lab7.setBounds(160, 40, 170, 30);
-    lab8.setBounds(20, 360, 170, 30);
+    lab2.setBounds(20, 20, 170, 30);
+    lab3.setBounds(20, 70, 170, 30);
+    lab4.setBounds(20, 120, 170, 30);
+    lab5.setBounds(20, 200, 170, 30);
+    lab6.setBounds(20, 2600, 170, 30);
+    lab7.setBounds(160, 20, 170, 30);
     ta.setBounds(20, 390, 450, 120);
     
-    tf1.setBounds(20, 70, 100, 30);
-    tf2.setBounds(20, 140, 250, 30);
-    tf3.setBounds(20, 200, 250, 30);
-    tf4.setBounds(20, 260, 250, 30);
-    tf5.setBounds(20, 320, 250, 30);
-    tf6.setBounds(160, 70, 100, 30);
+    tf1.setBounds(20, 50, 100, 25);
+    tf2.setBounds(20, 100, 250, 25);
+    tf3.setBounds(20, 150, 250, 25);
+    tf4.setBounds(20, 190, 250, 25);
+    tf5.setBounds(20, 230, 250, 25);
+    tf6.setBounds(160, 50, 100, 25);
     
     
-    lab8.setFont(fon);
     lab2.setFont(fon);
     tf1.setEnabled(false);
     lab3.setFont(fon);
@@ -165,20 +158,19 @@ public SwingProject_1() {
     lab6.setFont(fon);
     lab7.setFont(fon);
     tf6.setEnabled(false);
-    
+
+	table7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     lmpanel.setPreferredSize(new Dimension(650,700));
-    table7.getColumnModel().getColumn(0).setPreferredWidth(20);  //JTable 의 컬럼 길이 조절
-    table7.getColumnModel().getColumn(1).setPreferredWidth(200);
-    table7.getColumnModel().getColumn(2).setPreferredWidth(100);
-    table7.getColumnModel().getColumn(3).setPreferredWidth(50);
+    table7.getColumnModel().getColumn(0).setPreferredWidth(40);  //JTable 의 컬럼 길이 조절
+    table7.getColumnModel().getColumn(1).setPreferredWidth(400);
+    table7.getColumnModel().getColumn(2).setPreferredWidth(180);
+    table7.getColumnModel().getColumn(3).setPreferredWidth(130);
     table7.getColumnModel().getColumn(4).setPreferredWidth(100);
-    table7.getColumnModel().getColumn(5).setPreferredWidth(30);
+    table7.getColumnModel().getColumn(5).setPreferredWidth(100);
     table7.setFont(new Font( "Times", Font.BOLD, 20) );
     table7.setRowHeight(25);
     
-    rpanel2.add(lab1);
     rpanel2.add(btn);
-    rpanel.add(lab8);
     rpanel.add(ta);
     rpanel.add(btn3);
 	rpanel.add(btn4);
@@ -194,11 +186,14 @@ public SwingProject_1() {
 	rpanel.add(tf4);
 	rpanel.add(tf5);
 	rpanel.add(tf6);
-    btn.addActionListener(this);
+    btn.addActionListener(ac);
 	
-	rpanel.setPreferredSize(new Dimension(650,600));
-	rmpanel.add(rpanel2,BorderLayout.CENTER);
-	rmpanel.add(rpanel,BorderLayout.SOUTH);	
+	rpanel.setBounds(0, 40, 530, 600);
+	rpanel2.setBounds(0, 0, 550, 40);
+	rmpanel.add(rpanel2);
+	rmpanel.add(rpanel);	
+	mpanel.add(lmpanel,BorderLayout.WEST);
+	mpanel.add(rmpanel);
     
    
 	t_1.add("도서 정보",mpanel);                               //모든 요소를 t_1에 부착
@@ -206,19 +201,22 @@ public SwingProject_1() {
 	}
 
 
-
-@Override
-public void actionPerformed(ActionEvent e) {     
-	String cmd = e.getActionCommand()	;
-	 if(cmd.equals(btn.getText())){                                    //검색창을 눌렀을때 새로운창 생성
-		 SwingProject_newf newf = new SwingProject_newf();
-	}else if (cmd.equals(btn4.getText())) {                    //삭제버튼으로 선택한 행 삭제
-		m3.removeRow(table7.getSelectedRow());
-	}else if (cmd.equals(btn3.getText())) {
+ActionListener ac = new ActionListener() {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		/*String cmd = e.getActionCommand()	;
+		 if(cmd.equals(btn)){                                    //검색창을 눌렀을때 새로운창 생성*/
+			 SwingProject_newf newf = new SwingProject_newf();
+		/*}else if (cmd.equals(btn4.getText())) {                    //삭제버튼으로 선택한 행 삭제
+			m3.removeRow(table7.getSelectedRow());
+		}else if (cmd.equals(btn3.getText())) {
+			
+		}
 		
-	}
-	
-}
+	}*/
+}};
+
+
 @Override
 public void mouseClicked(MouseEvent e) {
 	int i = (Integer)table7.getValueAt(table7.getSelectedRow(),0);          //Object 타입을 정수형로 변환
@@ -429,10 +427,7 @@ public class SwingProject_newf implements ActionListener,MouseListener{
 		tf55.setText(str4);
 	} 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		
-
-	}
+	public void mousePressed(MouseEvent e) {}
 	@Override
 	public void mouseReleased(MouseEvent e) {}
 	@Override
