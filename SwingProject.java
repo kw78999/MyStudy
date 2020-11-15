@@ -1,6 +1,7 @@
 package JAVAP;
 
 import java.awt.BorderLayout;
+import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -29,13 +30,13 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class  SwingProject implements ActionListener{
-	ImageIcon normalIcon = new ImageIcon("C:\\Java\\eclipse-workspace\\image\\test2.jpg");
-	JTextField tf8 = new JTextField(12);
+	ImageIcon normalIcon = new ImageIcon("C:\\Users\\deers\\Desktop\\새 폴더\\gitTest1\\gitTest1\\test3.jpg");
+	static JTextField tf8 = new JTextField(12);
 	JTextField tf11 = new JTextField (20);
 
-	JTextField tf10 = new JTextField(50);
-	JTextField tf12 = new JTextField(50);
-	JTextField tf13 = new JTextField(50);
+	static JTextField tf10 = new JTextField(50);
+	static JTextField tf12 = new JTextField(50);
+	static JTextField tf13 = new JTextField(50);
 	JButton btn ;
 	JButton btn3 ;
 	ImageIcon icon;
@@ -43,15 +44,15 @@ public class  SwingProject implements ActionListener{
 	JTable table;
 	JTable table1;
 	TextField tf = new TextField(10);
-	JTextField tf1 = new JTextField(12);
-	JTextField tf2 = new JTextField(12);
-	JTextField tf3 = new JTextField(12);
-	JTextField tf4 = new JTextField(12);
-	JTextField tf5 = new JTextField(7);
-	JTextField tf6 = new JTextField(13);
+	static JTextField tf1 = new JTextField(12);
+	static JTextField tf2 = new JTextField(12);
+	static JTextField tf3 = new JTextField(12);
+	static JTextField tf4 = new JTextField(12);
+	static JTextField tf5 = new JTextField(7);
+	static JTextField tf6 = new JTextField(13);
 	JTextField tf7 = new JTextField(50);
-	JTextField tf9 = new JTextField(12);
-	JTextField tf14 = new JTextField(12);
+	static JTextField tf9 = new JTextField(12);
+	static 	JTextField tf14 = new JTextField(12);
 	JTextField tf15 = new JTextField(12);
 	JTextField tf16 = new JTextField(12);
 	JTextArea ta1 = new JTextArea("채팅창");
@@ -60,7 +61,7 @@ public class  SwingProject implements ActionListener{
 	JScrollPane scr;
 	JScrollPane scr1;
 	JButton lentalbtn = new JButton("대출하기");
-	JFrame frame;
+	static JFrame frame;
 	public SwingProject() {
 		
 		JPanel panel = new JPanel();
@@ -76,7 +77,7 @@ public class  SwingProject implements ActionListener{
 		JTabbedPane t1 = new JTabbedPane();
 		t1.setBackground(new Color(170,220,255));
 		
-		JFrame frame = new JFrame("gi");
+		JFrame frame = new JFrame("도서관리 프로그램");
 		JLabel label = new JLabel("회원목록");
 		label.setFont(new Font("Times",Font.BOLD,25));
 		JLabel label1 = new JLabel("도서목록");
@@ -235,11 +236,12 @@ new TitledBorder(new LineBorder(Color.white),"회원정보");
   
 
   Image btnimg = normalIcon.getImage();         //버튼에 이미지 추가
-  Image change = btnimg.getScaledInstance(40, 30, Image.SCALE_SMOOTH);
+  Image change = btnimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
   ImageIcon changeicon = new ImageIcon(change);
   JButton btn = new JButton(changeicon);
   
-  btn.setBounds(85, 0, 40, 30);
+  btn.setBounds(85, 0, 30, 30);
+  btn.addActionListener(memberscan);
   panel13.add(btn);
   
   panel14.setBorder(jtx1);
@@ -296,10 +298,11 @@ new TitledBorder(new LineBorder(Color.white),"회원정보");
   btn3.setBounds(430, 200, 100, 80);
   
   Image btnimg2 = normalIcon.getImage();         //버튼에 이미지 추가
-  Image change2 = btnimg2.getScaledInstance(40, 30, Image.SCALE_SMOOTH);
+  Image change2 = btnimg2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
   ImageIcon changeicon2 = new ImageIcon(change2);
   JButton btn3 = new JButton(changeicon2);
-  btn3.setBounds(85, 0, 40, 30);
+  btn3.setBounds(85, 0, 30, 30);
+  btn3.addActionListener(bookscan);
   
   
   panel14.add(btn3);
@@ -326,30 +329,36 @@ panel14.setBounds(0, 160, 580, 180);
 		 frame.setLocationRelativeTo(null);
 		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+	ActionListener memberscan = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			new SwingProject_MemberScanner();
+		}
+	};
+	ActionListener bookscan = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			new SwingProject_bookscanner();
+		}
+	};
 	@Override
 	public void actionPerformed(ActionEvent e) {   //대출버튼 각종 이벤트
 		String cmd = e.getActionCommand();
 		if(cmd.equals(lentalbtn.getText())) {
 			if(tf1.getText().equals("")) {
 			MDialog md = new MDialog(frame,"오류", true,"회원정보가 없습니다.");
-	    	md.setBounds(800,380,400,250);
 			md.setVisible(true);
 			}else if (tf8.getText().equals("")) {
 				MDialog md1 = new MDialog(frame,"오류", true,"도서정보가 없습니다.");
-		    	md1.setBounds(800,380,400,250);
 				md1.setVisible(true);
-		}else if(tf1.getText().equals("1")) {
+		}else if(tf1.getText().equals("1")&&tf12.getText().equals("가능")) {
 			MDialog md2 = new MDialog(frame,"우수회원 입니다", true,"쿠폰 받아가세요.");
-	    	md2.setBounds(800,380,400,250);
 			md2.setVisible(true);
 		}else if(tf12.getText().equals("불가능")) {
 			MDialog md2 = new MDialog(frame,"오류", true,"도서가 대출불가능 합니다.");
-	    	md2.setBounds(800,380,400,250);
 			md2.setVisible(true);
 		}else {
 			MDialog md2 = new MDialog(frame,"대출", true,"대출 되었습니다.");
-	    	md2.setBounds(800,380,400,250);
 			md2.setVisible(true);
 		}
 	}
@@ -362,13 +371,14 @@ panel14.setBounds(0, 160, 580, 180);
 		String str2 = (String) table.getValueAt(table.getSelectedRow(),2);
 		String str3 = (String) table.getValueAt(table.getSelectedRow(),3);
 		String str4 = (String) table.getValueAt(table.getSelectedRow(),4);
+		String str5 = (String) table.getValueAt(table.getSelectedRow(),5);
 		
 		tf1.setText(str0);
 		tf2.setText(str1);
 		tf3.setText(str3);
 		tf4.setText(str4);
 		tf5.setText(str2); 
-		tf6.setText("Test");
+		tf6.setText(str5);
 		
 	}
 	@Override
@@ -398,7 +408,7 @@ MouseListener book = new MouseListener() {            //도서목록을 누르면 오른쪽
 			String str33 = (String) table1.getValueAt(table1.getSelectedRow(),3);
 			String str44 = (String) table1.getValueAt(table1.getSelectedRow(),4);
 			String str55 = (String) table1.getValueAt(table1.getSelectedRow(),5);
-			tf8.setText(str00);
+			tf8.setText(str00); 
 			tf9.setText(str11);
 			tf10.setText(str22);
 			tf12.setText(str44);
@@ -406,29 +416,6 @@ MouseListener book = new MouseListener() {            //도서목록을 누르면 오른쪽
 			tf13.setText(str55);
 		}	
 };
-
-class MDialog extends Dialog implements ActionListener{          //다이얼로그 내부클래스
-	
-	JButton b;
-	JLabel lab1;
-	public MDialog(Frame f,String title,boolean modal,String str) {  //modal은 awt끼리의 관계이다 
-		super (f,title,modal);
-		setLayout(null);
-		 b= new JButton ("확인");
-		 lab1 = new JLabel(str);
-		 b.setBounds(160, 160, 80, 40);
-		 lab1.setBounds(70, 50, 400, 50);
-		 lab1.setFont(new Font( "Times", Font.BOLD, 21));
-		 b.addActionListener(this);
-		 add(lab1);
-		 add(b);
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-	dispose();  //버튼 누르면 다이얼로그가 사라진다.
-	}
-}
-	
 	public static void main(String[] args) {
 		new SwingProject();
 	}

@@ -2,6 +2,7 @@ package JAVAP;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -24,13 +25,14 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
-public class SwingProject_1 implements MouseListener{
-	String col[] = {"NO.","Á¦¸ñ","ÀúÀÚ","ÃâÆÇ»ç","ISBN","µµ¼­»óÅÂ"};
+public class SwingProject_1  implements MouseListener{
+	String col[] = {"NO.","ì œëª©","ì €ì","ì¶œíŒì‚¬","ISBN","ë„ì„œìƒíƒœ"};
 	String row[][] ;
 	ImageIcon img;
 	int cnt =0;
-	ImageIcon normalIcon = new ImageIcon("C:\\Java\\eclipse-workspace\\image\\test2.jpg");
+	ImageIcon normalIcon = new ImageIcon("C:\\\\Users\\\\deers\\\\Desktop\\\\ìƒˆ í´ë”\\\\gitTest1\\\\gitTest1\\\\test3.jpg");
 	JTabbedPane t_1 = new JTabbedPane();
 	JPanel lpanel = new JPanel();
 	JPanel lmpanel = new JPanel();
@@ -40,14 +42,14 @@ public class SwingProject_1 implements MouseListener{
 	JPanel rmpanel = new JPanel();
 	JPanel mpanel = new JPanel();
 	JButton btn;
-	JButton btn3 = new JButton("¼öÁ¤");
-	JButton btn4 = new JButton("»èÁ¦");
-	JLabel lab2 = new JLabel("µî·Ï ¹øÈ£");
-	JLabel lab3 = new JLabel("Á¦¸ñ");
-	JLabel lab4 = new JLabel("ÀúÀÚ");
-	JLabel lab5 = new JLabel("ÃâÆÇ»ç");
+	JButton btn3 = new JButton("ìˆ˜ì •");
+	JButton btn4 = new JButton("ì‚­ì œ");
+	JLabel lab2 = new JLabel("ë“±ë¡ ë²ˆí˜¸");
+	JLabel lab3 = new JLabel("ì œëª©");
+	JLabel lab4 = new JLabel("ì €ì");
+	JLabel lab5 = new JLabel("ì¶œíŒì‚¬");
 	JLabel lab6 = new JLabel("ISBN");
-	JLabel lab7 = new JLabel("µµ¼­»óÅÂ");
+	JLabel lab7 = new JLabel("ë„ì„œìƒíƒœ");
 	
 	JTextArea ta = new JTextArea();
 	JTextField tf1 = new JTextField(10);
@@ -82,10 +84,10 @@ public SwingProject_1() {
 	
 	
 	TitledBorder jtx= 
-    		new TitledBorder(new LineBorder(Color.white),"¸ÅÀå º¸À¯ µµ¼­");
+    		new TitledBorder(new LineBorder(Color.white),"ë§¤ì¥ ë³´ìœ  ë„ì„œ");
 	 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 	 
-	model = new DefaultTableModel(row,col);   //Ãß°¡ »èÁ¦ ¼öÁ¤ÀÌ °£ÆíÇÑ DefaultTableModel »ı¼º
+	model = new DefaultTableModel(row,col);   //ì¶”ê°€ ì‚­ì œ ìˆ˜ì •ì´ ê°„í¸í•œ DefaultTableModel ìƒì„±
 	table7 = new JTable(model);
 	scr = new JScrollPane(table7);
 	table7.addMouseListener(this);
@@ -101,35 +103,35 @@ public SwingProject_1() {
 	lmpanel.add(lpanel2,BorderLayout.SOUTH);
 	m3 =(DefaultTableModel)table7.getModel()	;
 	
-	//Å¸ÀÌÆ² º¸´õ ¼ÂÆÃ
+	//íƒ€ì´í‹€ ë³´ë” ì…‹íŒ…
 	TitledBorder jtx1= 
-    		new TitledBorder(new LineBorder(Color.white),"µµ¼­ ¼¼ºÎÁ¤º¸");
+    		new TitledBorder(new LineBorder(Color.white),"ë„ì„œ ì„¸ë¶€ì •ë³´");
 	 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 		
 	 TitledBorder jtx2= 
-	    		new TitledBorder(new LineBorder(Color.white),"ISBN °Ë»ö");
+	    		new TitledBorder(new LineBorder(Color.white),"ISBN ê²€ìƒ‰    ");
 		 jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
-		//Å¸ÀÌÆ² º¸´õ ÆĞ³Î¿¡ ºÎÂø
+		//íƒ€ì´í‹€ ë³´ë” íŒ¨ë„ì— ë¶€ì°©
    rpanel.setBorder(jtx1);
    rpanel2.setBorder(jtx2);
    
-   //Ã¥ ÀÌ¹ÌÁö »ğÀÔ
+   //ì±… ì´ë¯¸ì§€ ì‚½ì…
    ImageIcon icon = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\booktest.jpg");
-	Image img = icon.getImage();    //icon ÀÌ¹ÌÁö img¿¡ ³Ö±â
-	Image change = img.getScaledInstance(230, 320, Image.SCALE_SMOOTH); //imgÀÌ¹ÌÁö Å©±âÁ¶Àı
-	ImageIcon changeicon = new ImageIcon(change);//img ÀÌ¹ÌÁö ´Ù½Ã imageicon¿¡ ³Ö±â
+	Image img = icon.getImage();    //icon ì´ë¯¸ì§€ imgì— ë„£ê¸°
+	Image change = img.getScaledInstance(230, 320, Image.SCALE_SMOOTH); //imgì´ë¯¸ì§€ í¬ê¸°ì¡°ì ˆ
+	ImageIcon changeicon = new ImageIcon(change);//img ì´ë¯¸ì§€ ë‹¤ì‹œ imageiconì— ë„£ê¸°
 	
-   JLabel imlabel = new JLabel(changeicon); //¶óº§¿¡ ºÎÂø
+   JLabel imlabel = new JLabel(changeicon); //ë¼ë²¨ì— ë¶€ì°©
    rpanel.add(imlabel);
-   imlabel.setBounds(280, 20, 230, 320);   //¶óº§°ú ÀÌ¹ÌÁö »çÀÌÁî ¸ÂÃß±â 280,320
+   imlabel.setBounds(280, 20, 230, 320);   //ë¼ë²¨ê³¼ ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ ë§ì¶”ê¸° 280,320
    
-   Image btnimg = normalIcon.getImage();
-   Image change1 = btnimg.getScaledInstance(40, 30, Image.SCALE_SMOOTH);
+   Image btnimg = normalIcon.getImage();        //ë²„íŠ¼ì— ì´ë¯¸ì§€ ë¶€ì°©
+   Image change1 = btnimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
    ImageIcon changeicon1 = new ImageIcon(change1);
-	
    JButton btn = new JButton(changeicon1);
+   
    btn.setBackground(Color.white);
-   btn.setBounds(96, 0, 40, 30);
+   btn.setBounds(99, 0, 30, 30);
    
     btn3.setBounds(80, 540, 170, 50);
     btn4.setBounds(280, 540, 170, 50);
@@ -151,7 +153,7 @@ public SwingProject_1() {
     
     
     lab2.setFont(fon);
-    tf1.setEnabled(false);
+    tf1.setEnabled(false);      //í…ìŠ¤íŠ¸ í•„ë“œ ì„ íƒ ë¶ˆê°€
     lab3.setFont(fon);
     lab4.setFont(fon);
     lab5.setFont(fon);
@@ -161,13 +163,17 @@ public SwingProject_1() {
 
 	table7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     lmpanel.setPreferredSize(new Dimension(650,700));
-    table7.getColumnModel().getColumn(0).setPreferredWidth(40);  //JTable ÀÇ ÄÃ·³ ±æÀÌ Á¶Àı
+    table7.getColumnModel().getColumn(0).setPreferredWidth(40);  //JTable ì˜ ì»¬ëŸ¼ ê¸¸ì´ ì¡°ì ˆ
     table7.getColumnModel().getColumn(1).setPreferredWidth(400);
     table7.getColumnModel().getColumn(2).setPreferredWidth(180);
     table7.getColumnModel().getColumn(3).setPreferredWidth(130);
     table7.getColumnModel().getColumn(4).setPreferredWidth(100);
     table7.getColumnModel().getColumn(5).setPreferredWidth(100);
     table7.setFont(new Font( "Times", Font.BOLD, 20) );
+    
+table7.setSelectionBackground(bg);             //ì…€ ì„ íƒì‹œ ìƒ‰ë³€ê²½
+//table7.setSelectionForeground(Color.white);
+	
     table7.setRowHeight(25);
     
     rpanel2.add(btn);
@@ -196,18 +202,37 @@ public SwingProject_1() {
 	mpanel.add(rmpanel);
     
    
-	t_1.add("µµ¼­ Á¤º¸",mpanel);                               //¸ğµç ¿ä¼Ò¸¦ t_1¿¡ ºÎÂø
+	t_1.add("ë„ì„œ ì •ë³´",mpanel);                               //ëª¨ë“  ìš”ì†Œë¥¼ t_1ì— ë¶€ì°©
 	t_1.setFont( new Font( "Times", Font.BOLD, 18 ) );
 	}
+/*
+//í…Œì´ë¸” ì…€ì— ìƒ‰ ë„£ê¸°..
+public Color getTableCellBackground(JTable table, int row, int col) {
+    TableCellRenderer renderer = table.getCellRenderer(row, col);
+    Component component = table.prepareRenderer(renderer, row, col);    
+    return component.getBackground();
+}
+class MyRenderer implements TableCellRenderer {
+
+    public Component getTableCellRendererComponent(
+ 		   JTable table, Object value, boolean isSelected,
+            boolean hasFocus, int row, int column) {
+        JTextField editor = new JTextField();
+        if (value != null) {
+            editor.setText(value.toString());
+        }
+        editor.setBackground((row % 2 == 0) ? Color.white : Color.BLUE);
+        return editor;
+    }
+}*/
+
 
 
 ActionListener ac = new ActionListener() {
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/*String cmd = e.getActionCommand()	;
-		 if(cmd.equals(btn)){                                    //°Ë»öÃ¢À» ´­·¶À»¶§ »õ·Î¿îÃ¢ »ı¼º*/
-			 SwingProject_newf newf = new SwingProject_newf();
-		/*}else if (cmd.equals(btn4.getText())) {                    //»èÁ¦¹öÆ°À¸·Î ¼±ÅÃÇÑ Çà »èÁ¦
+			new SwingProject1_newf();
+		/*}else if (cmd.equals(btn4.getText())) {                    //ì‚­ì œë²„íŠ¼ìœ¼ë¡œ ì„ íƒí•œ í–‰ ì‚­ì œ
 			m3.removeRow(table7.getSelectedRow());
 		}else if (cmd.equals(btn3.getText())) {
 			
@@ -216,13 +241,12 @@ ActionListener ac = new ActionListener() {
 	}*/
 }};
 
-
 @Override
 public void mouseClicked(MouseEvent e) {
-	int i = (Integer)table7.getValueAt(table7.getSelectedRow(),0);          //Object Å¸ÀÔÀ» Á¤¼öÇü·Î º¯È¯
-	String str0 = i + "";                                                                                      //Á¤¼öÇüÀ» ´Ù½Ã ¹®ÀÚÇüÀ¸·Î º¯È¯
+	int i = (Integer)table7.getValueAt(table7.getSelectedRow(),0);          //Object íƒ€ì…ì„ ì •ìˆ˜í˜•ë¡œ ë³€í™˜
+	String str0 = i + "";                                                                                      //ì •ìˆ˜í˜•ì„ ë‹¤ì‹œ ë¬¸ìí˜•ìœ¼ë¡œ ë³€í™˜
 
-	String str1 = (String) table7.getValueAt(table7.getSelectedRow(),1);            //Object Å¸ÀÔÀ» ¸ğµÎ ¹®ÀÚÇüÀ¸·Î º¯È¯
+	String str1 = (String) table7.getValueAt(table7.getSelectedRow(),1);            //Object íƒ€ì…ì„ ëª¨ë‘ ë¬¸ìí˜•ìœ¼ë¡œ ë³€í™˜
 	String str2 = (String) table7.getValueAt(table7.getSelectedRow(),2);
 	String str3 = (String) table7.getValueAt(table7.getSelectedRow(),3);
 	String str4 = (String) table7.getValueAt(table7.getSelectedRow(),4);
@@ -235,9 +259,7 @@ public void mouseClicked(MouseEvent e) {
 	tf6.setText(str5);
 }
 @Override
-public void mousePressed(MouseEvent e) {
-
-}
+public void mousePressed(MouseEvent e) {}
 @Override
 public void mouseReleased(MouseEvent e) {}
 @Override
@@ -249,9 +271,9 @@ public void mouseExited(MouseEvent e) {}
 
 
 
-//µµ¼­°ü¸® Ã¢¿¡¼­¸¸ »ç¿ëÇÏ´Â °Ë»öÃ¢À» À§ÇØ »õ·Î¿î ÇÁ·¹ÀÓÀ» ³»ºÎÅ¬·¡½º·Î ¼±¾ğ
-public class SwingProject_newf implements ActionListener,MouseListener{
-	String col1[] = {"NO.","Á¦¸ñ","ÀúÀÚ","ÃâÆÇ»ç","ISBN"};
+//ë„ì„œê´€ë¦¬ ì°½ì—ì„œë§Œ ì‚¬ìš©í•˜ëŠ” ê²€ìƒ‰ì°½ì„ ìœ„í•´ ìƒˆë¡œìš´ í”„ë ˆì„ì„ ë‚´ë¶€í´ë˜ìŠ¤ë¡œ ì„ ì–¸
+public class SwingProject1_newf implements ActionListener,MouseListener{
+	String col1[] = {"NO.","ì œëª©","ì €ì","ì¶œíŒì‚¬","ISBN"};
 	String row1[][] ;
 	int cnt =0;
 	JTabbedPane t_1 = new JTabbedPane();
@@ -262,13 +284,13 @@ public class SwingProject_newf implements ActionListener,MouseListener{
 	JPanel rpanel2 = new JPanel();
 	JPanel rmpanel = new JPanel();
 	JPanel mpanel = new JPanel();
-	JButton btn = new JButton("°Ë»ö");
-	JButton btn2 = new JButton("º¸À¯¸ñ·Ï Ãß°¡");
-	JButton btn3 = new JButton("ÀÌ¹ÌÁö Ãß°¡");
-	JLabel lab1 = new JLabel("ISBN °Ë»ö");
-	JLabel lab3 = new JLabel("Á¦¸ñ");
-	JLabel lab4 = new JLabel("ÀúÀÚ");
-	JLabel lab5 = new JLabel("ÃâÆÇ»ç");
+	JButton btn = new JButton("ê²€ìƒ‰");
+	JButton btn2 = new JButton("ë³´ìœ ëª©ë¡ ì¶”ê°€");
+	JButton btn3 = new JButton("ì´ë¯¸ì§€ ì¶”ê°€");
+	JLabel lab1 = new JLabel("ISBN ê²€ìƒ‰");
+	JLabel lab3 = new JLabel("ì œëª©");
+	JLabel lab4 = new JLabel("ì €ì");
+	JLabel lab5 = new JLabel("ì¶œíŒì‚¬");
 	JLabel lab6 = new JLabel("ISBN");
 	JTextField tf22 = new JTextField(40);
 	JTextField tf33 = new JTextField(40);
@@ -280,7 +302,7 @@ public class SwingProject_newf implements ActionListener,MouseListener{
 	JScrollPane scr;
 	DefaultTableModel m;
 	
-	public SwingProject_newf() {
+	public SwingProject1_newf() {
 		JFrame newf = new JFrame();
 		newf.setBackground(new  Color(170,220,255));
 		newf.setVisible(true);
@@ -304,7 +326,7 @@ public class SwingProject_newf implements ActionListener,MouseListener{
 		mpanel.add(rmpanel,BorderLayout.CENTER);
 		
 		TitledBorder jtx= 
-	    		new TitledBorder(new LineBorder(Color.white),"ISBN °Ë»ö ³»¿ë");
+	    		new TitledBorder(new LineBorder(Color.white),"ISBN ê²€ìƒ‰ ë‚´ìš©");
 		 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 		model = new DefaultTableModel(row1,col1);
 		table = new JTable(model);
@@ -321,7 +343,7 @@ public class SwingProject_newf implements ActionListener,MouseListener{
 		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 		 
 		 TitledBorder jtx2= 
-		    		new TitledBorder(new LineBorder(Color.white),"ISBN °Ë»ö");
+		    		new TitledBorder(new LineBorder(Color.white),"ISBN ê²€ìƒ‰");
 			 jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 			 
 	   rpanel.setBorder(jtx1);
@@ -329,24 +351,24 @@ public class SwingProject_newf implements ActionListener,MouseListener{
 	   rpanel.setPreferredSize(new Dimension(540,500));   //1110,725
 	   
 	   ImageIcon inicon = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\booktest1.jpg");
-		Image inimg = inicon.getImage();    //icon ÀÌ¹ÌÁö img¿¡ ³Ö±â
-		Image change = inimg.getScaledInstance(230, 320, Image.SCALE_SMOOTH); //imgÀÌ¹ÌÁö Å©±âÁ¶Àı
-		ImageIcon changeicon = new ImageIcon(change);//img ÀÌ¹ÌÁö ´Ù½Ã imageicon¿¡ ³Ö±â
+		Image inimg = inicon.getImage();    //icon ì´ë¯¸ì§€ imgì— ë„£ê¸°
+		Image change = inimg.getScaledInstance(230, 320, Image.SCALE_SMOOTH); //imgì´ë¯¸ì§€ í¬ê¸°ì¡°ì ˆ
+		ImageIcon changeicon = new ImageIcon(change);//img ì´ë¯¸ì§€ ë‹¤ì‹œ imageiconì— ë„£ê¸°
 		
-	   JLabel imlabel = new JLabel(changeicon); //¶óº§¿¡ ºÎÂø
+	   JLabel imlabel = new JLabel(changeicon); //ë¼ë²¨ì— ë¶€ì°©
 	   rpanel.add(imlabel);
-	   imlabel.setBounds(270, 30, 230, 320);   //¶óº§°ú ÀÌ¹ÌÁö »çÀÌÁî ¸ÂÃß±â 280,320
+	   imlabel.setBounds(270, 30, 230, 320);   //ë¼ë²¨ê³¼ ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ ë§ì¶”ê¸° 280,320
 		
 		lab1.setBounds(30, 55, 80, 30);
 	    tf11.setBounds(110, 55, 200, 30);
 	    btn.setBounds(350, 55, 100, 30);
 	    lmpanel.setPreferredSize(new Dimension(570,500));  //1110,725
-	    table.getColumnModel().getColumn(0).setPreferredWidth(30);  //JTable ÀÇ ÄÃ·³ ±æÀÌ Á¶Àı
+	    table.getColumnModel().getColumn(0).setPreferredWidth(30);  //JTable ì˜ ì»¬ëŸ¼ ê¸¸ì´ ì¡°ì ˆ
 	    table.getColumnModel().getColumn(1).setPreferredWidth(200);
 	    table.getColumnModel().getColumn(2).setPreferredWidth(100);
 	    table.getColumnModel().getColumn(3).setPreferredWidth(50);
 	    table.getColumnModel().getColumn(4).setPreferredWidth(100);
-	    table.setFont(new Font( "Times", Font.BOLD, 20) );
+	    table.setFont(new Font( "Times", Font.BOLD, 20) );	
 	    table.setRowHeight(25);
 	    table.addMouseListener(this);
 	    
@@ -394,21 +416,21 @@ public class SwingProject_newf implements ActionListener,MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand()	;
 		 if(cmd.equals(btn.getText())){                  
-			 String item = tf11.getText();                //ISBN°ªÀ» ParseEx3¿¡ ³Ö°í °ª °¡Á®¿À±â
+			 String item = tf11.getText();                //ISBNê°’ì„ ParseEx3ì— ë„£ê³  ê°’ ê°€ì ¸ì˜¤ê¸°
 		ParseEx3 ex3 = new ParseEx3(item);
 		for (int i = 0; i < ex3.title1.size(); i++) {
 			 m.insertRow(i, new Object[] {i+1,ex3.title1.get(i),             
 					 ex3.author1.get(i),ex3.pub1.get(i),ex3.isbn1.get(i)});
 				table.updateUI();
 				}
-		}else if(cmd.equals(btn2.getText())) {                   //°Ë»öÇÑ ¸ñ·ÏÀ» µµ¼­¸ñ·Ï¿¡ Ãß°¡ÇÏ±â
+		}else if(cmd.equals(btn2.getText())) {                   //ê²€ìƒ‰í•œ ëª©ë¡ì„ ë„ì„œëª©ë¡ì— ì¶”ê°€í•˜ê¸°
 			cnt++;
 		     m3.insertRow(0, new Object[] {cnt,
 			  table.getValueAt(table.getSelectedRow(),1),
 				table.getValueAt(table.getSelectedRow(),2),
 				table.getValueAt(table.getSelectedRow(),3),
 				table.getValueAt(table.getSelectedRow(),4),
-				"´ëÃâ °¡´É"});
+				"ëŒ€ì¶œ ê°€ëŠ¥"});
 			table.updateUI();
 		}
 		 
@@ -416,7 +438,7 @@ public class SwingProject_newf implements ActionListener,MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		String str1 = (String) table.getValueAt(table.getSelectedRow(),1);            //Object Å¸ÀÔÀ» ¸ğµÎ Á¤¼öÇüÀ¸·Î º¯È¯
+		String str1 = (String) table.getValueAt(table.getSelectedRow(),1);            //Object íƒ€ì…ì„ ëª¨ë‘ ì •ìˆ˜í˜•ìœ¼ë¡œ ë³€í™˜
 		String str2 = (String) table.getValueAt(table.getSelectedRow(),2);
 		String str3 = (String) table.getValueAt(table.getSelectedRow(),3);
 		String str4 = (String) table.getValueAt(table.getSelectedRow(),4);
@@ -437,7 +459,5 @@ public class SwingProject_newf implements ActionListener,MouseListener{
 	
 	
 	}
-
-
 
 }

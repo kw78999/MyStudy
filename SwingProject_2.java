@@ -183,11 +183,6 @@ public class SwingProject_2 implements ActionListener,ItemListener,MouseListener
 			tf1.setText("4일");
 		}else if (cho.getSelectedItem().equals("VIP")) {
 			tf1.setText("7일");
-		}else if (cho.getSelectedItem().equals("등급 선택")) {
-			tf1.setText("error");
-			tf3.setText("error");
-			tf2.setText("error");
-			
 		}
 	}
 	@Override
@@ -199,20 +194,28 @@ public class SwingProject_2 implements ActionListener,ItemListener,MouseListener
 			tf1.setText("4일");
 		}else if (cho.getSelectedItem().equals("VIP")) {
 			tf1.setText("7일");
-		}else if (cho.getSelectedItem().equals("등급 선택")) {
-			tf1.setText("error");
-			tf3.setText("error");
-			tf2.setText("error");
 		}
 		if( cmd.equals(btn1.getText())) {
+			 if(tf2.getText().equals("")) {
+					MDialog md = new MDialog(SwingProject.frame, "에러", true, "회원 이름을 입력하세요"	);
+					md.setVisible(true);
+			 }else if(cho.getSelectedItem().equals("등급 선택")) {
+				MDialog md2 = new MDialog(SwingProject.frame,"에러", true, "등급을 선택하세요.");
+				md2.setVisible(true);
+			}else if(tf3.getText().equals("")) {
+				MDialog md1 = new MDialog(SwingProject.frame, "에러", true, "전화번호를 입력하세요.");
+				md1.setVisible(true);
+			}
+			
+			
+			
+			
+			else {
 			m2.insertRow(0, new Object[] {cnt,tf2.getText(),
 					 cho.getSelectedItem(),tf3.getText(),tf1.getText()});
 				table7.updateUI();
-					cnt++;
-					
-					
-					
-					
+					cnt++;	
+			}
 		}else if (cmd.equals(btn2.getText())) {
 			
 		}else if (cmd.equals(btn3.getText())) {
