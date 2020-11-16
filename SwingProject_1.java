@@ -117,15 +117,15 @@ public SwingProject_1() {
 	
 	//타이틀 보더 셋팅
 	TitledBorder jtx1= 
-    		new TitledBorder(new LineBorder(Color.white),"도서 세부정보");
+    		new TitledBorder(new LineBorder(Color.white,5),"도서 세부정보");
 	 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 		
 	 TitledBorder jtx2= 
-	    		new TitledBorder(new LineBorder(Color.white),"ISBN 검색    ");
+	    		new TitledBorder(new LineBorder(Color.white,5),"ISBN 검색    ");
 		 jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 		 
 		 TitledBorder jtx3= 
-		    		new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
+		    		new TitledBorder(new LineBorder(Color.white,5),"회원과의 채팅");
 			 jtx3.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 		//타이틀 보더 패널에 부착
    rpanel.setBorder(jtx1);

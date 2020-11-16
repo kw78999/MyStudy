@@ -30,7 +30,11 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class  SwingProject implements ActionListener{
-	ImageIcon normalIcon = new ImageIcon("C:\\Java\\eclipse-workspace\\image\\test2.jpg");
+	ImageIcon normalIcon = new ImageIcon("C:\\Users\\deers\\Desktop\\새 폴더\\gitTest1\\gitTest1\\image\\test2.jpg");
+	ImageIcon la;
+	ImageIcon la3;
+	ImageIcon la5;
+	ImageIcon la6;
 	static JTextField tf8 = new JTextField(12);
 	JTextField tf11 = new JTextField (20);
 
@@ -62,8 +66,12 @@ public class  SwingProject implements ActionListener{
 	JScrollPane scr1;
 	JButton lentalbtn = new JButton("대출하기");
 	static JFrame frame;
+	static Color cor;
+	static Color bg;
+	static JTabbedPane t;
 	public SwingProject() {
-		
+		bg = new Color(170,220,255);
+		cor = Color.white;
 		JPanel panel = new JPanel();
 		JPanel tabpanel = new JPanel();
 		JPanel inpanel1 = new JPanel(); 
@@ -73,10 +81,10 @@ public class  SwingProject implements ActionListener{
 		JPanel p = new JPanel();
 		JPanel p1 = new JPanel();
 		JPanel panel15 = new JPanel();
-		JTabbedPane t = new JTabbedPane();
-		t.setBackground(new Color(170,220,255));
+	    t = new JTabbedPane();
+		t.setBackground(bg);
 		JTabbedPane t1 = new JTabbedPane();
-		t1.setBackground(new Color(170,220,255));
+		t1.setBackground(cor);
 		
 		JFrame frame = new JFrame("도서관리 프로그램");
 		JLabel label = new JLabel("회원목록");
@@ -105,56 +113,35 @@ public class  SwingProject implements ActionListener{
 	
 		
 		
-    panel13.setBackground(new  Color(170,220,255));
-    panel14.setBackground(new  Color(170,220,255));
-    panel.setBackground(new Color(170,220,255));
-    cpanel.setBackground(new Color(170,220,255));
+    panel13.setBackground(cor);
+    panel14.setBackground(cor);
+    panel.setBackground(cor);
+    cpanel.setBackground(cor);
     
-    
-    ImageIcon la = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\book1.jpg");
-	Image ima = la.getImage();    //icon 이미지 img에 넣기
-	Image change1 = ima.getScaledInstance(60, 30, Image.SCALE_SMOOTH); //img이미지 크기조절
-	ImageIcon changeicon3 = new ImageIcon(change1);//img 이미지 다시 imageicon에 넣기
-   
 
-    ImageIcon la3 = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\mem.jpg");
-	Image ima3 = la3.getImage();    //icon 이미지 img에 넣기
-	Image change3 = ima3.getScaledInstance(45, 30, Image.SCALE_SMOOTH); //img이미지 크기조절
-	ImageIcon changeicon4 = new ImageIcon(change3);//img 이미지 다시 imageicon에 넣기
-	
-	ImageIcon la5 = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\sta.jpg");
-	Image ima5 = la5.getImage();    //icon 이미지 img에 넣기
-	Image change5 = ima5.getScaledInstance(45, 30, Image.SCALE_SMOOTH); //img이미지 크기조절
-	ImageIcon changeicon5 = new ImageIcon(change5);//img 이미지 다시 imageicon에 넣기
-	
-	ImageIcon la6 = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\sta.jpg");
-	Image ima6 = la6.getImage();    //icon 이미지 img에 넣기
-	Image change6 = ima6.getScaledInstance(45, 30, Image.SCALE_SMOOTH); //img이미지 크기조절
-	ImageIcon changeicon6 = new ImageIcon(change6);//img 이미지 다시 imageicon에 넣기
-	
+		Testicon ti = new Testicon();
 		SwingProject_1 sp_1 = new SwingProject_1();
 		SwingProject_2 sp_2 = new SwingProject_2();
 		SwingProject_state sp_s = new SwingProject_state();
 		ChartFrame cf = new ChartFrame();
-			
-		t.addTab("대출/반납",changeicon5,t1);
-		t.addTab("도서관리",
-		changeicon3,sp_1.t_1);
-		t.addTab("회원관리",
-				changeicon4,sp_2.t_2);
-		t.addTab("이용통계", changeicon5,cf);
+		t.addMouseListener(color);
+		t.addTab("대출/반납",ti.whome3,t1);
+		t.addTab("도서관리",ti.book3,sp_1.t_1);
+		t.addTab("회원관리",ti.mem3,sp_2.t_2);
+		t.addTab("이용통계",ti.sta3 ,cf);
+		
 		t.setFont( new Font( "Times", Font.BOLD, 15 ) );
 		t.setForeground(new Color(50,190,255));
-		t.setBackground(Color.white);
+		t.setBackground(cor);
 		
-	// t.setComponentAt(1, imlabel);
+		
 		t1.add("대여",panel);
 		t1.add("반납",new JTextArea());
 		t1.add("이용 현황",sp_s.mpanel);
 		t1.setFont( new Font( "Times", Font.BOLD, 18 ) );
 		tabpanel.add(t);
 	
-		tabpanel.setBackground(new  Color(170,220,255));
+		tabpanel.setBackground(bg);
 		
 		JLabel lab = new JLabel("회원 번호");
 		JLabel lab1= new JLabel("회원 이름");
@@ -219,19 +206,19 @@ public class  SwingProject implements ActionListener{
     table1.setRowHeight(25);
     p1.add(scr1);
 	
-    p.setBackground(new  Color(170,220,255));
-    panel15.setBackground(new  Color(170,220,255));
-    p1.setBackground(new  Color(170,220,255));
+    p.setBackground(cor);
+    panel15.setBackground(cor);
+    p1.setBackground(cor);
     inpanel1.add(p,BorderLayout.NORTH);
     inpanel1.add(p1,BorderLayout.CENTER);
     panel.add(inpanel1,BorderLayout.WEST);
     
     TitledBorder jtx=                        //타이틀 보더생성 
-new TitledBorder(new LineBorder(Color.white),"회원정보");
+new TitledBorder(new LineBorder(bg,5),"회원정보        ");
     TitledBorder jtx1= 
-    		new TitledBorder(new LineBorder(Color.white),"도서정보");
+    		new TitledBorder(new LineBorder(bg,5),"도서정보       ");
     TitledBorder jtx2=                       
-new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
+new TitledBorder(new LineBorder(bg,5),"회원과의 채팅");
     panel13.setBorder(jtx);
     jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
@@ -276,7 +263,7 @@ new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
   ImageIcon changeicon = new ImageIcon(change);
   JButton btn = new JButton(changeicon);
   
-  btn.setBounds(85, 0, 30, 30);
+  btn.setBounds(95, 0, 30, 30);
   btn.addActionListener(memberscan);
   panel13.add(btn);
   
@@ -329,7 +316,7 @@ new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
   panel14.add(tf16);
   tf16.setBounds(370, 140, 160, 25);
   cpanel.setBorder(jtx2);
-  tf15.setBackground(Color.red);
+  tf15.setBackground(bg);
   
   
   btn3.setBounds(430, 200, 100, 80);
@@ -338,7 +325,7 @@ new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
   Image change2 = btnimg2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
   ImageIcon changeicon2 = new ImageIcon(change2);
   JButton btn3 = new JButton(changeicon2);
-  btn3.setBounds(85, 0, 30, 30);
+  btn3.setBounds(95, 0, 30, 30);
   btn3.addActionListener(bookscan);
   
   panel14.add(btn3);
@@ -361,12 +348,48 @@ cpanel.setBounds(0	, 430,570, 260);
     
 	
 	frame.add(tabpanel,BorderLayout.NORTH);
-	frame.setBackground(new  Color(170,220,255));
 		 frame.setVisible(true);
 		 frame.setSize(1200,825);
 		 frame.setLocationRelativeTo(null);
 		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	 MouseListener color = new MouseListener() {
+		 Testicon ti = new Testicon();
+		@Override
+		public void mouseReleased(MouseEvent arg0) {}	
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			if(t.getSelectedIndex()==0) {
+				t.setIconAt(0,ti.whome3);
+				t.setIconAt(1,ti.book3);
+				t.setIconAt(2,ti.mem3);
+				t.setIconAt(3,ti.sta3);
+			}else if(t.getSelectedIndex()==1){
+				t.setIconAt(0, ti.home3);
+				t.setIconAt(1, ti.wbook3);
+				t.setIconAt(2, ti.mem3);
+				t.setIconAt(3, ti.sta3);
+			}else if(t.getSelectedIndex()==2) {
+				t.setIconAt(0, ti.home3);
+				t.setIconAt(1, ti.book3);
+				t.setIconAt(2, ti.wmem3);
+				t.setIconAt(3, ti.sta3);
+			}else if(t.getSelectedIndex()==3) {
+				t.setIconAt(0, ti.home3);
+				t.setIconAt(1, ti.book3);
+				t.setIconAt(2, ti.mem3);
+				t.setIconAt(3, ti.wsta3);
+			}
+		}
+		@Override
+		public void mouseExited(MouseEvent arg0) {}
+		@Override
+		public void mouseEntered(MouseEvent arg0) {}
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			
+			}
+	};
 	ActionListener memberscan = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
