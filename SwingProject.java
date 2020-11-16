@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class  SwingProject implements ActionListener{
-	ImageIcon normalIcon = new ImageIcon("C:\\Users\\deers\\Desktop\\새 폴더\\gitTest1\\gitTest1\\test3.jpg");
+	ImageIcon normalIcon = new ImageIcon("C:\\Java\\eclipse-workspace\\image\\test2.jpg");
 	static JTextField tf8 = new JTextField(12);
 	JTextField tf11 = new JTextField (20);
 
@@ -69,6 +69,7 @@ public class  SwingProject implements ActionListener{
 		JPanel inpanel1 = new JPanel(); 
 		JPanel panel13 = new JPanel();
 		JPanel panel14 = new JPanel();
+		JPanel cpanel = new JPanel();
 		JPanel p = new JPanel();
 		JPanel p1 = new JPanel();
 		JPanel panel15 = new JPanel();
@@ -84,9 +85,9 @@ public class  SwingProject implements ActionListener{
 		label1.setFont(new Font("Times",Font.BOLD,25));
 		
 		
-		String col[] = {"회원번호","회원 이름","회원 등급","전화번호","대여기간","회원상태"};
-		String row[][] = {{"1","홍길동","고급","010-8821-1129","4일","일반"},
-										{"3","강길동","고급","010-1231-1129","4일","휴먼"}};
+		String col[] = {"회원번호","회원 이름","회원 등급","전화번호","대여기간","대여횟수","대출총합","대출가능 권수"};
+		String row[][] = {{"1","홍길동","고급","010-8821-1129","4일","4","5","4"},
+										{"3","강길동","고급","010-1231-1129","4일","3","5","2"}};
 		String col1[] = {"도서번호","도서이름","저자","출판사","도서상태","소장위치"};
 		String row1[][] = {{"1","자바 교과서","홍길동","한국도서","가능","C-1"},
 										{"1","자바 교과서","홍길동","한국도서","불가능","A-2"}};
@@ -99,6 +100,7 @@ public class  SwingProject implements ActionListener{
 		tabpanel.setLayout(new BorderLayout());
 		panel13.setLayout(null);
 		panel14.setLayout(null);
+		cpanel.setLayout(null);
 		panel15.setLayout(null);
 	
 		
@@ -106,31 +108,60 @@ public class  SwingProject implements ActionListener{
     panel13.setBackground(new  Color(170,220,255));
     panel14.setBackground(new  Color(170,220,255));
     panel.setBackground(new Color(170,220,255));
+    cpanel.setBackground(new Color(170,220,255));
+    
+    
+    ImageIcon la = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\book1.jpg");
+	Image ima = la.getImage();    //icon 이미지 img에 넣기
+	Image change1 = ima.getScaledInstance(60, 30, Image.SCALE_SMOOTH); //img이미지 크기조절
+	ImageIcon changeicon3 = new ImageIcon(change1);//img 이미지 다시 imageicon에 넣기
+   
+
+    ImageIcon la3 = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\mem.jpg");
+	Image ima3 = la3.getImage();    //icon 이미지 img에 넣기
+	Image change3 = ima3.getScaledInstance(45, 30, Image.SCALE_SMOOTH); //img이미지 크기조절
+	ImageIcon changeicon4 = new ImageIcon(change3);//img 이미지 다시 imageicon에 넣기
+	
+	ImageIcon la5 = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\sta.jpg");
+	Image ima5 = la5.getImage();    //icon 이미지 img에 넣기
+	Image change5 = ima5.getScaledInstance(45, 30, Image.SCALE_SMOOTH); //img이미지 크기조절
+	ImageIcon changeicon5 = new ImageIcon(change5);//img 이미지 다시 imageicon에 넣기
+	
+	ImageIcon la6 = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\sta.jpg");
+	Image ima6 = la6.getImage();    //icon 이미지 img에 넣기
+	Image change6 = ima6.getScaledInstance(45, 30, Image.SCALE_SMOOTH); //img이미지 크기조절
+	ImageIcon changeicon6 = new ImageIcon(change6);//img 이미지 다시 imageicon에 넣기
 	
 		SwingProject_1 sp_1 = new SwingProject_1();
 		SwingProject_2 sp_2 = new SwingProject_2();
 		SwingProject_state sp_s = new SwingProject_state();
-		GraphicChartEx1 gc = new GraphicChartEx1();
+		ChartFrame cf = new ChartFrame();
+			
+		t.addTab("대출/반납",changeicon5,t1);
+		t.addTab("도서관리",
+		changeicon3,sp_1.t_1);
+		t.addTab("회원관리",
+				changeicon4,sp_2.t_2);
+		t.addTab("이용통계", changeicon5,cf);
+		t.setFont( new Font( "Times", Font.BOLD, 15 ) );
+		t.setForeground(new Color(50,190,255));
+		t.setBackground(Color.white);
 		
-		t.add("대출 / 반납",t1);
-		t.add("도서관리",sp_1.t_1);
-		t.add("회원관리",sp_2.t_2);
-		t.add("이용통계",gc.mpanel);
-		t.setFont( new Font( "Times", Font.BOLD, 23 ) );
-		t.setBackground(new  Color(170,220,255));
-		
+	// t.setComponentAt(1, imlabel);
 		t1.add("대여",panel);
 		t1.add("반납",new JTextArea());
 		t1.add("이용 현황",sp_s.mpanel);
 		t1.setFont( new Font( "Times", Font.BOLD, 18 ) );
 		tabpanel.add(t);
+	
+		tabpanel.setBackground(new  Color(170,220,255));
 		
 		JLabel lab = new JLabel("회원 번호");
 		JLabel lab1= new JLabel("회원 이름");
 		JLabel lab2= new JLabel("전화 번호");
 		JLabel lab3= new JLabel("대여 기간");
 		JLabel lab4= new JLabel("회원 등급");
-		JLabel lab5= new JLabel("회원 상태");
+		JLabel lab5= new JLabel("대여 횟수");
 		
 		JLabel lab8= new JLabel("도서 번호");
 		JLabel lab9= new JLabel("서 명");
@@ -157,14 +188,16 @@ public class  SwingProject implements ActionListener{
 	scr = new JScrollPane(table);
 	 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 	table.addMouseListener(member);
-	table.setPreferredScrollableViewportSize(new Dimension(600,275));
+	table.setPreferredScrollableViewportSize(new Dimension(597,275));
 	
 	 table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
 	    table.getColumnModel().getColumn(1).setPreferredWidth(90);
 	    table.getColumnModel().getColumn(2).setPreferredWidth(80);
 	    table.getColumnModel().getColumn(3).setPreferredWidth(200);
 	    table.getColumnModel().getColumn(4).setPreferredWidth(80);
-	    table.getColumnModel().getColumn(5).setPreferredWidth(80);
+	    table.getColumnModel().getColumn(5).setPreferredWidth(70);
+	    table.getColumnModel().getColumn(6).setPreferredWidth(70);
+	    table.getColumnModel().getColumn(7).setPreferredWidth(110);
 	  table.setFont(new Font( "Times", Font.BOLD, 20) );
 	   table.setRowHeight(25);
 	    
@@ -176,7 +209,7 @@ public class  SwingProject implements ActionListener{
 	table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 	table1.addMouseListener(book);
 	
-	table1.setPreferredScrollableViewportSize(new Dimension(600,200));
+	table1.setPreferredScrollableViewportSize(new Dimension(597,200));
 	table1.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
 	table1.getColumnModel().getColumn(1).setPreferredWidth(250);
 	table1.getColumnModel().getColumn(2).setPreferredWidth(80);
@@ -197,9 +230,12 @@ public class  SwingProject implements ActionListener{
 new TitledBorder(new LineBorder(Color.white),"회원정보");
     TitledBorder jtx1= 
     		new TitledBorder(new LineBorder(Color.white),"도서정보");
+    TitledBorder jtx2=                       
+new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
     panel13.setBorder(jtx);
     jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+    jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     
     lab.setBounds(20, 35, 80, 30);
     lab.setFont(fon);
@@ -292,7 +328,8 @@ new TitledBorder(new LineBorder(Color.white),"회원정보");
   tf15.setBounds(100, 140, 160, 25);
   panel14.add(tf16);
   tf16.setBounds(370, 140, 160, 25);
-  
+  cpanel.setBorder(jtx2);
+  tf15.setBackground(Color.red);
   
   
   btn3.setBounds(430, 200, 100, 80);
@@ -304,20 +341,21 @@ new TitledBorder(new LineBorder(Color.white),"회원정보");
   btn3.setBounds(85, 0, 30, 30);
   btn3.addActionListener(bookscan);
   
-  
   panel14.add(btn3);
   panel14.add(btn4);
   panel15.add(panel13);
   panel15.add(panel14);
+  panel15.add(cpanel);
 panel13.setBounds(0, 0, 580, 150);
 panel14.setBounds(0, 160, 580, 180);
+cpanel.setBounds(0	, 430,570, 260);
   panel15.add(lentalbtn);
   lentalbtn.setBounds(370, 350, 160, 40);
     jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     panel.add(panel15);
-    panel15.add(ta1);
-    ta1.setBounds(30, 420, 500, 250);
+   //cpanel.add(ta1);
+    ta1.setBounds(20, 30, 500, 260);
 
     
     

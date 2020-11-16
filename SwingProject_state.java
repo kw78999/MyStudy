@@ -31,6 +31,7 @@ public class SwingProject_state {
 	
 	JPanel npanel = new JPanel();
 	JPanel mpanel = new JPanel();
+	JPanel cpanel = new JPanel();
 	
 	JTable table;                             //테이블에 필요한 클래스
 	DefaultTableModel model;
@@ -44,13 +45,19 @@ public class SwingProject_state {
          public SwingProject_state() {
         	 mpanel.setBackground(new  Color(170,220,255));
         	 npanel.setBackground(new  Color(170,220,255));
+        	 cpanel.setBackground(new Color(170,220,255));
              npanel.setLayout(null);
              mpanel.setLayout(null);
              
          	TitledBorder jtx=          //검색창 보더
     	    		new TitledBorder(new LineBorder(Color.white),"검색");
     		 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
-    		 
+    	     
+          	TitledBorder jtx1=          //검색창 보더
+     	    		new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
+     		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+     		 cpanel.setBorder(jtx1);
+     		 
     		 cho.add("대출 번호");
     		 cho.add("회원 번호");
     		 cho.add("도서 번호");
@@ -62,26 +69,28 @@ public class SwingProject_state {
     	     	model = new DefaultTableModel(row,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
     			table = new JTable(model);         //테이블에 테이블모델 입히기
     			scr = new JScrollPane(table); 	//스크롤 생성
-    			
-    			 table.getColumnModel().getColumn(0).setPreferredWidth(5);  //JTable 의 컬럼 길이 조절
-    			    table.getColumnModel().getColumn(1).setPreferredWidth(5);
-    			    table.getColumnModel().getColumn(2).setPreferredWidth(40);
-    			    table.getColumnModel().getColumn(3).setPreferredWidth(5);
-    			    table.getColumnModel().getColumn(4).setPreferredWidth(300);
-    			    table.getColumnModel().getColumn(5).setPreferredWidth(100);
-    			    table.getColumnModel().getColumn(6).setPreferredWidth(100);
+    		//	table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 가로스크롤 
+    			 table.getColumnModel().getColumn(0).setPreferredWidth(90);  //JTable 의 컬럼 길이 조절
+    			    table.getColumnModel().getColumn(1).setPreferredWidth(90);
+    			    table.getColumnModel().getColumn(2).setPreferredWidth(110);
+    			    table.getColumnModel().getColumn(3).setPreferredWidth(90);
+    			    table.getColumnModel().getColumn(4).setPreferredWidth(400);
+    			    table.getColumnModel().getColumn(5).setPreferredWidth(200);
+    			    table.getColumnModel().getColumn(6).setPreferredWidth(200);
     			    table.setFont(new Font( "Times", Font.BOLD, 20) );
     			    table.setRowHeight(30);
     			    table.enable(false);
     			    
+    	 cpanel.setBounds(600, 430, 570,260);
     	 npanel.add(tf);
     	 npanel.add(btn);
     	 npanel.add(cho);
     	 npanel.setBounds(0, 0, 1200, 120);
     	 mpanel.add(scr);
-    	 scr.setBounds(0, 120, 1200, 300);
+    	 scr.setBounds(0, 120, 1175, 300);
     	 npanel.setBorder(jtx);
     	 mpanel.add(npanel);
+    	 mpanel.add(cpanel);
     	 npanel.setPreferredSize(new Dimension(1200,120));	 
             	 
             	 

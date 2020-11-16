@@ -55,7 +55,7 @@ public class SwingProject_2 implements ActionListener,ItemListener,MouseListener
 	JTable table7;
 	DefaultTableModel medel3;
 	JScrollPane scr;
-	String col[] = {"회원번호","이름","회원등급","전화번호","대여기간"};
+	String col[] = {"회원번호","이름","회원등급","전화번호","대여기간","대여횟수","대출총합","대출가능 권수"};
 	String row[][] ;
 	
 	
@@ -65,7 +65,7 @@ public class SwingProject_2 implements ActionListener,ItemListener,MouseListener
 		lmpanel.setBackground(new  Color(170,220,255));
 		lpanel2.setBackground(new  Color(170,220,255));
 	//	rpanel.setBackground(new  Color(0,162,240));
-		icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
+	    icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
 	JPanel rpanel = new JPanel() {
 		public void paintComponent(Graphics g) {
 	//  Approach 1: Dispaly image at at full size 
@@ -85,7 +85,7 @@ public class SwingProject_2 implements ActionListener,ItemListener,MouseListener
 		lmpanel.setLayout(new BorderLayout());
 		lpanel.setLayout(new BorderLayout());
 	rpanel.setLayout(null);
-		 lpanel.setPreferredSize(new Dimension(750,600));
+		 lpanel.setPreferredSize(new Dimension(600,600));
 		 
 		
 		TitledBorder jtx= 
@@ -105,13 +105,16 @@ public class SwingProject_2 implements ActionListener,ItemListener,MouseListener
 		btn3.addActionListener(this);
 		
 		
-		
+		table7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		m2 =(DefaultTableModel)table7.getModel();
-		table7.getColumnModel().getColumn(0).setPreferredWidth(30);//JTable 의 컬럼 길이 조절
+		table7.getColumnModel().getColumn(0).setPreferredWidth(70);//JTable 의 컬럼 길이 조절
 	    table7.getColumnModel().getColumn(1).setPreferredWidth(100);
 	    table7.getColumnModel().getColumn(2).setPreferredWidth(100);
 	    table7.getColumnModel().getColumn(3).setPreferredWidth(300);
 	    table7.getColumnModel().getColumn(4).setPreferredWidth(90);
+	    table7.getColumnModel().getColumn(5).setPreferredWidth(90);
+	    table7.getColumnModel().getColumn(6).setPreferredWidth(90);
+	    table7.getColumnModel().getColumn(7).setPreferredWidth(90);
 	    table7.setFont(new Font( "Times", Font.BOLD, 20) );
 	    table7.setRowHeight(25);
 		
@@ -205,12 +208,7 @@ public class SwingProject_2 implements ActionListener,ItemListener,MouseListener
 			}else if(tf3.getText().equals("")) {
 				MDialog md1 = new MDialog(SwingProject.frame, "에러", true, "전화번호를 입력하세요.");
 				md1.setVisible(true);
-			}
-			
-			
-			
-			
-			else {
+			}else {
 			m2.insertRow(0, new Object[] {cnt,tf2.getText(),
 					 cho.getSelectedItem(),tf3.getText(),tf1.getText()});
 				table7.updateUI();
