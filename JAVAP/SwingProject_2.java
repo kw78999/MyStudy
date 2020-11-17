@@ -10,7 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,13 +26,18 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class SwingProject_2 implements ActionListener,ItemListener{
+import JAVAP.copy.BMEMBERSBean;
+import JAVAP.copy.BMEMBERSMgr;
+
+public class SwingProject_2 implements ActionListener,ItemListener,MouseListener{
 	JTabbedPane t_2 = new JTabbedPane();
 	JPanel mpanel = new JPanel();
 	JPanel lpanel = new JPanel();
 	JPanel lmpanel = new JPanel();
 	JPanel lpanel2 = new JPanel();
-	JPanel rpanel = new JPanel();
+//	JPanel rpanel = new JPanel();
+	BMEMBERSMgr mgr;
+	ImageIcon icon;
 	
 	static int cnt;
 	
@@ -50,21 +59,52 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 	JTable table7;
 	DefaultTableModel medel3;
 	JScrollPane scr;
-	String col[] = {"회원번호","이름","회원등급","전화번호","대여기간"};
-	String row[][] ;
+	String col[] = {"회원번호","이름","회원등급","전화번호","대여기간","대여횟수","대출가능 권수"};
+	//String row[][] ;
 	
 	
 	public SwingProject_2() {
+		mgr = new BMEMBERSMgr();
+		Vector<BMEMBERSBean> vlist = mgr.getListMember();
+		String row[][] = new String[vlist.size()][8];
+		for (int i = 0; i < row.length; i++) {
+			BMEMBERSBean bean = vlist.elementAt(i);
+			row[i][0] = bean.getMID()+"";
+			row[i][1] = bean.getMNAME();
+			row[i][2] = bean.getMGRADE();
+			row[i][3] = bean.getMPHONE();
+			row[i][4] = bean.getMAXRENTAL();
+			row[i][5] = bean.getECOUNT();
+			row[i][6] = bean.getELIMIT();
+		}
+		
+		
 		mpanel.setBackground(new  Color(170,220,255));
 		lpanel.setBackground(new  Color(170,220,255));
 		lmpanel.setBackground(new  Color(170,220,255));
 		lpanel2.setBackground(new  Color(170,220,255));
-		rpanel.setBackground(new  Color(14,123,255));
+	//	rpanel.setBackground(new  Color(0,162,240));
+	    icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
+	JPanel rpanel = new JPanel() {
+		public void paintComponent(Graphics g) {
+	//  Approach 1: Dispaly image at at full size 
+			Dimension d = getSize();
+            g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+        //  Approach 2: Scale image to size of component
+        // Dimension d = getSize();
+        // g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+        // Approach 3: Fix the image position in the scroll pane
+        // Point p = scrollPane.getViewport().getViewPosition();
+        // g.drawImage(icon.getImage(), p.x, p.y, null);
+        setOpaque(false);
+        super.paintComponent(g);
+
+	}};
 		mpanel.setLayout(new BorderLayout());
 		lmpanel.setLayout(new BorderLayout());
 		lpanel.setLayout(new BorderLayout());
-		rpanel.setLayout(null);
-		 lpanel.setPreferredSize(new Dimension(750,600));
+	rpanel.setLayout(null);
+		 lpanel.setPreferredSize(new Dimension(600,600));
 		 
 		
 		TitledBorder jtx= 
@@ -84,13 +124,15 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		btn3.addActionListener(this);
 		
 		
-		
+		table7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		m2 =(DefaultTableModel)table7.getModel();
-		table7.getColumnModel().getColumn(0).setPreferredWidth(30);//JTable 의 컬럼 길이 조절
+		table7.getColumnModel().getColumn(0).setPreferredWidth(70);//JTable 의 컬럼 길이 조절
 	    table7.getColumnModel().getColumn(1).setPreferredWidth(100);
 	    table7.getColumnModel().getColumn(2).setPreferredWidth(100);
 	    table7.getColumnModel().getColumn(3).setPreferredWidth(300);
 	    table7.getColumnModel().getColumn(4).setPreferredWidth(90);
+	    table7.getColumnModel().getColumn(5).setPreferredWidth(90);
+	    table7.getColumnModel().getColumn(6).setPreferredWidth(90);
 	    table7.setFont(new Font( "Times", Font.BOLD, 20) );
 	    table7.setRowHeight(25);
 		
@@ -100,14 +142,17 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		 rpanel.setBorder(jtx1);
 		 
 		 rpanel.add(lab1);
-		 lab1.setBounds(30, 230, 100, 50);
+		 lab1.setBounds(30, 240, 120, 30);
 		 lab1.setFont(new Font("Times",Font.BOLD,20));
-		 lab1.setBackground(bg);
+		 
 		 rpanel.add(tf1);
 		 tf1.setBounds(150,240,180,30);
 		 tf1.addActionListener(this);
 		 rpanel.add(lab2);
 		 lab2.setBounds(30, 110, 100, 50);
+		 lab2.setOpaque(false); 
+	//	 lab2.setBackground(bg);
+		// lab2.setForeground(Color.CYAN);
 		 lab2.setFont(new Font("Times",Font.BOLD,20));
 		 rpanel.add(tf2);
 		 tf2.setBounds(150,120,180,30);
@@ -115,6 +160,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		 rpanel.add(lab3);
 		 lab3.setBounds(30, 170, 100, 50);
 		 lab3.setFont(new Font("Times",Font.BOLD,20));
+		 cho.add("등급 선택");
 		 cho.add("일반");
 		 cho.add("고급");
 		 cho.add("VIP");
@@ -130,6 +176,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		rpanel.add(btn1);
 		btn1.setBounds(150, 420, 170, 40);
 		btn1.addActionListener(this);
+		btn1.addMouseListener(this);
 		btn1.setBackground(bg);
 		btn1.setForeground(Color.WHITE);
 		btn1.setFont(new Font("Times",Font.BOLD,14));
@@ -170,26 +217,45 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 			tf1.setText("7일");
 		}
 		if( cmd.equals(btn1.getText())) {
+			 if(tf2.getText().equals("")) {
+					MDialog md = new MDialog(SwingProject.frame, "에러", true, "회원 이름을 입력하세요"	);
+					md.setVisible(true);
+			 }else if(cho.getSelectedItem().equals("등급 선택")) {
+				MDialog md2 = new MDialog(SwingProject.frame,"에러", true, "등급을 선택하세요.");
+				md2.setVisible(true);
+			}else if(tf3.getText().equals("")) {
+				MDialog md1 = new MDialog(SwingProject.frame, "에러", true, "전화번호를 입력하세요.");
+				md1.setVisible(true);
+			}else {
 			m2.insertRow(0, new Object[] {cnt,tf2.getText(),
 					 cho.getSelectedItem(),tf3.getText(),tf1.getText()});
 				table7.updateUI();
-					cnt++;
-					
-					
-					
-					
+					cnt++;	
+			}
 		}else if (cmd.equals(btn2.getText())) {
 			
 		}else if (cmd.equals(btn3.getText())) {
-			m2.removeRow(table7.getSelectedRow());
-		}
-		
-		
-		
-		
-		
-		
-		
+			m2.removeRow(table7.getSelectedRow());       //어느 열을 눌러도 행 전체 삭제
+		}}
+	
+	@Override             //마우스 색 바꾸기
+	public void mouseClicked(MouseEvent e) {
+		JButton btn1 = (JButton)e.getSource();
+        btn1.setBackground(Color.gray);
 	}
-
-}
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		JButton btn1 = (JButton)e.getSource();
+        btn1.setBackground(Color.gray);
+	}
+	 @Override
+	    public void mouseExited(MouseEvent e) {
+			JButton btn1 = (JButton)e.getSource();
+	        btn1.setBackground(bg);   
+	 }
+	
+		}
