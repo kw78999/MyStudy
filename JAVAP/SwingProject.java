@@ -41,6 +41,9 @@ public class  SwingProject implements ActionListener{
 	ImageIcon la6;
 	static JTextField tf8 = new JTextField(12);
 	JTextField tf11 = new JTextField (20);
+	static String col1[] = {"도서번호","서명","저자","출판사","도서상태","소장위치"};
+	
+	String col[] = {"회원번호","회원 이름","회원 등급","전화번호","대여기간","대여횟수","대출가능 권수"};
 
 	static JTextField tf10 = new JTextField(50);
 	static JTextField tf12 = new JTextField(50);
@@ -50,8 +53,9 @@ public class  SwingProject implements ActionListener{
 	ImageIcon icon;
 	Font fon = new Font( "Times", Font.BOLD, 16 );
 	JTable table;
-	JTable table1;
+	static JTable table1;
 	TextField tf = new TextField(10);
+	JTabbedPane t1;
 	static JTextField tf1 = new JTextField(12);
 	static JTextField tf2 = new JTextField(12);
 	static JTextField tf3 = new JTextField(12);
@@ -64,22 +68,33 @@ public class  SwingProject implements ActionListener{
 	JTextField tf15 = new JTextField(12);
 	JTextField tf16 = new JTextField(12);
 	JTextArea ta1 = new JTextArea("채팅창");
+	
 	DefaultTableModel model;
-	public static DefaultTableModel model1;
+	 static DefaultTableModel model1;
 	JScrollPane scr;
-	JScrollPane scr1;
+	static JScrollPane scr1;
+	
 	JButton lentalbtn = new JButton("대출하기");
 	static JFrame frame;
 	static Color cor;
 	static Color bg;
 	static JTabbedPane t;
 	BMEMBERSMgr mgr;
+	static JPanel  p1 = new JPanel(); ;
+	JPanel panel = new JPanel();
+	JPanel tabpanel = new JPanel();
+	JPanel inpanel1 = new JPanel(); 
+	JPanel panel13 = new JPanel();
+	JPanel panel14 = new JPanel();
+	JPanel cpanel = new JPanel();
+	JPanel p = new JPanel();
+	JPanel panel15 = new JPanel();
 	
-	String row1[][];
-	BooksMgr  mgr1;
-	Vector <BooksBean>  vlist1;
+	static String row1[][];
+	static BooksMgr  mgr1;
+	static Vector <BooksBean>  vlist1;
 	
-	public void viewList() {
+	public static void viewList() {
 		mgr1 = new BooksMgr();
 		vlist1 = mgr1.getListMember();
 		
@@ -93,41 +108,41 @@ public class  SwingProject implements ActionListener{
 			row1[i][5] = bean.getLOCATION();
 			row1[i][4] = bean.getBOOKSTATE();
 		}
+		model1 = new DefaultTableModel(row1,col1);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
+		table1 = new JTable(model1);
+		scr1 = new JScrollPane(table1);
+		table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table1.addMouseListener(book);
+		table1.setPreferredScrollableViewportSize(new Dimension(597,150));
+		table1.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
+		table1.getColumnModel().getColumn(1).setPreferredWidth(250);
+		table1.getColumnModel().getColumn(2).setPreferredWidth(80);
+		table1.getColumnModel().getColumn(3).setPreferredWidth(150);
+		table1.getColumnModel().getColumn(4).setPreferredWidth(110);
+		table1.getColumnModel().getColumn(5).setPreferredWidth(80);
+	    table1.setFont(new Font( "Times", Font.BOLD, 20) );
+	    table1.setRowHeight(25);
+	    p1.add(scr1);
 }
 	
 	public SwingProject() {
-		viewList();
+		frame = new JFrame("도서관리 프로그램");
+		
 		mgr = new BMEMBERSMgr();
 		
 		bg = new Color(170,220,255);
 		cor = Color.white;
-		JPanel panel = new JPanel();
-		JPanel tabpanel = new JPanel();
-		JPanel inpanel1 = new JPanel(); 
-		JPanel panel13 = new JPanel();
-		JPanel panel14 = new JPanel();
-		JPanel cpanel = new JPanel();
-		JPanel p = new JPanel();
-		JPanel p1 = new JPanel();
-		JPanel panel15 = new JPanel();
+		
 	    t = new JTabbedPane();
 		t.setBackground(bg);
-		JTabbedPane t1 = new JTabbedPane();
+		t1 = new JTabbedPane();
 		t1.setBackground(cor);
 		
-		JFrame frame = new JFrame("도서관리 프로그램");
 		JLabel label = new JLabel("회원목록");
 		label.setFont(new Font("Times",Font.BOLD,25));
-		JLabel label1 = new JLabel("도서목록");
-		label1.setFont(new Font("Times",Font.BOLD,25));
+		JLabel label17 = new JLabel("도서목록");
+		label17.setFont(new Font("Times",Font.BOLD,25));
 		
-		
-		String col[] = {"회원번호","회원 이름","회원 등급","전화번호","대여기간","대여횟수","대출가능 권수"};
-	//	String row[][] = {{"1","홍길동","고급","010-8821-1129","4일","4","5","4"},
-										//{"3","강길동","고급","010-1231-1129","4일","3","5","2"}};
-		String col1[] = {"도서번호","서명","저자","출판사","도서상태","소장위치"};
-	//	String row1[][] = {{"1","자바 교과서","홍길동","한국도서","가능","C-1"},
-			//	{"1","자바 교과서","홍길동","한국도서","불가능","A-2"}};
 		
 		Vector<BMEMBERSBean> vlist = mgr.getListMember();
 		String row[][] = new String[vlist.size()][10];
@@ -141,6 +156,8 @@ public class  SwingProject implements ActionListener{
 			row[i][5] = bean.getECOUNT();
 			row[i][6] = bean.getELIMIT();
 		}
+		
+		  //p1.add(scr1);
 		
 		frame.setLayout(new BorderLayout());
 		inpanel1.setLayout(new BorderLayout());
@@ -160,7 +177,7 @@ public class  SwingProject implements ActionListener{
     panel.setBackground(cor);
     cpanel.setBackground(cor);
     
-
+   
 		Testicon ti = new Testicon();
 		SwingProject_1 sp_1 = new SwingProject_1();
 		SwingProject_2 sp_2 = new SwingProject_2();
@@ -209,7 +226,7 @@ public class  SwingProject implements ActionListener{
 		
 		
 		p.add(label,BorderLayout.NORTH);
-		p1.add(label1,BorderLayout.NORTH);
+		p1.add(label17,BorderLayout.NORTH);
 	
   
     model = new DefaultTableModel(row,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
@@ -231,22 +248,9 @@ public class  SwingProject implements ActionListener{
 	    
 	p.add(scr);
 	
-	model1 = new DefaultTableModel(row1,col1);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
-	table1 = new JTable(model1);
-	scr1 = new JScrollPane(table1);
-	table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-	table1.addMouseListener(book);
 	
-	table1.setPreferredScrollableViewportSize(new Dimension(597,200));
-	table1.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
-	table1.getColumnModel().getColumn(1).setPreferredWidth(250);
-	table1.getColumnModel().getColumn(2).setPreferredWidth(80);
-	table1.getColumnModel().getColumn(3).setPreferredWidth(150);
-	table1.getColumnModel().getColumn(4).setPreferredWidth(110);
-	table1.getColumnModel().getColumn(5).setPreferredWidth(80);
-    table1.setFont(new Font( "Times", Font.BOLD, 20) );
-    table1.setRowHeight(25);
-    p1.add(scr1);
+	viewList();// 도서목록 테이블 보이게하기
+	
 	
     p.setBackground(cor);
     panel15.setBackground(cor);
@@ -495,7 +499,7 @@ cpanel.setBounds(0	, 430,570, 260);
 	public void mouseReleased(MouseEvent arg0) {}
 	};
 	
-MouseListener book = new MouseListener() {            //도서목록을 누르면 오른쪽에 보여짐
+static MouseListener book = new MouseListener() {            //도서목록을 누르면 오른쪽에 보여짐
 		@Override
 		public void mouseReleased(MouseEvent e) {}
 		@Override

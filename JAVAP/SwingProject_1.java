@@ -27,7 +27,7 @@ import javax.swing.table.JTableHeader;
 
 import member.MemberBean_demo;
 
-public class SwingProject_1 extends JTable  implements MouseListener{
+public class SwingProject_1   implements MouseListener{
 	String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","대출총합"};
  //  String row[][] ;
 	ImageIcon img;
@@ -66,6 +66,8 @@ public class SwingProject_1 extends JTable  implements MouseListener{
 	JTextField tf8 = new JTextField(10); 
 	JTextField tf9 = new JTextField(10); 
 	JTextField tf10 = new JTextField(10); 
+	JTextField tf15 = new JTextField(10); 
+	JTextField tf16 = new JTextField(10); 
 	
 	JTable table7;
 	DefaultTableModel model7;
@@ -76,11 +78,10 @@ public class SwingProject_1 extends JTable  implements MouseListener{
 	
 	String row1[][];
 	BooksMgr  mgr= new BooksMgr();
-	Vector <BooksBean>  vlist = mgr.getListMember();
-	
+	Vector <BooksBean>  vlist ;
 	
 	public void viewList() {
-		
+		vlist = mgr.getListMember();
 		row1 = new String[vlist.size()][12];
 		for (int i = 0; i < row1.length; i++) {
 			BooksBean bean = vlist.elementAt(i);
@@ -96,7 +97,32 @@ public class SwingProject_1 extends JTable  implements MouseListener{
 			row1[i][9] = bean.getBCOUNT();
 			row1[i][10] = bean.getBCOUNTP();
 		}
+		model7 = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
+		table7 = new JTable(model7);
+		scr = new JScrollPane(table7);
+		table7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	    lmpanel.setPreferredSize(new Dimension(600,700));
+	    table7.getColumnModel().getColumn(0).setPreferredWidth(40);  //JTable 의 컬럼 길이 조절
+	    table7.getColumnModel().getColumn(1).setPreferredWidth(400);
+	    table7.getColumnModel().getColumn(2).setPreferredWidth(180);
+	    table7.getColumnModel().getColumn(3).setPreferredWidth(130);
+	    table7.getColumnModel().getColumn(4).setPreferredWidth(100);
+	    table7.getColumnModel().getColumn(5).setPreferredWidth(100);
+	    table7.getColumnModel().getColumn(6).setPreferredWidth(70);
+	    table7.getColumnModel().getColumn(7).setPreferredWidth(70);
+	    table7.getColumnModel().getColumn(8).setPreferredWidth(130);
+	    table7.getColumnModel().getColumn(9).setPreferredWidth(80);
+	    table7.getColumnModel().getColumn(10).setPreferredWidth(80);
+	    table7.setFont(new Font( "Times", Font.BOLD, 20) );
+	    JTableHeader header = table7.getTableHeader();            //테이블 헤더 색상 
+	    header.setBackground(bg);
+	    table7.setSelectionBackground(bg);             //셀 선택시 색변경
+	    table7.setSelectionForeground(Color.white);  //선택시 글 색 변경
+	    table7.setRowHeight(25);
+		table7.addMouseListener(this);
+		lpanel.add(scr);
 }
+	
 	
 public SwingProject_1() {
 	viewList();
@@ -122,18 +148,10 @@ public SwingProject_1() {
     		new TitledBorder(new LineBorder(Color.white),"매장 보유 도서");
 	 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 	 
-	model7 = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
-	table7 = new JTable(model7);
-	scr = new JScrollPane(table7);
+	 lpanel.add(scr);
 	table7.addMouseListener(this);
-	
 	lpanel.setBorder(jtx);
-	lpanel.add(scr);
 
-
-	
-	//btn3.addActionListener();
-	//btn4.addActionListener();
 	lmpanel.add(lpanel,BorderLayout.CENTER);
 	lmpanel.add(lpanel2,BorderLayout.SOUTH);
 	
@@ -143,7 +161,7 @@ public SwingProject_1() {
 	 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 		
 	 TitledBorder jtx2= 
-	    		new TitledBorder(new LineBorder(Color.white,5),"ISBN 검색    ");
+	    		new TitledBorder(new LineBorder(Color.white,5),"도서 추가    ");
 		 jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 		 
 		 TitledBorder jtx3= 
@@ -172,7 +190,7 @@ public SwingProject_1() {
    btn.setBounds(99, 0, 30, 30);
    
     btn3.setBounds(280, 350, 90, 25);
-    //btn3.addActionListener();
+    btn3.addActionListener(ac3);
     btn4.addActionListener(ac2);
     btn4.setBounds(405, 350, 90, 25);
     
@@ -196,7 +214,7 @@ public SwingProject_1() {
     tf8.setBounds(20, 300, 100, 25);
     tf9.setBounds(160, 300, 100, 25);
     tf10.setBounds(20, 350, 250, 25);
-    tf10.setEnabled(false);
+   // tf10.setEnabled(false);
     
     
     lab2.setFont(fon);
@@ -209,30 +227,9 @@ public SwingProject_1() {
     lab8.setFont(fon);
     lab9.setFont(fon);
     lab10.setFont(fon);
-    tf6.setEnabled(false);
+    //tf6.setEnabled(false);
 
-	table7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-    lmpanel.setPreferredSize(new Dimension(600,700));
-    table7.getColumnModel().getColumn(0).setPreferredWidth(40);  //JTable 의 컬럼 길이 조절
-    table7.getColumnModel().getColumn(1).setPreferredWidth(400);
-    table7.getColumnModel().getColumn(2).setPreferredWidth(180);
-    table7.getColumnModel().getColumn(3).setPreferredWidth(130);
-    table7.getColumnModel().getColumn(4).setPreferredWidth(100);
-    table7.getColumnModel().getColumn(5).setPreferredWidth(100);
-    table7.getColumnModel().getColumn(6).setPreferredWidth(70);
-    table7.getColumnModel().getColumn(7).setPreferredWidth(70);
-    table7.getColumnModel().getColumn(8).setPreferredWidth(130);
-    table7.getColumnModel().getColumn(9).setPreferredWidth(80);
-    table7.getColumnModel().getColumn(10).setPreferredWidth(80);
-    table7.setFont(new Font( "Times", Font.BOLD, 20) );
-    
-    JTableHeader header = table7.getTableHeader();            //테이블 헤더 색상 
-    header.setBackground(bg);
-    
-table7.setSelectionBackground(bg);             //셀 선택시 색변경
-table7.setSelectionForeground(Color.white);  //선택시 글 색 변경
 	
-    table7.setRowHeight(25);
     
     rpanel2.add(btn);
   // rpanel.add(ta);
@@ -317,20 +314,66 @@ ActionListener ac2 =  new ActionListener() {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(table7.getSelectedRow()==-1) {
-		MDialog MD = new MDialog(SwingProject.frame, "오류", true, "도서를 선택하세요");
+		MDialog MD = new MDialog(SwingProject.frame, "오류", true, "삭제할 도서를 선택하세요");
 		MD.setVisible(true);
 		}else {
-		int i = table7.getSelectedRow()	;
-		BooksBean bean = vlist.get(i);
+		BooksBean bean = vlist.get(table7.getSelectedRow());
 		if(mgr.deleteBooks(bean.getBID())) {
 			
-			model7.removeRow(i);
-			SwingProject.model1.removeRow(i);
+			lpanel.removeAll();
+			lpanel.revalidate();
+			
 			vlist.removeAllElements();
 			viewList();
+			
+			SwingProject.p1.removeAll();
+			SwingProject.p1.revalidate();
+			
+			SwingProject.vlist1.removeAllElements();
+			SwingProject.viewList();
+			
+			
 	}}
 }};
 
+ActionListener ac3 = new ActionListener() {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(table7.getSelectedRow()==-1) {
+			MDialog MD = new MDialog(SwingProject.frame, "오류", true, "수정할 도서를 선택하세요");
+			MD.setVisible(true);
+			}else {
+				int to = Integer.parseInt(tf1.getText());
+				
+			BooksBean bean = new BooksBean();
+			System.out.println(tf5.getText());
+			System.out.println(tf2.getText());
+			System.out.println(tf3.getText());
+			System.out.println(tf4.getText());
+			System.out.println(tf10.getText());
+			System.out.println(tf8.getText());
+			System.out.println(tf9.getText());
+			bean.setBID(to);
+			bean.setISBN(tf5.getText());
+			bean.setTITLE(tf2.getText());
+			bean.setAUTHOR(tf3.getText());
+			bean.setPUBLISHER(tf4.getText());
+			bean.setBDATE(tf10.getText());
+			bean.setBCOPY(tf8.getText());
+			bean.setBOOKSTATE("대출가능");
+			bean.setLOCATION(tf9.getText());
+			bean.setBCOUNT("0회");
+			bean.setBCOUNTP("0회");
+			
+		
+			if(mgr.updateBooks(bean)) {
+			lpanel.removeAll();
+			lpanel.revalidate();
+			vlist.removeAllElements();
+			viewList();
+			
+			}
+}}};
 
 
 
@@ -340,7 +383,7 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	String row1[][] ;
 	int cnt =0;
 	JTabbedPane t_1 = new JTabbedPane();
-	JPanel lpanel = new JPanel();
+	JPanel lpanel2 = new JPanel();
 	JPanel lmpanel = new JPanel();
 	JPanel rpanel = new JPanel();
 	JPanel rpanel2 = new JPanel();
@@ -349,7 +392,9 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	JButton nbtn = new JButton("검색");
 	JButton nbtn2 = new JButton("보유목록 추가");
 	JButton nbtn3 = new JButton("이미지 추가");
-	JLabel lab1 = new JLabel("ISBN 검색");
+	JLabel lab1 = new JLabel("서명");
+	JLabel lab15 = new JLabel("저자");
+	JLabel lab16 = new JLabel("ISBN");
 	JLabel lab3 = new JLabel("제목");
 	JLabel lab4 = new JLabel("저자");
 	JLabel lab5 = new JLabel("출판사");
@@ -377,14 +422,14 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 		newf.setSize(1110,725);
 		newf.setLocationRelativeTo(null);
 		
-		lpanel.setLayout(new BorderLayout());
+		lpanel2.setLayout(new BorderLayout());
 		lmpanel.setLayout(new BorderLayout());
 		rpanel.setLayout(null);
 		rmpanel.setLayout(new BorderLayout());
 		rpanel2.setLayout(null);
 		mpanel.setLayout(new BorderLayout());
 		mpanel.setBackground(new  Color(170,220,255));
-		lpanel.setBackground(new  Color(170,220,255));
+		lpanel2.setBackground(new  Color(170,220,255));
 		rpanel2.setBackground(new  Color(170,220,255));
 		rpanel.setBackground(new  Color(170,220,255));
 		rmpanel.setBackground(new  Color(170,220,255));
@@ -393,28 +438,34 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 		mpanel.add(rmpanel,BorderLayout.CENTER);
 		
 		TitledBorder jtx= 
-	    		new TitledBorder(new LineBorder(Color.white),"ISBN 검색 내용");
+	    		new TitledBorder(new LineBorder(Color.white),"검색 내용");
 		 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+		 lpanel2.setBorder(jtx);
+		 
+		 
+		 
 		model = new DefaultTableModel(row1,col1);
 		table = new JTable(model);
 		scr = new JScrollPane(table);
 		
-		lpanel.setBorder(jtx);
-		lpanel.add(scr);
-		lmpanel.add(lpanel,BorderLayout.CENTER);
+		lpanel2.add(scr);
+	
 		m =(DefaultTableModel)table.getModel()	;
 		
+		
+		lmpanel.add(lpanel2,BorderLayout.CENTER);
+		
 		TitledBorder jtx1= 
-	    		new TitledBorder(new LineBorder(Color.white),"ISBN ");
+	    		new TitledBorder(new LineBorder(Color.white),"세부 정보");
 		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 		 
 		 TitledBorder jtx2= 
-		    		new TitledBorder(new LineBorder(Color.white),"ISBN 검색");
+		    		new TitledBorder(new LineBorder(Color.white),"도서 검색");
 			 jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 			 
 	   rpanel.setBorder(jtx1);
 	   rpanel2.setBorder(jtx2);
-	   rpanel.setPreferredSize(new Dimension(540,600));   //1110,725
+	   rpanel.setPreferredSize(new Dimension(540,490));   //1110,725
 	   
 	   ImageIcon inicon = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\booktest1.jpg");
 		Image inimg = inicon.getImage();    //icon 이미지 img에 넣기
@@ -425,9 +476,15 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	   rpanel.add(imlabel);
 	   imlabel.setBounds(270, 30, 230, 320);   //라벨과 이미지 사이즈 맞추기 280,320
 		
-		lab1.setBounds(30, 32, 80, 30);
-	    tf11.setBounds(110, 32, 200, 30);
-	    nbtn.setBounds(350, 32, 100, 30);
+		lab1.setBounds(30, 30, 80, 30);
+		lab15.setBounds(30, 70, 80, 30);
+		lab16.setBounds(30, 110, 80, 30);
+	    tf11.setBounds(110, 30, 350, 25);
+	    tf15.setBounds(110, 70, 350, 25);
+	    tf16.setBounds(110, 110, 350, 25);
+	    nbtn.setBounds(400, 150, 100, 30);
+	    
+	    
 	    lmpanel.setPreferredSize(new Dimension(570,500));  //1110,725
 	    table.getColumnModel().getColumn(0).setPreferredWidth(30);  //JTable 의 컬럼 길이 조절
 	    table.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -438,7 +495,7 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	    table.setRowHeight(25);
 	    table.addMouseListener(this);
 	    
-	    nbtn2.setBounds(130, 520, 250, 50);
+	    nbtn2.setBounds(130, 400, 250, 50);
 	    lab3.setBounds(20, 30, 170, 30);
 	    lab4.setBounds(20, 90, 170, 30);
 	    lab5.setBounds(20, 150, 170, 30);
@@ -457,6 +514,9 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	    nbtn3.setBounds(400, 350, 100, 30);
 	    //2제목/3저자/4출판/5isbn/6반입일자/7복본/8도서위치
 	    lab3.setFont(fon);
+	    lab1.setFont(fon);
+	    lab15.setFont(fon);
+	    lab16.setFont(fon);
 	    lab4.setFont(fon);
 	    lab5.setFont(fon);
 	    lab6.setFont(fon);
@@ -481,9 +541,13 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 		rpanel.add(nbtn3);
 	    
 	    rpanel2.add(lab1);
+	    rpanel2.add(lab15);
+	    rpanel2.add(lab16);
 	    rpanel2.add(nbtn);
 	    nbtn.addActionListener(this);
 		rpanel2.add(tf11);
+		rpanel2.add(tf15);
+		rpanel2.add(tf16);
 		tf11.addActionListener(this);
 		rpanel.add(nbtn2);
 		nbtn2.setPreferredSize(new Dimension(100,40));
@@ -498,34 +562,38 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand()	;
-		 if(cmd.equals(nbtn.getText())){                  
-			 String item = tf11.getText();                //ISBN값을 ParseEx3에 넣고 값 가져오기
-		ParseEx3 ex3 = new ParseEx3(item);
+		 if(cmd.equals(nbtn.getText())){            //검색
+			 m.setNumRows(0);
+			 String title = tf11.getText();                //ISBN값을 ParseEx3에 넣고 값 가져오기
+			 String author = tf15.getText();                //ISBN값을 ParseEx3에 넣고 값 가져오기
+			 String isbn = tf16.getText();                //ISBN값을 ParseEx3에 넣고 값 가져오기
+			 ParseEx3 ex3 = new ParseEx3(title,author,isbn);
+			 
 		for (int i = 0; i < ex3.title1.size(); i++) {
 			 m.insertRow(i, new Object[] {i+1,ex3.title1.get(i),             
 					 ex3.author1.get(i),ex3.pub1.get(i),ex3.isbn1.get(i)});
-				table.updateUI();
 				}
-		}else if(cmd.equals(nbtn2.getText())) {                   //검색한 목록을 도서목록에 추가하기
-			int st = table7.getRowCount()+1;
+		}else if(cmd.equals(nbtn2.getText())) {                   //도서목록에 추가하기
+			
 			BooksBean bean = new BooksBean();
-			bean.setBID(st);
+			//bean.setBID();
 			bean.setISBN(tf55.getText());
 			bean.setTITLE(tf22.getText());
 			bean.setAUTHOR(tf33.getText());
 			bean.setPUBLISHER(tf44.getText());
 			bean.setBDATE(tf66.getText());
 			bean.setBCOPY(tf77.getText());
-			bean.setBOOKSTATE(tf88.getText());
-			bean.setLOCATION("대출가능");
+			bean.setBOOKSTATE("대출가능");
+			bean.setLOCATION(tf88.getText());
 			bean.setBCOUNT("0회");
 			bean.setBCOUNTP("0회");
-			System.out.println(tf66.getText());
 			if(mgr.insertBooks(bean) ) {
 				//저장을 성공 
+				lpanel.removeAll();
 				vlist.removeAllElements();
+				lpanel.revalidate();
 				viewList();
-				st++;
+				table7.addRowSelectionInterval(0, 0);
 			}
 	}}
 	//2제목/3저자/4출판/5isbn/6반입일자/7복본/8도서위치

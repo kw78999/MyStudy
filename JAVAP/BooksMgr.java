@@ -104,20 +104,20 @@ public class BooksMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert into BOOKS(BID,ISBN,TITLE,AUTHOR,PUBLISHER,LOCATION,BOOKSTATE,BCOPY,BDATE,BCOUNT,BCOUNTP)"
-					+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into BOOKS(ISBN,TITLE,AUTHOR,PUBLISHER,LOCATION,BOOKSTATE,BCOPY,BDATE,BCOUNT,BCOUNTP)"
+					+ "values(?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, bean.getBID());
-			pstmt.setString(2, bean.getISBN());
-			pstmt.setString(3, bean.getTITLE());
-			pstmt.setString(4, bean.getAUTHOR());
-			pstmt.setString(5, bean.getPUBLISHER());
-			pstmt.setString(6, bean.getLOCATION());
-			pstmt.setString(7, bean.getBOOKSTATE());
-			pstmt.setString(8, bean.getBCOPY());
-			pstmt.setString(9, bean.getBDATE());
-			pstmt.setString(10, bean.getBCOUNT());
-			pstmt.setString(11, bean.getBCOUNTP());
+			//pstmt.setInt(1, bean.getBID());
+			pstmt.setString(1, bean.getISBN());
+			pstmt.setString(2, bean.getTITLE());
+			pstmt.setString(3, bean.getAUTHOR());
+			pstmt.setString(4, bean.getPUBLISHER());
+			pstmt.setString(5, bean.getLOCATION());
+			pstmt.setString(6, bean.getBOOKSTATE());
+			pstmt.setString(7, bean.getBCOPY());
+			pstmt.setString(8, bean.getBDATE());
+			pstmt.setString(9, bean.getBCOUNT());
+			pstmt.setString(10, bean.getBCOUNTP());
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {
@@ -137,8 +137,8 @@ public class BooksMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			setSql = ("update Books set ISBN=? ,TITLE=? ,AUTHOR=? ,PUBLISHER=? ,LOCATION=? ,BOOKSTATE=? ,BCOPY=? ,BDATE=? ,BCOUNT=? ,BCOUNTP=? "
-					+ "where BID=?");
+			setSql = "update Books set ISBN=? ,TITLE=? ,AUTHOR=? ,PUBLISHER=? ,LOCATION=? ,BOOKSTATE=? ,BCOPY=? ,BDATE=? ,BCOUNT=? ,BCOUNTP=? "
+					+ "where BID=?";
 			pstmt = con.prepareStatement(setSql);
 			pstmt.setString(1, bean.getISBN());
 			pstmt.setString(2, bean.getTITLE());
@@ -150,7 +150,7 @@ public class BooksMgr {
 			pstmt.setString(8, bean.getBDATE());
 			pstmt.setString(9, bean.getBCOUNT());
 			pstmt.setString(10, bean.getBCOUNTP());
-			pstmt.setInt(11, bean.getIdx());
+			pstmt.setInt(11, bean.getBID());
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {
