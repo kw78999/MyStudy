@@ -32,10 +32,11 @@ public class SwingProject_bookscanner {
 	JButton btn = new JButton("검색");
 	JButton btn1 = new JButton("선택하기");
 	static JFrame memberf;
-	public SwingProject_bookscanner() {
-		
+	Vector <BooksBean>  vlist1;
+	
+	void viewlist(){
 		mgr1 = new BooksMgr();
-		Vector <BooksBean>  vlist1 = mgr1.getListMember();
+	    vlist1 = mgr1.getListMember();
 		
 		String row1[][] = new String[vlist1.size()][12];
 		for (int i = 0; i < row1.length; i++) {
@@ -47,7 +48,25 @@ public class SwingProject_bookscanner {
 			row1[i][5] = bean.getLOCATION();
 			row1[i][4] = bean.getBOOKSTATE();
 		}
+			model = new DefaultTableModel(row1,col1);
+			table = new JTable(model);
+			 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			scr = new JScrollPane(table);
+			table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+			 table.setRowHeight(25);
+			  table.getColumnModel().getColumn(0).setPreferredWidth(60);  //JTable 의 컬럼 길이 조절
+			    table.getColumnModel().getColumn(1).setPreferredWidth(300);
+			    table.getColumnModel().getColumn(2).setPreferredWidth(200);
+			    table.getColumnModel().getColumn(3).setPreferredWidth(100);
+			    table.getColumnModel().getColumn(4).setPreferredWidth(90);
+			    table.getColumnModel().getColumn(5).setPreferredWidth(80);
+			    scr.setBounds(0, 0, 670, 380);
+		tpanel.add(scr);
 		
+		}
+	
+	public SwingProject_bookscanner() {
+		viewlist();
 		
 		memberf = new JFrame();
 		memberf.setBackground(new  Color(170,220,255));
@@ -64,11 +83,13 @@ public class SwingProject_bookscanner {
 		tpanel.setLayout(null);
 		panel.setLayout(null);
 		
+		
 		cho.add("도서번호");
 		cho.add("도서이름");
 		cho.setBounds(110	, 50, 150, 50);
 		tf.setBounds(320, 50,150 , 27);
 		btn.setBounds(470, 50, 100, 27);
+		btn.addActionListener(ac2);
 		panel.add(cho);
 		panel.add(tf);
 		panel.add(btn);
@@ -80,22 +101,7 @@ public class SwingProject_bookscanner {
 		 tpanel.setBounds(0, 100, 700, 380);
 		 mpanel.add(panel);
 		 
-			model = new DefaultTableModel(row1,col1);
-			table = new JTable(model);
-			 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			scr = new JScrollPane(table);
-			table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
-			 table.setRowHeight(25);
 			
-			 
-			  table.getColumnModel().getColumn(0).setPreferredWidth(60);  //JTable 의 컬럼 길이 조절
-			    table.getColumnModel().getColumn(1).setPreferredWidth(300);
-			    table.getColumnModel().getColumn(2).setPreferredWidth(200);
-			    table.getColumnModel().getColumn(3).setPreferredWidth(100);
-			    table.getColumnModel().getColumn(4).setPreferredWidth(90);
-			    table.getColumnModel().getColumn(5).setPreferredWidth(80);
-			    scr.setBounds(0, 0, 670, 380);
-		tpanel.add(scr);
 		btn1.setBounds(550, 500, 100, 40);
 		btn1.addActionListener(ac);
 		mpanel.add(btn1);
@@ -103,12 +109,115 @@ public class SwingProject_bookscanner {
 		mpanel.add(tpanel);
 		
 	}
+	ActionListener ac2 = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			/*int to = Integer.parseInt(tf.getText());
+			System.out.println(mgr1.getett(to));
+		
+			
+			String row1[][] = new String[1][12];
+			for (int i = 0; i < row1.length; i++) {
+				BooksBean bean = mgr1.getett(to);
+				row1[i][0] = bean.getBID()+"";
+				row1[i][1] = bean.getTITLE();
+				row1[i][2] = bean.getAUTHOR();
+				row1[i][3] = bean.getPUBLISHER();
+				row1[i][5] = bean.getLOCATION();
+				row1[i][4] = bean.getBOOKSTATE();
+			}
+				model = new DefaultTableModel(row1,col1);
+				table = new JTable(model);
+				 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				scr = new JScrollPane(table);
+				table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+				 table.setRowHeight(25);
+				  table.getColumnModel().getColumn(0).setPreferredWidth(60);  //JTable 의 컬럼 길이 조절
+				    table.getColumnModel().getColumn(1).setPreferredWidth(300);
+				    table.getColumnModel().getColumn(2).setPreferredWidth(200);
+				    table.getColumnModel().getColumn(3).setPreferredWidth(100);
+				    table.getColumnModel().getColumn(4).setPreferredWidth(90);
+				    table.getColumnModel().getColumn(5).setPreferredWidth(80);
+				    scr.setBounds(0, 0, 670, 380);
+			
+			tpanel.removeAll();
+			tpanel.revalidate();
+			vlist1.removeAllElements();
+			tpanel.add(scr);
+			
+			
+		}*/
+			String row1[][] = new String[10][12];
+			for (int i = 0; i < row1.length; i++) {
+				BooksBean bean = mgr1.getsearch(tf.getText());
+				row1[i][0] = bean.getBID()+"";
+				row1[i][1] = bean.getTITLE();
+				row1[i][2] = bean.getAUTHOR();
+				row1[i][3] = bean.getPUBLISHER();
+				row1[i][5] = bean.getLOCATION();
+				row1[i][4] = bean.getBOOKSTATE();
+			}
+				model = new DefaultTableModel(row1,col1);
+				table = new JTable(model);
+				 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				scr = new JScrollPane(table);
+				table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+				 table.setRowHeight(25);
+				  table.getColumnModel().getColumn(0).setPreferredWidth(60);  //JTable 의 컬럼 길이 조절
+				    table.getColumnModel().getColumn(1).setPreferredWidth(300);
+				    table.getColumnModel().getColumn(2).setPreferredWidth(200);
+				    table.getColumnModel().getColumn(3).setPreferredWidth(100);
+				    table.getColumnModel().getColumn(4).setPreferredWidth(90);
+				    table.getColumnModel().getColumn(5).setPreferredWidth(80);
+				    scr.setBounds(0, 0, 670, 380);
+			
+			tpanel.removeAll();
+			tpanel.revalidate();
+			vlist1.removeAllElements();
+			tpanel.add(scr);
+			
+			/*tpanel.removeAll();
+			tpanel.revalidate();
+			vlist1.removeAllElements();
+			
+				mgr1 = new BooksMgr();
+			    vlist1 = mgr1.getsearch(tf.getText());
+				
+				String row1[][] = new String[vlist1.size()][12];
+				for (int i = 0; i < row1.length; i++) {
+					BooksBean bean = vlist1.elementAt(i);
+					row1[i][0] = bean.getBID()+"";
+					row1[i][1] = bean.getTITLE();
+					row1[i][2] = bean.getAUTHOR();
+					row1[i][3] = bean.getPUBLISHER();
+					row1[i][5] = bean.getLOCATION();
+					row1[i][4] = bean.getBOOKSTATE();
+				}
+					model = new DefaultTableModel(row1,col1);
+					table = new JTable(model);
+					 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+					scr = new JScrollPane(table);
+					table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+					 table.setRowHeight(25);
+					  table.getColumnModel().getColumn(0).setPreferredWidth(60);  //JTable 의 컬럼 길이 조절
+					    table.getColumnModel().getColumn(1).setPreferredWidth(300);
+					    table.getColumnModel().getColumn(2).setPreferredWidth(200);
+					    table.getColumnModel().getColumn(3).setPreferredWidth(100);
+					    table.getColumnModel().getColumn(4).setPreferredWidth(90);
+					    table.getColumnModel().getColumn(5).setPreferredWidth(80);
+					    scr.setBounds(0, 0, 670, 380);
+				tpanel.add(scr);*/
+				
+				
+		}
+	};
 	ActionListener ac = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if(table.getSelectedRow()==-1) {
-			MDialog md = new MDialog(memberf, "오류", true, "회원을 선택해 주세요.");
+			MDialog md = new MDialog(memberf, "오류", true, "도서를 선택해 주세요.");
 				md.setVisible(true);
 			}else {
 			String str0 = (String) table.getValueAt(table.getSelectedRow(),0);            //Object 타입을 모두 정수형으로 변환

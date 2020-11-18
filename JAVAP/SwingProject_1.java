@@ -25,7 +25,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import member.MemberBean_demo;
 
 public class SwingProject_1   implements MouseListener{
 	String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","대출총합"};
@@ -344,21 +343,16 @@ ActionListener ac3 = new ActionListener() {
 			MD.setVisible(true);
 			}else {
 				int to = Integer.parseInt(tf1.getText());
-				
+			String date = tf10.getText();       //날짜 수정을위해 시분초 를 자른다
+	
 			BooksBean bean = new BooksBean();
-			System.out.println(tf5.getText());
-			System.out.println(tf2.getText());
-			System.out.println(tf3.getText());
-			System.out.println(tf4.getText());
-			System.out.println(tf10.getText());
-			System.out.println(tf8.getText());
-			System.out.println(tf9.getText());
+			
 			bean.setBID(to);
 			bean.setISBN(tf5.getText());
 			bean.setTITLE(tf2.getText());
 			bean.setAUTHOR(tf3.getText());
 			bean.setPUBLISHER(tf4.getText());
-			bean.setBDATE(tf10.getText());
+			bean.setBDATE(date.substring(0,10));
 			bean.setBCOPY(tf8.getText());
 			bean.setBOOKSTATE("대출가능");
 			bean.setLOCATION(tf9.getText());
@@ -582,6 +576,7 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 			bean.setAUTHOR(tf33.getText());
 			bean.setPUBLISHER(tf44.getText());
 			bean.setBDATE(tf66.getText());
+			System.out.println(bean.getBDATE());
 			bean.setBCOPY(tf77.getText());
 			bean.setBOOKSTATE("대출가능");
 			bean.setLOCATION(tf88.getText());

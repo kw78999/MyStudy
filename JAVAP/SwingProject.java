@@ -29,9 +29,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import JAVAP.copy.BMEMBERSBean;
-import JAVAP.copy.BMEMBERSMgr;
-
 
 public class  SwingProject implements ActionListener{
 	ImageIcon normalIcon = new ImageIcon("C:\\Users\\admin\\Desktop\\수업 자료\\gitTest\\gitTest1\\gitTest1\\image\\test2.jpg");
