@@ -13,6 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import JAVAP.SwingProject_1.SwingProject1_newf;
+
 public class TTTTFileUpload extends JFrame {
 	JPanel p;
 	JTextField tf;
@@ -24,8 +26,8 @@ public class TTTTFileUpload extends JFrame {
 	public TTTTFileUpload() {
 		p = new JPanel();
 		p.add(tf = new JTextField(20));
-		p.add(selectFileBt = new JButton("업로드 파일선택"));
-		p.add(uploadBt = new JButton("업로드"));
+		p.add(selectFileBt = new JButton("이미지 파일선택"));
+		p.add(uploadBt = new JButton("추가하기"));
 		uploadBt.setVisible(false);
 
 		selectFileBt.addActionListener(new ActionListener() {
@@ -48,12 +50,12 @@ public class TTTTFileUpload extends JFrame {
 				try {
 					int cmd = fs.makeDirAndDulpleChk(basePath, selectedFile.getName());
 					if (cmd == -1) {
-						int confimReturnVal = confirmMessage("중복된 파일이 있습니다. 덮으시겠습니까?");
-						if (confimReturnVal != 0) {
-							showMessage("취소 하셨습니다");
-							uploadBt.setVisible(false);
-							return;
-						}
+						//int confimReturnVal = confirmMessage("중복된 파일이 있습니다. 덮으시겠습니까?");
+						//if (confimReturnVal != 0) {
+							//showMessage("취소 하셨습니다");
+							//uploadBt.setVisible(false);
+							//return;
+						//}  책이미지는 같은 중복된 파일일수 있기에 주석처리 
 					}
 					fs.saveFile(selectedFile, basePath, selectedFile.getName());
 					filename = selectedFile.getName();
@@ -61,10 +63,10 @@ public class TTTTFileUpload extends JFrame {
 					showMessage("파일업로드 중 에러가 발생하였습니다.");
 					e1.printStackTrace();
 				}
-				showMessage("정상적으로 업로드 되었습니다.");
-				tf.setText("");
-				uploadBt.setVisible(false);
+				
 				SwingProject_1.imaget.setText(selectedFile.getName());
+				SwingProject_1.SwingProject1_newf.setbookimg1(selectedFile.getName());
+				dispose();
 			}
 		});
 

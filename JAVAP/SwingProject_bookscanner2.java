@@ -183,37 +183,6 @@ public class SwingProject_bookscanner2 {
 				MDialog md2 = new MDialog(memberf, "오류", true, "검색결과가 없습니다");
 				md2.setVisible(true);
 			}
-			/*tpanel.removeAll();
-			tpanel.revalidate();
-			vlist1.removeAllElements();
-			
-				mgr1 = new BooksMgr();
-			    vlist1 = mgr1.getsearch(tf.getText());
-				
-				String row1[][] = new String[vlist1.size()][12];
-				for (int i = 0; i < row1.length; i++) {
-					BooksBean bean = vlist1.elementAt(i);
-					row1[i][0] = bean.getBID()+"";
-					row1[i][1] = bean.getTITLE();
-					row1[i][2] = bean.getAUTHOR();
-					row1[i][3] = bean.getPUBLISHER();
-					row1[i][5] = bean.getLOCATION();
-					row1[i][4] = bean.getBOOKSTATE();
-				}
-					model = new DefaultTableModel(row1,col1);
-					table = new JTable(model);
-					 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-					scr = new JScrollPane(table);
-					table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
-					 table.setRowHeight(25);
-					  table.getColumnModel().getColumn(0).setPreferredWidth(60);  //JTable 의 컬럼 길이 조절
-					    table.getColumnModel().getColumn(1).setPreferredWidth(300);
-					    table.getColumnModel().getColumn(2).setPreferredWidth(200);
-					    table.getColumnModel().getColumn(3).setPreferredWidth(100);
-					    table.getColumnModel().getColumn(4).setPreferredWidth(90);
-					    table.getColumnModel().getColumn(5).setPreferredWidth(80);
-					    scr.setBounds(0, 0, 670, 380);
-				tpanel.add(scr);*/
 				
 			}
 		}
@@ -242,6 +211,7 @@ public class SwingProject_bookscanner2 {
 					String str6 = (String)SwingProject_1.table7.getValueAt(i,6);
 					String str8 = (String) SwingProject_1.table7.getValueAt(i,7);
 					String str7 = (String) SwingProject_1.table7.getValueAt(i,8);
+					String str9 = (String)SwingProject_1.table7.getValueAt(i, 11);
 					SwingProject_1.tf1.setText(str00);
 					SwingProject_1.tf2.setText(str1);
 					SwingProject_1.tf3.setText(str2);
@@ -251,6 +221,7 @@ public class SwingProject_bookscanner2 {
 					SwingProject_1.tf8.setText(str8);
 					SwingProject_1.tf9.setText(str6);
 					SwingProject_1.tf10.setText(str7);
+					SwingProject_1.setbookimg(str9);
 				}
 			}			
 			

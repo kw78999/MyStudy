@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
+import JAVAP.SwingProject_1.SwingProject1_newf;
+
 //DB와 연동에 필요한 모든 기능
 public class BooksMgr {
 	
@@ -161,6 +163,8 @@ public class BooksMgr {
 			if(cnt==1) flag = true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			MDialog md = new MDialog(SwingProject1_newf.newf, "오류", true,"입력값이 모자랍니다");
+			md.setVisible(true);
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}

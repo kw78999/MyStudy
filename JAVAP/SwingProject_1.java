@@ -26,26 +26,26 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 
-public class SwingProject_1   implements MouseListener{
-	String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","대출총합",""};
+public class SwingProject_1{
+	static String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","대출총합",""};
  //  String row[][] ;
-	ImageIcon img;
-	ImageIcon icon;
-	Image bimg;
-	Image change;
-	ImageIcon changeicon;
-	JLabel  imlabel; 
+	static ImageIcon img;
+	static ImageIcon icon;
+	static Image bimg;
+	static Image change;
+	static ImageIcon changeicon;
+	static JLabel  imlabel = new JLabel(); 
 	int cnt =0;
-	ImageIcon normalIcon2 = new ImageIcon("C:\\Java\\eclipse-workspace\\image\\\\test2.jpg");
-	  Image btnimg = normalIcon2.getImage();        //버튼에 이미지 부착
-	   Image change1 = btnimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-	   ImageIcon changeicon1 = new ImageIcon(change1);
+	static ImageIcon normalIcon2 = new ImageIcon("C:\\Java\\eclipse-workspace\\image\\\\test2.jpg");
+	static  Image btnimg = normalIcon2.getImage();        //버튼에 이미지 부착
+	  static  Image change1 = btnimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+	   static  ImageIcon changeicon1 = new ImageIcon(change1);
 	String imastr[];
 	JTabbedPane t_1 = new JTabbedPane();
-	JPanel lpanel = new JPanel();
+	static JPanel lpanel = new JPanel();
 	JPanel lmpanel = new JPanel();
 	JPanel lpanel2 = new JPanel();
-	JPanel rpanel = new JPanel();
+	static JPanel rpanel = new JPanel();
 	JPanel rpanel2 = new JPanel();
 	JPanel cpanel = new JPanel();
 	JPanel rmpanel = new JPanel();
@@ -64,7 +64,7 @@ public class SwingProject_1   implements MouseListener{
 	JLabel lab9 = new JLabel("소장위치");
 	JLabel lab10 = new JLabel("반입일자");
 	String image3;
-	//JTextArea ta = new JTextArea();
+	
 	static  JTextField tf1 = new JTextField(10);
 	static JTextField tf2 = new JTextField(10);
 	static JTextField tf3 = new JTextField(10);
@@ -74,21 +74,22 @@ public class SwingProject_1   implements MouseListener{
 	static JTextField tf8 = new JTextField(10); 
 	static JTextField tf9 = new JTextField(10); 
 	static JTextField tf10 = new JTextField(10); 
-	JTextField tf15 = new JTextField(10); 
-	JTextField tf16 = new JTextField(10); 
+	static JTextField tf15 = new JTextField(10); 
+	static JTextField tf16 = new JTextField(10); 
 	
 	static JTable table7;
-	DefaultTableModel model7;
-	JScrollPane scr;
+	static DefaultTableModel model7;
+	static JScrollPane scr;
 	
-	Font fon = new Font( "Times", Font.BOLD, 18 );
-	Color bg = new Color(54,201,255);
+	static Font fon = new Font( "Times", Font.BOLD, 18 );
+	static Color bg = new Color(54,201,255);
 	
-	String row1[][];
-	BooksMgr  mgr= new BooksMgr();
-	Vector <BooksBean>  vlist ;
+	static JButton btns;
+	static String row1[][];
+	static BooksMgr  mgr= new BooksMgr();
+	static Vector <BooksBean>  vlist ;
 	
-	public void viewList() {
+	public static void viewList() {
 		vlist = mgr.getListMember();
 		row1 = new String[vlist.size()][13];
 		for (int i = 0; i < row1.length; i++) {
@@ -129,10 +130,10 @@ public class SwingProject_1   implements MouseListener{
 	    table7.setSelectionBackground(bg);             //셀 선택시 색변경
 	    table7.setSelectionForeground(Color.white);  //선택시 글 색 변경
 	    table7.setRowHeight(25);
-		table7.addMouseListener(this);
+		table7.addMouseListener(the);
 		scr.setBounds(8, 30, 585, 670);
 		lpanel.add(scr);
-		 JButton btns  = new JButton(changeicon1);
+		 btns  = new JButton(changeicon1);
 		 btns.setBounds(140, 0, 30, 30);
 		   btns.addActionListener(scn);
 		   lpanel.add(btns);
@@ -141,7 +142,7 @@ public class SwingProject_1   implements MouseListener{
 	
 public SwingProject_1() {
 	viewList();
-	
+	setbookimg("non.jpg");
 	lpanel.setLayout(null);
 	lmpanel.setLayout(new BorderLayout());
 	rpanel.setLayout(null);
@@ -164,7 +165,7 @@ public SwingProject_1() {
 	 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 	 
 	 lpanel.add(scr);
-	table7.addMouseListener(this);
+	table7.addMouseListener(the);
 	lpanel.setBorder(jtx);
 	
 	lmpanel.add(lpanel,BorderLayout.CENTER);
@@ -240,7 +241,6 @@ public SwingProject_1() {
 	
     
     rpanel2.add(btn);
-  // rpanel.add(ta);
     rpanel.add(btn3);
 	rpanel.add(btn4);
 	rpanel.add(lab2);
@@ -261,6 +261,7 @@ public SwingProject_1() {
 	rpanel.add(tf8);
 	rpanel.add(tf9);
 	rpanel.add(tf10);
+
     btn.addActionListener(ac1);
 	
 	rpanel.setBounds(0, 40, 570, 390);
@@ -278,58 +279,61 @@ public SwingProject_1() {
 	}
 
 
-public void setbookimg(String imastr) {         //이미지를 변경하는 메소드
+public static void setbookimg(String imastr) {         //이미지를 변경하는 메소드
 //책 이미지 삽입
 	
     icon = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\myJava\\test\\"+imastr);
 	bimg = icon.getImage();    //icon 이미지 img에 넣기
-	change = bimg.getScaledInstance(230, 320, Image.SCALE_SMOOTH); //img이미지 크기조절
+	change = bimg.getScaledInstance(270, 320, Image.SCALE_SMOOTH); //img이미지 크기조절
 	changeicon = new ImageIcon(change);//img 이미지 다시 imageicon에 넣기
-	imlabel = new JLabel(changeicon); //라벨에 부착
-	rpanel.add(imlabel);
-	imlabel.setBounds(280, 20, 230, 320);   //라벨과 이미지 사이즈 맞추기 280,320
-	
-	
 	imlabel.removeAll();
-	imlabel.revalidate();
-	imlabel.repaint();
-
+	imlabel.setIcon(changeicon);
+	rpanel.add(imlabel);
+	
+	imlabel.setBounds(280, 20, 270, 320);   //라벨과 이미지 사이즈 맞추기 280,320
+	
+	
+	
 	}
+static MouseListener the = new MouseListener() {
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
+	@Override
+	public void mousePressed(MouseEvent arg0) {}
+	@Override
+	public void mouseExited(MouseEvent arg0) {}
+	@Override
+	public void mouseEntered(MouseEvent arg0) {}
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		String str0 = (String) table7.getValueAt(table7.getSelectedRow(),0);            //Object 타입을 모두 문자형으로 변환
+		String str1 = (String) table7.getValueAt(table7.getSelectedRow(),1);            //Object 타입을 모두 문자형으로 변환
+		String str2 = (String) table7.getValueAt(table7.getSelectedRow(),2);
+		String str3 = (String) table7.getValueAt(table7.getSelectedRow(),3);
+		String str4 = (String) table7.getValueAt(table7.getSelectedRow(),4);
+		String str5 = (String) table7.getValueAt(table7.getSelectedRow(),5);
+		String str6 = (String) table7.getValueAt(table7.getSelectedRow(),6);
+		String str8 = (String) table7.getValueAt(table7.getSelectedRow(),7);
+		String str7 = (String) table7.getValueAt(table7.getSelectedRow(),8);
+		String str9 = (String) table7.getValueAt(table7.getSelectedRow(),11);
+		tf1.setText(str0);
+		tf2.setText(str1);
+		tf3.setText(str2);
+		tf4.setText(str3);
+		tf5.setText(str4);
+		tf6.setText(str5);
+		tf8.setText(str8);
+		tf9.setText(str6);
+		tf10.setText(str7);
+		if(str9 == null) {   //이미지값 없으면 나오는 사진
+			setbookimg("non.jpg");
+		}else {//이미지값 있으면 출력
+		setbookimg((String)table7.getValueAt(table7.getSelectedRow(), 11)); //저장된 이미지명 메소드에 넣기
+	}
+		
+	}
+};
 
-
-@Override
-public void mouseClicked(MouseEvent e) {
-	
-
-	String str0 = (String) table7.getValueAt(table7.getSelectedRow(),0);            //Object 타입을 모두 문자형으로 변환
-	String str1 = (String) table7.getValueAt(table7.getSelectedRow(),1);            //Object 타입을 모두 문자형으로 변환
-	String str2 = (String) table7.getValueAt(table7.getSelectedRow(),2);
-	String str3 = (String) table7.getValueAt(table7.getSelectedRow(),3);
-	String str4 = (String) table7.getValueAt(table7.getSelectedRow(),4);
-	String str5 = (String) table7.getValueAt(table7.getSelectedRow(),5);
-	String str6 = (String) table7.getValueAt(table7.getSelectedRow(),6);
-	String str8 = (String) table7.getValueAt(table7.getSelectedRow(),7);
-	String str7 = (String) table7.getValueAt(table7.getSelectedRow(),8);
-	tf1.setText(str0);
-	tf2.setText(str1);
-	tf3.setText(str2);
-	tf4.setText(str3);
-	tf5.setText(str4);
-	tf6.setText(str5);
-	tf8.setText(str8);
-	tf9.setText(str6);
-	tf10.setText(str7);
-	setbookimg((String)table7.getValueAt(table7.getSelectedRow(), 11)); //저장된 이미지명 메소드에 넣기 
-	
-}
-@Override
-public void mousePressed(MouseEvent e) {}
-@Override
-public void mouseReleased(MouseEvent e) {}
-@Override
-public void mouseEntered(MouseEvent e) {}
-@Override
-public void mouseExited(MouseEvent e) {}
 
 //검색창 버튼
 ActionListener ac1 = new ActionListener() {
@@ -403,14 +407,14 @@ ActionListener ac3 = new ActionListener() {
 
 
 //도서관리 창에서만 사용하는 검색창을 위해 새로운 프레임을 내부클래스로 선언
-public class SwingProject1_newf implements ActionListener,MouseListener{
+public static  class SwingProject1_newf implements ActionListener,MouseListener{
 	String col1[] = {"NO.","제목","저자","출판사","ISBN"};
 	String row1[][] ;
 	int cnt =0;
 	JTabbedPane t_1 = new JTabbedPane();
 	JPanel lpanel2 = new JPanel();
 	JPanel lmpanel = new JPanel();
-	JPanel rpanel = new JPanel();
+	static JPanel rpanel5 = new JPanel();
 	JPanel rpanel2 = new JPanel();
 	JPanel rmpanel = new JPanel();
 	JPanel mpanel = new JPanel();
@@ -420,13 +424,14 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	JLabel lab1 = new JLabel("서명");
 	JLabel lab15 = new JLabel("저자");
 	JLabel lab16 = new JLabel("ISBN");
-	JLabel lab3 = new JLabel("제목");
+	JLabel lab3 = new JLabel("서명");
 	JLabel lab4 = new JLabel("저자");
 	JLabel lab5 = new JLabel("출판사");
 	JLabel lab6 = new JLabel("ISBN");
 	JLabel lab7 = new JLabel("반입일자");
 	JLabel lab8 = new JLabel("복본");
 	JLabel lab9 = new JLabel("도서위치");
+	JLabel lab10 = new JLabel("파일명");
 	JTextField tf22 = new JTextField(40);
 	JTextField tf33 = new JTextField(40);
 	JTextField tf44 = new JTextField(40);
@@ -435,14 +440,20 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	JTextField tf77 = new JTextField(40);
 	JTextField tf11 = new JTextField(40);
 	JTextField tf88 = new JTextField(40);
+	static ImageIcon img2;
+	static ImageIcon icon2;
+	static Image bimg2;
+	static Image change2;
+	static ImageIcon changeicon2;
+	static JLabel imlabel2 = new JLabel();
 	
 	JTable table;
 	DefaultTableModel model;
 	JScrollPane scr;
 	DefaultTableModel m;
-	
+	static JFrame newf;
 	public SwingProject1_newf() {
-		JFrame newf = new JFrame();
+		newf = new JFrame();
 		newf.setBackground(new  Color(170,220,255));
 		newf.setVisible(true);
 		newf.setSize(1110,725);
@@ -450,14 +461,14 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 		
 		lpanel2.setLayout(new BorderLayout());
 		lmpanel.setLayout(new BorderLayout());
-		rpanel.setLayout(null);
+		rpanel5.setLayout(null);
 		rmpanel.setLayout(new BorderLayout());
 		rpanel2.setLayout(null);
 		mpanel.setLayout(new BorderLayout());
 		mpanel.setBackground(new  Color(170,220,255));
 		lpanel2.setBackground(new  Color(170,220,255));
 		rpanel2.setBackground(new  Color(170,220,255));
-		rpanel.setBackground(new  Color(170,220,255));
+		rpanel5.setBackground(new  Color(170,220,255));
 		rmpanel.setBackground(new  Color(170,220,255));
 		
 		mpanel.add(lmpanel,BorderLayout.WEST);
@@ -489,19 +500,11 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 		    		new TitledBorder(new LineBorder(Color.white),"도서 검색");
 			 jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 			 
-	   rpanel.setBorder(jtx1);
+	   rpanel5.setBorder(jtx1);
 	   rpanel2.setBorder(jtx2);
-	   rpanel.setPreferredSize(new Dimension(540,490));   //1110,725
+	   rpanel5.setPreferredSize(new Dimension(540,490));   //1110,725
 	   
-	   ImageIcon inicon = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\booktest1.jpg");
-		Image inimg = inicon.getImage();    //icon 이미지 img에 넣기
-		Image change = inimg.getScaledInstance(230, 320, Image.SCALE_SMOOTH); //img이미지 크기조절
-		ImageIcon changeicon = new ImageIcon(change);//img 이미지 다시 imageicon에 넣기
-		
-	   JLabel imlabel = new JLabel(changeicon); //라벨에 부착
-	   rpanel.add(imlabel);
-	   imlabel.setBounds(270, 30, 230, 320);   //라벨과 이미지 사이즈 맞추기 280,320
-		
+	   
 		lab1.setBounds(30, 30, 80, 30);
 		lab15.setBounds(30, 70, 80, 30);
 		lab16.setBounds(30, 110, 80, 30);
@@ -521,7 +524,7 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	    table.setRowHeight(25);
 	    table.addMouseListener(this);
 	    
-	    nbtn2.setBounds(130, 400, 250, 50);
+	    nbtn2.setBounds(360, 430, 150, 40);
 	    lab3.setBounds(20, 30, 170, 30);
 	    lab4.setBounds(20, 90, 170, 30);
 	    lab5.setBounds(20, 150, 170, 30);
@@ -529,16 +532,24 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	    lab7.setBounds(20, 270, 170, 30);
 	    lab8.setBounds(20, 330, 170, 30);
 	    lab9.setBounds(140, 330, 170, 30);
+	    lab10.setBounds(20, 390, 170, 30);
 	    
 	    tf22.setBounds(20, 60, 220, 25);
+	    tf22.setEditable(false);
+	    tf33.setEditable(false);
+	    tf44.setEditable(false);
+	    tf55.setEditable(false);
+	    tf66.setEnabled(false);
 	    tf33.setBounds(20, 120, 220, 25);
+	    
 	    tf44.setBounds(20, 180, 220, 25);
 	    tf55.setBounds(20, 240, 220, 25);
 	    tf66.setBounds(20, 300, 220, 25);
 	    tf77.setBounds(20,360, 100, 25);
 	    tf88.setBounds(140,360, 100, 25);
-	    nbtn3.setBounds(400, 350, 100, 30);
-	    imaget.setBounds(20, 400, 100, 30);
+	    nbtn3.setBounds(410, 20, 100, 30);
+	    
+	    imaget.setBounds(20, 420, 100, 25);
 	    //2제목/3저자/4출판/5isbn/6반입일자/7복본/8도서위치
 	    lab3.setFont(fon);
 	    lab1.setFont(fon);
@@ -550,23 +561,26 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	    lab7.setFont(fon);
 	    lab8.setFont(fon);
 	    lab9.setFont(fon);
+	    lab10.setFont(fon);
 	    
-		rpanel.add(lab3);
-		rpanel.add(lab4);
-		rpanel.add(lab5);
-		rpanel.add(lab6);
-		rpanel.add(lab7);
-		rpanel.add(lab8);
-		rpanel.add(lab9);
-		rpanel.add(tf22);
-		rpanel.add(tf33);
-		rpanel.add(tf44);
-		rpanel.add(tf55);
-		rpanel.add(tf66);
-		rpanel.add(tf77);
-		rpanel.add(tf88);
-		rpanel.add(imaget);
-		rpanel.add(nbtn3);
+		rpanel5.add(lab3);
+		rpanel5.add(lab4);
+		rpanel5.add(lab5);
+		rpanel5.add(lab6);
+		rpanel5.add(lab7);
+		rpanel5.add(lab8);
+		rpanel5.add(lab9);
+		rpanel5.add(lab10);
+		rpanel5.add(tf22);
+		rpanel5.add(tf33);
+		rpanel5.add(tf44);
+		rpanel5.add(tf55);
+		rpanel5.add(tf66);
+		rpanel5.add(tf77);
+		rpanel5.add(tf88);
+		rpanel5.add(imaget);
+		imaget.setEnabled(false);
+		rpanel5.add(nbtn3);
 	    nbtn3.addActionListener(image);
 	    rpanel2.add(lab1);
 	    rpanel2.add(lab15);
@@ -577,16 +591,31 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 		rpanel2.add(tf15);
 		rpanel2.add(tf16);
 		tf11.addActionListener(this);
-		rpanel.add(nbtn2);
+		rpanel5.add(nbtn2);
 		nbtn2.setPreferredSize(new Dimension(100,40));
 		nbtn2.addActionListener(this);
 		rmpanel.add(rpanel2,BorderLayout.CENTER);
-		rmpanel.add(rpanel,BorderLayout.SOUTH);	
-	    
+		rmpanel.add(rpanel5,BorderLayout.SOUTH);	
+	    setbookimg1("non.jpg");  //기본이미지 설정
 		newf.add(mpanel); 
 		t_1.setFont( new Font( "Times", Font.BOLD, 18 ) );
-		}
 		
+	}
+	public static void setbookimg1(String imastr) {         //이미지를 변경하는 메소드
+		//책 이미지 삽입
+			
+		    icon2 = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\myJava\\test\\"+imastr);
+			bimg2 = icon2.getImage();    //icon 이미지 img에 넣기
+			change2 = bimg2.getScaledInstance(260, 330, Image.SCALE_SMOOTH); //img이미지 크기조절
+			changeicon2 = new ImageIcon(change2);//img 이미지 다시 imageicon에 넣기
+			imlabel2.removeAll();
+			imlabel2.setIcon(changeicon2);
+			rpanel5.add(imlabel2);
+			
+			imlabel2.setBounds(250, 60, 260, 330);   //라벨과 이미지 사이즈 맞추기 280,320
+			
+			}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand()	;
@@ -604,7 +633,7 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 		}else if(cmd.equals(nbtn2.getText())) {                   //도서목록에 추가하기
 			
 			BooksBean bean = new BooksBean();
-			//bean.setBID();
+			
 			bean.setISBN(tf55.getText());
 			bean.setTITLE(tf22.getText());
 			bean.setAUTHOR(tf33.getText());
@@ -622,10 +651,10 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 				vlist.removeAllElements();
 				lpanel.revalidate();
 				viewList();
-				table7.addRowSelectionInterval(0, 0);
-			}
-	}}
-	//2제목/3저자/4출판/5isbn/6반입일자/7복본/8도서위치
+				table7.changeSelection(table7.getRowCount(),0, false, false);  
+				System.out.println(table7.getRowCount());
+			
+	}}}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		String str1 = (String) table.getValueAt(table.getSelectedRow(),1);            //Object 타입을 모두 정수형으로 변환
@@ -634,11 +663,14 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 		String str4 = (String) table.getValueAt(table.getSelectedRow(),4);
 		
 		tf22.setText(str1);
+		tf22.select(0, 0);   //text 를 맨앞부터 보이게하기
 		tf33.setText(str2);
+		tf33.select(0, 0);
 		tf44.setText(str3);
+		tf44.select(0, 0);
 		tf55.setText(str4);
-		tf66.setText("2020-11-16");
-		tf66.setEnabled(false);
+		tf66.setText("2020-11-20");
+		
 	} 
 	@Override
 	public void mousePressed(MouseEvent e) {}
@@ -648,11 +680,13 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	public void mouseEntered(MouseEvent e) {}
 	@Override
 	public void mouseExited(MouseEvent e) {}
+	
 	ActionListener image = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			TTTTFileUpload tfu = new TTTTFileUpload();
+			new TTTTFileUpload();
+			
 		}
 	};
 
@@ -660,7 +694,7 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	}
 
 
-ActionListener scn = new ActionListener() {
+static ActionListener  scn = new ActionListener() {
 
 	
 	@Override
@@ -669,4 +703,6 @@ ActionListener scn = new ActionListener() {
 		
 	}
 };
+
+
 }
