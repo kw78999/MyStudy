@@ -27,12 +27,20 @@ import javax.swing.table.JTableHeader;
 
 
 public class SwingProject_1   implements MouseListener{
-	String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","대출총합"};
+	String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","대출총합",""};
  //  String row[][] ;
 	ImageIcon img;
+	ImageIcon icon;
+	Image bimg;
+	Image change;
+	ImageIcon changeicon;
+	JLabel  imlabel; 
 	int cnt =0;
 	ImageIcon normalIcon2 = new ImageIcon("C:\\Java\\eclipse-workspace\\image\\\\test2.jpg");
-	
+	  Image btnimg = normalIcon2.getImage();        //버튼에 이미지 부착
+	   Image change1 = btnimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+	   ImageIcon changeicon1 = new ImageIcon(change1);
+	String imastr[];
 	JTabbedPane t_1 = new JTabbedPane();
 	JPanel lpanel = new JPanel();
 	JPanel lmpanel = new JPanel();
@@ -45,6 +53,7 @@ public class SwingProject_1   implements MouseListener{
 	JButton btn;
 	JButton btn3 = new JButton("수정");
 	JButton btn4 = new JButton("삭제");
+	static JTextField imaget = new JTextField(40);
 	JLabel lab2 = new JLabel("등록 번호");
 	JLabel lab3 = new JLabel("제목");
 	JLabel lab4 = new JLabel("저자");
@@ -54,21 +63,21 @@ public class SwingProject_1   implements MouseListener{
 	JLabel lab8 = new JLabel("복본");
 	JLabel lab9 = new JLabel("소장위치");
 	JLabel lab10 = new JLabel("반입일자");
-	
+	String image3;
 	//JTextArea ta = new JTextArea();
-	JTextField tf1 = new JTextField(10);
-	JTextField tf2 = new JTextField(10);
-	JTextField tf3 = new JTextField(10);
-	JTextField tf4 = new JTextField(10);
-	JTextField tf5 = new JTextField(10);
-	JTextField tf6 = new JTextField(10); 
-	JTextField tf8 = new JTextField(10); 
-	JTextField tf9 = new JTextField(10); 
-	JTextField tf10 = new JTextField(10); 
+	static  JTextField tf1 = new JTextField(10);
+	static JTextField tf2 = new JTextField(10);
+	static JTextField tf3 = new JTextField(10);
+	static JTextField tf4 = new JTextField(10);
+	static JTextField tf5 = new JTextField(10);
+	static JTextField tf6 = new JTextField(10); 
+	static JTextField tf8 = new JTextField(10); 
+	static JTextField tf9 = new JTextField(10); 
+	static JTextField tf10 = new JTextField(10); 
 	JTextField tf15 = new JTextField(10); 
 	JTextField tf16 = new JTextField(10); 
 	
-	JTable table7;
+	static JTable table7;
 	DefaultTableModel model7;
 	JScrollPane scr;
 	
@@ -81,7 +90,7 @@ public class SwingProject_1   implements MouseListener{
 	
 	public void viewList() {
 		vlist = mgr.getListMember();
-		row1 = new String[vlist.size()][12];
+		row1 = new String[vlist.size()][13];
 		for (int i = 0; i < row1.length; i++) {
 			BooksBean bean = vlist.elementAt(i);
 			row1[i][0] = bean.getBID()+"";
@@ -95,12 +104,13 @@ public class SwingProject_1   implements MouseListener{
 			row1[i][8] = bean.getBDATE();
 			row1[i][9] = bean.getBCOUNT();
 			row1[i][10] = bean.getBCOUNTP();
+			row1[i][11] = bean.getBIMAGE();
 		}
 		model7 = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
 		table7 = new JTable(model7);
 		scr = new JScrollPane(table7);
 		table7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-	    lmpanel.setPreferredSize(new Dimension(600,700));
+	    lpanel.setPreferredSize(new Dimension(600,700));
 	    table7.getColumnModel().getColumn(0).setPreferredWidth(40);  //JTable 의 컬럼 길이 조절
 	    table7.getColumnModel().getColumn(1).setPreferredWidth(400);
 	    table7.getColumnModel().getColumn(2).setPreferredWidth(180);
@@ -112,6 +122,7 @@ public class SwingProject_1   implements MouseListener{
 	    table7.getColumnModel().getColumn(8).setPreferredWidth(130);
 	    table7.getColumnModel().getColumn(9).setPreferredWidth(80);
 	    table7.getColumnModel().getColumn(10).setPreferredWidth(80);
+	    table7.getColumnModel().getColumn(11).setPreferredWidth(100);
 	    table7.setFont(new Font( "Times", Font.BOLD, 20) );
 	    JTableHeader header = table7.getTableHeader();            //테이블 헤더 색상 
 	    header.setBackground(bg);
@@ -119,14 +130,19 @@ public class SwingProject_1   implements MouseListener{
 	    table7.setSelectionForeground(Color.white);  //선택시 글 색 변경
 	    table7.setRowHeight(25);
 		table7.addMouseListener(this);
+		scr.setBounds(8, 30, 585, 670);
 		lpanel.add(scr);
+		 JButton btns  = new JButton(changeicon1);
+		 btns.setBounds(140, 0, 30, 30);
+		   btns.addActionListener(scn);
+		   lpanel.add(btns);
 }
 	
 	
 public SwingProject_1() {
 	viewList();
 	
-	lpanel.setLayout(new BorderLayout());
+	lpanel.setLayout(null);
 	lmpanel.setLayout(new BorderLayout());
 	rpanel.setLayout(null);
 	rmpanel.setLayout(null);
@@ -144,13 +160,13 @@ public SwingProject_1() {
 	
 	
 	TitledBorder jtx= 
-    		new TitledBorder(new LineBorder(Color.white),"매장 보유 도서");
+    		new TitledBorder(new LineBorder(Color.white),"매장 보유 도서    ");
 	 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 	 
 	 lpanel.add(scr);
 	table7.addMouseListener(this);
 	lpanel.setBorder(jtx);
-
+	
 	lmpanel.add(lpanel,BorderLayout.CENTER);
 	lmpanel.add(lpanel2,BorderLayout.SOUTH);
 	
@@ -171,23 +187,16 @@ public SwingProject_1() {
    rpanel2.setBorder(jtx2);
    cpanel.setBorder(jtx3);
    
-   //책 이미지 삽입
-   ImageIcon icon = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\image\\\\booktest.jpg");
-	Image img = icon.getImage();    //icon 이미지 img에 넣기
-	Image change = img.getScaledInstance(230, 320, Image.SCALE_SMOOTH); //img이미지 크기조절
-	ImageIcon changeicon = new ImageIcon(change);//img 이미지 다시 imageicon에 넣기
-	
-   JLabel imlabel = new JLabel(changeicon); //라벨에 부착
-   rpanel.add(imlabel);
-   imlabel.setBounds(280, 20, 230, 320);   //라벨과 이미지 사이즈 맞추기 280,320
    
    Image btnimg = normalIcon2.getImage();        //버튼에 이미지 부착
    Image change1 = btnimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
    ImageIcon changeicon1 = new ImageIcon(change1);
    JButton btn = new JButton(changeicon1);
-   
+   JButton btns  = new JButton(changeicon1);
    btn.setBounds(99, 0, 30, 30);
-   
+   lpanel.add(btns);
+	 btns.setBounds(140, 0, 30, 30);
+   btns.addActionListener(scn);
     btn3.setBounds(280, 350, 90, 25);
     btn3.addActionListener(ac3);
     btn4.addActionListener(ac2);
@@ -269,9 +278,29 @@ public SwingProject_1() {
 	}
 
 
+public void setbookimg(String imastr) {         //이미지를 변경하는 메소드
+//책 이미지 삽입
+	
+    icon = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\myJava\\test\\"+imastr);
+	bimg = icon.getImage();    //icon 이미지 img에 넣기
+	change = bimg.getScaledInstance(230, 320, Image.SCALE_SMOOTH); //img이미지 크기조절
+	changeicon = new ImageIcon(change);//img 이미지 다시 imageicon에 넣기
+	imlabel = new JLabel(changeicon); //라벨에 부착
+	rpanel.add(imlabel);
+	imlabel.setBounds(280, 20, 230, 320);   //라벨과 이미지 사이즈 맞추기 280,320
+	
+	
+	imlabel.removeAll();
+	imlabel.revalidate();
+	imlabel.repaint();
+
+	}
+
+
 @Override
 public void mouseClicked(MouseEvent e) {
 	
+
 	String str0 = (String) table7.getValueAt(table7.getSelectedRow(),0);            //Object 타입을 모두 문자형으로 변환
 	String str1 = (String) table7.getValueAt(table7.getSelectedRow(),1);            //Object 타입을 모두 문자형으로 변환
 	String str2 = (String) table7.getValueAt(table7.getSelectedRow(),2);
@@ -290,6 +319,8 @@ public void mouseClicked(MouseEvent e) {
 	tf8.setText(str8);
 	tf9.setText(str6);
 	tf10.setText(str7);
+	setbookimg((String)table7.getValueAt(table7.getSelectedRow(), 11)); //저장된 이미지명 메소드에 넣기 
+	
 }
 @Override
 public void mousePressed(MouseEvent e) {}
@@ -404,6 +435,7 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	JTextField tf77 = new JTextField(40);
 	JTextField tf11 = new JTextField(40);
 	JTextField tf88 = new JTextField(40);
+	
 	JTable table;
 	DefaultTableModel model;
 	JScrollPane scr;
@@ -506,6 +538,7 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	    tf77.setBounds(20,360, 100, 25);
 	    tf88.setBounds(140,360, 100, 25);
 	    nbtn3.setBounds(400, 350, 100, 30);
+	    imaget.setBounds(20, 400, 100, 30);
 	    //2제목/3저자/4출판/5isbn/6반입일자/7복본/8도서위치
 	    lab3.setFont(fon);
 	    lab1.setFont(fon);
@@ -532,8 +565,9 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 		rpanel.add(tf66);
 		rpanel.add(tf77);
 		rpanel.add(tf88);
+		rpanel.add(imaget);
 		rpanel.add(nbtn3);
-	    
+	    nbtn3.addActionListener(image);
 	    rpanel2.add(lab1);
 	    rpanel2.add(lab15);
 	    rpanel2.add(lab16);
@@ -576,12 +610,12 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 			bean.setAUTHOR(tf33.getText());
 			bean.setPUBLISHER(tf44.getText());
 			bean.setBDATE(tf66.getText());
-			System.out.println(bean.getBDATE());
 			bean.setBCOPY(tf77.getText());
 			bean.setBOOKSTATE("대출가능");
 			bean.setLOCATION(tf88.getText());
 			bean.setBCOUNT("0회");
 			bean.setBCOUNTP("0회");
+			bean.setBIMAGE(imaget.getText());
 			if(mgr.insertBooks(bean) ) {
 				//저장을 성공 
 				lpanel.removeAll();
@@ -614,9 +648,25 @@ public class SwingProject1_newf implements ActionListener,MouseListener{
 	public void mouseEntered(MouseEvent e) {}
 	@Override
 	public void mouseExited(MouseEvent e) {}
-	
+	ActionListener image = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			TTTTFileUpload tfu = new TTTTFileUpload();
+		}
+	};
+
 	
 	}
 
 
+ActionListener scn = new ActionListener() {
+
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		new SwingProject_bookscanner2();
+		
+	}
+};
 }

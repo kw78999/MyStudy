@@ -47,6 +47,7 @@ public class BooksMgr {
 				bean.setBDATE(rs.getString("BDATE"));
 				bean.setBCOUNT(rs.getString("BCOUNT"));
 				bean.setBCOUNTP(rs.getString("BCOUNTP"));	
+				bean.setBIMAGE(rs.getString("BIMAGE"));	
 				
 				//레코드를 저장시킨 빈즈를 Vector에 저장
 				vlist.addElement(bean);
@@ -95,39 +96,43 @@ public class BooksMgr {
 		}
 		return bean;
 	}
-	public BooksBean  getsearch(String sea) {
+	//문자로 검색
+	public Vector<BooksBean> getsearch(String sea) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		BooksBean bean = new BooksBean();
+		Vector<BooksBean> vlist = new Vector<BooksBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from Books where title = %?%";
+			sql = "select * from Books where title like ?";
 			//매개변수 idx를 첫번째 ?에 세팅
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,sea);
+			pstmt.setString(1,"%"+sea+"%");
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				bean.setBID(rs.getInt(1));//테이블 스키마 인텍스
-				bean.setISBN(rs.getString(2));
-				bean.setTITLE(rs.getString(3));
-				bean.setAUTHOR(rs.getString(4));
-				bean.setPUBLISHER(rs.getString(5));
-				bean.setBOOKSTATE(rs.getString(6));
-				bean.setBCOPY(rs.getString(7));
-				bean.setBDATE(rs.getString(8));
-				bean.setBCOUNT(rs.getString(9));
-				bean.setBCOUNTP(rs.getString(10));
-
-				
-			}
+			while(rs.next()/*현재 cursor에서 다음 cursor로 이동*/) {
+				BooksBean bean = new BooksBean();
+				bean.setBID(rs.getInt("BID"));
+				bean.setISBN(rs.getString("ISBN"));
+				bean.setTITLE(rs.getString("TITLE"));
+				bean.setAUTHOR(rs.getString("AUTHOR"));
+				bean.setPUBLISHER(rs.getString("PUBLISHER"));
+				bean.setLOCATION(rs.getString("LOCATION"));
+				bean.setBOOKSTATE(rs.getString("BOOKSTATE"));
+				bean.setBCOPY(rs.getString("BCOPY"));
+				bean.setBDATE(rs.getString("BDATE"));
+				bean.setBCOUNT(rs.getString("BCOUNT"));
+				bean.setBCOUNTP(rs.getString("BCOUNTP"));	
+				//레코드를 저장시킨 빈즈를 Vector에 저장
+				vlist.addElement(bean);
+			}//---while
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
+			//con은 반납, pstmt이랑 rs는 close 해야함.
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return bean;
+		return vlist;
 	}
 	//입력
 	public boolean insertBooks(BooksBean bean) {
@@ -137,8 +142,8 @@ public class BooksMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert into BOOKS(ISBN,TITLE,AUTHOR,PUBLISHER,LOCATION,BOOKSTATE,BCOPY,BDATE,BCOUNT,BCOUNTP)"
-					+ "values(?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into BOOKS(ISBN,TITLE,AUTHOR,PUBLISHER,LOCATION,BOOKSTATE,BCOPY,BDATE,BCOUNT,BCOUNTP,BIMAGE)"
+					+ "values(?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			//pstmt.setInt(1, bean.getBID());
 			pstmt.setString(1, bean.getISBN());
@@ -151,6 +156,7 @@ public class BooksMgr {
 			pstmt.setString(8, bean.getBDATE());
 			pstmt.setString(9, bean.getBCOUNT());
 			pstmt.setString(10, bean.getBCOUNTP());
+			pstmt.setString(11, bean.getBIMAGE());
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {

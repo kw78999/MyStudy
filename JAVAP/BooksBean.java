@@ -1,4 +1,4 @@
-package JAVAP;
+ 	package JAVAP;
 
 import java.util.Vector;
 //빈즈네이밍 : 테이블명+Bean
@@ -18,6 +18,7 @@ public class BooksBean {
 	private String BDATE;
 	private String BCOUNT;
 	private String BCOUNTP;
+	private String BIMAGE;
 	
 	                 //getXxx
 	public int getIdx() {
@@ -90,11 +91,28 @@ public class BooksBean {
     public void setBCOUNTP(String BCOUNTP) {
 		this.BCOUNTP = BCOUNTP;		
 	}
+    public String getBIMAGE() {
+		return BIMAGE;
+	}
+    public void setBIMAGE(String BIMAGE) {
+		this.BIMAGE = BIMAGE;	
+    }
 	public int size() {
 		return 0;
 	}
 	public BooksBean elementAt(int j) {
 		return null;
 	}
+	public void setVTITLE(String string) {
+	}
+	public void setVPUBLISHER(String string) {
+	}
+	public void setVAUTHOR(String string) {
+	}
+	public void setVLIKE(String string) {
+	}
+	public void setVISBN(String string) {
+	}
+
 }
 

@@ -62,7 +62,7 @@ public class  SwingProject implements ActionListener{
 	JTextField tf7 = new JTextField(50);
 	static JTextField tf9 = new JTextField(12);
 	static 	JTextField tf14 = new JTextField(12);
-	JTextField tf15 = new JTextField(12);
+	JTextField tf15 = new JTextField("2020-11-19");
 	JTextField tf16 = new JTextField(12);
 	JTextArea ta1 = new JTextArea("√§∆√√¢");
 	
@@ -142,7 +142,7 @@ public class  SwingProject implements ActionListener{
 		
 		
 		Vector<BMEMBERSBean> vlist = mgr.getListMember();
-		String row[][] = new String[vlist.size()][10];
+		String row[][] = new String[vlist.size()][12];
 		for (int i = 0; i < row.length; i++) {
 			BMEMBERSBean bean = vlist.elementAt(i);
 			row[i][0] = bean.getMID()+"";

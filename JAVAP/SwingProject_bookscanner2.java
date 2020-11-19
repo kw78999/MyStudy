@@ -17,7 +17,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class SwingProject_bookscanner {
+public class SwingProject_bookscanner2 {
 	String col1[] = {"도서번호","도서이름","저자","출판사","도서상태","소장위치"};
 	
 	BooksMgr mgr1;
@@ -33,11 +33,7 @@ public class SwingProject_bookscanner {
 	JButton btn1 = new JButton("선택하기");
 	static JFrame memberf;
 	Vector <BooksBean>  vlist1;
-	
-	
-	
-	//기본 모든 데이터를 보여주는 메소드 
-	void viewlist(){       
+	void viewlist(){
 		mgr1 = new BooksMgr();
 	    vlist1 = mgr1.getListMember();
 		
@@ -68,9 +64,8 @@ public class SwingProject_bookscanner {
 		
 		}
 	
-	//생성자
-	public SwingProject_bookscanner() {
-		viewlist();     //모든 데이터 출력 
+	public SwingProject_bookscanner2() {
+		viewlist();
 		
 		memberf = new JFrame();
 		memberf.setBackground(new  Color(170,220,255));
@@ -113,13 +108,12 @@ public class SwingProject_bookscanner {
 		mpanel.add(tpanel);
 		
 	}
-	
 	ActionListener ac2 = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if(cho.getSelectedIndex()==0) {                 //도서번호 검색
-			int to = Integer.parseInt(tf.getText());     //텍스트 인트형으로 변환 
+			int to = Integer.parseInt(tf.getText());
 		
 			String row1[][] = new String[1][12];           //행하나 불러오기
 			for (int i = 0; i < row1.length; i++) {
@@ -150,12 +144,12 @@ public class SwingProject_bookscanner {
 			vlist1.removeAllElements();  //vlist1 에 있는 속성값 다삭제
 			tpanel.add(scr);                       //패널에 다시 테이블 넣기 
 			
-			if(table.getValueAt(0, 0).equals("0")) {         //검색결과 없으면 다이얼로그
+			if(table.getValueAt(0, 0).equals("0")) {
 				MDialog md2 = new MDialog(memberf, "오류", true, "검색결과가 없습니다");
 				md2.setVisible(true);
 			}
-			
-		}else if(cho.getSelectedIndex()==1) {      //이름으로 검색
+		}
+			else if(cho.getSelectedIndex()==1) {      //이름으로 검색
 				vlist1 = mgr1.getsearch(tf.getText());
 			String row1[][] = new String[vlist1.size()][12];
 			for (int i = 0; i < row1.length; i++) {
@@ -189,7 +183,38 @@ public class SwingProject_bookscanner {
 				MDialog md2 = new MDialog(memberf, "오류", true, "검색결과가 없습니다");
 				md2.setVisible(true);
 			}
+			/*tpanel.removeAll();
+			tpanel.revalidate();
+			vlist1.removeAllElements();
 			
+				mgr1 = new BooksMgr();
+			    vlist1 = mgr1.getsearch(tf.getText());
+				
+				String row1[][] = new String[vlist1.size()][12];
+				for (int i = 0; i < row1.length; i++) {
+					BooksBean bean = vlist1.elementAt(i);
+					row1[i][0] = bean.getBID()+"";
+					row1[i][1] = bean.getTITLE();
+					row1[i][2] = bean.getAUTHOR();
+					row1[i][3] = bean.getPUBLISHER();
+					row1[i][5] = bean.getLOCATION();
+					row1[i][4] = bean.getBOOKSTATE();
+				}
+					model = new DefaultTableModel(row1,col1);
+					table = new JTable(model);
+					 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+					scr = new JScrollPane(table);
+					table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+					 table.setRowHeight(25);
+					  table.getColumnModel().getColumn(0).setPreferredWidth(60);  //JTable 의 컬럼 길이 조절
+					    table.getColumnModel().getColumn(1).setPreferredWidth(300);
+					    table.getColumnModel().getColumn(2).setPreferredWidth(200);
+					    table.getColumnModel().getColumn(3).setPreferredWidth(100);
+					    table.getColumnModel().getColumn(4).setPreferredWidth(90);
+					    table.getColumnModel().getColumn(5).setPreferredWidth(80);
+					    scr.setBounds(0, 0, 670, 380);
+				tpanel.add(scr);*/
+				
 			}
 		}
 	};
@@ -202,17 +227,33 @@ public class SwingProject_bookscanner {
 				md.setVisible(true);
 			}else {
 			String str0 = (String) table.getValueAt(table.getSelectedRow(),0);            //Object 타입을 모두 정수형으로 변환
-			String str1 = (String) table.getValueAt(table.getSelectedRow(),1);            //Object 타입을 모두 정수형으로 변환
-			String str2 = (String) table.getValueAt(table.getSelectedRow(),2);
-			String str3 = (String) table.getValueAt(table.getSelectedRow(),3);
-			String str4 = (String) table.getValueAt(table.getSelectedRow(),4);
-			String str5 = (String) table.getValueAt(table.getSelectedRow(),5);
-			SwingProject.tf8.setText(str0);
-			SwingProject.tf9.setText(str1);
-			SwingProject.tf10.setText(str2);
-			SwingProject.tf12.setText(str4);
-			SwingProject.tf13.setText(str5);
-			SwingProject.tf14.setText(str3);
+			
+			for (int i = 0; i < SwingProject_1.table7.getRowCount(); i++) {
+				if(SwingProject_1.table7.getValueAt(i, 0).equals(str0)) {
+				//	SwingProject_1.table7.addRowSelectionInterval(i, i);        해당셀 선택만해줌
+					SwingProject_1.table7.changeSelection(i,0, false, false);       //해당셀 선택하고 화면도 이동해줌 
+					
+					String str00 = (String) SwingProject_1.table7.getValueAt(i,0);            //Object 타입을 모두 문자형으로 변환
+					String str1 = (String) SwingProject_1.table7.getValueAt(i,1);            //Object 타입을 모두 문자형으로 변환
+					String str2 = (String) SwingProject_1.table7.getValueAt(i,2);
+					String str3 = (String) SwingProject_1.table7.getValueAt(i,3);
+					String str4 = (String) SwingProject_1.table7.getValueAt(i,4);
+					String str5 = (String) SwingProject_1.table7.getValueAt(i,5);
+					String str6 = (String)SwingProject_1.table7.getValueAt(i,6);
+					String str8 = (String) SwingProject_1.table7.getValueAt(i,7);
+					String str7 = (String) SwingProject_1.table7.getValueAt(i,8);
+					SwingProject_1.tf1.setText(str00);
+					SwingProject_1.tf2.setText(str1);
+					SwingProject_1.tf3.setText(str2);
+					SwingProject_1.tf4.setText(str3);
+					SwingProject_1.tf5.setText(str4);
+					SwingProject_1.tf6.setText(str5);
+					SwingProject_1.tf8.setText(str8);
+					SwingProject_1.tf9.setText(str6);
+					SwingProject_1.tf10.setText(str7);
+				}
+			}			
+			
 			memberf.dispose();
 			}
 			

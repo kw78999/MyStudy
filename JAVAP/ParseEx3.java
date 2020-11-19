@@ -35,7 +35,7 @@ public class ParseEx3{
 	            // XML 데이터를 읽어옴
 	        	URL url= new URL("https://www.nl.go.kr/NL/search/openApi/search.do?"
 	     	           +"key=7523f3fb30bc248452fd33d9d66c72ab188d9394ba612470ca200a6cbaffceb3"
-	     	           +"&detailSearch=true&f1=title&v1="+TITLE_encoding            //주소창에 타이틀 입력
+	     	           +"&detailSearch=true&page_size=30&f1=title&v1="+TITLE_encoding            //주소창에 타이틀 입력
 	     	           + "&f2=author&v2="+AUTHOR_encoding                                    //주소창에 저자입력
 	     	           +"&f3=isbn&v3="+ISBN+"");                                                         //주소창에 ISBN 입력 
 	            InputStream in = url.openStream();
