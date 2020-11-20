@@ -37,8 +37,10 @@ public class BrentalMgr {
 			while(rs.next()/*현재 cursor에서 다음 cursor로 이동*/) {
 				BrentalBean bean = new BrentalBean();
 				bean.setRID(rs.getInt("RID"));
-				bean.setRMID(rs.getString("RMID"));
-				bean.setBMID(rs.getString("BMID"));
+				bean.setRMID(rs.getInt("RMID"));
+				bean.setRNAME(rs.getString("RNAME"));
+				bean.setBMID(rs.getInt("BMID"));
+				bean.setBTITLE(rs.getString("BTITLE"));
 				bean.setRENTAL(rs.getString("RENTAL"));
 				bean.setENDRENTAL(rs.getString("ENDRENTAL"));
 				
@@ -54,37 +56,102 @@ public class BrentalMgr {
 		return vlist;
 	}
 	
-	//레코드 한개 가져오기
-	public BooksBean  getett(int idx) {
+	//대출번호 검색 
+	public BrentalBean  getett(int idx) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		BooksBean bean = new BooksBean();
+		BrentalBean bean  = new BrentalBean();
 		try {
 			con = pool.getConnection();
-			sql = "select * from Brental where IDX=?";
+			sql = "select * from Brental where RID=?";
 			//매개변수 idx를 첫번째 ?에 세팅
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				BrentalBean bean1 = new BrentalBean();
-				bean1.setRID(rs.getInt(1));
-				bean1.setRMID(rs.getString(2));
-				bean1.setBMID(rs.getString(3));
-				bean1.setRENTAL(rs.getString(4));
-				bean1.setENDRENTAL(rs.getString(5));
+				bean.setRID(rs.getInt(1));
+				bean.setRMID(rs.getInt(2));
+				bean.setRNAME(rs.getString(3));
+				bean.setBMID(rs.getInt(4));
+				bean.setBTITLE(rs.getString(5));
+				bean.setRENTAL(rs.getString(6));
+				bean.setENDRENTAL(rs.getString(7));	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			MDialog md = new MDialog(SwingProject.frame, "오류",true	, "검색 결과가 없습니다");
+			md.setVisible(true);
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return bean;
+	}
+	public BrentalBean  getett3(int idx) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		BrentalBean bean  = new BrentalBean();
+		try {
+			con = pool.getConnection();
+			sql = "select * from Brental where BMID=?";
+			//매개변수 idx를 첫번째 ?에 세팅
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bean.setRID(rs.getInt(1));
+				bean.setRMID(rs.getInt(2));
+				bean.setRNAME(rs.getString(3));
+				bean.setBMID(rs.getInt(4));
+				bean.setBTITLE(rs.getString(5));
+				bean.setRENTAL(rs.getString(6));
+				bean.setENDRENTAL(rs.getString(7));	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			MDialog md = new MDialog(SwingProject.frame, "오류",true	, "검색 결과가 없습니다");
+			md.setVisible(true);
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return bean;
+	}
+	//회원번호 검색 
+	public Vector<BrentalBean>  getett2(int idx) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector <BrentalBean> vlist = new Vector<BrentalBean>();
+	
+		try {
+			con = pool.getConnection();
+			sql = "select * from Brental where RMID=?";
+			//매개변수 idx를 첫번째 ?에 세팅
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BrentalBean bean  = new BrentalBean();
+				bean.setRID(rs.getInt(1));
+				bean.setRMID(rs.getInt(2));
+				bean.setRNAME(rs.getString(3));
+				bean.setBMID(rs.getInt(4));
+				bean.setBTITLE(rs.getString(5));
+				bean.setRENTAL(rs.getString(6));
+				bean.setENDRENTAL(rs.getString(7));
 
-
-				
+				vlist.addElement(bean);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return bean;
+		return vlist;
 	}
 	
 	//입력
@@ -95,15 +162,16 @@ public class BrentalMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert into Brental(RID,RMID,BMID,RENTAL,ENDRENTAL)"
-					+ "values(seqmember.nextval,?,?,?)";
+			sql = "insert into Brental(RMID,RNAME,BMID,BTITLE,RENTAL,ENDRENTAL)"
+					+ "values(?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, bean.getRID());
-			pstmt.setString(2, bean.getRMID());
-			pstmt.setString(3, bean.getBMID());
-			pstmt.setString(4, bean.getRENTAL());
-			pstmt.setString(5, bean.getENDRENTAL());
-
+			pstmt.setInt(1, bean.getRMID());
+			pstmt.setString(2,bean.getRNAME());
+			pstmt.setInt(3, bean.getBMID());
+			pstmt.setString(4, bean.getBTITLE());
+			pstmt.setString(5, bean.getRENTAL());
+			pstmt.setString(6, bean.getENDRENTAL());
+			
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {
@@ -122,13 +190,15 @@ public class BrentalMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			setSql("update BRENTAL set RID=? ,RMID=? ,BMID=? ,RENTAL=? ,ENDRENTAL=?"
+			setSql("update BRENTAL set RMID=? ,RNAME =? ,BMID=? ,BTITLE=?,RENTAL=? ,ENDRENTAL=?"
 					+ "where RID=?");
-			pstmt.setString(1, bean.getRMID());
-			pstmt.setString(2, bean.getBMID());
-			pstmt.setString(3, bean.getRENTAL());
-			pstmt.setString(4, bean.getENDRENTAL());
-			pstmt.setInt(5, bean.getIdx());
+			pstmt.setInt(1, bean.getRMID());
+			pstmt.setString(2, bean.getRNAME());
+			pstmt.setInt(3, bean.getBMID());
+			pstmt.setString(4, bean.getBTITLE());
+			pstmt.setString(5, bean.getRENTAL());
+			pstmt.setString(6, bean.getENDRENTAL());
+			pstmt.setInt(7, bean.getRID());
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {
@@ -140,7 +210,7 @@ public class BrentalMgr {
 	}
 	
 	//삭제
-	public boolean deleteBooks(int idx) {
+	public boolean deleterental(int idx) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;

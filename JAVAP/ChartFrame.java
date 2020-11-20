@@ -16,7 +16,7 @@ public class ChartFrame extends JPanel{
 	ChartPanel02 p2 = new ChartPanel02();
 	ChartPanel03 p3 = new ChartPanel03();
 	JPanel p4 = new JPanel();
-	
+	Color cor = new Color(170,220,255);
 
 //	Container c;
 	
@@ -25,9 +25,9 @@ public class ChartFrame extends JPanel{
 	//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1200, 700);
 	//	setLocationRelativeTo(null);
-		GridLayout grid = new GridLayout(2, 2);
+	//	GridLayout grid = new GridLayout(2, 2);
 	//	Container c = getContentPane();
-	    setLayout(null);
+      setLayout(null);
 		TitledBorder tB1 = new TitledBorder(new LineBorder(Color.LIGHT_GRAY, 1, true),"독서왕");
 		tB1.setTitleFont(new Font("잘풀리는오늘 Medium", Font.PLAIN, 15));
 		p1 = new ChartPanel01();
@@ -46,13 +46,15 @@ public class ChartFrame extends JPanel{
  	    		new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
  		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
  		 p4.setBorder(jtx1);
-		p1.setBackground(Color.GREEN);
-	//	p2.setBackground(Color.BLACK);
-	//	p3.setBackground(Color.LIGHT_GRAY);
-	//	p4.setBackground(Color.YELLOW);
-		setBackground(new  Color(170,220,255));
+		 p1.setBackground(cor);
+	     p2.setBackground(cor);
+         p3.setBackground(cor);
+	   	p4.setBackground(cor);
+		setBackground(cor);
 		add(p1);
-		p1.setBounds(0, 0, 800, 400);
+		p1.setBounds(0, 0, 600, 400);
+		p2.setBounds(600, 0, 600, 400);
+		p3.setBounds(0, 400, 600, 400);
 		add(p2);
 		add(p3);
 		add(p4);

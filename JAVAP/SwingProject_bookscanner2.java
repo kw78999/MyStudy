@@ -115,7 +115,7 @@ public class SwingProject_bookscanner2 {
 			if(cho.getSelectedIndex()==0) {                 //도서번호 검색
 			int to = Integer.parseInt(tf.getText());
 		
-			String row1[][] = new String[1][12];           //행하나 불러오기
+			String row1[][] = new String[1][6];           //행하나 불러오기
 			for (int i = 0; i < row1.length; i++) {
 				BooksBean bean = mgr1.getett(to);
 				row1[i][0] = bean.getBID()+"";
@@ -211,7 +211,7 @@ public class SwingProject_bookscanner2 {
 					String str6 = (String)SwingProject_1.table7.getValueAt(i,6);
 					String str8 = (String) SwingProject_1.table7.getValueAt(i,7);
 					String str7 = (String) SwingProject_1.table7.getValueAt(i,8);
-					String str9 = (String)SwingProject_1.table7.getValueAt(i, 11);
+					String str9 = (String)SwingProject_1.table7.getValueAt(i, 10);
 					SwingProject_1.tf1.setText(str00);
 					SwingProject_1.tf2.setText(str1);
 					SwingProject_1.tf3.setText(str2);
@@ -221,6 +221,9 @@ public class SwingProject_bookscanner2 {
 					SwingProject_1.tf8.setText(str8);
 					SwingProject_1.tf9.setText(str6);
 					SwingProject_1.tf10.setText(str7);
+					if(str9==null) {
+						SwingProject_1.setbookimg("non.jpg");
+					}else
 					SwingProject_1.setbookimg(str9);
 				}
 			}			

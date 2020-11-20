@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -127,6 +129,12 @@ public class SwingProject_MemberScanner{
 			SwingProject.tf4.setText(str4);
 			SwingProject.tf5.setText(str2);
 			SwingProject.tf6.setText(str5);
+			SimpleDateFormat sysdate = new SimpleDateFormat();
+			Calendar date = Calendar.getInstance();
+			int to = Integer.parseInt(SwingProject.tf4.getText().substring(0, 1));   //문자열을 정수로 변환 
+			date.add(Calendar.DATE,to);   
+			String date3 = sysdate.format(date.getTime()); //더한날짜 문자열 넣기
+            SwingProject.tf16.setText(date3.substring(0,10));  //시분초 자르고 넣기 
 			memberf.dispose();
 			}
 			

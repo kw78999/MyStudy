@@ -13,6 +13,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -62,8 +66,8 @@ public class  SwingProject implements ActionListener{
 	JTextField tf7 = new JTextField(50);
 	static JTextField tf9 = new JTextField(12);
 	static 	JTextField tf14 = new JTextField(12);
-	JTextField tf15 = new JTextField("2020-11-19");
-	JTextField tf16 = new JTextField(12);
+	static JTextField tf15 = new JTextField();
+	static JTextField tf16 = new JTextField(12);
 	JTextArea ta1 = new JTextArea("채팅창");
 	
 	DefaultTableModel model;
@@ -77,6 +81,7 @@ public class  SwingProject implements ActionListener{
 	static Color bg;
 	static JTabbedPane t;
 	BMEMBERSMgr mgr;
+	static BrentalMgr mgr2= new BrentalMgr();
 	static JPanel  p1 = new JPanel(); ;
 	JPanel panel = new JPanel();
 	JPanel tabpanel = new JPanel();
@@ -459,16 +464,32 @@ cpanel.setBounds(0	, 430,570, 260);
 			MDialog md2 = new MDialog(frame,"우수회원 입니다", true,"쿠폰 받아가세요.");
 			md2.setVisible(true);
 		}else if(tf12.getText().equals("대출가능")) {
+			BrentalBean bean = new BrentalBean();
+			int to = Integer.parseInt(tf1.getText());   //문자열 정수로 변환 
+			int to2 = Integer.parseInt(tf8.getText());   //문자열 정수로 변환 
+		     bean.setRMID(to);
+			bean.setRNAME(tf2.getText());
+			bean.setBMID(to2);
+			bean.setBTITLE(tf9.getText());
+			bean.setRENTAL(tf15.getText());
+			bean.setENDRENTAL(tf16.getText());
+			if(mgr2.insertBrental(bean)) {
+				SwingProject_state.tpanel.removeAll();
+				SwingProject_state.tpanel.revalidate();
+				SwingProject_state.vlist.removeAllElements();
+				SwingProject_state.viewstate();
+			}
+			
 			MDialog md2 = new MDialog(frame,"대출", true,"대출 되었습니다.");
 			md2.setVisible(true);
-			System.out.println(table1.getSelectedRow());
+			
 		}else {
 			MDialog md2 = new MDialog(frame,"오류", true,"대출 불가능 입니다");
 			md2.setVisible(true);
 		}
 	}
 }
-	MouseListener member = new MouseListener() {       //회원목록을 만들면 오른쪽에 보여짐
+	MouseListener member = new MouseListener() {       //회원목록을 누르면  오른쪽에 보여짐
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		String str0 = (String) table.getValueAt(table.getSelectedRow(),0);            //Object 타입을 모두 정수형으로 변환
@@ -484,7 +505,16 @@ cpanel.setBounds(0	, 430,570, 260);
 		tf4.setText(str4);
 		tf5.setText(str2); 
 		tf6.setText(str5);
+		SimpleDateFormat sysdate = new SimpleDateFormat();
 		
+		Calendar date = Calendar.getInstance();
+		String date2 = sysdate.format(date.getTime()); //문자열에 오늘날짜 대입 
+		tf15.setText(date2.substring(0,10));  //대여날짜 오늘날짜 입력
+		int to = Integer.parseInt(tf4.getText().substring(0, 1));   //문자열을 정수로 변환 
+		date.add(Calendar.DATE,to);   
+		String date3 = sysdate.format(date.getTime()); //더한날짜 문자열 넣기
+		
+		tf16.setText(date3.substring(0,10));  //반납날짜 시분초 자르고 넣기 
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {}
@@ -519,6 +549,40 @@ static MouseListener book = new MouseListener() {            //도서목록을 누르면
 			tf12.setText(str44);
 			tf14.setText(str33); 
 			tf13.setText(str55);
+			tf8.select(0, 0);
+			tf9.select(0, 0);   //텍스트 왼쪽부터 보여지기 
+			tf10.select(0, 0);
+			tf12.select(0, 0);
+			tf14.select(0, 0);
+			tf13.select(0, 0);
+			
+			//오늘의 날짜를 반환하는 함수 적용하여 추가도서 클릭시 자동으로 오늘날짜 반환 
+			SimpleDateFormat sysdate = new SimpleDateFormat();
+			Calendar date = Calendar.getInstance();
+			String date2 = sysdate.format(date.getTime()); //문자열에 오늘날짜 대입 
+			tf15.setText(date2.substring(0,10));         //오늘날짜 시분초 자르고 셋팅
+			
+			if(tf4.getText().equals("")) {}   // 대여기간 칸이 비어있다면 실행없음 
+			else {  //대여기간 칸이 채워져있다면 날짜 연산하여 반납일자 셋팅 
+			int to = Integer.parseInt(tf4.getText().substring(0, 1));   //문자열을 정수로 변환 
+			date.add(Calendar.DATE,to);        //오늘 날짜에 일수 더하기
+			String date3 = sysdate.format(date.getTime()); //더한날짜 문자열 넣기
+			tf16.setText(date3.substring(0,10));  //시분초 자르고 넣기 
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		}	
 };
 	public static void main(String[] args) {

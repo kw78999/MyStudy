@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -27,7 +30,7 @@ import javax.swing.table.JTableHeader;
 
 
 public class SwingProject_1{
-	static String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","대출총합",""};
+	static String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","IMAGE"};
  //  String row[][] ;
 	static ImageIcon img;
 	static ImageIcon icon;
@@ -103,9 +106,8 @@ public class SwingProject_1{
 			row1[i][5] = bean.getBOOKSTATE();
 			row1[i][7] = bean.getBCOPY();
 			row1[i][8] = bean.getBDATE();
-			row1[i][9] = bean.getBCOUNT();
-			row1[i][10] = bean.getBCOUNTP();
-			row1[i][11] = bean.getBIMAGE();
+			row1[i][9] = bean.getBCOUNT()+"";
+			row1[i][10] = bean.getBIMAGE();
 		}
 		model7 = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
 		table7 = new JTable(model7);
@@ -122,8 +124,7 @@ public class SwingProject_1{
 	    table7.getColumnModel().getColumn(7).setPreferredWidth(70);
 	    table7.getColumnModel().getColumn(8).setPreferredWidth(130);
 	    table7.getColumnModel().getColumn(9).setPreferredWidth(80);
-	    table7.getColumnModel().getColumn(10).setPreferredWidth(80);
-	    table7.getColumnModel().getColumn(11).setPreferredWidth(100);
+	    table7.getColumnModel().getColumn(10).setPreferredWidth(100);
 	    table7.setFont(new Font( "Times", Font.BOLD, 20) );
 	    JTableHeader header = table7.getTableHeader();            //테이블 헤더 색상 
 	    header.setBackground(bg);
@@ -315,11 +316,14 @@ static MouseListener the = new MouseListener() {
 		String str6 = (String) table7.getValueAt(table7.getSelectedRow(),6);
 		String str8 = (String) table7.getValueAt(table7.getSelectedRow(),7);
 		String str7 = (String) table7.getValueAt(table7.getSelectedRow(),8);
-		String str9 = (String) table7.getValueAt(table7.getSelectedRow(),11);
+		String str9 = (String) table7.getValueAt(table7.getSelectedRow(),10);
 		tf1.setText(str0);
 		tf2.setText(str1);
+		tf2.select(0, 0);
 		tf3.setText(str2);
+		tf3.select(0, 0);
 		tf4.setText(str3);
+		tf4.select(0, 0);
 		tf5.setText(str4);
 		tf6.setText(str5);
 		tf8.setText(str8);
@@ -328,7 +332,7 @@ static MouseListener the = new MouseListener() {
 		if(str9 == null) {   //이미지값 없으면 나오는 사진
 			setbookimg("non.jpg");
 		}else {//이미지값 있으면 출력
-		setbookimg((String)table7.getValueAt(table7.getSelectedRow(), 11)); //저장된 이미지명 메소드에 넣기
+		setbookimg((String)table7.getValueAt(table7.getSelectedRow(), 10)); //저장된 이미지명 메소드에 넣기
 	}
 		
 	}
@@ -351,7 +355,9 @@ ActionListener ac2 =  new ActionListener() {
 		MDialog MD = new MDialog(SwingProject.frame, "오류", true, "삭제할 도서를 선택하세요");
 		MD.setVisible(true);
 		}else {
+			System.out.println(table7.getSelectedRow());
 		BooksBean bean = vlist.get(table7.getSelectedRow());
+		System.out.println(bean.getBID());
 		if(mgr.deleteBooks(bean.getBID())) {
 			
 			lpanel.removeAll();
@@ -377,7 +383,7 @@ ActionListener ac3 = new ActionListener() {
 			MDialog MD = new MDialog(SwingProject.frame, "오류", true, "수정할 도서를 선택하세요");
 			MD.setVisible(true);
 			}else {
-				int to = Integer.parseInt(tf1.getText());
+				int to = Integer.parseInt(tf1.getText());     //문자형을 정수로 변환
 			String date = tf10.getText();       //날짜 수정을위해 시분초 를 자른다
 	
 			BooksBean bean = new BooksBean();
@@ -387,13 +393,13 @@ ActionListener ac3 = new ActionListener() {
 			bean.setTITLE(tf2.getText());
 			bean.setAUTHOR(tf3.getText());
 			bean.setPUBLISHER(tf4.getText());
-			bean.setBDATE(date.substring(0,10));
+			bean.setBDATE(date.substring(0,10));  //날짜 자르기 
 			bean.setBCOPY(tf8.getText());
 			bean.setBOOKSTATE("대출가능");
 			bean.setLOCATION(tf9.getText());
-			bean.setBCOUNT("0회");
-			bean.setBCOUNTP("0회");
 			
+			MDialog md2 = new MDialog(SwingProject.frame, "오류", true, "수정이 완료되었습니다.");
+			md2.setVisible(true);
 		
 			if(mgr.updateBooks(bean)) {
 			lpanel.removeAll();
@@ -642,8 +648,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 			bean.setBCOPY(tf77.getText());
 			bean.setBOOKSTATE("대출가능");
 			bean.setLOCATION(tf88.getText());
-			bean.setBCOUNT("0회");
-			bean.setBCOUNTP("0회");
+			bean.setBCOUNT(0);
 			bean.setBIMAGE(imaget.getText());
 			if(mgr.insertBooks(bean) ) {
 				//저장을 성공 
@@ -651,10 +656,9 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 				vlist.removeAllElements();
 				lpanel.revalidate();
 				viewList();
-				table7.changeSelection(table7.getRowCount(),0, false, false);  
-				System.out.println(table7.getRowCount());
-			
-	}}}
+	             }
+			table7.changeSelection(table7.getRowCount(),0, false, false); 
+		}}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		String str1 = (String) table.getValueAt(table.getSelectedRow(),1);            //Object 타입을 모두 정수형으로 변환
@@ -669,7 +673,11 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 		tf44.setText(str3);
 		tf44.select(0, 0);
 		tf55.setText(str4);
-		tf66.setText("2020-11-20");
+		//오늘의 날짜를 반환하는 함수 적용하여 추가도서 클릭시 자동으로 오늘날짜 반환 
+		SimpleDateFormat sysdate = new SimpleDateFormat();
+		Calendar date = Calendar.getInstance();
+		String date2 = sysdate.format(date.getTime());
+		tf66.setText(date2.substring(0,10));   //시분초 자르기 
 		
 	} 
 	@Override

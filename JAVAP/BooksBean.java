@@ -16,8 +16,7 @@ public class BooksBean {
 	private String BOOKSTATE;
 	private String BCOPY;
 	private String BDATE;
-	private String BCOUNT;
-	private String BCOUNTP;
+	private int BCOUNT;
 	private String BIMAGE;
 	
 	                 //getXxx
@@ -79,18 +78,13 @@ public class BooksBean {
     public void setBDATE(String BDATE) {
 		this.BDATE = BDATE;
 	}
-	public String getBCOUNT() {
+	public int getBCOUNT() {
 		return BCOUNT;
 	}
-    public void setBCOUNT(String BCOUNT) {
+    public void setBCOUNT(int BCOUNT) {
 		this.BCOUNT = BCOUNT;		
 	}
-	public String getBCOUNTP() {
-		return BCOUNTP;
-	}
-    public void setBCOUNTP(String BCOUNTP) {
-		this.BCOUNTP = BCOUNTP;		
-	}
+
     public String getBIMAGE() {
 		return BIMAGE;
 	}

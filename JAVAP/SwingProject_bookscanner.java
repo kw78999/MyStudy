@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -213,8 +215,23 @@ public class SwingProject_bookscanner {
 			SwingProject.tf12.setText(str4);
 			SwingProject.tf13.setText(str5);
 			SwingProject.tf14.setText(str3);
+			
+			
+			SimpleDateFormat sysdate = new SimpleDateFormat();
+			Calendar date = Calendar.getInstance();
+			String date2 = sysdate.format(date.getTime()); //문자열에 오늘날짜 대입 
+			SwingProject.tf15.setText(date2.substring(0,10));         //오늘날짜 시분초 자르고 셋팅
+			
+			if(SwingProject.tf4.getText().equals("")) {}   // 대여기간 칸이 비어있다면 실행없음 
+			else {  //대여기간 칸이 채워져있다면 날짜 연산하여 반납일자 셋팅 
+			int to = Integer.parseInt(SwingProject.tf4.getText().substring(0, 1));   //문자열을 정수로 변환 
+			date.add(Calendar.DATE,to);        //오늘 날짜에 일수 더하기
+			String date3 = sysdate.format(date.getTime()); //더한날짜 문자열 넣기
+			SwingProject.tf16.setText(date3.substring(0,10));  //시분초 자르고 넣기 
+			
+			
 			memberf.dispose();
-			}
+			}}
 			
 		}
 	};

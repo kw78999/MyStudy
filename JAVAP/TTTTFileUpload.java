@@ -64,8 +64,8 @@ public class TTTTFileUpload extends JFrame {
 					e1.printStackTrace();
 				}
 				
-				SwingProject_1.imaget.setText(selectedFile.getName());
-				SwingProject_1.SwingProject1_newf.setbookimg1(selectedFile.getName());
+				SwingProject_1.imaget.setText(selectedFile.getName()); //파일명 셋팅하기 
+				SwingProject_1.SwingProject1_newf.setbookimg1(selectedFile.getName());//셋팅한 파일명으로 바로 출력하기 
 				dispose();
 			}
 		});

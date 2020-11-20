@@ -7,15 +7,17 @@ public class BrentalBean {
 
 	private static final int Idx = 0;
 	private int RID;
-	public int getRID() {
-		return RID;
-	}
-	private String RMID;
-	private String BMID;
+	private int RMID;
+	private String RNAME;
+	private int BMID;
+	private String BTITLE;
 	private String RENTAL;
 	private String ENDRENTAL;
 
 	
+	public int getRID() {
+		return RID;
+	}
 	                 //getXxx
 	public int getIdx() {
 		return Idx;
@@ -24,19 +26,34 @@ public class BrentalBean {
 	public void setRID(int RID) {
 		this.RID = RID;
 	}
-	public String getRMID() {
+	public int getRMID() {
 		return RMID;
 	}
-	public void setRMID(String RMID) {
+	public void setRMID(int RMID) {
 		this.RMID = RMID;
 	}
-	public String getBMID() {
-		return BMID;
+	public String getRNAME() {
+		return RNAME;
 	}
-	public void setBMID(String BMID) {
+	public void setRNAME(String RNAME) {
+		this.RNAME = RNAME;
+	}
+	public void setBMID(int BMID) {
 		this.BMID = BMID;
 	}
-	public String RENTAL() {
+	public int getBMID() {
+		return BMID;
+	}
+
+	public String getBTITLE() {
+		return BTITLE;
+	}
+	public void setBTITLE(String BTITLE) {
+		this.BTITLE = BTITLE;
+	}
+	
+	
+	public String getRENTAL() {
 		return RENTAL;
 	}
 	public void setRENTAL(String RENTAL) {
@@ -55,8 +72,6 @@ public class BrentalBean {
 	public BrentalBean elementAt(int j) {
 		return null;
 	}
-	public String getRENTAL() {
-		return null;
-	}
+	
 }
 

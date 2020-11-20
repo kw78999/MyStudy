@@ -47,8 +47,7 @@ public class BooksMgr {
 				bean.setBOOKSTATE(rs.getString("BOOKSTATE"));
 				bean.setBCOPY(rs.getString("BCOPY"));
 				bean.setBDATE(rs.getString("BDATE"));
-				bean.setBCOUNT(rs.getString("BCOUNT"));
-				bean.setBCOUNTP(rs.getString("BCOUNTP"));	
+				bean.setBCOUNT(rs.getInt("BCOUNT"));	
 				bean.setBIMAGE(rs.getString("BIMAGE"));	
 				
 				//레코드를 저장시킨 빈즈를 Vector에 저장
@@ -79,15 +78,11 @@ public class BooksMgr {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				bean.setBID(rs.getInt(1));//테이블 스키마 인텍스
-				bean.setISBN(rs.getString(2));
 				bean.setTITLE(rs.getString(3));
 				bean.setAUTHOR(rs.getString(4));
 				bean.setPUBLISHER(rs.getString(5));
-				bean.setBOOKSTATE(rs.getString(6));
-				bean.setBCOPY(rs.getString(7));
-				bean.setBDATE(rs.getString(8));
-				bean.setBCOUNT(rs.getString(9));
-				bean.setBCOUNTP(rs.getString(10));
+				bean.setLOCATION(rs.getString(6));				
+				bean.setBOOKSTATE(rs.getString(7));
 
 				
 			}
@@ -123,8 +118,7 @@ public class BooksMgr {
 				bean.setBOOKSTATE(rs.getString("BOOKSTATE"));
 				bean.setBCOPY(rs.getString("BCOPY"));
 				bean.setBDATE(rs.getString("BDATE"));
-				bean.setBCOUNT(rs.getString("BCOUNT"));
-				bean.setBCOUNTP(rs.getString("BCOUNTP"));	
+				bean.setBCOUNT(rs.getInt("BCOUNT"));
 				//레코드를 저장시킨 빈즈를 Vector에 저장
 				vlist.addElement(bean);
 			}//---while
@@ -144,8 +138,8 @@ public class BooksMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert into BOOKS(ISBN,TITLE,AUTHOR,PUBLISHER,LOCATION,BOOKSTATE,BCOPY,BDATE,BCOUNT,BCOUNTP,BIMAGE)"
-					+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into BOOKS(ISBN,TITLE,AUTHOR,PUBLISHER,LOCATION,BOOKSTATE,BCOPY,BDATE,BCOUNT,BIMAGE)"
+					+ "values(?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			//pstmt.setInt(1, bean.getBID());
 			pstmt.setString(1, bean.getISBN());
@@ -156,9 +150,8 @@ public class BooksMgr {
 			pstmt.setString(6, bean.getBOOKSTATE());
 			pstmt.setString(7, bean.getBCOPY());
 			pstmt.setString(8, bean.getBDATE());
-			pstmt.setString(9, bean.getBCOUNT());
-			pstmt.setString(10, bean.getBCOUNTP());
-			pstmt.setString(11, bean.getBIMAGE());
+			pstmt.setInt(9, bean.getBCOUNT());
+			pstmt.setString(10, bean.getBIMAGE());
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {
@@ -180,7 +173,7 @@ public class BooksMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			setSql = "update Books set ISBN=? ,TITLE=? ,AUTHOR=? ,PUBLISHER=? ,LOCATION=? ,BOOKSTATE=? ,BCOPY=? ,BDATE=? ,BCOUNT=? ,BCOUNTP=? "
+			setSql = "update Books set ISBN=? ,TITLE=? ,AUTHOR=? ,PUBLISHER=? ,LOCATION=? ,BOOKSTATE=? ,BCOPY=? ,BDATE=? ,BCOUNT=? "
 					+ "where BID=?";
 			pstmt = con.prepareStatement(setSql);
 			pstmt.setString(1, bean.getISBN());
@@ -191,9 +184,8 @@ public class BooksMgr {
 			pstmt.setString(6, bean.getBOOKSTATE());
 			pstmt.setString(7, bean.getBCOPY());
 			pstmt.setString(8, bean.getBDATE());
-			pstmt.setString(9, bean.getBCOUNT());
-			pstmt.setString(10, bean.getBCOUNTP());
-			pstmt.setInt(11, bean.getBID());
+			pstmt.setInt(9, bean.getBCOUNT());
+			pstmt.setInt(10, bean.getBID());
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {
