@@ -44,7 +44,7 @@ public class  SwingProject implements ActionListener{
 	JTextField tf11 = new JTextField (20);
 	static String col1[] = {"도서번호","서명","저자","출판사","도서상태","소장위치"};
 	
-	String col[] = {"회원번호","회원 이름","회원 등급","전화번호","대여기간","대여횟수","대출가능 권수"};
+	static String col[] = {"회원번호","회원 이름","회원 등급","전화번호","대여기간","대여횟수","대출가능 권수"};
 
 	static JTextField tf10 = new JTextField(50);
 	static JTextField tf12 = new JTextField(50);
@@ -53,7 +53,7 @@ public class  SwingProject implements ActionListener{
 	JButton btn3 ;
 	ImageIcon icon;
 	Font fon = new Font( "Times", Font.BOLD, 16 );
-	JTable table;
+	static JTable table;
 	static JTable table1;
 	TextField tf = new TextField(10);
 	JTabbedPane t1;
@@ -70,9 +70,9 @@ public class  SwingProject implements ActionListener{
 	static JTextField tf16 = new JTextField(12);
 	JTextArea ta1 = new JTextArea("채팅창");
 	
-	DefaultTableModel model;
+	static DefaultTableModel model;
 	 static DefaultTableModel model1;
-	JScrollPane scr;
+	 static JScrollPane scr;
 	static JScrollPane scr1;
 	
 	JButton lentalbtn = new JButton("대출하기");
@@ -80,8 +80,6 @@ public class  SwingProject implements ActionListener{
 	static Color cor;
 	static Color bg;
 	static JTabbedPane t;
-	BMEMBERSMgr mgr;
-	static BrentalMgr mgr2= new BrentalMgr();
 	static JPanel  p1 = new JPanel(); ;
 	JPanel panel = new JPanel();
 	JPanel tabpanel = new JPanel();
@@ -89,15 +87,19 @@ public class  SwingProject implements ActionListener{
 	JPanel panel13 = new JPanel();
 	JPanel panel14 = new JPanel();
 	JPanel cpanel = new JPanel();
-	JPanel p = new JPanel();
+	static JPanel p = new JPanel();
 	JPanel panel15 = new JPanel();
 	
 	static String row1[][];
-	static BooksMgr  mgr1;
+	static BrentalMgr mgr2= new BrentalMgr();
+	static BooksMgr  mgr1 = new BooksMgr();
+	static BMEMBERSMgr mgr = new BMEMBERSMgr();
 	static Vector <BooksBean>  vlist1;
+	static Vector<BMEMBERSBean> vlist;
+	
 	
 	public static void viewList() {
-		mgr1 = new BooksMgr();
+		//mgr1 = new BooksMgr();
 		vlist1 = mgr1.getListMember();
 		
 	    row1 = new String[vlist1.size()][12];
@@ -126,12 +128,43 @@ public class  SwingProject implements ActionListener{
 	    table1.setRowHeight(25);
 	    p1.add(scr1);
 }
+	public static void memlist() {
+	vlist = mgr.getListMember();
+	String row[][] = new String[vlist.size()][7];
+	for (int i = 0; i < row.length; i++) {
+		BMEMBERSBean bean = vlist.elementAt(i);
+		row[i][0] = bean.getMID()+"";
+		row[i][1] = bean.getMNAME();
+		row[i][2] = bean.getMGRADE();
+		row[i][3] = bean.getMPHONE();
+		row[i][4] = bean.getMAXRENTAL()+"";
+		row[i][5] = bean.getECOUNT()+"";
+		row[i][6] = bean.getELIMIT()+"";
+	}
+
+    model = new DefaultTableModel(row,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
+	table = new JTable(model);
+	scr = new JScrollPane(table);
+	 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	table.addMouseListener(member);
+	table.setPreferredScrollableViewportSize(new Dimension(597,275));
 	
+	 table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
+	    table.getColumnModel().getColumn(1).setPreferredWidth(90);
+	    table.getColumnModel().getColumn(2).setPreferredWidth(80);
+	    table.getColumnModel().getColumn(3).setPreferredWidth(200);
+	    table.getColumnModel().getColumn(4).setPreferredWidth(80);
+	    table.getColumnModel().getColumn(5).setPreferredWidth(70);
+	    table.getColumnModel().getColumn(6).setPreferredWidth(100);
+	  table.setFont(new Font( "Times", Font.BOLD, 20) );
+	   table.setRowHeight(25);
+	    
+	p.add(scr);
+	
+	
+	}
 	public SwingProject() {
 		frame = new JFrame("도서관리 프로그램");
-		
-		mgr = new BMEMBERSMgr();
-		
 		bg = new Color(170,220,255);
 		cor = Color.white;
 		
@@ -146,20 +179,7 @@ public class  SwingProject implements ActionListener{
 		label17.setFont(new Font("Times",Font.BOLD,25));
 		
 		
-		Vector<BMEMBERSBean> vlist = mgr.getListMember();
-		String row[][] = new String[vlist.size()][12];
-		for (int i = 0; i < row.length; i++) {
-			BMEMBERSBean bean = vlist.elementAt(i);
-			row[i][0] = bean.getMID()+"";
-			row[i][1] = bean.getMNAME();
-			row[i][2] = bean.getMGRADE();
-			row[i][3] = bean.getMPHONE();
-			row[i][4] = bean.getMAXRENTAL();
-			row[i][5] = bean.getECOUNT();
-			row[i][6] = bean.getELIMIT();
-		}
 		
-		  //p1.add(scr1);
 		
 		frame.setLayout(new BorderLayout());
 		inpanel1.setLayout(new BorderLayout());
@@ -197,8 +217,7 @@ public class  SwingProject implements ActionListener{
 		
 		
 		t1.add("대여",panel);
-		t1.add("반납",new JTextArea());
-		t1.add("이용 현황",sp_s.mpanel);
+		t1.add("이용 현황 / 반납",sp_s.mpanel);
 		t1.setFont( new Font( "Times", Font.BOLD, 18 ) );
 		tabpanel.add(t);
 	
@@ -209,7 +228,7 @@ public class  SwingProject implements ActionListener{
 		JLabel lab2= new JLabel("전화 번호");
 		JLabel lab3= new JLabel("대여 기간");
 		JLabel lab4= new JLabel("회원 등급");
-		JLabel lab5= new JLabel("대여 횟수");
+		JLabel lab5= new JLabel("대출가능권수");
 		
 		JLabel lab8= new JLabel("도서 번호");
 		JLabel lab9= new JLabel("서 명");
@@ -231,28 +250,10 @@ public class  SwingProject implements ActionListener{
 		p1.add(label17,BorderLayout.NORTH);
 	
   
-    model = new DefaultTableModel(row,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
-	table = new JTable(model);
-	scr = new JScrollPane(table);
-	 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-	table.addMouseListener(member);
-	table.setPreferredScrollableViewportSize(new Dimension(597,275));
-	
-	 table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
-	    table.getColumnModel().getColumn(1).setPreferredWidth(90);
-	    table.getColumnModel().getColumn(2).setPreferredWidth(80);
-	    table.getColumnModel().getColumn(3).setPreferredWidth(200);
-	    table.getColumnModel().getColumn(4).setPreferredWidth(80);
-	    table.getColumnModel().getColumn(5).setPreferredWidth(70);
-	    table.getColumnModel().getColumn(6).setPreferredWidth(100);
-	  table.setFont(new Font( "Times", Font.BOLD, 20) );
-	   table.setRowHeight(25);
-	    
-	p.add(scr);
 	
 	
 	viewList();// 도서목록 테이블 보이게하기
-	
+	memlist();
 	
     p.setBackground(cor);
     panel15.setBackground(cor);
@@ -262,11 +263,11 @@ public class  SwingProject implements ActionListener{
     panel.add(inpanel1,BorderLayout.WEST);
     
     TitledBorder jtx=                        //타이틀 보더생성 
-new TitledBorder(new LineBorder(bg,5),"회원정보        ");
+    		new TitledBorder(new LineBorder(bg,5),"회원정보        ");
     TitledBorder jtx1= 
     		new TitledBorder(new LineBorder(bg,5),"도서정보       ");
     TitledBorder jtx2=                       
-new TitledBorder(new LineBorder(bg,5),"회원과의 채팅");
+    		new TitledBorder(new LineBorder(bg,5),"회원과의 채팅");
     panel13.setBorder(jtx);
     jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
@@ -299,10 +300,10 @@ new TitledBorder(new LineBorder(bg,5),"회원과의 채팅");
  panel13.add(lab4);
  tf5.setBounds(100, 105, 160, 25);
   panel13.add(tf5);
-  lab5.setBounds(290, 105, 80, 30);
+  lab5.setBounds(290, 105, 150, 30);
   lab5.setFont(fon);
   panel13.add(lab5);
-  tf6.setBounds(370, 105,160, 25);
+  tf6.setBounds(400, 105,130, 25);
   panel13.add(tf6);
   
 
@@ -463,7 +464,11 @@ cpanel.setBounds(0	, 430,570, 260);
 		}else if(tf1.getText().equals("1")&&tf12.getText().equals("가능")) {
 			MDialog md2 = new MDialog(frame,"우수회원 입니다", true,"쿠폰 받아가세요.");
 			md2.setVisible(true);
-		}else if(tf12.getText().equals("대출가능")) {
+		}else if(tf6.getText().equals("0")) {
+		    MDialog md = new MDialog(frame, "오류", true, "대출가능권수 초과입니다.");
+		    md.setVisible(true);
+		
+		}else if(tf12.getText().equals("대출가능")) {  //대출테이블로 정보 입력
 			BrentalBean bean = new BrentalBean();
 			int to = Integer.parseInt(tf1.getText());   //문자열 정수로 변환 
 			int to2 = Integer.parseInt(tf8.getText());   //문자열 정수로 변환 
@@ -478,7 +483,53 @@ cpanel.setBounds(0	, 430,570, 260);
 				SwingProject_state.tpanel.revalidate();
 				SwingProject_state.vlist.removeAllElements();
 				SwingProject_state.viewstate();
+				
 			}
+			BMEMBERSBean mbean = new BMEMBERSBean();
+			String str3 = (String)(table.getValueAt(table.getSelectedRow(),5));
+			int to6 = Integer.parseInt(str3);
+			String str4 = (String)(table.getValueAt(table.getSelectedRow(),6));
+			int to7 = Integer.parseInt(str4);
+			mbean.setMID(to);
+			mbean.setECOUNT(to6+1);
+			mbean.setELIMIT(to7-1);
+			if(mgr.stateupdateBMEMBERS(mbean)) {
+				p.removeAll();
+				p.revalidate();
+				vlist.removeAllElements();
+				memlist();
+			}
+			
+			BooksBean bean3 = mgr1.getett(to2);    //도서번호로 검색하여 현재 대출횟수 가져오기
+			int bcount = bean3.getBCOUNT();
+			
+			BooksBean bean2 = new BooksBean();  //대출시 대출불가능,대출횟수+1 하기
+			bean2.setBOOKSTATE("대출 불가능");
+			bean2.setBCOUNT(bcount+1); 
+			bean2.setBID(to2);                 //셋팅하고
+			if(mgr1.stateupdateBooks(bean2)) { //셋팅한값으로 수정하기
+				p1.removeAll();
+				p1.revalidate();
+				vlist1.removeAllElements();
+				viewList();
+			} 
+			
+			//대출 한뒤 모든 텍스트필드값 초기화
+			tf1.setText("");
+			tf2.setText("");
+			tf3.setText("");
+			tf4.setText("");
+			tf5.setText("");
+			tf6.setText("");
+			tf8.setText("");
+			tf9.setText("");
+			tf10.setText("");
+			tf12.setText("");
+			tf13.setText("");
+			tf14.setText("");
+			tf15.setText("");
+			tf16.setText("");
+			
 			
 			MDialog md2 = new MDialog(frame,"대출", true,"대출 되었습니다.");
 			md2.setVisible(true);
@@ -489,7 +540,7 @@ cpanel.setBounds(0	, 430,570, 260);
 		}
 	}
 }
-	MouseListener member = new MouseListener() {       //회원목록을 누르면  오른쪽에 보여짐
+	static MouseListener member = new MouseListener() {       //회원목록을 누르면  오른쪽에 보여짐
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		String str0 = (String) table.getValueAt(table.getSelectedRow(),0);            //Object 타입을 모두 정수형으로 변환
@@ -497,7 +548,7 @@ cpanel.setBounds(0	, 430,570, 260);
 		String str2 = (String) table.getValueAt(table.getSelectedRow(),2);
 		String str3 = (String) table.getValueAt(table.getSelectedRow(),3);
 		String str4 = (String) table.getValueAt(table.getSelectedRow(),4);
-		String str5 = (String) table.getValueAt(table.getSelectedRow(),5);
+		String str5 = (String) table.getValueAt(table.getSelectedRow(),6);
 		
 		tf1.setText(str0);
 		tf2.setText(str1);
@@ -509,7 +560,7 @@ cpanel.setBounds(0	, 430,570, 260);
 		
 		Calendar date = Calendar.getInstance();
 		String date2 = sysdate.format(date.getTime()); //문자열에 오늘날짜 대입 
-		tf15.setText(date2.substring(0,10));  //대여날짜 오늘날짜 입력
+		tf15.setText(date2.substring(0,10));  //대여날짜칸에 오늘날짜 입력
 		int to = Integer.parseInt(tf4.getText().substring(0, 1));   //문자열을 정수로 변환 
 		date.add(Calendar.DATE,to);   
 		String date3 = sysdate.format(date.getTime()); //더한날짜 문자열 넣기
@@ -569,19 +620,6 @@ static MouseListener book = new MouseListener() {            //도서목록을 누르면
 			String date3 = sysdate.format(date.getTime()); //더한날짜 문자열 넣기
 			tf16.setText(date3.substring(0,10));  //시분초 자르고 넣기 
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 		}	
 };

@@ -203,6 +203,11 @@ public class SwingProject_bookscanner {
 			MDialog md = new MDialog(memberf, "오류", true, "도서를 선택해 주세요.");
 				md.setVisible(true);
 			}else {
+				String item = (String)table.getValueAt(table.getSelectedRow(), 0);
+				for (int i = 0; i < SwingProject.table1.getRowCount(); i++) {
+					if(SwingProject.table1.getValueAt(i, 0).equals(item)) {
+						SwingProject.table1.changeSelection(i,0, false, false);       //해당셀 선택하고 화면도 이동해줌 
+						
 			String str0 = (String) table.getValueAt(table.getSelectedRow(),0);            //Object 타입을 모두 정수형으로 변환
 			String str1 = (String) table.getValueAt(table.getSelectedRow(),1);            //Object 타입을 모두 정수형으로 변환
 			String str2 = (String) table.getValueAt(table.getSelectedRow(),2);
@@ -231,7 +236,7 @@ public class SwingProject_bookscanner {
 			
 			
 			memberf.dispose();
-			}}
+			}}}}
 			
 		}
 	};

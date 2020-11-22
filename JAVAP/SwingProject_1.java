@@ -340,7 +340,7 @@ static MouseListener the = new MouseListener() {
 
 
 //검색창 버튼
-ActionListener ac1 = new ActionListener() {
+ActionListener ac1 = new ActionListener() { 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 			new SwingProject1_newf();
@@ -656,6 +656,12 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 				vlist.removeAllElements();
 				lpanel.revalidate();
 				viewList();
+				
+				SwingProject.p1.removeAll();   //대여창 새로고침 시키기
+				SwingProject.p1.revalidate();
+				SwingProject.vlist1.removeAllElements();
+				SwingProject.viewList();
+				
 	             }
 			table7.changeSelection(table7.getRowCount(),0, false, false); 
 		}}

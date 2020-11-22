@@ -1,6 +1,5 @@
 package JAVAP;
 
-import java.awt.BorderLayout;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,10 +36,11 @@ public class SwingProject_state {
 	JTextField tf = new JTextField(10);
 	JButton btn = new JButton("검색");
 	
-	
+	static BMEMBERSMgr bmgr = new BMEMBERSMgr();
 	static  BrentalMgr  mgr= new BrentalMgr();
 	 static    Vector <BrentalBean>  vlist ;
-	
+	BooksMgr mgr1 = new BooksMgr();
+	BooksMgr mgr12 = new BooksMgr();
 	
 	public static void viewstate() {
 		vlist = mgr.getListBRental();
@@ -210,7 +210,7 @@ public class SwingProject_state {
 				}
 				
 				}else if (cho.getSelectedIndex()==2) {
-					int BMID = Integer.parseInt(tf.getText());
+					int BMID = Integer.parseInt(tf.getText()); //검색하기 
 					
 					String row1[][] = new String [1][7];
 					for (int i = 0; i < row1.length; i++) {
@@ -265,22 +265,60 @@ public class SwingProject_state {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow()==-1) {
-					MDialog MD = new MDialog(SwingProject.frame, "오류", true, "삭제할 도서를 선택하세요");
+					MDialog MD = new MDialog(SwingProject.frame, "오류", true, "반납할 도서를 선택하세요");
 					MD.setVisible(true);
 					}else {
+					int to2 = Integer.parseInt((String)(table.getValueAt(table.getSelectedRow(),3)));
+					int to  = Integer.parseInt((String)(table.getValueAt(table.getSelectedRow(), 1)));	
 						BrentalBean bean = vlist.get(table.getSelectedRow());
 					if(mgr.deleterental(bean.getRID())) {
-						
 						viewstate();
-				
+			          }
 					
-			}
-		}}};
+					
+						BMEMBERSBean mbean = bmgr.getett(to);
+						int mcount = mbean.getECOUNT();
+						int limit = mbean.getELIMIT();
+						BMEMBERSBean mbean2 = new BMEMBERSBean();
+						mbean2.setMID(to);
+						mbean2.setECOUNT(mcount);
+						mbean2.setELIMIT(limit+1);
+						if(bmgr.stateupdateBMEMBERS(mbean2)) {
+							SwingProject.p.removeAll();
+							SwingProject.p.revalidate();
+							SwingProject.vlist.removeAllElements();
+							SwingProject.memlist();
+						 
+						}
+					
+					//삭제하는 대출데이터의 도서번호로 대출횟수 가져오기 
+					BooksBean bean3 = mgr1.getett(to2);
+					int bcount = bean3.getBCOUNT();
+					//삭제하는 도서 상태바꾸기,대출횟수는 그대로
+					BooksBean bean2 = new BooksBean();
+					bean2.setBOOKSTATE("대출가능");
+					bean2.setBCOUNT(bcount);
+					bean2.setBID(to2);
+					if(mgr1.stateupdateBooks(bean2)) {
+						SwingProject.p1.removeAll();
+						SwingProject.p1.revalidate();
+						SwingProject.vlist1.removeAllElements();
+						SwingProject.viewList();
+					} 
+					
+					MDialog md = new MDialog(SwingProject.frame, "대출", true, "반납 되었습니다.");
+					md.setVisible(true);
+					
+					
+					
+		}
+				
+	}};
          
-         
+         	
          
          
          
          
 			     
-			}
+		}

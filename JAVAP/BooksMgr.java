@@ -83,7 +83,7 @@ public class BooksMgr {
 				bean.setPUBLISHER(rs.getString(5));
 				bean.setLOCATION(rs.getString(6));				
 				bean.setBOOKSTATE(rs.getString(7));
-
+				bean.setBCOUNT(rs.getInt(10));
 				
 			}
 		} catch (Exception e) {
@@ -196,6 +196,31 @@ public class BooksMgr {
 		return flag;
 	}
 	
+	//대출시 도서상태만 변경하는 수정 메소드
+	public boolean stateupdateBooks(BooksBean bean) {
+		Connection con = null;
+		//pstmt = null;
+		PreparedStatement pstmt = null;
+	    String setSql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			setSql = "update Books set BOOKSTATE=?,BCOUNT=?"
+					+ "where BID=?";
+			pstmt = con.prepareStatement(setSql);
+			
+			pstmt.setString(1, bean.getBOOKSTATE());
+			pstmt.setInt(2, bean.getBCOUNT());
+			pstmt.setInt(3, bean.getBID());
+			int cnt = pstmt.executeUpdate();//insert,update,delete
+			if(cnt==1) flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
 	//삭제
 	public boolean deleteBooks(int idx) {
 		Connection con = null;

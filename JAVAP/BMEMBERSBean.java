@@ -12,10 +12,10 @@ public class BMEMBERSBean {
 	private String MNAME;
 	private String MGRADE;
 	private String MPHONE;
-	private String MAXRENTAL;
-	private String ECOUNT;
+	private int MAXRENTAL;
+	private int ECOUNT;
 	private String ECOUNTP;
-	private String ELIMIT;
+	private int ELIMIT;
 	
 	                 //getXxx
 	public int getIdx() {
@@ -43,16 +43,16 @@ public class BMEMBERSBean {
 	public void setMGRADE(String MGRADE) {
 		this.MGRADE = MGRADE;
 	}
-	public String getMAXRENTAL() {
+	public int getMAXRENTAL() {
 		return MAXRENTAL;
 	}
-	public void setMAXRENTAL(String MAXRENTAL) {
+	public void setMAXRENTAL(int MAXRENTAL) {
 		this.MAXRENTAL = MAXRENTAL;
 	}
-	public String getECOUNT() {
+	public int getECOUNT() {
 		return ECOUNT;
 	}
-	public void setECOUNT(String ECOUNT) {
+	public void setECOUNT(int ECOUNT) {
 		this.ECOUNT = ECOUNT;
 		}
 	public String getECOUNTP() {
@@ -61,10 +61,10 @@ public class BMEMBERSBean {
 	public void setECOUNTP(String ECOUNTP) {
 		this.ECOUNTP = ECOUNTP;
 	}
-	public String getELIMIT() {
+	public int getELIMIT() {
 			return ELIMIT;
 		}
-	public void setELIMIT(String ELIMIT) {
+	public void setELIMIT(int ELIMIT) {
 			this.ELIMIT = ELIMIT;
 		}
 	}

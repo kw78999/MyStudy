@@ -38,9 +38,9 @@ public class BMEMBERSMgr {
 				bean.setMNAME(rs.getString("MNAME"));
 				bean.setMGRADE(rs.getString("MGRADE"));
 				bean.setMPHONE(rs.getString("MPHONE"));
-				bean.setMAXRENTAL(rs.getString("MAXRENTAL"));
-				bean.setECOUNT(rs.getString("ECOUNT"));
-				bean.setELIMIT(rs.getString("ELIMIT"));
+				bean.setMAXRENTAL(rs.getInt("MAXRENTAL"));
+				bean.setECOUNT(rs.getInt("ECOUNT"));
+				bean.setELIMIT(rs.getInt("ELIMIT"));
 				
 				//레코드를 저장시킨 빈즈를 Vector에 저장
 				vlist.addElement(bean);
@@ -62,7 +62,7 @@ public class BMEMBERSMgr {
 		BMEMBERSBean bean = new BMEMBERSBean();
 		try {
 			con = pool.getConnection();
-			sql = "select * from BMEMBERS where IDX=?";
+			sql = "select * from BMEMBERS where MID=?";
 			//매개변수 idx를 첫번째 ?에 세팅
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
@@ -72,10 +72,9 @@ public class BMEMBERSMgr {
 				bean.setMNAME(rs.getString(2));
 				bean.setMGRADE(rs.getString(3));
 				bean.setMPHONE(rs.getString(4));
-				bean.setMAXRENTAL(rs.getString(5));
-				bean.setECOUNT(rs.getString(6));
-				bean.setECOUNTP(rs.getString(7));
-				bean.setELIMIT(rs.getString(8));
+				bean.setMAXRENTAL(rs.getInt(5));
+				bean.setECOUNT(rs.getInt(6));
+				bean.setELIMIT(rs.getInt(7));
 
 				
 			}
@@ -86,7 +85,40 @@ public class BMEMBERSMgr {
 		}
 		return bean;
 	}
-	
+	//문자로 검색하기 
+	public Vector<BMEMBERSBean> search(String str) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector <BMEMBERSBean> vlist = new Vector<BMEMBERSBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from BMEMBERS where MNAME like ?";
+			//매개변수 idx를 첫번째 ?에 세팅
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+str+"%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BMEMBERSBean bean = new BMEMBERSBean();
+				bean.setMID(rs.getInt("MID"));//테이블 스키마 인텍스
+				bean.setMNAME(rs.getString("MNAME"));
+				bean.setMGRADE(rs.getString("MGRADE"));
+				bean.setMPHONE(rs.getString("MPHONE"));
+				bean.setMAXRENTAL(rs.getInt("MAXRENTAL"));
+				bean.setECOUNT(rs.getInt("ECOUNT"));
+				bean.setELIMIT(rs.getInt("ELIMIT"));
+
+				vlist.addElement(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+	//회원 등록하는 메소드 엔지니어 천
 	//입력
 	public boolean insertBMEMBERS(BMEMBERSBean bean) {
 		Connection con = null;
@@ -95,16 +127,15 @@ public class BMEMBERSMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert into BMEMBERS(MID,MNAME,MPHONE,MGRADE,MAXRENTAL,ECOUNT,ECOUNTP,ELIMIT)"
-					+ "values(seqmember.nextval,?,?,?)";
+			sql = "insert into BMEMBERS(MNAME,MPHONE,MGRADE,MAXRENTAL,ECOUNT,ELIMIT)"
+					+ " values(?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getMNAME());
 			pstmt.setString(2, bean.getMPHONE());
 			pstmt.setString(3, bean.getMGRADE());
-			pstmt.setString(4, bean.getMAXRENTAL());
-			pstmt.setString(5, bean.getECOUNT());
-			pstmt.setString(6, bean.getECOUNTP());
-			pstmt.setString(7, bean.getELIMIT());
+			pstmt.setInt(4, bean.getMAXRENTAL());
+			pstmt.setInt(5, bean.getECOUNT());
+			pstmt.setInt(6, bean.getELIMIT());
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {
@@ -123,17 +154,39 @@ public class BMEMBERSMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "update BMEMBERS set MNAME=?, MPHONE=?, MGRADE=? ,MAXRENTAL=?, ECOUNT=?, ECOUNTP=?, ELIMIT=?"
+			sql = "update BMEMBERS set MNAME=?, MPHONE=?, MGRADE=? ,MAXRENTAL=?, ECOUNT=?, ELIMIT=? "
 					+ "where MID=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getMNAME());
 			pstmt.setString(2, bean.getMPHONE());
 			pstmt.setString(3, bean.getMGRADE());
-			pstmt.setString(4, bean.getMAXRENTAL());
-			pstmt.setString(5, bean.getECOUNT());
-			pstmt.setString(6, bean.getECOUNTP());
-			pstmt.setString(7, bean.getELIMIT());
-			pstmt.setInt(8, bean.getIdx());
+			pstmt.setInt(4, bean.getMAXRENTAL());
+			pstmt.setInt(5, bean.getECOUNT());
+			pstmt.setInt(6, bean.getELIMIT());
+			pstmt.setInt(7, bean.getMID());
+			int cnt = pstmt.executeUpdate();//insert,update,delete
+			if(cnt==1) flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
+	//대출시 대출횟수와 대출가능권수만 수정하는 메소드 
+	public boolean stateupdateBMEMBERS(BMEMBERSBean bean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "update BMEMBERS set ECOUNT=?, ELIMIT=? "
+					+ "where MID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bean.getECOUNT());
+			pstmt.setInt(2, bean.getELIMIT());
+			pstmt.setInt(3, bean.getMID());
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {
@@ -144,6 +197,7 @@ public class BMEMBERSMgr {
 		return flag;
 	}
 	
+	//수정자 천행운 사실 수정된 게 없이 작동됨
 	//삭제
 	public boolean deleteBMEMBERS(int idx) {
 		Connection con = null;
@@ -171,18 +225,3 @@ public class BMEMBERSMgr {
 
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

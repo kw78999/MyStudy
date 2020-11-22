@@ -19,10 +19,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import JAVAP.BMEMBERSBean;
-
-
-public class SwingProject_MemberScanner{ 
+public class SwingProject_MemberScanner2 {
 	String col[] = {"회원번호","회원 이름","회원 등급","전화번호","대여기간","대여횟수","대출가능 권수"};
 	
 	BMEMBERSMgr mgr;
@@ -73,7 +70,7 @@ public class SwingProject_MemberScanner{
 		
 		
 	}
-	public SwingProject_MemberScanner() {
+	public SwingProject_MemberScanner2() {
 		viewmem();
 		
 		memberf = new JFrame();
@@ -126,8 +123,8 @@ public class SwingProject_MemberScanner{
 			}else {
 				String item = (String)table.getValueAt(table.getSelectedRow(), 0);
 				for (int i = 0; i < SwingProject.table.getRowCount(); i++) {
-					if(SwingProject.table.getValueAt(i, 0).equals(item)) {
-						SwingProject.table.changeSelection(i,0, false, false);       //해당셀 선택하고 화면도 이동해줌 
+					if(SwingProject_2.table7.getValueAt(i, 0).equals(item)) {
+						SwingProject_2.table7.changeSelection(i,0, false, false);       //해당셀 선택하고 화면도 이동해줌 
 						
 			String str0 = (String) table.getValueAt(table.getSelectedRow(),0);            //Object 타입을 모두 정수형으로 변환
 			String str1 = (String) table.getValueAt(table.getSelectedRow(),1);            //Object 타입을 모두 정수형으로 변환
@@ -136,21 +133,13 @@ public class SwingProject_MemberScanner{
 			String str4 = (String) table.getValueAt(table.getSelectedRow(),4);
 			String str5 = (String) table.getValueAt(table.getSelectedRow(),5);
 			String str6 = (String) table.getValueAt(table.getSelectedRow(),6);
-			SwingProject.tf1.setText(str0);
-			SwingProject.tf2.setText(str1);
-			SwingProject.tf3.setText(str3);
-			SwingProject.tf4.setText(str4);
-			SwingProject.tf5.setText(str2);
-			SwingProject.tf6.setText(str6);
-			SimpleDateFormat sysdate = new SimpleDateFormat();
-			Calendar date = Calendar.getInstance();
-			String date2 = sysdate.format(date.getTime()); //문자열에 오늘날짜 대입 
-			SwingProject.tf15.setText(date2.substring(0,10));  //대여날짜칸에 오늘날짜 입력
-			
-			int to = Integer.parseInt(SwingProject.tf4.getText().substring(0, 1));   //문자열을 정수로 변환 
-			date.add(Calendar.DATE,to);   
-			String date3 = sysdate.format(date.getTime()); //더한날짜 문자열 넣기
-            SwingProject.tf16.setText(date3.substring(0,10));  //시분초 자르고 넣기 
+			SwingProject_2.mID.setText(str0);
+			SwingProject_2.mName.setText(str1);
+			SwingProject_2.cho.select(str2);
+			SwingProject_2.mPhone.setText(str3);
+			SwingProject_2.mMax.setText(str4);
+			SwingProject_2.mCount.setText(str5);
+			SwingProject_2.mLimit.setText(str6);
 			memberf.dispose();
 					}}}
 			
