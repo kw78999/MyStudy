@@ -18,6 +18,7 @@ public class BooksBean {
 	private String BDATE;
 	private int BCOUNT;
 	private String BIMAGE;
+	private String CATE;
 	
 	                 //getXxx
 	public int getIdx() {
@@ -91,6 +92,12 @@ public class BooksBean {
     public void setBIMAGE(String BIMAGE) {
 		this.BIMAGE = BIMAGE;	
     }
+    public String getCATE() {
+  		return CATE;
+  	}
+      public void setCATE(String CATE) {
+  		this.CATE = CATE;	
+      }
 	public int size() {
 		return 0;
 	}

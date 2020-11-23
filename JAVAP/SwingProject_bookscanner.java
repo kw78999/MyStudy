@@ -33,7 +33,7 @@ public class SwingProject_bookscanner {
 	JTextField tf = new JTextField(10);
 	JButton btn = new JButton("검색");
 	JButton btn1 = new JButton("선택하기");
-	static JFrame memberf;
+	static JFrame memberf1;
 	Vector <BooksBean>  vlist1;
 	
 	
@@ -74,13 +74,13 @@ public class SwingProject_bookscanner {
 	public SwingProject_bookscanner() {
 		viewlist();     //모든 데이터 출력 
 		
-		memberf = new JFrame();
-		memberf.setBackground(new  Color(170,220,255));
-		memberf.setVisible(true);
-		memberf.setSize(700,600);
-		memberf.setLocationRelativeTo(null);
-		memberf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		memberf.add(mpanel);
+		memberf1 = new JFrame();
+		memberf1.setBackground(new  Color(170,220,255));
+		memberf1.setVisible(true);
+		memberf1.setSize(700,600);
+		memberf1.setLocationRelativeTo(null);
+		memberf1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		memberf1.add(mpanel);
 		
 		panel.setBackground(new Color(170,220,255));
 		tpanel.setBackground(new Color(170,220,255));
@@ -153,7 +153,7 @@ public class SwingProject_bookscanner {
 			tpanel.add(scr);                       //패널에 다시 테이블 넣기 
 			
 			if(table.getValueAt(0, 0).equals("0")) {         //검색결과 없으면 다이얼로그
-				MDialog md2 = new MDialog(memberf, "오류", true, "검색결과가 없습니다");
+				MDialog md2 = new MDialog(memberf1, "오류", true, "검색결과가 없습니다");
 				md2.setVisible(true);
 			}
 			
@@ -188,7 +188,7 @@ public class SwingProject_bookscanner {
 			vlist1.removeAllElements();
 			tpanel.add(scr);
 			if(table.getRowCount()==0) {
-				MDialog md2 = new MDialog(memberf, "오류", true, "검색결과가 없습니다");
+				MDialog md2 = new MDialog(memberf1, "오류", true, "검색결과가 없습니다");
 				md2.setVisible(true);
 			}
 			
@@ -200,7 +200,7 @@ public class SwingProject_bookscanner {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if(table.getSelectedRow()==-1) {
-			MDialog md = new MDialog(memberf, "오류", true, "도서를 선택해 주세요.");
+			MDialog md = new MDialog(memberf1, "오류", true, "도서를 선택해 주세요.");
 				md.setVisible(true);
 			}else {
 				String item = (String)table.getValueAt(table.getSelectedRow(), 0);
@@ -226,7 +226,7 @@ public class SwingProject_bookscanner {
 			Calendar date = Calendar.getInstance();
 			String date2 = sysdate.format(date.getTime()); //문자열에 오늘날짜 대입 
 			SwingProject.tf15.setText(date2.substring(0,10));         //오늘날짜 시분초 자르고 셋팅
-			
+			memberf1.dispose();
 			if(SwingProject.tf4.getText().equals("")) {}   // 대여기간 칸이 비어있다면 실행없음 
 			else {  //대여기간 칸이 채워져있다면 날짜 연산하여 반납일자 셋팅 
 			int to = Integer.parseInt(SwingProject.tf4.getText().substring(0, 1));   //문자열을 정수로 변환 
@@ -235,7 +235,7 @@ public class SwingProject_bookscanner {
 			SwingProject.tf16.setText(date3.substring(0,10));  //시분초 자르고 넣기 
 			
 			
-			memberf.dispose();
+		
 			}}}}
 			
 		}

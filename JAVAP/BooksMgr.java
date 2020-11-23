@@ -49,6 +49,7 @@ public class BooksMgr {
 				bean.setBDATE(rs.getString("BDATE"));
 				bean.setBCOUNT(rs.getInt("BCOUNT"));	
 				bean.setBIMAGE(rs.getString("BIMAGE"));	
+				bean.setCATE(rs.getString("CATE"));	
 				
 				//레코드를 저장시킨 빈즈를 Vector에 저장
 				vlist.addElement(bean);
@@ -138,8 +139,8 @@ public class BooksMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert into BOOKS(ISBN,TITLE,AUTHOR,PUBLISHER,LOCATION,BOOKSTATE,BCOPY,BDATE,BCOUNT,BIMAGE)"
-					+ "values(?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into BOOKS(ISBN,TITLE,AUTHOR,PUBLISHER,LOCATION,BOOKSTATE,BCOPY,BDATE,BCOUNT,BIMAGE,CATE)"
+					+ "values(?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			//pstmt.setInt(1, bean.getBID());
 			pstmt.setString(1, bean.getISBN());
@@ -152,6 +153,7 @@ public class BooksMgr {
 			pstmt.setString(8, bean.getBDATE());
 			pstmt.setInt(9, bean.getBCOUNT());
 			pstmt.setString(10, bean.getBIMAGE());
+			pstmt.setString(11, bean.getCATE());
 			int cnt = pstmt.executeUpdate();//insert,update,delete
 			if(cnt==1) flag = true;
 		} catch (Exception e) {

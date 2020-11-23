@@ -35,7 +35,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class  SwingProject implements ActionListener{
-	ImageIcon normalIcon = new ImageIcon("C:\\Users\\admin\\Desktop\\수업 자료\\gitTest\\gitTest1\\gitTest1\\image\\test2.jpg");
+	ImageIcon normalIcon = new ImageIcon("C:\\\\image\\\\test2.jpg");
 	ImageIcon la;
 	ImageIcon la3;
 	ImageIcon la5;
@@ -49,6 +49,7 @@ public class  SwingProject implements ActionListener{
 	static JTextField tf10 = new JTextField(50);
 	static JTextField tf12 = new JTextField(50);
 	static JTextField tf13 = new JTextField(50);
+
 	JButton btn ;
 	JButton btn3 ;
 	ImageIcon icon;
@@ -86,7 +87,7 @@ public class  SwingProject implements ActionListener{
 	JPanel inpanel1 = new JPanel(); 
 	JPanel panel13 = new JPanel();
 	JPanel panel14 = new JPanel();
-	JPanel cpanel = new JPanel();
+	
 	static JPanel p = new JPanel();
 	JPanel panel15 = new JPanel();
 	
@@ -189,7 +190,7 @@ public class  SwingProject implements ActionListener{
 		tabpanel.setLayout(new BorderLayout());
 		panel13.setLayout(null);
 		panel14.setLayout(null);
-		cpanel.setLayout(null);
+	
 		panel15.setLayout(null);
 	
 		
@@ -197,7 +198,7 @@ public class  SwingProject implements ActionListener{
     panel13.setBackground(cor);
     panel14.setBackground(cor);
     panel.setBackground(cor);
-    cpanel.setBackground(cor);
+  
     
    
 		Testicon ti = new Testicon();
@@ -266,12 +267,11 @@ public class  SwingProject implements ActionListener{
     		new TitledBorder(new LineBorder(bg,5),"회원정보        ");
     TitledBorder jtx1= 
     		new TitledBorder(new LineBorder(bg,5),"도서정보       ");
-    TitledBorder jtx2=                       
-    		new TitledBorder(new LineBorder(bg,5),"회원과의 채팅");
+
     panel13.setBorder(jtx);
     jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
-    jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+  
     
     lab.setBounds(20, 35, 80, 30);
     lab.setFont(fon);
@@ -364,7 +364,6 @@ public class  SwingProject implements ActionListener{
   tf15.setBounds(100, 140, 160, 25);
   panel14.add(tf16);
   tf16.setBounds(370, 140, 160, 25);
-  cpanel.setBorder(jtx2);
   tf15.setBackground(bg);
   
   
@@ -377,14 +376,20 @@ public class  SwingProject implements ActionListener{
   btn3.setBounds(95, 0, 30, 30);
   btn3.addActionListener(bookscan);
   
+  
+  
+  
+  
+  //JPanel cp = new ChatClient();//,채팅패널 객체생성하고 패널에 담기 
+  
   panel14.add(btn3);
   panel14.add(btn4);
   panel15.add(panel13);
   panel15.add(panel14);
-  panel15.add(cpanel);
-panel13.setBounds(0, 0, 580, 150);
-panel14.setBounds(0, 160, 580, 180);
-cpanel.setBounds(0	, 430,570, 260);
+  //panel15.add(cp);
+  panel13.setBounds(0, 0, 580, 150);
+  panel14.setBounds(0, 160, 580, 180);
+ // cp.setBounds(0	, 430,570, 260);
   panel15.add(lentalbtn);
   lentalbtn.setBounds(370, 350, 160, 40);
     jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
@@ -491,8 +496,8 @@ cpanel.setBounds(0	, 430,570, 260);
 			String str4 = (String)(table.getValueAt(table.getSelectedRow(),6));
 			int to7 = Integer.parseInt(str4);
 			mbean.setMID(to);
-			mbean.setECOUNT(to6+1);
-			mbean.setELIMIT(to7-1);
+			mbean.setECOUNT(to6+1);   //대출횟수 +1
+			mbean.setELIMIT(to7-1);     // 대여가능 권수 -1 
 			if(mgr.stateupdateBMEMBERS(mbean)) {
 				p.removeAll();
 				p.revalidate();

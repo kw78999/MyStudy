@@ -40,7 +40,7 @@ public class DBConnectionMgr {
     private Vector connections = new Vector(10);
     private String _driver = "oracle.jdbc.OracleDriver",
     _url = "jdbc:oracle:thin:@127.0.0.1:1521:XE",
-    _user = "oo",
+    _user = "hr",
     _password = "1234";
     
     private boolean _traceOn = false;

@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -30,8 +31,12 @@ import javax.swing.table.JTableHeader;
 
 
 public class SwingProject_1{
-	static String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","IMAGE"};
- //  String row[][] ;
+	static String col[] = {"NO.","서명","저자","출판사","ISBN","도서상태","도서위치","복본","반입일자","대출횟수","IMAGE","카테고리"};
+	static JTextField ctf = new JTextField("",50);
+	static JTextArea cta = new JTextArea();
+	static JButton cbtn = new JButton("보내기");
+	JScrollPane chatScroll ;
+	
 	static ImageIcon img;
 	static ImageIcon icon;
 	static Image bimg;
@@ -39,7 +44,7 @@ public class SwingProject_1{
 	static ImageIcon changeicon;
 	static JLabel  imlabel = new JLabel(); 
 	int cnt =0;
-	static ImageIcon normalIcon2 = new ImageIcon("C:\\Java\\eclipse-workspace\\image\\\\test2.jpg");
+	static ImageIcon normalIcon2 = new ImageIcon("C:\\\\image\\test2.jpg");
 	static  Image btnimg = normalIcon2.getImage();        //버튼에 이미지 부착
 	  static  Image change1 = btnimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 	   static  ImageIcon changeicon1 = new ImageIcon(change1);
@@ -50,7 +55,7 @@ public class SwingProject_1{
 	JPanel lpanel2 = new JPanel();
 	static JPanel rpanel = new JPanel();
 	JPanel rpanel2 = new JPanel();
-	JPanel cpanel = new JPanel();
+	JPanel cpanel; 
 	JPanel rmpanel = new JPanel();
 	JPanel mpanel = new JPanel();
 	JButton btn;
@@ -108,6 +113,7 @@ public class SwingProject_1{
 			row1[i][8] = bean.getBDATE();
 			row1[i][9] = bean.getBCOUNT()+"";
 			row1[i][10] = bean.getBIMAGE();
+			row1[i][11] = bean.getCATE();
 		}
 		model7 = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
 		table7 = new JTable(model7);
@@ -125,7 +131,8 @@ public class SwingProject_1{
 	    table7.getColumnModel().getColumn(8).setPreferredWidth(130);
 	    table7.getColumnModel().getColumn(9).setPreferredWidth(80);
 	    table7.getColumnModel().getColumn(10).setPreferredWidth(100);
-	    table7.setFont(new Font( "Times", Font.BOLD, 20) );
+	    table7.getColumnModel().getColumn(11).setPreferredWidth(100);
+	   table7.setFont(new Font( "Times", Font.BOLD, 20) );
 	    JTableHeader header = table7.getTableHeader();            //테이블 헤더 색상 
 	    header.setBackground(bg);
 	    table7.setSelectionBackground(bg);             //셀 선택시 색변경
@@ -147,6 +154,7 @@ public SwingProject_1() {
 	lpanel.setLayout(null);
 	lmpanel.setLayout(new BorderLayout());
 	rpanel.setLayout(null);
+	//cpanel.setLayout(null);
 	rmpanel.setLayout(null);
 	rpanel2.setLayout(null);
 	mpanel.setLayout(new BorderLayout());
@@ -156,7 +164,7 @@ public SwingProject_1() {
 	rpanel2.setBackground(new  Color(170,220,255));
 	rpanel.setBackground(new  Color(170,220,255));
 	rmpanel.setBackground(new  Color(170,220,255));
-	cpanel.setBackground(new  Color(170,220,255));
+	//cpanel.setBackground(new  Color(170,220,255));
 	
 	
 	
@@ -187,7 +195,7 @@ public SwingProject_1() {
 		//타이틀 보더 패널에 부착
    rpanel.setBorder(jtx1);
    rpanel2.setBorder(jtx2);
-   cpanel.setBorder(jtx3);
+   //cpanel.setBorder(jtx3);
    
    
    Image btnimg = normalIcon2.getImage();        //버튼에 이미지 부착
@@ -267,10 +275,20 @@ public SwingProject_1() {
 	
 	rpanel.setBounds(0, 40, 570, 390);
 	rpanel2.setBounds(0, 0, 570, 40);
-	cpanel.setBounds(0, 430, 570, 260);
+	
+	  cbtn.setBounds(470	, 220, 80,30);
+	  ctf.setBounds(20, 220, 450, 30);
+	// cpanel.validate();//갱신
+	// chatScroll.setBounds(20, 30, 500, 200);
+	 ctf.setBounds(20, 200, 450, 30);
+	 cbtn.setBounds(450, 200, 50, 30);
 	rmpanel.add(rpanel2);
 	rmpanel.add(rpanel);	
-	rmpanel.add(cpanel);
+	
+		cpanel = new ChatClient();
+		cpanel.setBounds(0, 450, 570, 260);
+		rmpanel.add(cpanel);
+		
 	mpanel.add(lmpanel,BorderLayout.WEST);
 	mpanel.add(rmpanel);
     
@@ -283,7 +301,7 @@ public SwingProject_1() {
 public static void setbookimg(String imastr) {         //이미지를 변경하는 메소드
 //책 이미지 삽입
 	
-    icon = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\myJava\\test\\"+imastr);
+    icon = new ImageIcon("C:\\image\\"+imastr);
 	bimg = icon.getImage();    //icon 이미지 img에 넣기
 	change = bimg.getScaledInstance(270, 320, Image.SCALE_SMOOTH); //img이미지 크기조절
 	changeicon = new ImageIcon(change);//img 이미지 다시 imageicon에 넣기
@@ -438,6 +456,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 	JLabel lab8 = new JLabel("복본");
 	JLabel lab9 = new JLabel("도서위치");
 	JLabel lab10 = new JLabel("파일명");
+	JLabel lab11 = new JLabel("카테고리");
 	JTextField tf22 = new JTextField(40);
 	JTextField tf33 = new JTextField(40);
 	JTextField tf44 = new JTextField(40);
@@ -446,6 +465,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 	JTextField tf77 = new JTextField(40);
 	JTextField tf11 = new JTextField(40);
 	JTextField tf88 = new JTextField(40);
+	JTextField tf999 = new JTextField(40);
 	static ImageIcon img2;
 	static ImageIcon icon2;
 	static Image bimg2;
@@ -539,6 +559,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 	    lab8.setBounds(20, 330, 170, 30);
 	    lab9.setBounds(140, 330, 170, 30);
 	    lab10.setBounds(20, 390, 170, 30);
+	    lab11.setBounds(140, 390, 170, 30);
 	    
 	    tf22.setBounds(20, 60, 220, 25);
 	    tf22.setEditable(false);
@@ -553,6 +574,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 	    tf66.setBounds(20, 300, 220, 25);
 	    tf77.setBounds(20,360, 100, 25);
 	    tf88.setBounds(140,360, 100, 25);
+	    tf999.setBounds(140,420, 100, 25);
 	    nbtn3.setBounds(410, 20, 100, 30);
 	    
 	    imaget.setBounds(20, 420, 100, 25);
@@ -568,6 +590,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 	    lab8.setFont(fon);
 	    lab9.setFont(fon);
 	    lab10.setFont(fon);
+	    lab11.setFont(fon);
 	    
 		rpanel5.add(lab3);
 		rpanel5.add(lab4);
@@ -577,6 +600,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 		rpanel5.add(lab8);
 		rpanel5.add(lab9);
 		rpanel5.add(lab10);
+		rpanel5.add(lab11);
 		rpanel5.add(tf22);
 		rpanel5.add(tf33);
 		rpanel5.add(tf44);
@@ -584,6 +608,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 		rpanel5.add(tf66);
 		rpanel5.add(tf77);
 		rpanel5.add(tf88);
+		rpanel5.add(tf999);
 		rpanel5.add(imaget);
 		imaget.setEnabled(false);
 		rpanel5.add(nbtn3);
@@ -610,7 +635,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 	public static void setbookimg1(String imastr) {         //이미지를 변경하는 메소드
 		//책 이미지 삽입
 			
-		    icon2 = new ImageIcon("C:\\\\Java\\\\eclipse-workspace\\\\myJava\\test\\"+imastr);
+		    icon2 = new ImageIcon("C:\\image\\"+imastr);
 			bimg2 = icon2.getImage();    //icon 이미지 img에 넣기
 			change2 = bimg2.getScaledInstance(260, 330, Image.SCALE_SMOOTH); //img이미지 크기조절
 			changeicon2 = new ImageIcon(change2);//img 이미지 다시 imageicon에 넣기
@@ -650,6 +675,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 			bean.setLOCATION(tf88.getText());
 			bean.setBCOUNT(0);
 			bean.setBIMAGE(imaget.getText());
+			bean.setCATE(tf999.getText());
 			if(mgr.insertBooks(bean) ) {
 				//저장을 성공 
 				lpanel.removeAll();
@@ -706,6 +732,16 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 
 	
 	}
+
+static ActionListener chat = new ActionListener() {
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		
+	}
+};
+
 
 
 static ActionListener  scn = new ActionListener() {

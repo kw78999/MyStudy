@@ -24,7 +24,7 @@ public class SwingProject_state {
 	JPanel npanel = new JPanel();
 	static JPanel mpanel = new JPanel();
 	static JPanel tpanel = new JPanel();
-	JPanel cpanel = new JPanel();
+	JPanel cpanel=new ChatClient();
 	JButton reset =new JButton("reset");
 	JButton delete =new JButton("delete");
 	static JTable table;                             //테이블에 필요한 클래스
@@ -78,7 +78,6 @@ public class SwingProject_state {
         	 viewstate();
         	 mpanel.setBackground(new  Color(170,220,255));
         	 npanel.setBackground(new  Color(170,220,255));
-        	 cpanel.setBackground(new Color(170,220,255));
         	 tpanel.setBackground(new Color(170,220,255));
              npanel.setLayout(null);
              mpanel.setLayout(null);
@@ -88,10 +87,10 @@ public class SwingProject_state {
     	    		new TitledBorder(new LineBorder(Color.white),"검색");
     		 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     	     
-          	TitledBorder jtx1=          //검색창 보더
+         /* 	TitledBorder jtx1=          //검색창 보더
      	    		new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
      		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
-     		 cpanel.setBorder(jtx1);
+     		 cpanel.setBorder(jtx1);*/
      		 
     		 cho.add("대출 번호");
     		 cho.add("회원 번호");

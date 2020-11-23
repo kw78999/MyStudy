@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -57,13 +58,16 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 	JLabel lab5 = new JLabel("대여횟수");
 	JLabel lab6 = new JLabel("대출가능 권수");
 	
-	
+	static ImageIcon normalIcon2 = new ImageIcon("C:\\image\\test2.jpg");
+	static  Image btnimg = normalIcon2.getImage();        //버튼에 이미지 부착
+	  static  Image change1 = btnimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+	   static  ImageIcon changeicon1 = new ImageIcon(change1);
 	
 	static JTextField mID = new JTextField(10);
 	static JTextField mMax = new JTextField(10);
 	static JTextField mName = new JTextField(10);
 	static JTextField mPhone = new JTextField(20);
-	static JButton btns = new JButton();
+	static JButton btns = new JButton(changeicon1);
 	static JTextField mCount = new JTextField();
 	static JTextField mLimit = new JTextField();
 	
@@ -129,12 +133,12 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		lmpanel.setBackground(new  Color(170,220,255));
 		lpanel2.setBackground(new  Color(170,220,255));
 	//	rpanel.setBackground(new  Color(0,162,240));
-	    icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
+	  //  icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
 	    JPanel rpanel = new JPanel() {
 		public void paintComponent(Graphics g) {
 	//  Approach 1: Dispaly image at at full size 
-			Dimension d = getSize();
-            g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
+		//	Dimension d = getSize();
+        //   g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
         setOpaque(false);
         super.paintComponent(g);
 
@@ -324,7 +328,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 				bean.setMAXRENTAL(maxrental);
 				bean.setECOUNT(ecount);
 				bean.setELIMIT(mlimit);
-				mgr.insertBMEMBERS(bean);
+			if(	mgr.insertBMEMBERS(bean)) {
 				
 				lpanel.removeAll();
 				lpanel.revalidate();
@@ -335,6 +339,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 				SwingProject.p.revalidate();
 				SwingProject.vlist.removeAllElements();
 				SwingProject.memlist();
+			}
 			}//////////////////////////////////////////////////////////////////////
 		
 		}else if (cmd.equals(btn2.getText())) {//회원수정버튼일 때***
