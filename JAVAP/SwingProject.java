@@ -380,22 +380,22 @@ public class  SwingProject implements ActionListener{
   
   
   
-  //JPanel cp = new ChatClient();//,채팅패널 객체생성하고 패널에 담기 
+  JPanel cp = new ChatClient();//,채팅패널 객체생성하고 패널에 담기 
   
   panel14.add(btn3);
   panel14.add(btn4);
   panel15.add(panel13);
   panel15.add(panel14);
-  //panel15.add(cp);
+  panel15.add(cp);
   panel13.setBounds(0, 0, 580, 150);
   panel14.setBounds(0, 160, 580, 180);
- // cp.setBounds(0	, 430,570, 260);
+  cp.setBounds(0	, 430,570, 260);
   panel15.add(lentalbtn);
   lentalbtn.setBounds(370, 350, 160, 40);
     jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     panel.add(panel15);
-   //cpanel.add(ta1);
+  // cpanel.add(ta1);
     ta1.setBounds(20, 30, 500, 260);
 
     

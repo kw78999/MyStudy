@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -22,7 +25,10 @@ public class ChartFrame extends JPanel{
 	ChartPanel03 p3 = new ChartPanel03();
 	JPanel p4 = new JPanel();
 	Color cor = new Color(170,220,255);
-
+	static JTextField ctf = new JTextField("",50);
+	static JTextArea cta = new JTextArea();
+	static JButton cbtn = new JButton("보내기");
+	static JScrollPane chatScroll ;
 //	Container c;
 	
 	public ChartFrame(){
@@ -62,6 +68,18 @@ public class ChartFrame extends JPanel{
  	    		new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
  		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
  		 p4.setBorder(jtx1);
+ 		chatScroll = new JScrollPane(cta);
+		ChatAction ca = new ChatAction();
+		cta.setEnabled(false);
+		  cbtn.addActionListener(ca.acc);
+		  ctf.addActionListener(ca.acc);
+		  cbtn.setBounds(470, 220, 80,30);
+		  ctf.setBounds(20, 220, 450, 30);
+		  chatScroll.setBounds(20,30	, 530, 190);
+		  chatScroll.setBackground(new  Color(170,220,255));
+		  p4.add(cbtn);
+		  p4.add(ctf);
+		  p4.add(chatScroll);
 		 p1.setBackground(Color.WHITE);
 	     p2.setBackground(Color.WHITE);
          p3.setBackground(Color.WHITE);

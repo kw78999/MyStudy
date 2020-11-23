@@ -26,33 +26,29 @@ public class ChatClient extends JPanel{
 	static JButton cbtn5 = new JButton("시작");
 	static Color cor= Color.white;
 	static Color bg = new  Color(170,220,255);
-	static BufferedReader in;
-	static 	PrintWriter out;
 	static String id;
 	static JScrollPane chatScroll ;
 	static Socket socket;
 	
 	
 	public ChatClient() {
-		if(socket==null) {
-		System.out.println("소켓은 널");
-		}
 		 TitledBorder jtx2=                       
 		    		new TitledBorder(new LineBorder(bg,5),"회원과의 채팅");
 		  jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 	setLayout(null);
 	setBackground(cor);
 		setBorder(jtx2);
+		chatScroll = new JScrollPane(cta);
 		ChatAction ca = new ChatAction();
+		cta.setEnabled(false);
+		
 		  cbtn5.addActionListener(ca.acc);
-		  cbtn5.setBounds(0, 0, 100,30);
 		  cbtn.addActionListener(ca.acc);
 		  ctf.addActionListener(ca.acc);
-		  cbtn.setBounds(470	, 220, 80,30);
+		  cbtn.setBounds(470, 220, 80,30);
 		  ctf.setBounds(20, 220, 450, 30);
-		  chatScroll = new JScrollPane(cta);
 		  chatScroll.setBounds(20,30	, 530, 190);
-		  chatScroll.setBackground(bg);
+		  cbtn5.setBounds(0, 0, 100,30);
 		  add(cbtn);
 		  add(ctf);
 		  add(chatScroll);

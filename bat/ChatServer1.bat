@@ -1,2 +1,2 @@
-cd C:\Java\eclipse-workspace\myJava
-java ch20.ChatServer1
+cd C:\Users\deers\eclipse-workspace\JAVAP_1\bin
+java ch20.ChatServer2

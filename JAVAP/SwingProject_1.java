@@ -35,7 +35,7 @@ public class SwingProject_1{
 	static JTextField ctf = new JTextField("",50);
 	static JTextArea cta = new JTextArea();
 	static JButton cbtn = new JButton("보내기");
-	JScrollPane chatScroll ;
+	static JScrollPane chatScroll ;
 	
 	static ImageIcon img;
 	static ImageIcon icon;
@@ -55,7 +55,7 @@ public class SwingProject_1{
 	JPanel lpanel2 = new JPanel();
 	static JPanel rpanel = new JPanel();
 	JPanel rpanel2 = new JPanel();
-	JPanel cpanel; 
+	JPanel cpanel = new JPanel(); 
 	JPanel rmpanel = new JPanel();
 	JPanel mpanel = new JPanel();
 	JButton btn;
@@ -154,7 +154,7 @@ public SwingProject_1() {
 	lpanel.setLayout(null);
 	lmpanel.setLayout(new BorderLayout());
 	rpanel.setLayout(null);
-	//cpanel.setLayout(null);
+	cpanel.setLayout(null);
 	rmpanel.setLayout(null);
 	rpanel2.setLayout(null);
 	mpanel.setLayout(new BorderLayout());
@@ -163,6 +163,7 @@ public SwingProject_1() {
 	lpanel.setBackground(new  Color(170,220,255));
 	rpanel2.setBackground(new  Color(170,220,255));
 	rpanel.setBackground(new  Color(170,220,255));
+	cpanel.setBackground(new  Color(170,220,255));
 	rmpanel.setBackground(new  Color(170,220,255));
 	//cpanel.setBackground(new  Color(170,220,255));
 	
@@ -195,7 +196,7 @@ public SwingProject_1() {
 		//타이틀 보더 패널에 부착
    rpanel.setBorder(jtx1);
    rpanel2.setBorder(jtx2);
-   //cpanel.setBorder(jtx3);
+   cpanel.setBorder(jtx3);
    
    
    Image btnimg = normalIcon2.getImage();        //버튼에 이미지 부착
@@ -272,22 +273,28 @@ public SwingProject_1() {
 	rpanel.add(tf10);
 
     btn.addActionListener(ac1);
-	
+    chatScroll = new JScrollPane(cta);
 	rpanel.setBounds(0, 40, 570, 390);
 	rpanel2.setBounds(0, 0, 570, 40);
+	cpanel.setBounds(0, 430, 570, 270);
 	
-	  cbtn.setBounds(470	, 220, 80,30);
-	  ctf.setBounds(20, 220, 450, 30);
-	// cpanel.validate();//갱신
-	// chatScroll.setBounds(20, 30, 500, 200);
-	 ctf.setBounds(20, 200, 450, 30);
-	 cbtn.setBounds(450, 200, 50, 30);
+	  ChatAction ca = new ChatAction();
+	  cta.setEnabled(false);
+	 ctf.setBounds(20, 220, 450, 30);
+	 cbtn.setBounds(470, 220, 80, 30);
+	 chatScroll.setBounds(20, 30, 530, 180);
+	 ctf.addActionListener(ca.acc);
+	 cbtn.addActionListener(ca.acc);
+	 cpanel.add(chatScroll);
+	 cpanel.add(ctf);
+	 cpanel.add(cbtn);
 	rmpanel.add(rpanel2);
 	rmpanel.add(rpanel);	
+	rmpanel.add(cpanel);	
 	
-		cpanel = new ChatClient();
+		/*cpanel = new ChatClient();
 		cpanel.setBounds(0, 450, 570, 260);
-		rmpanel.add(cpanel);
+		rmpanel.add(cpanel);*/
 		
 	mpanel.add(lmpanel,BorderLayout.WEST);
 	mpanel.add(rmpanel);

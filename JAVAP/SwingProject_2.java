@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -41,9 +42,11 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 //	JPanel rpanel = new JPanel();
 	static BMEMBERSMgr mgr;
 	static ImageIcon icon;
-	
+	static JTextField ctf = new JTextField("",50);
+	static JTextArea cta = new JTextArea();
+	static JButton cbtn = new JButton("보내기");
 	static int cnt;
-	
+	static JScrollPane chatScroll ;
 	JButton btn1 = new JButton("회원생성");
 	JButton btn2 = new JButton("수정");
 	JButton btn3 = new JButton("삭제");
@@ -235,18 +238,30 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		
 				
 		TitledBorder jtx2= 
-		 		new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
+		 		new TitledBorder(new LineBorder(Color.white,5),"회원과의 채팅");
 		jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 				
 		JPanel cpanel = new JPanel();
 		
-		
+		chatScroll = new JScrollPane(cta);
+		cta.setEnabled(false);
+		ChatAction ca = new ChatAction();
+		  cbtn.addActionListener(ca.acc);
+		  ctf.addActionListener(ca.acc);
+		  cbtn.setBounds(470, 220, 80,30);
+		  ctf.setBounds(20, 220, 450, 30);
+		  chatScroll.setBounds(20,30	, 530, 190);
+		  chatScroll.setBackground(bg);
+		  cpanel.add(cbtn);
+		  cpanel.add(ctf);
+		  cpanel.add(chatScroll);
 		rpanel.add(btn2);
 		rpanel.add(btn3);
 		cpanel.setLayout(null);
 		cpanel.setBackground(new Color(255,255,255,0));//투명
 		cpanel.setBorder(jtx2);
 		cpanel.setBounds(5	, 430,565, 260);
+		
 		rpanel.add(cho);
 		 rpanel.add(mMax);
 		 rpanel.add(mPhone);

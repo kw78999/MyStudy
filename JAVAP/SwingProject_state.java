@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -24,7 +25,13 @@ public class SwingProject_state {
 	JPanel npanel = new JPanel();
 	static JPanel mpanel = new JPanel();
 	static JPanel tpanel = new JPanel();
-	JPanel cpanel=new ChatClient();
+	
+	JPanel cpanel=new JPanel();
+	static JTextField ctf = new JTextField("",50);
+	static JTextArea cta = new JTextArea();
+	static JButton cbtn = new JButton("보내기");
+	static JScrollPane chatScroll ;
+	
 	JButton reset =new JButton("reset");
 	JButton delete =new JButton("delete");
 	static JTable table;                             //테이블에 필요한 클래스
@@ -81,17 +88,18 @@ public class SwingProject_state {
         	 tpanel.setBackground(new Color(170,220,255));
              npanel.setLayout(null);
              mpanel.setLayout(null);
+             cpanel.setLayout(null);
              tpanel.setLayout(null);
              
          	TitledBorder jtx=          //검색창 보더
     	    		new TitledBorder(new LineBorder(Color.white),"검색");
     		 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
     	     
-         /* 	TitledBorder jtx1=          //검색창 보더
-     	    		new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
-     		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
-     		 cpanel.setBorder(jtx1);*/
-     		 
+    		 TitledBorder jtx1=                       
+ 		    		new TitledBorder(new LineBorder(Color.white,5),"회원과의 채팅");
+ 		       jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+     		 cpanel.setBorder(jtx1);
+     		 cpanel.setBackground(SwingProject.bg);
     		 cho.add("대출 번호");
     		 cho.add("회원 번호");
     		 cho.add("도서 번호");
@@ -103,8 +111,19 @@ public class SwingProject_state {
     		 
     		 btn.setBounds(580, 50, 100, 27);
     	     btn.addActionListener(ac);
+    	     ChatAction ca = new ChatAction();
+    	     chatScroll = new JScrollPane(cta);
     	 cpanel.setBounds(600, 430, 570,260);
+    	 cpanel.add(chatScroll);
+    	 cpanel.add(ctf);
+    	 cpanel.add(cbtn);
+    	 ctf.addActionListener(ca.acc);
+    	 cbtn.addActionListener(ca.acc);
+    	 chatScroll.setBounds(20, 30, 530, 180);
+    	 ctf.setBounds(20, 220, 450, 30);
+    	 cbtn.setBounds(470, 220, 80, 30);
     	 tpanel.setBounds(0, 120, 1175, 300);
+    	 cta.setEnabled(false);
     	 npanel.add(tf);
     	 npanel.add(btn);
     	 npanel.add(cho);
