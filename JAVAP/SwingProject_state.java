@@ -59,13 +59,22 @@ public class SwingProject_state {
 	static Color red = new Color(255,184,249);
 	static Color bg = new Color(186,218,255);
 	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+	
 	JLabel time = new JLabel();
+	
 	static SimpleDateFormat sysdate = new SimpleDateFormat();
 	static Calendar date = Calendar.getInstance();
 	static String date2 = sysdate.format(date.getTime()); //문자열에 오늘날짜 대입 
 	
 	
+	
+	
+	
+	//테이블을 보여주는 메소드
 	public static void viewstate() {
+		
+		
+		
 		vlist = mgr.getListBRental();
 		row1 = new String [vlist.size()][7];
 		for (int i = 0; i < row1.length; i++) {
@@ -97,17 +106,37 @@ public class SwingProject_state {
 
 	                   if (!isRowSelected(row)) {
 	                       if (table.getColumnCount() >= 0) {
-	                         
-	                    	   
-	                    	   
-	                    	   
-	                          /// if (ndate.after(ndate2)) {
-	                        	 //  System.out.println("반납일이 더 미래입니다");
-	                             //  c.setBackground(Color.white);
-	                        //   }
-	                       //    if (type.equals("대출 불가능")) {
-	                        //       c.setBackground(red);
-	                    //       }
+	                    	   //오늘 날짜데이터에서 필요한 년,월,일 만 가져오기 
+	                    	   int yy = Integer.parseInt(date2.substring(0,2));   
+	                    		int mm = Integer.parseInt(date2.substring(4,6));
+	                    		int dd = Integer.parseInt(date2.substring(8,10));
+	                    		//현재날짜와 반납날짜를 연산할 객체 생성 
+	                    		Calendar date7 = Calendar.getInstance();
+	                    		Calendar date8 = Calendar.getInstance();
+	                    		//반납테이블의 6번쨰컬럼에있는 모든 행을 스트링 aaa에 담기 
+	                    	   String aaa = (String)getModel().getValueAt(row,6) ;
+	                    	   //반납테이블의 년월일 정수형으로 추출하기 
+	                    	   int yy2 = Integer.parseInt(aaa.substring(0,4));   
+	                    		int mm2 = Integer.parseInt(aaa.substring(5,7));
+	                    		int dd2= Integer.parseInt(aaa.substring(8,10));
+	                    		//객체 초기화
+	                    	   	date7.clear();
+	                   			date8.clear();
+	                   			//연산할 객체에 각각 오늘날짜,반납날짜 담기
+	                   			date7.set(2000+yy,mm,dd);
+	                   			date8.set(yy2,mm2,dd2);
+	                   			//롱 데이터형에 오늘날짜와 반납날짜를 1/1000초로 분해하여 연산
+	                   			//하고 다시 20*60*60*1000으로 나누어 몇일차이 인지 계산하기
+	                   		long ttt=	(date7.getTimeInMillis()-date8.getTimeInMillis())/(24*60*60*1000);
+	                    	   //만약 오늘날짜 - 반납날짜가 0이상이라면 반납일이 지났고
+	                   		//만약 오늘날짜 - 반납날짜가 0보다 작다면 반납일이 지나지 않았다.
+	                   		//만약 오늘날짜 -반납날짜가 0이라면 오늘이 반납일 이다
+	                         if (ttt<=0) {
+	                              c.setBackground(Color.white);
+	                           }
+	                           if (ttt>0) {
+	                              c.setBackground(red);
+	                         }
 	                       }
 	                   }
 	                   return c;
@@ -222,24 +251,82 @@ public class SwingProject_state {
 						row1[i][5] = bean.getRENTAL().substring(0,10);  //검색내용 있으면 잘라서 보기편하게 가져오기
 						row1[i][6] = bean.getENDRENTAL().substring(0,10);
 						}
+						DefaultTableModel model = new DefaultTableModel(row1, col) {
+
+					           private static final long serialVersionUID = 1L;
+
+					           @Override
+					           public Class getColumnClass(int column) {
+					               return getValueAt(0, column).getClass();
+					           }
+					       };
+					       table = new JTable(model) {
+
+					               private static final long serialVersionUID = 1L;
+
+					               @Override
+					               public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+					                   Component c = super.prepareRenderer(renderer, row, column);
+
+					                   if (!isRowSelected(row)) {
+					                       if (table.getColumnCount() >= 0) {
+					                    	   //오늘 날짜데이터에서 필요한 년,월,일 만 가져오기 
+					                    	   int yy = Integer.parseInt(date2.substring(0,2));   
+					                    		int mm = Integer.parseInt(date2.substring(4,6));
+					                    		int dd = Integer.parseInt(date2.substring(8,10));
+					                    		//현재날짜와 반납날짜를 연산할 객체 생성 
+					                    		Calendar date7 = Calendar.getInstance();
+					                    		Calendar date8 = Calendar.getInstance();
+					                    		//반납테이블의 6번쨰컬럼에있는 모든 행을 스트링 aaa에 담기 
+					                    	   String aaa = (String)getModel().getValueAt(row,6) ;
+					                    	   //반납테이블의 년월일 정수형으로 추출하기 
+					                    	   int yy2 = Integer.parseInt(aaa.substring(0,4));   
+					                    		int mm2 = Integer.parseInt(aaa.substring(5,7));
+					                    		int dd2= Integer.parseInt(aaa.substring(8,10));
+					                    		//객체 초기화
+					                    	   	date7.clear();
+					                   			date8.clear();
+					                   			//연산할 객체에 각각 오늘날짜,반납날짜 담기
+					                   			date7.set(2000+yy,mm,dd);
+					                   			date8.set(yy2,mm2,dd2);
+					                   			//롱 데이터형에 오늘날짜와 반납날짜를 1/1000초로 분해하여 연산
+					                   			//하고 다시 20*60*60*1000으로 나누어 몇일차이 인지 계산하기
+					                   		long ttt=	(date7.getTimeInMillis()-date8.getTimeInMillis())/(24*60*60*1000);
+					                    	   //만약 오늘날짜 - 반납날짜가 0이상이라면 반납일이 지났고
+					                   		//만약 오늘날짜 - 반납날짜가 0보다 작다면 반납일이 지나지 않았다.
+					                   		//만약 오늘날짜 -반납날짜가 0이라면 오늘이 반납일 이다
+					                         if (ttt<=0) {
+					                              c.setBackground(Color.white);
+					                           }
+					                           if (ttt>0) {
+					                              c.setBackground(red);
+					                         }
+					                       }
+					                   }
+					                   return c;
+					               }
+					           };
+						
+						
+						
+						//model = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
+						//table = new JTable(model);         //테이블에 테이블모델 입히기
+						scr = new JScrollPane(table); 	//스크롤 생성
+						 table.getColumnModel().getColumn(0).setPreferredWidth(90);  //JTable 의 컬럼 길이 조절
+						    table.getColumnModel().getColumn(1).setPreferredWidth(90);
+						    table.getColumnModel().getColumn(2).setPreferredWidth(110);
+						    table.getColumnModel().getColumn(3).setPreferredWidth(90);
+						    table.getColumnModel().getColumn(4).setPreferredWidth(400);
+						    table.getColumnModel().getColumn(5).setPreferredWidth(200);
+						    table.getColumnModel().getColumn(6).setPreferredWidth(200);
+						    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+						    table.setRowHeight(30);
+						    scr.setBounds(0, 0, 1175, 300);
+							tpanel.removeAll();
+							tpanel.revalidate();
+						    tpanel.add(scr);
+						
 					}
-					model = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
-					table = new JTable(model);         //테이블에 테이블모델 입히기
-					scr = new JScrollPane(table); 	//스크롤 생성
-					 table.getColumnModel().getColumn(0).setPreferredWidth(90);  //JTable 의 컬럼 길이 조절
-					    table.getColumnModel().getColumn(1).setPreferredWidth(90);
-					    table.getColumnModel().getColumn(2).setPreferredWidth(110);
-					    table.getColumnModel().getColumn(3).setPreferredWidth(90);
-					    table.getColumnModel().getColumn(4).setPreferredWidth(400);
-					    table.getColumnModel().getColumn(5).setPreferredWidth(200);
-					    table.getColumnModel().getColumn(6).setPreferredWidth(200);
-					    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
-					    table.setRowHeight(30);
-					    scr.setBounds(0, 0, 1175, 300);
-					tpanel.removeAll();
-					tpanel.revalidate();
-				//	vlist.removeAllElements();
-					 tpanel.add(scr);
 					 if(table.getValueAt(0, 0).equals("0")) {
 						 MDialog md = new MDialog(SwingProject.frame,	"오류", true,"검색내용이 없습니다.");
 					md.setVisible(true);
@@ -263,24 +350,85 @@ public class SwingProject_state {
 						row1[i][5] = bean.getRENTAL().substring(0,10);  //검색내용 있으면 잘라서 보기편하게 가져오기
 						row1[i][6] = bean.getENDRENTAL().substring(0,10);
 						}
-						}
-					model = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
-					table = new JTable(model);         //테이블에 테이블모델 입히기
-					scr = new JScrollPane(table); 	//스크롤 생성
-					 table.getColumnModel().getColumn(0).setPreferredWidth(90);  //JTable 의 컬럼 길이 조절
-					    table.getColumnModel().getColumn(1).setPreferredWidth(90);
-					    table.getColumnModel().getColumn(2).setPreferredWidth(110);
-					    table.getColumnModel().getColumn(3).setPreferredWidth(90);
-					    table.getColumnModel().getColumn(4).setPreferredWidth(400);
-					    table.getColumnModel().getColumn(5).setPreferredWidth(200);
-					    table.getColumnModel().getColumn(6).setPreferredWidth(200);
-					    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
-					    table.setRowHeight(30);
-					    scr.setBounds(0, 0, 1175, 300);
-					tpanel.removeAll();
-					tpanel.revalidate();
-					vlist.removeAllElements();
-					 tpanel.add(scr);
+						DefaultTableModel model = new DefaultTableModel(row1, col) {
+
+					           private static final long serialVersionUID = 1L;
+
+					           @Override
+					           public Class getColumnClass(int column) {
+					               return getValueAt(0, column).getClass();
+					           }
+					       };
+					       table = new JTable(model) {
+
+					               private static final long serialVersionUID = 1L;
+
+					               @Override
+					               public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+					                   Component c = super.prepareRenderer(renderer, row, column);
+
+					                   if (!isRowSelected(row)) {
+					                       if (table.getColumnCount() >= 0) {
+					                    	   //오늘 날짜데이터에서 필요한 년,월,일 만 가져오기 
+					                    	   int yy = Integer.parseInt(date2.substring(0,2));   
+					                    		int mm = Integer.parseInt(date2.substring(4,6));
+					                    		int dd = Integer.parseInt(date2.substring(8,10));
+					                    		//현재날짜와 반납날짜를 연산할 객체 생성 
+					                    		Calendar date7 = Calendar.getInstance();
+					                    		Calendar date8 = Calendar.getInstance();
+					                    		//반납테이블의 6번쨰컬럼에있는 모든 행을 스트링 aaa에 담기 
+					                    	   String aaa = (String)getModel().getValueAt(row,6) ;
+					                    	   //반납테이블의 년월일 정수형으로 추출하기 
+					                    	   int yy2 = Integer.parseInt(aaa.substring(0,4));   
+					                    		int mm2 = Integer.parseInt(aaa.substring(5,7));
+					                    		int dd2= Integer.parseInt(aaa.substring(8,10));
+					                    		//객체 초기화
+					                    	   	date7.clear();
+					                   			date8.clear();
+					                   			//연산할 객체에 각각 오늘날짜,반납날짜 담기
+					                   			date7.set(2000+yy,mm,dd);
+					                   			date8.set(yy2,mm2,dd2);
+					                   			//롱 데이터형에 오늘날짜와 반납날짜를 1/1000초로 분해하여 연산
+					                   			//하고 다시 20*60*60*1000으로 나누어 몇일차이 인지 계산하기
+					                   		long ttt=	(date7.getTimeInMillis()-date8.getTimeInMillis())/(24*60*60*1000);
+					                    	   //만약 오늘날짜 - 반납날짜가 0이상이라면 반납일이 지났고
+					                   		//만약 오늘날짜 - 반납날짜가 0보다 작다면 반납일이 지나지 않았다.
+					                   		//만약 오늘날짜 -반납날짜가 0이라면 오늘이 반납일 이다
+					                         if (ttt<=0) {
+					                              c.setBackground(Color.white);
+					                           }
+					                           if (ttt>0) {
+					                              c.setBackground(red);
+					                         }
+					                       }
+					                   }
+					                   return c;
+					               }
+					           };
+						
+						
+						
+						//model = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
+						//table = new JTable(model);         //테이블에 테이블모델 입히기
+						scr = new JScrollPane(table); 	//스크롤 생성
+						 table.getColumnModel().getColumn(0).setPreferredWidth(90);  //JTable 의 컬럼 길이 조절
+						    table.getColumnModel().getColumn(1).setPreferredWidth(90);
+						    table.getColumnModel().getColumn(2).setPreferredWidth(110);
+						    table.getColumnModel().getColumn(3).setPreferredWidth(90);
+						    table.getColumnModel().getColumn(4).setPreferredWidth(400);
+						    table.getColumnModel().getColumn(5).setPreferredWidth(200);
+						    table.getColumnModel().getColumn(6).setPreferredWidth(200);
+						    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+						    table.setRowHeight(30);
+						    scr.setBounds(0, 0, 1175, 300);
+							tpanel.removeAll();
+							tpanel.revalidate();
+						    tpanel.add(scr);
+						
+					}
+					 
+					 
+					 
 					 if(table.getRowCount()==0) {
 						 MDialog md = new MDialog(SwingProject.frame,	"오류", true,"검색내용이 없습니다.");
 					md.setVisible(true);
@@ -304,9 +452,67 @@ public class SwingProject_state {
 						row1[i][5] = bean.getRENTAL().substring(0,10);  //검색내용 있으면 잘라서 보기편하게 가져오기
 						row1[i][6] = bean.getENDRENTAL().substring(0,10);
 						}
-					}
-					model = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
-					table = new JTable(model);         //테이블에 테이블모델 입히기
+					
+					DefaultTableModel model = new DefaultTableModel(row1, col) {
+
+				           private static final long serialVersionUID = 1L;
+
+				           @Override
+				           public Class getColumnClass(int column) {
+				               return getValueAt(0, column).getClass();
+				           }
+				       };
+				       table = new JTable(model) {
+
+				               private static final long serialVersionUID = 1L;
+
+				               @Override
+				               public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				                   Component c = super.prepareRenderer(renderer, row, column);
+
+				                   if (!isRowSelected(row)) {
+				                       if (table.getColumnCount() >= 0) {
+				                    	   //오늘 날짜데이터에서 필요한 년,월,일 만 가져오기 
+				                    	   int yy = Integer.parseInt(date2.substring(0,2));   
+				                    		int mm = Integer.parseInt(date2.substring(4,6));
+				                    		int dd = Integer.parseInt(date2.substring(8,10));
+				                    		//현재날짜와 반납날짜를 연산할 객체 생성 
+				                    		Calendar date7 = Calendar.getInstance();
+				                    		Calendar date8 = Calendar.getInstance();
+				                    		//반납테이블의 6번쨰컬럼에있는 모든 행을 스트링 aaa에 담기 
+				                    	   String aaa = (String)getModel().getValueAt(row,6) ;
+				                    	   //반납테이블의 년월일 정수형으로 추출하기 
+				                    	   int yy2 = Integer.parseInt(aaa.substring(0,4));   
+				                    		int mm2 = Integer.parseInt(aaa.substring(5,7));
+				                    		int dd2= Integer.parseInt(aaa.substring(8,10));
+				                    		//객체 초기화
+				                    	   	date7.clear();
+				                   			date8.clear();
+				                   			//연산할 객체에 각각 오늘날짜,반납날짜 담기
+				                   			date7.set(2000+yy,mm,dd);
+				                   			date8.set(yy2,mm2,dd2);
+				                   			//롱 데이터형에 오늘날짜와 반납날짜를 1/1000초로 분해하여 연산
+				                   			//하고 다시 20*60*60*1000으로 나누어 몇일차이 인지 계산하기
+				                   		long ttt=	(date7.getTimeInMillis()-date8.getTimeInMillis())/(24*60*60*1000);
+				                    	   //만약 오늘날짜 - 반납날짜가 0이상이라면 반납일이 지났고
+				                   		//만약 오늘날짜 - 반납날짜가 0보다 작다면 반납일이 지나지 않았다.
+				                   		//만약 오늘날짜 -반납날짜가 0이라면 오늘이 반납일 이다
+				                         if (ttt<=0) {
+				                              c.setBackground(Color.white);
+				                           }
+				                           if (ttt>0) {
+				                              c.setBackground(red);
+				                         }
+				                       }
+				                   }
+				                   return c;
+				               }
+				           };
+					
+					
+					
+					//model = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
+					//table = new JTable(model);         //테이블에 테이블모델 입히기
 					scr = new JScrollPane(table); 	//스크롤 생성
 					 table.getColumnModel().getColumn(0).setPreferredWidth(90);  //JTable 의 컬럼 길이 조절
 					    table.getColumnModel().getColumn(1).setPreferredWidth(90);
@@ -318,10 +524,14 @@ public class SwingProject_state {
 					    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 					    table.setRowHeight(30);
 					    scr.setBounds(0, 0, 1175, 300);
-					tpanel.removeAll();
-					tpanel.revalidate();
-					//vlist.removeAllElements();
-					 tpanel.add(scr);
+						tpanel.removeAll();
+						tpanel.revalidate();
+					    tpanel.add(scr);
+					
+				}
+					 
+					 
+					 
 					 if(table.getValueAt(0, 0).equals("0")) {
 						 MDialog md = new MDialog(SwingProject.frame,	"오류", true,"검색내용이 없습니다.");
 					md.setVisible(true);
@@ -391,11 +601,5 @@ public class SwingProject_state {
 		}
 				
 	}};
-         
-         	
-         
-         
-         
-         
 			     
 		}

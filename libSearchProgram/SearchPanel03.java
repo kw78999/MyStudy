@@ -1,7 +1,6 @@
 package libSearchProgram;
 
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import JAVAP.*;
 
 public class SearchPanel03 extends JPanel implements ActionListener,Runnable{
 	BufferedReader in;
@@ -100,10 +101,12 @@ public class SearchPanel03 extends JPanel implements ActionListener,Runnable{
 		Object obj = e.getSource();
 		if(obj==btn3||obj==chatField) {
 			out.println(chatField.getText());
+			
 			chatField.setText("");
 			chatField.requestFocus();
 			int pos = chatArea.getText().length();
 			chatArea.setCaretPosition(pos);
+			
 		}
 		
 	}
@@ -125,3 +128,4 @@ public class SearchPanel03 extends JPanel implements ActionListener,Runnable{
 	}
 	
 }
+

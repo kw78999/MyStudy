@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import ch20.ChatServer1;
+
 
 public class ChatAction extends Thread implements Runnable {
 	static Socket socket;
@@ -27,6 +29,7 @@ public class ChatAction extends Thread implements Runnable {
 				if(!ChatClient.ctf.getText().equals("")) {   //입푸 ctf가 ""가 아닐시에 
 					out.println(ChatClient.ctf.getText());    //현재 텍스트가 있는 tf만 서버로 전송하기 
 					ChatClient.ctf.setText("");
+					
 				}else if(!SwingProject_state.ctf.getText().equals("")){
 					out.println(SwingProject_state.ctf.getText());
 					SwingProject_state.ctf.setText("");
@@ -40,7 +43,7 @@ public class ChatAction extends Thread implements Runnable {
 					out.println(ChartFrame.ctf.getText());
 					ChartFrame.ctf.setText("");
 				}
-				int pos = ChatClient.cta.getText().length();
+				int pos = ChatClient.cta.getText().length(); //스크롤 자동으로 내리기 
 			//	System.out.println(pos);
 				ChatClient.cta.setCaretPosition(pos);
 				SwingProject_1.cta.setCaretPosition(pos-15);
@@ -62,6 +65,12 @@ public class ChatAction extends Thread implements Runnable {
 				SwingProject_2.cta.append(str);
 				ChartFrame.cta.append(str);
 				ChatClient.ctf.requestFocus();
+				if(str.substring(0,4).equals("[회원]")) {
+				Runnable tt = new ColorThread();
+				Thread t1 = new Thread(tt);
+				t1.start();
+				}
+				
 			}
 			
 		} catch (Exception e) {

@@ -2,6 +2,8 @@ package JAVAP;
 
 import java.awt.Choice;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import JAVAP.BMEMBERSBean;
 
@@ -38,6 +41,10 @@ public class SwingProject_MemberScanner{
 	JButton btn1 = new JButton("선택하기");
 	static JFrame memberf;
 	Vector<BMEMBERSBean> vlist;
+	static Color red = new Color(255,184,249);
+	static Color bg = new Color(186,218,255);
+	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+	
 	
 	void viewmem() {
 		mgr = new BMEMBERSMgr();
@@ -54,24 +61,51 @@ public class SwingProject_MemberScanner{
 			row[i][5] = bean.getECOUNT()+"";
 			row[i][6] = bean.getELIMIT()+"";
 		}
-		model = new DefaultTableModel(row,col);
-		table = new JTable(model);
-		 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		scr = new JScrollPane(table);
-		table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
-		 table.setRowHeight(25);
-		 
-		  table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
-		    table.getColumnModel().getColumn(1).setPreferredWidth(90);
-		    table.getColumnModel().getColumn(2).setPreferredWidth(80);
-		    table.getColumnModel().getColumn(3).setPreferredWidth(190);
-		    table.getColumnModel().getColumn(4).setPreferredWidth(80);
-		    table.getColumnModel().getColumn(5).setPreferredWidth(80);
-		    table.getColumnModel().getColumn(6).setPreferredWidth(130);
+		DefaultTableModel model2 = new DefaultTableModel(row, col) {
+
+	        private static final long serialVersionUID = 1L;
+
+	        @Override
+	        public Class getColumnClass(int column) {
+	            return getValueAt(0, column).getClass();
+	        }
+	    };
+	    table = new JTable(model2) {
+	            private static final long serialVersionUID = 1L;
+	            @Override
+	            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+	                Component c = super.prepareRenderer(renderer, row, column);
+
+	                if (!isRowSelected(row)) {
+	                    if (table.getColumnCount() >= 0) {
+	                        String type = (String)getModel().getValueAt(row,6);
+	                        if (!type.equals("0")) {
+	                            c.setBackground(Color.white);
+	                        }
+	                        if (type.equals("0")) {
+	                            c.setBackground(red);
+	                        }
+	                    }
+	                }
+	                return c;
+	            }
+	        };
+	        table.setPreferredScrollableViewportSize(new Dimension(597,100));
+	        JScrollPane scr = new JScrollPane(table);
+	        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	        table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
+	        table.getColumnModel().getColumn(1).setPreferredWidth(90);
+	        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+	        table.getColumnModel().getColumn(3).setPreferredWidth(200);
+	        table.getColumnModel().getColumn(4).setPreferredWidth(80);
+	        table.getColumnModel().getColumn(5).setPreferredWidth(70);
+	        table.getColumnModel().getColumn(6).setPreferredWidth(100);
+	        table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+		    table.setRowHeight(25);
+		    table.setSelectionBackground(new Color(7,142,255));
+		    table.setSelectionForeground(Color.white);
 		    scr.setBounds(0, 0, 670, 380);
-	tpanel.add(scr);
-		
-		
+	    tpanel.add(scr);
 	}
 	public SwingProject_MemberScanner() {
 		viewmem();
@@ -134,7 +168,6 @@ public class SwingProject_MemberScanner{
 			String str2 = (String) table.getValueAt(table.getSelectedRow(),2);
 			String str3 = (String) table.getValueAt(table.getSelectedRow(),3);
 			String str4 = (String) table.getValueAt(table.getSelectedRow(),4);
-			String str5 = (String) table.getValueAt(table.getSelectedRow(),5);
 			String str6 = (String) table.getValueAt(table.getSelectedRow(),6);
 			SwingProject.tf1.setText(str0);
 			SwingProject.tf2.setText(str1);
@@ -142,6 +175,17 @@ public class SwingProject_MemberScanner{
 			SwingProject.tf4.setText(str4);
 			SwingProject.tf5.setText(str2);
 			SwingProject.tf6.setText(str6);
+			
+			if(str6.equals("0")) {
+				SwingProject.tf6.setBackground(red);
+				SwingProject.lentalbtn.setBackground(red);
+				Runnable tt = new MemThread();
+				Thread t1 = new Thread(tt);
+				t1.start();
+			}else if (!str6.equals("0")) {
+				SwingProject.tf6.setBackground(Color.white);
+				SwingProject.lentalbtn.setBackground(new Color(116,173,255));
+			}
 			SimpleDateFormat sysdate = new SimpleDateFormat();
 			Calendar date = Calendar.getInstance();
 			String date2 = sysdate.format(date.getTime()); //문자열에 오늘날짜 대입 
@@ -173,28 +217,55 @@ public class SwingProject_MemberScanner{
 					row[i][5] = bean.getECOUNT()+"";
 					row[i][6] = bean.getELIMIT()+"";
 			}
-				model = new DefaultTableModel(row,col);
-				table = new JTable(model);
-				 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				scr = new JScrollPane(table);
-				table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
-				 table.setRowHeight(25);
-				 
-				  table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
-				    table.getColumnModel().getColumn(1).setPreferredWidth(90);
-				    table.getColumnModel().getColumn(2).setPreferredWidth(80);
-				    table.getColumnModel().getColumn(3).setPreferredWidth(190);
-				    table.getColumnModel().getColumn(4).setPreferredWidth(80);
-				    table.getColumnModel().getColumn(5).setPreferredWidth(80);
-				    table.getColumnModel().getColumn(6).setPreferredWidth(130);
-				    scr.setBounds(0, 0, 670, 380);
-				    
-			
-			
-			tpanel.removeAll();
-			tpanel.revalidate();
-		    vlist.removeAllElements();
+				DefaultTableModel model2 = new DefaultTableModel(row, col) {
+
+			        private static final long serialVersionUID = 1L;
+
+			        @Override
+			        public Class getColumnClass(int column) {
+			            return getValueAt(0, column).getClass();
+			        }
+			    };
+				table = new JTable(model2) {
+		            private static final long serialVersionUID = 1L;
+		            @Override
+		            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		                Component c = super.prepareRenderer(renderer, row, column);
+
+		                if (!isRowSelected(row)) {
+		                    if (table.getColumnCount() >= 0) {
+		                        String type = (String)getModel().getValueAt(row,6);
+		                        if (!type.equals("0")) {
+		                            c.setBackground(Color.white);
+		                        }
+		                        if (type.equals("0")) {
+		                            c.setBackground(red);
+		                        }
+		                    }
+		                }
+		                return c;
+		            }
+		        };
+		        table.setPreferredScrollableViewportSize(new Dimension(597,100));
+		        JScrollPane scr = new JScrollPane(table);
+		        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		        table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
+		        table.getColumnModel().getColumn(1).setPreferredWidth(90);
+		        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+		        table.getColumnModel().getColumn(3).setPreferredWidth(200);
+		        table.getColumnModel().getColumn(4).setPreferredWidth(80);
+		        table.getColumnModel().getColumn(5).setPreferredWidth(70);
+		        table.getColumnModel().getColumn(6).setPreferredWidth(100);
+		        table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+			    table.setRowHeight(25);
+			    table.setSelectionBackground(new Color(7,142,255));
+			    table.setSelectionForeground(Color.white);
+			    scr.setBounds(0, 0, 670, 380);
+			    tpanel.removeAll();
+				tpanel.revalidate();
+			    vlist.removeAllElements();
 		    tpanel.add(scr);
+		
 		    
 			
 			
@@ -216,29 +287,55 @@ public class SwingProject_MemberScanner{
 					row[i][5] = bean.getECOUNT()+"";
 					row[i][6] = bean.getELIMIT()+"";
 			}
-				model = new DefaultTableModel(row,col);
-				table = new JTable(model);
-				 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				scr = new JScrollPane(table);
-				table.setFont(new Font( "잘풀리는오늘 Medium", Font.PLAIN, 20) );
-				 table.setRowHeight(25);
-				 
-				  table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
-				    table.getColumnModel().getColumn(1).setPreferredWidth(90);
-				    table.getColumnModel().getColumn(2).setPreferredWidth(80);
-				    table.getColumnModel().getColumn(3).setPreferredWidth(190);
-				    table.getColumnModel().getColumn(4).setPreferredWidth(80);
-				    table.getColumnModel().getColumn(5).setPreferredWidth(80);
-				    table.getColumnModel().getColumn(6).setPreferredWidth(130);
-				    scr.setBounds(0, 0, 670, 380);
-				    tpanel.removeAll();
-					tpanel.revalidate();
-				    vlist.removeAllElements();
-				    tpanel.add(scr);
-			
-			
-			
-			
+				DefaultTableModel model2 = new DefaultTableModel(row, col) {
+
+			        private static final long serialVersionUID = 1L;
+
+			        @Override
+			        public Class getColumnClass(int column) {
+			            return getValueAt(0, column).getClass();
+			        }
+			    };
+				table = new JTable(model2) {
+		            private static final long serialVersionUID = 1L;
+		            @Override
+		            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		                Component c = super.prepareRenderer(renderer, row, column);
+
+		                if (!isRowSelected(row)) {
+		                    if (table.getColumnCount() >= 0) {
+		                        String type = (String)getModel().getValueAt(row,6);
+		                        if (!type.equals("0")) {
+		                            c.setBackground(Color.white);
+		                        }
+		                        if (type.equals("0")) {
+		                            c.setBackground(red);
+		                        }
+		                    }
+		                }
+		                return c;
+		            }
+		        };
+		        table.setPreferredScrollableViewportSize(new Dimension(597,100));
+		        JScrollPane scr = new JScrollPane(table);
+		        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		        table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
+		        table.getColumnModel().getColumn(1).setPreferredWidth(90);
+		        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+		        table.getColumnModel().getColumn(3).setPreferredWidth(200);
+		        table.getColumnModel().getColumn(4).setPreferredWidth(80);
+		        table.getColumnModel().getColumn(5).setPreferredWidth(70);
+		        table.getColumnModel().getColumn(6).setPreferredWidth(100);
+		        table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+			    table.setRowHeight(25);
+			    table.setSelectionBackground(new Color(7,142,255));
+			    table.setSelectionForeground(Color.white);
+			    scr.setBounds(0, 0, 670, 380);
+			    tpanel.removeAll();
+				tpanel.revalidate();
+			    vlist.removeAllElements();
+		    tpanel.add(scr);
+		
 			if(table.getRowCount()==0) {
 				MDialog md2 = new MDialog(memberf, "오류", true, "검색결과가 없습니다");
 				md2.setVisible(true);

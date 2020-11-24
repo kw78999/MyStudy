@@ -87,8 +87,8 @@ public class  SwingProject implements ActionListener{
 	JPanel panel = new JPanel();
 	JPanel tabpanel = new JPanel();
 	JPanel inpanel1 = new JPanel(); 
-	JPanel panel13 = new JPanel();
-	JPanel panel14 = new JPanel();
+	static JPanel panel13 = new JPanel();
+	static JPanel panel14 = new JPanel();
 	static JLabel label = new JLabel("회원목록");
 	static JLabel label17 = new JLabel("도서목록");
 	
@@ -189,28 +189,54 @@ public class  SwingProject implements ActionListener{
 		row[i][5] = bean.getECOUNT()+"";
 		row[i][6] = bean.getELIMIT()+"";
 	}
+	DefaultTableModel model2 = new DefaultTableModel(row, col) {
 
-    model = new DefaultTableModel(row,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
-	table = new JTable(model);
-	scr = new JScrollPane(table);
-	 table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-	table.addMouseListener(member);
-	table.setPreferredScrollableViewportSize(new Dimension(597,100));
-	
-	 table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
-	    table.getColumnModel().getColumn(1).setPreferredWidth(90);
-	    table.getColumnModel().getColumn(2).setPreferredWidth(80);
-	    table.getColumnModel().getColumn(3).setPreferredWidth(200);
-	    table.getColumnModel().getColumn(4).setPreferredWidth(80);
-	    table.getColumnModel().getColumn(5).setPreferredWidth(70);
-	    table.getColumnModel().getColumn(6).setPreferredWidth(100);
-	  table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
-	   table.setRowHeight(25);
-	    
-	p.add(scr);
-	
-	
-	}
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Class getColumnClass(int column) {
+            return getValueAt(0, column).getClass();
+        }
+    };
+    table = new JTable(model2) {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+
+                if (!isRowSelected(row)) {
+                    if (table.getColumnCount() >= 0) {
+                        String type = (String)getModel().getValueAt(row,6);
+                        if (!type.equals("0")) {
+                            c.setBackground(Color.white);
+                        }
+                        if (type.equals("0")) {
+                            c.setBackground(red);
+                        }
+                    }
+                }
+                return c;
+            }
+        };
+        table.setPreferredScrollableViewportSize(new Dimension(597,100));
+        JScrollPane scr = new JScrollPane(table);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.getColumnModel().getColumn(0).setPreferredWidth(70);  //JTable 의 컬럼 길이 조절
+        table.getColumnModel().getColumn(1).setPreferredWidth(90);
+        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getColumnModel().getColumn(3).setPreferredWidth(200);
+        table.getColumnModel().getColumn(4).setPreferredWidth(80);
+        table.getColumnModel().getColumn(5).setPreferredWidth(70);
+        table.getColumnModel().getColumn(6).setPreferredWidth(100);
+        table.addMouseListener(member);
+        table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+	    table.setRowHeight(25);
+	    table.setSelectionBackground(new Color(7,142,255));
+	    table.setSelectionForeground(Color.white);
+    p.add(scr);
+}
+
+	 
 	public SwingProject() {
 		frame = new JFrame("도서관리 프로그램");
 		cor = Color.white;
@@ -424,16 +450,16 @@ public class  SwingProject implements ActionListener{
   
   
   
-  JPanel cp = new ChatClient();//,채팅패널 객체생성하고 패널에 담기 
-  
+  //anel cp = new ChatClient();//,채팅패널 객체생성하고 패널에 담기 
+  new ChatClient();
   panel14.add(btn3);
   panel14.add(btn4);
   panel15.add(panel13);
   panel15.add(panel14);
-  panel15.add(cp);
+  panel15.add(ChatClient.mpanel);
   panel13.setBounds(0, 20, 560, 150);
   panel14.setBounds(0, 180, 560, 180);
-  cp.setBounds(0,430,560, 260);
+  ChatClient.mpanel.setBounds(0,430,560, 260);
   panel15.add(lentalbtn);
   lentalbtn.setBounds(370, 370, 160, 40);
     jtx.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
@@ -583,6 +609,8 @@ public class  SwingProject implements ActionListener{
 			MDialog md2 = new MDialog(frame,"대출", true,"대출 되었습니다.");
 			md2.setVisible(true);
 			
+			
+			
 		}else {
 			MDialog md2 = new MDialog(frame,"오류", true,"대출 불가능 입니다");
 			md2.setVisible(true);
@@ -607,6 +635,9 @@ public class  SwingProject implements ActionListener{
 		tf6.setText(str5);
 		if(str5.equals("0")) {
 			tf6.setBackground(red);
+			Runnable tt = new MemThread();
+			Thread t1 = new Thread(tt);
+			t1.start();
 		}else if(!str5.equals("0")) {
 			tf6.setBackground(Color.white);
 		}
@@ -670,6 +701,9 @@ static MouseListener book = new MouseListener() {            //도서목록을 누르면
 			tf12.setText(str44);
 			if(str44.equals("대출 불가능")) {
 				tf12.setBackground(red);
+				Runnable tt = new BookThread();
+				Thread t1 = new Thread(tt);
+				t1.start();
 			}else if(str44.equals("대출가능")) {
 				tf12.setBackground(Color.white);
 			}

@@ -258,7 +258,16 @@ public class SwingProject_bookscanner {
 			SwingProject.tf12.setText(str4);
 			SwingProject.tf13.setText(str5);
 			SwingProject.tf14.setText(str3);
-			
+			if(SwingProject.tf12.getText().equals("대출 불가능")) {
+				SwingProject.tf12.setBackground(red);
+				SwingProject.lentalbtn.setBackground(red);
+				Runnable tt = new BookThread();
+				Thread t1 = new Thread(tt);
+				t1.start();
+			}else if(SwingProject.tf12.getText().equals("대출가능")) {
+				SwingProject.tf12.setBackground(Color.white);
+				SwingProject.lentalbtn.setBackground(Color.white);
+			}
 			
 			SimpleDateFormat sysdate = new SimpleDateFormat();
 			Calendar date = Calendar.getInstance();
