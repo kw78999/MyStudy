@@ -2,13 +2,19 @@ package JAVAP;
 
 import java.awt.Choice;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 //이용현황
 public class SwingProject_state {
@@ -49,6 +56,15 @@ public class SwingProject_state {
 	BooksMgr mgr1 = new BooksMgr();
 	BooksMgr mgr12 = new BooksMgr();
 	
+	static Color red = new Color(255,184,249);
+	static Color bg = new Color(186,218,255);
+	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+	JLabel time = new JLabel();
+	static SimpleDateFormat sysdate = new SimpleDateFormat();
+	static Calendar date = Calendar.getInstance();
+	static String date2 = sysdate.format(date.getTime()); //문자열에 오늘날짜 대입 
+	
+	
 	public static void viewstate() {
 		vlist = mgr.getListBRental();
 		row1 = new String [vlist.size()][7];
@@ -62,8 +78,46 @@ public class SwingProject_state {
 			row1[i][5] = bean.getRENTAL().substring(0, 10);  //날짜 일까지만 보이게하기 
 			row1[i][6] = bean.getENDRENTAL().substring(0, 10);
 		}
-		model = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
-		table = new JTable(model);         //테이블에 테이블모델 입히기
+		DefaultTableModel model = new DefaultTableModel(row1, col) {
+
+	           private static final long serialVersionUID = 1L;
+
+	           @Override
+	           public Class getColumnClass(int column) {
+	               return getValueAt(0, column).getClass();
+	           }
+	       };
+	       table = new JTable(model) {
+
+	               private static final long serialVersionUID = 1L;
+
+	               @Override
+	               public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+	                   Component c = super.prepareRenderer(renderer, row, column);
+
+	                   if (!isRowSelected(row)) {
+	                       if (table.getColumnCount() >= 0) {
+	                         
+	                    	   
+	                    	   
+	                    	   
+	                          /// if (ndate.after(ndate2)) {
+	                        	 //  System.out.println("반납일이 더 미래입니다");
+	                             //  c.setBackground(Color.white);
+	                        //   }
+	                       //    if (type.equals("대출 불가능")) {
+	                        //       c.setBackground(red);
+	                    //       }
+	                       }
+	                   }
+	                   return c;
+	               }
+	           };
+		
+		
+		
+		//model = new DefaultTableModel(row1,col);   //추가 삭제 수정이 간편한 DefaultTableModel 생성
+		//table = new JTable(model);         //테이블에 테이블모델 입히기
 		scr = new JScrollPane(table); 	//스크롤 생성
 		 table.getColumnModel().getColumn(0).setPreferredWidth(90);  //JTable 의 컬럼 길이 조절
 		    table.getColumnModel().getColumn(1).setPreferredWidth(90);
@@ -72,7 +126,7 @@ public class SwingProject_state {
 		    table.getColumnModel().getColumn(4).setPreferredWidth(400);
 		    table.getColumnModel().getColumn(5).setPreferredWidth(200);
 		    table.getColumnModel().getColumn(6).setPreferredWidth(200);
-		    table.setFont(new Font( "Times", Font.BOLD, 20) );
+		    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		    table.setRowHeight(30);
 		    scr.setBounds(0, 0, 1175, 300);
 			tpanel.removeAll();
@@ -83,23 +137,27 @@ public class SwingProject_state {
 	
          public SwingProject_state() {
         	 viewstate();
-        	 mpanel.setBackground(new  Color(170,220,255));
-        	 npanel.setBackground(new  Color(170,220,255));
-        	 tpanel.setBackground(new Color(170,220,255));
+        	 
+        	 
+        	 mpanel.setBackground(bg);
+        	 npanel.setBackground(bg);
+        	 tpanel.setBackground(bg);
+        	 cpanel.setBackground(bg);
              npanel.setLayout(null);
              mpanel.setLayout(null);
              cpanel.setLayout(null);
              tpanel.setLayout(null);
-             
+             time.setText("오늘 날짜  :  "+date2.substring(0,10)); 
+             time.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
          	TitledBorder jtx=          //검색창 보더
-    	    		new TitledBorder(new LineBorder(Color.white),"검색");
-    		 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+    	    		new TitledBorder(new LineBorder(Color.white,5),"검색");
+    		 jtx.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
     	     
     		 TitledBorder jtx1=                       
  		    		new TitledBorder(new LineBorder(Color.white,5),"회원과의 채팅");
- 		       jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+ 		       jtx1.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
      		 cpanel.setBorder(jtx1);
-     		 cpanel.setBackground(SwingProject.bg);
+     		// cpanel.setBackground(SwingProject.bg);
     		 cho.add("대출 번호");
     		 cho.add("회원 번호");
     		 cho.add("도서 번호");
@@ -107,7 +165,7 @@ public class SwingProject_state {
     		 tf.setBounds(430,50 , 150, 27);
     		 reset.setBounds(1050, 70, 100, 40);
     		 delete.setBounds(900, 70, 100, 40);
-    		 
+    		 time.setBounds(900,20,270,50);
     		 
     		 btn.setBounds(580, 50, 100, 27);
     	     btn.addActionListener(ac);
@@ -129,9 +187,10 @@ public class SwingProject_state {
     	 npanel.add(cho);
     	 npanel.add(reset);
     	 npanel.add(delete);
+    	 npanel.add(time);
     	 reset.addActionListener(re);
     	 delete.addActionListener(de);
-    	 npanel.setBounds(0, 0, 1200, 120);
+    	 npanel.setBounds(0, 0, 1175, 120);
     	 scr.setBounds(0, 0, 1175, 300);
     	 npanel.setBorder(jtx);
     	 mpanel.add(npanel);
@@ -174,7 +233,7 @@ public class SwingProject_state {
 					    table.getColumnModel().getColumn(4).setPreferredWidth(400);
 					    table.getColumnModel().getColumn(5).setPreferredWidth(200);
 					    table.getColumnModel().getColumn(6).setPreferredWidth(200);
-					    table.setFont(new Font( "Times", Font.BOLD, 20) );
+					    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 					    table.setRowHeight(30);
 					    scr.setBounds(0, 0, 1175, 300);
 					tpanel.removeAll();
@@ -215,7 +274,7 @@ public class SwingProject_state {
 					    table.getColumnModel().getColumn(4).setPreferredWidth(400);
 					    table.getColumnModel().getColumn(5).setPreferredWidth(200);
 					    table.getColumnModel().getColumn(6).setPreferredWidth(200);
-					    table.setFont(new Font( "Times", Font.BOLD, 20) );
+					    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 					    table.setRowHeight(30);
 					    scr.setBounds(0, 0, 1175, 300);
 					tpanel.removeAll();
@@ -256,7 +315,7 @@ public class SwingProject_state {
 					    table.getColumnModel().getColumn(4).setPreferredWidth(400);
 					    table.getColumnModel().getColumn(5).setPreferredWidth(200);
 					    table.getColumnModel().getColumn(6).setPreferredWidth(200);
-					    table.setFont(new Font( "Times", Font.BOLD, 20) );
+					    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 					    table.setRowHeight(30);
 					    scr.setBounds(0, 0, 1175, 300);
 					tpanel.removeAll();

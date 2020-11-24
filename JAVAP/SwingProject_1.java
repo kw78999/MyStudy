@@ -89,13 +89,18 @@ public class SwingProject_1{
 	static DefaultTableModel model7;
 	static JScrollPane scr;
 	
-	static Font fon = new Font( "Times", Font.BOLD, 18 );
-	static Color bg = new Color(54,201,255);
+	static Font fon = new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18 );
 	
 	static JButton btns;
 	static String row1[][];
 	static BooksMgr  mgr= new BooksMgr();
 	static Vector <BooksBean>  vlist ;
+	
+	static Color red = new Color(255,184,249);
+	static Color bg = new Color(186,218,255);
+	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+	
+	
 	
 	public static void viewList() {
 		vlist = mgr.getListMember();
@@ -132,11 +137,11 @@ public class SwingProject_1{
 	    table7.getColumnModel().getColumn(9).setPreferredWidth(80);
 	    table7.getColumnModel().getColumn(10).setPreferredWidth(100);
 	    table7.getColumnModel().getColumn(11).setPreferredWidth(100);
-	   table7.setFont(new Font( "Times", Font.BOLD, 20) );
+	   table7.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 	    JTableHeader header = table7.getTableHeader();            //테이블 헤더 색상 
-	    header.setBackground(bg);
-	    table7.setSelectionBackground(bg);             //셀 선택시 색변경
-	    table7.setSelectionForeground(Color.white);  //선택시 글 색 변경
+	    header.setBackground(new  Color(170,220,255));
+	    table7.setSelectionBackground(new Color(7,142,255));
+	    table7.setSelectionForeground(Color.white);
 	    table7.setRowHeight(25);
 		table7.addMouseListener(the);
 		scr.setBounds(8, 30, 585, 670);
@@ -158,20 +163,20 @@ public SwingProject_1() {
 	rmpanel.setLayout(null);
 	rpanel2.setLayout(null);
 	mpanel.setLayout(new BorderLayout());
-	mpanel.setBackground(new  Color(170,220,255));
-	lpanel2.setBackground(new Color(170,220,255));
-	lpanel.setBackground(new  Color(170,220,255));
-	rpanel2.setBackground(new  Color(170,220,255));
-	rpanel.setBackground(new  Color(170,220,255));
-	cpanel.setBackground(new  Color(170,220,255));
-	rmpanel.setBackground(new  Color(170,220,255));
+	mpanel.setBackground(bg);
+	lpanel2.setBackground(bg);
+	lpanel.setBackground(bg);
+	rpanel2.setBackground(bg);
+	rpanel.setBackground(bg);
+	cpanel.setBackground(bg);
+	rmpanel.setBackground(bg);
 	//cpanel.setBackground(new  Color(170,220,255));
 	
 	
 	
 	
 	TitledBorder jtx= 
-    		new TitledBorder(new LineBorder(Color.white),"매장 보유 도서    ");
+    		new TitledBorder(new LineBorder(Color.white,3),"매장 보유 도서    ");
 	 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
 	 
 	 lpanel.add(scr);
@@ -379,7 +384,10 @@ ActionListener ac2 =  new ActionListener() {
 		if(table7.getSelectedRow()==-1) {
 		MDialog MD = new MDialog(SwingProject.frame, "오류", true, "삭제할 도서를 선택하세요");
 		MD.setVisible(true);
-		}else {
+		}else if(tf6.getText().equals("대출 불가능")){
+			MDialog MD = new MDialog(SwingProject.frame, "오류", true, "대출중인 도서는 삭제 할 수 없습니다.");
+			MD.setVisible(true);
+		}else{
 			System.out.println(table7.getSelectedRow());
 		BooksBean bean = vlist.get(table7.getSelectedRow());
 		System.out.println(bean.getBID());
@@ -484,7 +492,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 	DefaultTableModel model;
 	JScrollPane scr;
 	DefaultTableModel m;
-	static JFrame newf;
+	public static JFrame newf;
 	public SwingProject1_newf() {
 		newf = new JFrame();
 		newf.setBackground(new  Color(170,220,255));
@@ -508,8 +516,8 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 		mpanel.add(rmpanel,BorderLayout.CENTER);
 		
 		TitledBorder jtx= 
-	    		new TitledBorder(new LineBorder(Color.white),"검색 내용");
-		 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+	    		new TitledBorder(new LineBorder(Color.white,3),"검색 내용");
+		 jtx.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 		 lpanel2.setBorder(jtx);
 		 
 		 
@@ -526,12 +534,12 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 		lmpanel.add(lpanel2,BorderLayout.CENTER);
 		
 		TitledBorder jtx1= 
-	    		new TitledBorder(new LineBorder(Color.white),"세부 정보");
-		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+	    		new TitledBorder(new LineBorder(Color.white,3),"세부 정보");
+		 jtx1.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 		 
 		 TitledBorder jtx2= 
-		    		new TitledBorder(new LineBorder(Color.white),"도서 검색");
-			 jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+		    		new TitledBorder(new LineBorder(Color.white,3),"도서 검색");
+			 jtx2.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 			 
 	   rpanel5.setBorder(jtx1);
 	   rpanel2.setBorder(jtx2);
@@ -553,7 +561,7 @@ public static  class SwingProject1_newf implements ActionListener,MouseListener{
 	    table.getColumnModel().getColumn(2).setPreferredWidth(100);
 	    table.getColumnModel().getColumn(3).setPreferredWidth(50);
 	    table.getColumnModel().getColumn(4).setPreferredWidth(100);
-	    table.setFont(new Font( "Times", Font.BOLD, 20) );	
+	    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 	    table.setRowHeight(25);
 	    table.addMouseListener(this);
 	    

@@ -20,24 +20,10 @@ public class ChatAction extends Thread implements Runnable {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
-			if(obj==ChatClient.cbtn5) {
-				//if(socket==null) 
-				connect();
-				
-				ChatClient.cbtn5.setEnabled(false);
-				ChatClient.ctf.requestFocus();  //포커스
-				
-			}else if(obj==ChatClient.ctf||obj==ChatClient.cbtn||obj==SwingProject_state.cbtn||obj==SwingProject_state.ctf||
+			 if(obj==ChatClient.ctf||obj==ChatClient.cbtn||obj==SwingProject_state.cbtn||obj==SwingProject_state.ctf||
 					obj==SwingProject_1.cbtn||obj==SwingProject_1.ctf||obj==SwingProject_2.cbtn||obj==SwingProject_2.ctf
 					||obj==ChartFrame.ctf||obj==ChartFrame.cbtn) {
-				if(ChatClient.id==null) {
-					ChatClient.id ="관리자";
-					ChatClient.cta.setText("관리자 모드로 채팅을 시작합니다");
-					SwingProject_state.cta.setText("관리자 모드로 채팅을 시작합니다.");
-					SwingProject_1.cta.setText("관리자 모드로 채팅을 시작합니다.");
-					SwingProject_2.cta.setText("관리자 모드로 채팅을 시작합니다.");
-					ChartFrame.cta.setText("관리자 모드로 채팅을 시작합니다.");
-				}
+				
 				if(!ChatClient.ctf.getText().equals("")) {   //입푸 ctf가 ""가 아닐시에 
 					out.println(ChatClient.ctf.getText());    //현재 텍스트가 있는 tf만 서버로 전송하기 
 					ChatClient.ctf.setText("");
@@ -55,11 +41,12 @@ public class ChatAction extends Thread implements Runnable {
 					ChartFrame.ctf.setText("");
 				}
 				int pos = ChatClient.cta.getText().length();
+			//	System.out.println(pos);
 				ChatClient.cta.setCaretPosition(pos);
-				SwingProject_1.cta.setCaretPosition(pos);
-				SwingProject_2.cta.setCaretPosition(pos);
-				SwingProject_state.cta.setCaretPosition(pos);
-				ChartFrame.cta.setCaretPosition(pos);
+				SwingProject_1.cta.setCaretPosition(pos-15);
+				SwingProject_2.cta.setCaretPosition(pos-15);
+				SwingProject_state.cta.setCaretPosition(pos-15);
+				ChartFrame.cta.setCaretPosition(pos-15);
 		}
 	}
 	};

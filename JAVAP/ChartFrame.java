@@ -24,17 +24,18 @@ public class ChartFrame extends JPanel{
 	ChartPanel02 p2 = new ChartPanel02();
 	ChartPanel03 p3 = new ChartPanel03();
 	JPanel p4 = new JPanel();
-	Color cor = new Color(170,220,255);
 	static JTextField ctf = new JTextField("",50);
 	static JTextArea cta = new JTextArea();
 	static JButton cbtn = new JButton("보내기");
 	static JScrollPane chatScroll ;
 //	Container c;
 	
+	static Color bg = new Color(186,218,255);
+	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 	public ChartFrame(){
 		northPanel.setBounds(0,0,1200, 50);
 		northPanel.setLayout(null);
-		northPanel.setBackground(cor);
+		northPanel.setBackground(bg);
 		JButton btn1 = new JButton("도표");
 		btn1.setBounds(800, 20, 80, 20);
 		northPanel.add(btn1);
@@ -42,7 +43,7 @@ public class ChartFrame extends JPanel{
 		
 		southPanel.setBounds(0,50,1200, 700);
 		southPanel.setLayout(null);
-		southPanel.setBackground(cor);
+		southPanel.setBackground(bg);
 		//setTitle("Grid");
 	//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1200, 700);
@@ -50,7 +51,7 @@ public class ChartFrame extends JPanel{
 	//	GridLayout grid = new GridLayout(2, 2);
 	//	Container c = getContentPane();
       setLayout(null);
-		TitledBorder tB1 = new TitledBorder(new LineBorder(Color.LIGHT_GRAY, 1, true),"독서왕");
+		TitledBorder tB1 = new TitledBorder(new LineBorder(Color.white, 3, true),"독서왕");
 		tB1.setTitleFont(new Font("잘풀리는오늘 Medium", Font.PLAIN, 15));
 		p1 = new ChartPanel01();
 		p1.setLayout(null);
@@ -63,10 +64,10 @@ public class ChartFrame extends JPanel{
 		
 		p4 = new JPanel();
 		p4.setLayout(null);
-		p4.setBackground(new  Color(170,220,255));
+		p4.setBackground(bg);
 		TitledBorder jtx1=          //검색창 보더
- 	    		new TitledBorder(new LineBorder(Color.white),"회원과의 채팅");
- 		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+ 	    		new TitledBorder(new LineBorder(Color.white,3),"회원과의 채팅");
+ 		 jtx1.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
  		 p4.setBorder(jtx1);
  		chatScroll = new JScrollPane(cta);
 		ChatAction ca = new ChatAction();
@@ -76,15 +77,15 @@ public class ChartFrame extends JPanel{
 		  cbtn.setBounds(470, 220, 80,30);
 		  ctf.setBounds(20, 220, 450, 30);
 		  chatScroll.setBounds(20,30	, 530, 190);
-		  chatScroll.setBackground(new  Color(170,220,255));
+		  chatScroll.setBackground(bg);
 		  p4.add(cbtn);
 		  p4.add(ctf);
 		  p4.add(chatScroll);
-		 p1.setBackground(Color.WHITE);
-	     p2.setBackground(Color.WHITE);
-         p3.setBackground(Color.WHITE);
-	   	p4.setBackground(cor);
-		setBackground(cor);
+		 p1.setBackground(bg);
+	     p2.setBackground(bg);
+         p3.setBackground(bg);
+	   	p4.setBackground(bg);
+		setBackground(bg);
 		southPanel.add(p1);
 		p1.setBounds(0, 0, 600, 350);
 		p2.setBounds(600, 0, 600, 350);

@@ -23,37 +23,37 @@ public class ChatClient extends JPanel{
 	static JTextField ctf = new JTextField("",50);
 	static JTextArea cta = new JTextArea();
 	static JButton cbtn = new JButton("보내기");
-	static JButton cbtn5 = new JButton("시작");
 	static Color cor= Color.white;
-	static Color bg = new  Color(170,220,255);
 	static String id;
 	static JScrollPane chatScroll ;
 	static Socket socket;
-	
+
+	static Color red = new Color(255,184,249);
+	static Color bg = new Color(186,218,255);
+	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 	
 	public ChatClient() {
 		 TitledBorder jtx2=                       
-		    		new TitledBorder(new LineBorder(bg,5),"회원과의 채팅");
-		  jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+		    		new TitledBorder(new LineBorder(cor,5),"회원과의 채팅");
+		  jtx2.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 	setLayout(null);
-	setBackground(cor);
+	setBackground(bg);
 		setBorder(jtx2);
 		chatScroll = new JScrollPane(cta);
 		ChatAction ca = new ChatAction();
+		
 		cta.setEnabled(false);
 		
-		  cbtn5.addActionListener(ca.acc);
 		  cbtn.addActionListener(ca.acc);
 		  ctf.addActionListener(ca.acc);
-		  cbtn.setBounds(470, 220, 80,30);
-		  ctf.setBounds(20, 220, 450, 30);
-		  chatScroll.setBounds(20,30	, 530, 190);
-		  cbtn5.setBounds(0, 0, 100,30);
+		  cbtn.setBounds(455, 220, 80,30);
+		  ctf.setBounds(20, 220, 435, 30);
+		  chatScroll.setBounds(20,30	, 515, 190);
 		  add(cbtn);
 		  add(ctf);
 		  add(chatScroll);
-		  add(cbtn5);
 		  validate();//갱신
+		  ca.connect();
 	}
 }
 	

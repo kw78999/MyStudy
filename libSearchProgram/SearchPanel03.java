@@ -28,8 +28,8 @@ public class SearchPanel03 extends JPanel implements ActionListener,Runnable{
 	JTextArea noticeArea = new JTextArea();
 	JTextField chatField = new JTextField();
 	JButton btn3 = new JButton();
-	JButton btn7 = new JButton("채팅시작");
 	JScrollPane chatScroll = new JScrollPane(); 
+	//public static Socket socket;
 	
 	public SearchPanel03() {
 	TitledBorder tB4 = new TitledBorder(new LineBorder(Color.LIGHT_GRAY, 3, true),"사서와 대화");
@@ -65,8 +65,6 @@ public class SearchPanel03 extends JPanel implements ActionListener,Runnable{
 	chatField.setBounds(220,165,370,28);
 	btn3 = new JButton("보내기");
 	btn3.setBounds(590, 165, 80, 28);
-	btn7.setBounds(20, 20, 80, 28);
-	btn7.addActionListener(this);
 	btn3.addActionListener(this);
 	chatField.addActionListener(this);
 	btn3.setContentAreaFilled(false);
@@ -76,10 +74,10 @@ public class SearchPanel03 extends JPanel implements ActionListener,Runnable{
 	add(chatScroll);
 	add(chatField);
 	add(btn3);
-	add(btn7);
 	////////////////////////////////////////////
 	setVisible(true);
 	validate();
+	connect();
 	}
 
 	@Override
@@ -100,16 +98,7 @@ public class SearchPanel03 extends JPanel implements ActionListener,Runnable{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if ( obj==btn7) {
-			connect();
-			btn7.setEnabled(false);
-			chatField.requestFocus();  //포커스
-			
-		}else if(obj==btn3||obj==chatField) {
-			if(id==null) {
-				id= chatField.getText();
-				chatArea.setText("회원모드로 채팅을 시작합니다.");
-			}
+		if(obj==btn3||obj==chatField) {
 			out.println(chatField.getText());
 			chatField.setText("");
 			chatField.requestFocus();
@@ -121,12 +110,14 @@ public class SearchPanel03 extends JPanel implements ActionListener,Runnable{
 	
 	public void connect() {
 		try {
-			Socket socket = new Socket("127.0.0.1",8001);
+			 Socket socket = new Socket("127.0.0.2",8001);
 			in = new BufferedReader(
 					new InputStreamReader(
 							socket.getInputStream()));
 			out = new PrintWriter(
 					socket.getOutputStream(),true);
+			System.out.println("소켓포트"+socket.getPort());
+			System.out.println("아이넷 애드레스"+socket.getInetAddress());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -29,6 +29,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import JAVAP.BMEMBERSBean;
 import JAVAP.BMEMBERSMgr;
@@ -77,13 +78,17 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 	static Choice cho = new Choice();
 	static String cho1 ;
 	DefaultTableModel m2;
-	static Color bg = new Color(54,201,255);
 	static Vector<BMEMBERSBean> vlist;
     static JTable table7;
 	static DefaultTableModel model3;
 	static JScrollPane scr;
 	static String col[] = {"회원번호","이름","회원등급","전화번호","대여기간","대여횟수","대출가능 권수"};
 	//String row[][] ;
+	
+	static Color red = new Color(255,119,228);
+	static Color bg = new Color(186,218,255);
+	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+	
 	
 	public static void viewmember() {
 		mgr = new BMEMBERSMgr();
@@ -111,8 +116,12 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 	    table7.getColumnModel().getColumn(4).setPreferredWidth(90);
 	    table7.getColumnModel().getColumn(5).setPreferredWidth(90);
 	    table7.getColumnModel().getColumn(6).setPreferredWidth(90);
-	    table7.setFont(new Font( "Times", Font.BOLD, 20) );
+	    table7.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 	    table7.setRowHeight(25);
+	    JTableHeader header = table7.getTableHeader();            //테이블 헤더 색상 
+	    header.setBackground(new  Color(170,220,255));
+	    table7.setSelectionBackground(new Color(7,142,255));
+	    table7.setSelectionForeground(Color.white);
 	    table7.addMouseListener(selectRow);
 	    scr.setBounds(8, 30, 585, 670);
 	    lpanel.add(scr);
@@ -131,10 +140,10 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		
 		
 		
-		mpanel.setBackground(new  Color(170,220,255));
-		lpanel.setBackground(new  Color(170,220,255));
-		lmpanel.setBackground(new  Color(170,220,255));
-		lpanel2.setBackground(new  Color(170,220,255));
+		mpanel.setBackground(bg);
+		lpanel.setBackground(bg);
+		lmpanel.setBackground(bg);
+		lpanel2.setBackground(bg);
 	//	rpanel.setBackground(new  Color(0,162,240));
 	  //  icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
 	    JPanel rpanel = new JPanel() {
@@ -154,8 +163,8 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		 
 		
 		TitledBorder jtx= 
-	    		new TitledBorder(new LineBorder(Color.white),"전체 회원       ");
-		 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+	    		new TitledBorder(new LineBorder(Color.white,3),"전체 회원       ");
+		 jtx.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		
 		
 		
@@ -165,34 +174,34 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		viewmember(); //회원테이블 보이게하기 
 		
 		TitledBorder jtx1= 
-	    		new TitledBorder(new LineBorder(Color.white),"회원 생성");
-		 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+	    		new TitledBorder(new LineBorder(Color.white,3),"회원 생성");
+		 jtx1.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		 rpanel.setBorder(jtx1);
 		 
 		//스티브 천스 기존코드 수정문/////////////////////////////
 		//문의 : 최엔지니어, 천마케터
 		 
 		 lab0.setBounds(30, 60, 100, 30);
-		 lab0.setFont(new Font("Times",Font.BOLD,20));
+		 lab0.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		 
 		 lab2.setBounds(30, 100, 100, 30);
-		 lab2.setFont(new Font("Times",Font.BOLD,20));
+		 lab2.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		 
 		 lab3.setBounds(30, 140, 100, 30);
-		 lab3.setFont(new Font("Times",Font.BOLD,20));
+		 lab3.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		 
 		 lab1.setBounds(30, 180, 120, 30);
-		 lab1.setFont(new Font("Times",Font.BOLD,20));
+		 lab1.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		 
 		 lab4.setBounds(30, 220, 100, 30);
-		 lab4.setFont(new Font("Times",Font.BOLD,20));
+		 lab4.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		 
 		 
 		lab5.setBounds(30, 260, 100, 30);
-		lab5.setFont(new Font("Times",Font.BOLD,20));
+		lab5.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		
 		lab6.setBounds(10, 300, 140, 30);
-		lab6.setFont(new Font("Times",Font.BOLD,20));
+		lab6.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		 
 		mID.setBounds(150, 60, 180, 30);
 		mID.setEditable(false);
@@ -223,9 +232,9 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		 btn1.setBounds(150, 340, 170, 40);
 		 btn1.addActionListener(this);
 		 btn1.addMouseListener(button);
-		 btn1.setBackground(bg);
+		 btn1.setBackground(new  Color(170,220,255));
 		 btn1.setForeground(Color.WHITE);
-		 btn1.setFont(new Font("Times",Font.BOLD,14));
+		 btn1.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 14) );
 		 
 		
 		
@@ -238,8 +247,8 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		
 				
 		TitledBorder jtx2= 
-		 		new TitledBorder(new LineBorder(Color.white,5),"회원과의 채팅");
-		jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+		 		new TitledBorder(new LineBorder(Color.white,3),"회원과의 채팅");
+		jtx2.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 				
 		JPanel cpanel = new JPanel();
 		
@@ -251,7 +260,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		  cbtn.setBounds(470, 220, 80,30);
 		  ctf.setBounds(20, 220, 450, 30);
 		  chatScroll.setBounds(20,30	, 530, 190);
-		  chatScroll.setBackground(bg);
+		  chatScroll.setBackground(Color.black);
 		  cpanel.add(cbtn);
 		  cpanel.add(ctf);
 		  cpanel.add(chatScroll);
@@ -295,7 +304,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		
 		
 		t_2.add("회원 정보",mpanel); 
-		t_2.setFont( new Font( "Times", Font.BOLD, 18 ) );
+		t_2.setFont( new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 	}
 
 	@Override
@@ -469,7 +478,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 	    public void mouseExited(MouseEvent e) {
 		 	Object obj = e.getSource();
 			JButton btn1 = (JButton)e.getSource();
-	        if(obj.equals(btn1))btn1.setBackground(bg);   
+	        if(obj.equals(btn1))btn1.setBackground(new  Color(170,220,255));   
 	 }
 	
 	};

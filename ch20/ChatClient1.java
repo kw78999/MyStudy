@@ -59,7 +59,7 @@ implements ActionListener, Runnable{
 			connect(tf1.getText().trim());
 			tf1.setEnabled(false);
 			btn1.setEnabled(false);
-			tf2.requestFocus();
+			tf2.requestFocus();  //포커스
 		}else if(obj==tf2||obj==btn2) {
 			if(id==null) {//첫번쨰 아이디 입력의 상황
 				id = tf2.getText();
