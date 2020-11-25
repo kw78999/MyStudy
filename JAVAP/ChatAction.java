@@ -88,6 +88,7 @@ public class ChatAction extends Thread implements Runnable {
 							socket.getInputStream()));
 			out = new PrintWriter(
 					socket.getOutputStream(),true);
+			out.println("°ü¸®ÀÚ");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

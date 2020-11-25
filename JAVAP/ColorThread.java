@@ -22,12 +22,28 @@ class ColorThread implements Runnable{
 		jtx3.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 		try {
 			ChatClient.mpanel.setBorder(jtx2);
+			SwingProject_1.cpanel.setBorder(jtx2);
+			SwingProject_2.cpanel.setBorder(jtx2);
+			SwingProject_state.cpanel.setBorder(jtx2);
+			ChartFrame.p4.setBorder(jtx2);
 			Thread.sleep(1000);
 			ChatClient.mpanel.setBorder(jtx3);
+			SwingProject_1.cpanel.setBorder(jtx3);
+			SwingProject_2.cpanel.setBorder(jtx3);
+			SwingProject_state.cpanel.setBorder(jtx3);
+			ChartFrame.p4.setBorder(jtx3);
 			Thread.sleep(1000);
 			ChatClient.mpanel.setBorder(jtx2);
+			SwingProject_1.cpanel.setBorder(jtx2);
+			SwingProject_2.cpanel.setBorder(jtx2);
+			SwingProject_state.cpanel.setBorder(jtx2);
+			ChartFrame.p4.setBorder(jtx2);
 			Thread.sleep(1000);
 			ChatClient.mpanel.setBorder(jtx3);
+			SwingProject_1.cpanel.setBorder(jtx3);
+			SwingProject_2.cpanel.setBorder(jtx3);
+			SwingProject_state.cpanel.setBorder(jtx3);
+			ChartFrame.p4.setBorder(jtx3);
 			Thread.sleep(1000);
 			}catch(Exception e){
 				

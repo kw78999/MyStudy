@@ -38,7 +38,7 @@ public class SwingProject_bookscanner {
 	JButton btn1 = new JButton("선택하기");
 	static JFrame memberf1;
 	Vector <BooksBean>  vlist1;
-	static Color red = new Color(255,184,249);
+	static Color red = new Color(255,207,253);
 	static Color bg = new Color(186,218,255);
 	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 	//기본 모든 데이터를 보여주는 메소드 
@@ -84,9 +84,7 @@ public class SwingProject_bookscanner {
 	                           }
 	                       }
 	                   }
-	                   if (isRowSelected(row) && isColumnSelected(column)) {
-	                       ((JComponent)c).setBorder(new LineBorder(Color.red));
-	                   }
+	                   
 	                   return c;
 	               }
 	           };

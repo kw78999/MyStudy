@@ -55,7 +55,7 @@ public class SwingProject_1{
 	JPanel lpanel2 = new JPanel();
 	static JPanel rpanel = new JPanel();
 	JPanel rpanel2 = new JPanel();
-	JPanel cpanel = new JPanel(); 
+	static JPanel cpanel = new JPanel(); 
 	JPanel rmpanel = new JPanel();
 	JPanel mpanel = new JPanel();
 	JButton btn;
@@ -177,7 +177,7 @@ public SwingProject_1() {
 	
 	TitledBorder jtx= 
     		new TitledBorder(new LineBorder(Color.white,3),"매장 보유 도서    ");
-	 jtx.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+	 jtx.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 	 
 	 lpanel.add(scr);
 	table7.addMouseListener(the);
@@ -189,15 +189,15 @@ public SwingProject_1() {
 	//타이틀 보더 셋팅
 	TitledBorder jtx1= 
     		new TitledBorder(new LineBorder(Color.white,5),"도서 세부정보");
-	 jtx1.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+	 jtx1.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18 ));
 		
 	 TitledBorder jtx2= 
 	    		new TitledBorder(new LineBorder(Color.white,5),"도서 추가    ");
-		 jtx2.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+		 jtx2.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18 ));
 		 
 		 TitledBorder jtx3= 
 		    		new TitledBorder(new LineBorder(Color.white,5),"회원과의 채팅");
-			 jtx3.setTitleFont(new Font( "Times", Font.BOLD, 18 ) );
+			 jtx3.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18 ));
 		//타이틀 보더 패널에 부착
    rpanel.setBorder(jtx1);
    rpanel2.setBorder(jtx2);

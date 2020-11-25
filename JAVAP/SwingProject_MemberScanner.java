@@ -41,7 +41,7 @@ public class SwingProject_MemberScanner{
 	JButton btn1 = new JButton("선택하기");
 	static JFrame memberf;
 	Vector<BMEMBERSBean> vlist;
-	static Color red = new Color(255,184,249);
+	static Color red = new Color(255,207,253);
 	static Color bg = new Color(186,218,255);
 	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 	

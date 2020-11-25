@@ -58,7 +58,7 @@ public class LibStatMgr {
 	}
 	
 	//단위 년월을 입력받아 한 행 가져오기
-	public LibStatBean  getMonthStat(int month, int year) {
+	public LibStatBean  getMonthStat(String month, String year) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -66,17 +66,17 @@ public class LibStatMgr {
 		LibStatBean bean = new LibStatBean();
 		try {
 			con = pool.getConnection();
-			sql = "select * from libstat where mon=?, yea=?";
+			sql = "select * from libstat where mon=? and yea=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, month);
-			pstmt.setInt(2, year);
+			pstmt.setString(1, month);
+			pstmt.setString(2, year);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				bean.setYear(rs.getString("yea"));
 				bean.setMon(rs.getString("mon"));
 				bean.setCnt(rs.getString("cnt"));
 				bean.setFst(rs.getString("fst"));
-				bean.setSnd(rs.getString("scd"));
+				bean.setSnd(rs.getString("snd"));
 				bean.setThd(rs.getString("thd"));
 				bean.setPopCate(rs.getString("popCate"));
 				bean.setAvgCnt(rs.getInt("avgCnt"));
@@ -147,6 +147,33 @@ public class LibStatMgr {
 		}
 		return bean;
 	}
+	//차트2 Y축 기준값 가져오기
+		public LibStatBean getAxisY2() {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			LibStatBean bean = new LibStatBean();
+			try {
+				con = pool.getConnection();
+				sql = "select fstcnt, sndcnt, thdcnt, avgcnt from libstat where yea=? and mon=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, bean.getYear());
+				pstmt.setString(2, bean.getMon());				
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					bean.setFstCnt(rs.getInt("fstCnt"));
+					bean.setSndCnt(rs.getInt("sndCnt"));
+					bean.setThdCnt(rs.getInt("thdCnt"));
+					bean.setAvgCnt(rs.getInt("avgCnt"));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return bean;
+		}
 	
 	//20년 and 10~5월 데이터
 	public Vector<LibStatBean> getChart1Data(){

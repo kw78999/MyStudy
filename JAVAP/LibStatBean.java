@@ -5,7 +5,7 @@ package JAVAP;
 public class LibStatBean {
 
 	private String year;
-	private String mon;
+	private String month;
 	private String count;
 	private String first;
 	private String second;
@@ -31,10 +31,10 @@ public class LibStatBean {
 		this.count = count;
 	}
 	public String getMon() {
-		return mon;
+		return month;
 	}
 	public void setMon(String month) {
-		this.mon = month;
+		this.month = month;
 	}
 	public String getFst() {
 		return first;

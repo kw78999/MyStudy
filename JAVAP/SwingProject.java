@@ -38,6 +38,22 @@ import javax.swing.table.TableCellRenderer;
 
 
 public class  SwingProject implements ActionListener{
+	static ImageIcon normalIcon7 = new ImageIcon("C:\\\\\\\\image\\\\rent2.jpg"); 
+	static ImageIcon normalIcon8 = new ImageIcon("C:\\\\\\\\image\\\\rent3.jpg"); 
+	static Image btnimg7 = normalIcon7.getImage(); 
+	  static Image change7 = btnimg7.getScaledInstance(130, 50, Image.SCALE_SMOOTH);
+	  
+		static Image btnimg6 = normalIcon7.getImage(); 
+		  static Image change6 = btnimg6.getScaledInstance(140, 55, Image.SCALE_SMOOTH);
+		  
+		  static Image btnimg8 = normalIcon8.getImage(); 
+		  static Image change8 = btnimg8.getScaledInstance(130, 50, Image.SCALE_SMOOTH);
+		  
+	  static ImageIcon changeicon7 = new ImageIcon(change7);
+	  static ImageIcon changeicon6 = new ImageIcon(change6);
+	  static ImageIcon changeicon8 = new ImageIcon(change8);
+	  static  JButton rentalbtn ;
+	  
 	ImageIcon normalIcon = new ImageIcon("C:\\\\image\\\\test2.jpg");
 	ImageIcon la;
 	ImageIcon la3;
@@ -103,7 +119,7 @@ public class  SwingProject implements ActionListener{
 	static Vector<BMEMBERSBean> vlist;
 	
 	
-	static Color red = new Color(255,184,249);
+	static Color red = new Color(255,207,253);
 	static Color bg = new Color(186,218,255);
 	//new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 	
@@ -314,7 +330,7 @@ public class  SwingProject implements ActionListener{
 		
 		 btn3 = new JButton();
 		JButton btn4 = new JButton("대출");
-		lentalbtn.addActionListener(this);
+	
 		
 		
 		
@@ -448,8 +464,12 @@ public class  SwingProject implements ActionListener{
   
   
   
-  
-  
+  rentalbtn = new JButton(changeicon7);
+  rentalbtn.setBorderPainted(false);
+	rentalbtn.setFocusPainted(false);
+	rentalbtn.setContentAreaFilled(false);
+	rentalbtn.addActionListener(this);
+	rentalbtn.addMouseListener(rent);
   //anel cp = new ChatClient();//,채팅패널 객체생성하고 패널에 담기 
   new ChatClient();
   panel14.add(btn3);
@@ -460,8 +480,10 @@ public class  SwingProject implements ActionListener{
   panel13.setBounds(0, 20, 560, 150);
   panel14.setBounds(0, 180, 560, 180);
   ChatClient.mpanel.setBounds(0,430,560, 260);
-  panel15.add(lentalbtn);
-  lentalbtn.setBounds(370, 370, 160, 40);
+  panel15.add(rentalbtn);
+  //panel15.add(lentalbtn);
+  rentalbtn.setBounds(370, 360, 170, 60);
+  //lentalbtn.setBounds(210, 370, 160, 40);
     jtx.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
     jtx1.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
     panel.add(panel15);
@@ -526,10 +548,11 @@ public class  SwingProject implements ActionListener{
 			new SwingProject_bookscanner();
 		}
 	};
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {   //대출버튼 각종 이벤트
 		String cmd = e.getActionCommand();
-		if(cmd.equals(lentalbtn.getText())) {
+		if(cmd.equals(rentalbtn.getText())) {
 			if(tf1.getText().equals("")) {
 			MDialog md = new MDialog(frame,"오류", true,"회원정보가 없습니다.");
 			md.setVisible(true);
@@ -658,15 +681,6 @@ public class  SwingProject implements ActionListener{
 		String date3 = sysdate.format(date.getTime()); //더한날짜 문자열 넣기
 		
 		tf16.setText(date3.substring(0,10));  //반납날짜 시분초 자르고 넣기 
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {}
@@ -736,6 +750,33 @@ static MouseListener book = new MouseListener() {            //도서목록을 누르면
 			}
 			
 		}	
+};
+MouseListener rent = new MouseListener() {
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		rentalbtn.setIcon(changeicon6);
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		rentalbtn.setIcon(changeicon8);
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {
+		rentalbtn.setIcon(changeicon7);
+	
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		rentalbtn.setIcon(changeicon6);
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	}
 };
 	public static void main(String[] args) {
 		new SwingProject();

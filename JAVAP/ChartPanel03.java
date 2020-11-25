@@ -45,10 +45,10 @@ public class ChartPanel03 extends JPanel {
 		info1.setLayout(null);
 		info1.setBackground(Color.WHITE);
 		ImageIcon iconColor[] = {
-				new ImageIcon("graphEx3/copy/darkyellow.png"),
-				new ImageIcon("graphEx3/copy/mint.png"),
-				new ImageIcon("graphEx3/copy/darkmint.png"),
-				new ImageIcon("graphEx3/copy/wine.png")};
+				new ImageIcon("C:\\image\\ICON\\darkyellow.png"),
+				new ImageIcon("C:\\image\\ICON\\mint.png"),
+				new ImageIcon("C:\\image\\ICON\\darkmint.png"),
+				new ImageIcon("C:\\image\\ICON\\wine.png")};
 		String[] cateTop4 = {"문학", "역사", "사회학", "철학"}; //글자 길이에 따라 위치가 애매해서 두 개로 나눠서 반복문 돌림
 		JLabel[] cateLb = new JLabel[2];
 		JLabel[] iconLb = new JLabel[2];

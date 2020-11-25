@@ -38,6 +38,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 	JTabbedPane t_2 = new JTabbedPane();
 	JPanel mpanel = new JPanel();
 	static JPanel lpanel = new JPanel();
+	static JPanel lpanel8 = new JPanel();
 	JPanel lmpanel = new JPanel();
 	JPanel lpanel2 = new JPanel();
 //	JPanel rpanel = new JPanel();
@@ -48,6 +49,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 	static JButton cbtn = new JButton("보내기");
 	static int cnt;
 	static JScrollPane chatScroll ;
+	static JPanel cpanel = new JPanel();
 	JButton btn1 = new JButton("회원생성");
 	JButton btn2 = new JButton("수정");
 	JButton btn3 = new JButton("삭제");
@@ -144,26 +146,20 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		lpanel.setBackground(bg);
 		lmpanel.setBackground(bg);
 		lpanel2.setBackground(bg);
+		lpanel8.setBackground(bg);
 	//	rpanel.setBackground(new  Color(0,162,240));
 	  //  icon = new ImageIcon("C:\\Java\\eclipse-workspace\\myJava\\ch18\\test1.jpg");
-	    JPanel rpanel = new JPanel() {
-		public void paintComponent(Graphics g) {
-	//  Approach 1: Dispaly image at at full size 
-		//	Dimension d = getSize();
-        //   g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
-        setOpaque(false);
-        super.paintComponent(g);
-
-	}};
-		mpanel.setLayout(new BorderLayout());
+	    JPanel rpanel = new JPanel();
+	    rpanel.setBackground(bg);
+		mpanel.setLayout(null);
 		lmpanel.setLayout(new BorderLayout());
 		lpanel.setLayout(null);
-	rpanel.setLayout(null);
+			rpanel.setLayout(null);
 		 lpanel.setPreferredSize(new Dimension(600,600));
 		 
 		
 		TitledBorder jtx= 
-	    		new TitledBorder(new LineBorder(Color.white,3),"전체 회원       ");
+	    		new TitledBorder(new LineBorder(Color.white,5),"전체 회원       ");
 		 jtx.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		
 		
@@ -174,7 +170,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		viewmember(); //회원테이블 보이게하기 
 		
 		TitledBorder jtx1= 
-	    		new TitledBorder(new LineBorder(Color.white,3),"회원 생성");
+	    		new TitledBorder(new LineBorder(Color.white,5),"회원 생성");
 		 jtx1.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		 rpanel.setBorder(jtx1);
 		 
@@ -247,10 +243,10 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		
 				
 		TitledBorder jtx2= 
-		 		new TitledBorder(new LineBorder(Color.white,3),"회원과의 채팅");
+		 		new TitledBorder(new LineBorder(Color.white,5),"회원과의 채팅");
 		jtx2.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 				
-		JPanel cpanel = new JPanel();
+		
 		
 		chatScroll = new JScrollPane(cta);
 		cta.setEnabled(false);
@@ -267,9 +263,10 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		rpanel.add(btn2);
 		rpanel.add(btn3);
 		cpanel.setLayout(null);
-		cpanel.setBackground(new Color(255,255,255,0));//투명
+		lpanel8.setLayout(null);
+		cpanel.setBackground(bg);//투명
 		cpanel.setBorder(jtx2);
-		cpanel.setBounds(5	, 430,565, 260);
+		cpanel.setBounds(0,425,565, 260);///////////////////////////////////////////////
 		
 		rpanel.add(cho);
 		 rpanel.add(mMax);
@@ -287,7 +284,10 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		rpanel.add(mLimit);
 		rpanel.add(lab5);
 		rpanel.add(lab6);
-		rpanel.add(cpanel);
+		rpanel.setBounds(0, 0, 565, 420);
+		lpanel8.add(rpanel);
+		lpanel8.add(cpanel);
+		//rpanel.add(cpanel);///////////////////////////////////
 		 btns.setBounds(100, 0, 30, 30);
 		 btns.addActionListener(sc);
 		/////////////////////////////////////////////
@@ -297,9 +297,10 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		
 		lmpanel.add(lpanel,BorderLayout.CENTER);
 		lmpanel.add(lpanel2,BorderLayout.SOUTH);
-		
-		mpanel.add(lmpanel,BorderLayout.WEST);
-		mpanel.add(rpanel,BorderLayout.CENTER);
+		lmpanel.setBounds(0, 0, 600, 740);
+		lpanel8.setBounds(605, 0, 600, 740);
+		mpanel.add(lmpanel);
+		mpanel.add(lpanel8);
 		
 		
 		
@@ -324,6 +325,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 			mLimit.setText("3");//대출가능권수
 		}
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
