@@ -25,14 +25,22 @@ public class BookThread implements Runnable{
 	jtx2.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 	jtx3.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 	try {
-		SwingProject.panel14.setBorder(jtx2);
-		Thread.sleep(1000);
-		SwingProject.panel14.setBorder(jtx3);
+		//SwingProject.panel14.setBorder(jtx2);
 		//Thread.sleep(1000);
-		//ChatClient.mpanel.setBorder(jtx2);
-		//Thread.sleep(1000);
-		//ChatClient.mpanel.setBorder(jtx3);
-		//Thread.sleep(1000);
+		//SwingProject.panel14.setBorder(jtx3);
+		int l = 249 ;
+		int j = 184;
+		
+		for (int i = 255; j<255; j++) {
+			Color red = new Color(i,j,l);
+			LineBorder test = new LineBorder(red,5);
+			TitledBorder jtx8 =new TitledBorder(test,"도서정보        ");
+			jtx8.setTitleFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
+			SwingProject.panel14.setBorder(jtx8);
+			Thread.sleep(20);
+			if(l<255)
+				l++;
+		}
 		}catch(Exception e){
 			
 		}

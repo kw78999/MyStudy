@@ -20,7 +20,7 @@ public class TTTTFileUpload extends JFrame {
 	JTextField tf;
 	JButton selectFileBt;
 	JButton uploadBt;
-	String basePath = "C:\\Java\\eclipse-workspace\\myJava\\test";
+	String basePath = "C:\\image\\";
 	File selectedFile;
 	static String filename;
 	public TTTTFileUpload() {

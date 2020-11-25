@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
 //이용현황
@@ -45,23 +46,55 @@ public class SwingProject_state {
 	  
 	  Image change3 = btnimg3.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 	  ImageIcon changeicon3= new ImageIcon(change3);
+		//sbtn.setBorderPainted(false);			
+		//sbtn.setFocusPainted(false);
+		//sbtn.setContentAreaFilled(false);
 	  /////////////////////////////////////////////////////////////////////////
-	  ImageIcon normalIcon7 = new ImageIcon("C:\\\\\\\\image\\\\serach.jpg"); 
-		ImageIcon normalIcon8 = new ImageIcon("C:\\\\\\\\image\\\\serach.jpg"); 
+	  ImageIcon normalIcon7 = new ImageIcon("C:\\\\\\\\image\\\\search.jpg"); 
+		ImageIcon normalIcon8 = new ImageIcon("C:\\\\\\\\image\\\\search2.jpg"); 
 		 static  JButton sbtn ;
 		 Image btnimg7 = normalIcon7.getImage(); 
 		 Image btnimg8 = normalIcon8.getImage(); 
 		 //버튼에 이미지 추가
-		  Image change7 = btnimg7.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		  Image change7 = btnimg7.getScaledInstance(80, 40, Image.SCALE_SMOOTH);
 		  ImageIcon changeicon7 = new ImageIcon(change7);
 		  
-		  Image change8 = btnimg7.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		  Image change8 = btnimg7.getScaledInstance(90, 45, Image.SCALE_SMOOTH);
 		  ImageIcon changeicon8= new ImageIcon(change8);
 		  
-		//  Image change3 = btnimg3.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-		  //ImageIcon changeicon3= new ImageIcon(change3);
+		  Image change9 = btnimg8.getScaledInstance(80, 40, Image.SCALE_SMOOTH);
+		  ImageIcon changeicon9= new ImageIcon(change9);
 	//////////////////////////////////////////////////////////////////////////////	
-		
+		  ImageIcon normalIcon11 = new ImageIcon("C:\\\\\\\\image\\\\end.jpg"); 
+			ImageIcon normalIcon12 = new ImageIcon("C:\\\\\\\\image\\\\end2.jpg"); 
+			 static  JButton ebtn ;
+			 Image btnimg11 = normalIcon11.getImage(); 
+			 Image btnimg12 = normalIcon12.getImage(); 
+			 //버튼에 이미지 추가
+			  Image change11 = btnimg11.getScaledInstance(80, 40, Image.SCALE_SMOOTH);
+			  ImageIcon changeicon11 = new ImageIcon(change11);
+			  
+			  Image change12 = btnimg11.getScaledInstance(90, 45, Image.SCALE_SMOOTH);
+			  ImageIcon changeicon12= new ImageIcon(change12);
+			  
+			  Image change13 = btnimg12.getScaledInstance(80, 40, Image.SCALE_SMOOTH);
+			  ImageIcon changeicon13= new ImageIcon(change13);
+			  ////////////////////////////////////////////////////////////////////////////////////
+			  ImageIcon normalIcon55 = new ImageIcon("C:\\\\\\\\image\\\\reset.jpg"); 
+				ImageIcon normalIcon66 = new ImageIcon("C:\\\\\\\\image\\\\reset2.jpg"); 
+				 static  JButton rbtn ;
+				 Image btnimg55 = normalIcon55.getImage(); 
+				 Image btnimg66 = normalIcon66.getImage(); 
+				 //버튼에 이미지 추가
+				  Image change55 = btnimg55.getScaledInstance(80, 40, Image.SCALE_SMOOTH);
+				  ImageIcon changeicon55 = new ImageIcon(change55);
+				  
+				  Image change66 = btnimg55.getScaledInstance(90, 45, Image.SCALE_SMOOTH);
+				  ImageIcon changeicon66= new ImageIcon(change66);
+				  
+				  Image change77 = btnimg66.getScaledInstance(80, 40, Image.SCALE_SMOOTH);
+				  ImageIcon changeicon77= new ImageIcon(change77);
+				  ///////////////////////////////////////////////////////////////////////////////
 	static String col[] = {"대출번호","회원번호","회원 이름","도서 번호","도서 이름","대출 날짜","반납 날짜"};
 	static String row1 [][];
 	JPanel npanel = new JPanel();
@@ -73,8 +106,6 @@ public class SwingProject_state {
 	static JTextArea cta = new JTextArea();
 	static JScrollPane chatScroll ;
 	
-	JButton reset =new JButton("reset");
-	JButton delete =new JButton("delete");
 	static JTable table;                             //테이블에 필요한 클래스
 	static DefaultTableModel model;
 	static JScrollPane scr;
@@ -189,6 +220,8 @@ public class SwingProject_state {
 		    table.getColumnModel().getColumn(5).setPreferredWidth(200);
 		    table.getColumnModel().getColumn(6).setPreferredWidth(200);
 		    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+		    JTableHeader header = table.getTableHeader();            //테이블 헤더 색상 
+		    header.setBackground(new  Color(170,220,255));
 		    table.setRowHeight(30);
 		    scr.setBounds(0, 0, 1175, 300);
 			tpanel.removeAll();
@@ -202,6 +235,8 @@ public class SwingProject_state {
 
      		cbtn = new JButton(changeicon);
      		sbtn = new JButton(changeicon7);
+     		ebtn = new JButton(changeicon11);
+     		rbtn = new JButton(changeicon55);
      		
         	 mpanel.setBackground(bg);
         	 npanel.setBackground(bg);
@@ -227,13 +262,14 @@ public class SwingProject_state {
     		 cho.add("도서 번호");
     		 cho.setBounds(250, 50, 150, 50);
     		 tf.setBounds(430,50 , 150, 27);
-    		 reset.setBounds(1050, 70, 100, 40);
-    		 delete.setBounds(900, 70, 100, 40);
+    		 rbtn.setBounds(1030, 60, 90, 45);
+    		 ebtn.setBounds(900, 60, 90, 45);
     		 time.setBounds(900,20,270,50);
     		 
-    		sbtn.setBounds(580, 50, 100, 27);
+    		sbtn.setBounds(590, 43, 90,45);
     	     sbtn.addActionListener(ac);
-    	     
+    	     sbtn.addMouseListener(sm);
+    	     rbtn.addMouseListener(reset);
     	     ChatAction ca = new ChatAction();
     	     chatScroll = new JScrollPane(cta);
     	 cpanel.setBounds(600, 430, 570,260);
@@ -250,20 +286,28 @@ public class SwingProject_state {
     	 cbtn.setBorderPainted(false);
 			cbtn.setFocusPainted(false);
 			cbtn.setContentAreaFilled(false);
-			
-			sbtn.setBorderPainted(false);
-			sbtn.setFocusPainted(false);
-			sbtn.setContentAreaFilled(false);
+		
+		sbtn.setBorderPainted(false);			
+		sbtn.setFocusPainted(false);
+		sbtn.setContentAreaFilled(false);
+		
+		 ebtn.addMouseListener(end);
+	     ebtn.setBorderPainted(false);
+			ebtn.setFocusPainted(false);
+			ebtn.setContentAreaFilled(false);
+		rbtn.setBorderPainted(false);
+		rbtn.setFocusPainted(false);
+		rbtn.setContentAreaFilled(false);
     	 tpanel.setBounds(0, 120, 1175, 300);
     	 cta.setEnabled(false);
     	 npanel.add(tf);
     	 npanel.add(sbtn);
     	 npanel.add(cho);
-    	 npanel.add(reset);
-    	 npanel.add(delete);
+    	 npanel.add(rbtn);
+    	 npanel.add(ebtn);
     	 npanel.add(time);
-    	 reset.addActionListener(re);
-    	 delete.addActionListener(de);
+    	 rbtn.addActionListener(re);
+    	 ebtn.addActionListener(de);
     	 npanel.setBounds(0, 0, 1175, 120);
     	 scr.setBounds(0, 0, 1175, 300);
     	 npanel.setBorder(jtx);
@@ -279,6 +323,10 @@ public class SwingProject_state {
 			@Override
 			public void actionPerformed(ActionEvent e) {      //대출번호로 가져오기 (하나만)
 				if(cho.getSelectedIndex()==0) {
+					if(tf.getText().equals("")) {
+						MDialog md = new MDialog(SwingProject.frame,	"오류", true,"검색어가 없습니다.");
+						md.setVisible(true);
+					}else {
 					int RID = Integer.parseInt(tf.getText());
 					
 					String row1[][] = new String [1][7];
@@ -365,11 +413,14 @@ public class SwingProject_state {
 						    table.getColumnModel().getColumn(5).setPreferredWidth(200);
 						    table.getColumnModel().getColumn(6).setPreferredWidth(200);
 						    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+						    
+						    JTableHeader header = table.getTableHeader();            //테이블 헤더 색상 
+						    header.setBackground(new  Color(170,220,255));
 						    table.setRowHeight(30);
 						    scr.setBounds(0, 0, 1175, 300);
 							tpanel.removeAll();
 							tpanel.revalidate();
-						    tpanel.add(scr);
+						    tpanel.add(scr);}
 						
 					}
 					 if(table.getValueAt(0, 0).equals("0")) {
@@ -464,6 +515,8 @@ public class SwingProject_state {
 						    table.getColumnModel().getColumn(5).setPreferredWidth(200);
 						    table.getColumnModel().getColumn(6).setPreferredWidth(200);
 						    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+						    JTableHeader header = table.getTableHeader();            //테이블 헤더 색상 
+						    header.setBackground(new  Color(170,220,255));
 						    table.setRowHeight(30);
 						    scr.setBounds(0, 0, 1175, 300);
 							tpanel.removeAll();
@@ -567,6 +620,8 @@ public class SwingProject_state {
 					    table.getColumnModel().getColumn(5).setPreferredWidth(200);
 					    table.getColumnModel().getColumn(6).setPreferredWidth(200);
 					    table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
+					    JTableHeader header = table.getTableHeader();            //테이블 헤더 색상 
+					    header.setBackground(new  Color(170,220,255));
 					    table.setRowHeight(30);
 					    scr.setBounds(0, 0, 1175, 300);
 						tpanel.removeAll();
@@ -664,6 +719,72 @@ public class SwingProject_state {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			cbtn.setIcon(changeicon1);
+		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+		}
+	}; 
+	MouseListener sm = new MouseListener() {
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			sbtn.setIcon(changeicon8);
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+			sbtn.setIcon(changeicon9);
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			sbtn.setIcon(changeicon7);
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			sbtn.setIcon(changeicon8);
+		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+		}
+	}; 
+MouseListener end = new MouseListener() {
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			ebtn.setIcon(changeicon12);
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+			ebtn.setIcon(changeicon13);
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			ebtn.setIcon(changeicon11);
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			ebtn.setIcon(changeicon12);
+		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+		}
+	}; 
+MouseListener reset = new MouseListener() {
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			rbtn.setIcon(changeicon66);
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+			rbtn.setIcon(changeicon77);
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			rbtn.setIcon(changeicon55);
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			rbtn.setIcon(changeicon66);
 		}
 		@Override
 		public void mouseClicked(MouseEvent e) {

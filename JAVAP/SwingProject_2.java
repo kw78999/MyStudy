@@ -35,6 +35,21 @@ import JAVAP.BMEMBERSBean;
 import JAVAP.BMEMBERSMgr;
 
 public class SwingProject_2 implements ActionListener,ItemListener{
+	ImageIcon normalIcon5 = new ImageIcon("C:\\\\\\\\image\\\\send.jpg"); 
+	ImageIcon normalIcon6 = new ImageIcon("C:\\\\\\\\image\\\\sned3.jpg"); 
+	 static  JButton sbtn ;
+	 Image btnimg5 = normalIcon5.getImage(); 
+	 Image btnimg6= normalIcon6.getImage(); 
+	 //버튼에 이미지 추가
+	  Image change5 = btnimg5.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+	  ImageIcon changeicon5 = new ImageIcon(change5);
+	  
+	  Image change6 = btnimg5.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+	  ImageIcon changeicon6= new ImageIcon(change6);
+	  
+	  Image change7 = btnimg6.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+	  ImageIcon changeicon7= new ImageIcon(change7);
+	  
 	JTabbedPane t_2 = new JTabbedPane();
 	JPanel mpanel = new JPanel();
 	static JPanel lpanel = new JPanel();
@@ -46,7 +61,6 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 	static ImageIcon icon;
 	static JTextField ctf = new JTextField("",50);
 	static JTextArea cta = new JTextArea();
-	static JButton cbtn = new JButton("보내기");
 	static int cnt;
 	static JScrollPane chatScroll ;
 	static JPanel cpanel = new JPanel();
@@ -140,7 +154,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 	
 	public SwingProject_2() {
 		
-		
+		sbtn =new JButton(changeicon5);
 		
 		mpanel.setBackground(bg);
 		lpanel.setBackground(bg);
@@ -210,7 +224,7 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		 cho.add("고급");
 		 cho.add("VIP");
 		 
-		 cho.setBounds(150, 140, 150, 90);
+		 cho.setBounds(150, 140, 180, 190);
 		 cho.addItemListener(this);
 		 
 		 mMax.setBounds(150,180,180,30);
@@ -251,13 +265,17 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 		chatScroll = new JScrollPane(cta);
 		cta.setEnabled(false);
 		ChatAction ca = new ChatAction();
-		  cbtn.addActionListener(ca.acc);
+		sbtn.setBorderPainted(false);			
+				sbtn.setFocusPainted(false);
+				sbtn.setContentAreaFilled(false);
+				sbtn.addMouseListener(send);
+		  sbtn.addActionListener(ca.acc);
 		  ctf.addActionListener(ca.acc);
-		  cbtn.setBounds(470, 220, 80,30);
+		  sbtn.setBounds(470, 220, 80,30);
 		  ctf.setBounds(20, 220, 450, 30);
 		  chatScroll.setBounds(20,30	, 530, 190);
 		  chatScroll.setBackground(Color.black);
-		  cpanel.add(cbtn);
+		  cpanel.add(sbtn);
 		  cpanel.add(ctf);
 		  cpanel.add(chatScroll);
 		rpanel.add(btn2);
@@ -493,4 +511,26 @@ public class SwingProject_2 implements ActionListener,ItemListener{
 			
 		}
 	};
+MouseListener send = new MouseListener() {
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			sbtn.setIcon(changeicon6);
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+			sbtn.setIcon(changeicon7);
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			sbtn.setIcon(changeicon5);
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			sbtn.setIcon(changeicon6);
+		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+		}
+	}; 
 }

@@ -23,8 +23,8 @@ public class ChatAction extends Thread implements Runnable {
 		public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
 			 if(obj==ChatClient.ctf||obj==ChatClient.cbtn||obj==SwingProject_state.cbtn||obj==SwingProject_state.ctf||
-					obj==SwingProject_1.cbtn||obj==SwingProject_1.ctf||obj==SwingProject_2.cbtn||obj==SwingProject_2.ctf
-					||obj==ChartFrame.ctf||obj==ChartFrame.cbtn) {
+					obj==SwingProject_1.sbtn||obj==SwingProject_1.ctf||obj==SwingProject_2.sbtn||obj==SwingProject_2.ctf
+					) {
 				
 				if(!ChatClient.ctf.getText().equals("")) {   //입푸 ctf가 ""가 아닐시에 
 					out.println(ChatClient.ctf.getText());    //현재 텍스트가 있는 tf만 서버로 전송하기 
@@ -39,17 +39,17 @@ public class ChatAction extends Thread implements Runnable {
 				}else if(!SwingProject_2.ctf.getText().equals("")) {
 					out.println(SwingProject_2.ctf.getText());
 					SwingProject_2.ctf.setText("");
-				}else if(!ChartFrame.ctf.getText().equals("")) {
-					out.println(ChartFrame.ctf.getText());
-					ChartFrame.ctf.setText("");
-				}
+				//}else if(!ChartFrame.ctf.getText().equals("")) {
+					//out.println(ChartFrame.ctf.getText());
+					//ChartFrame.ctf.setText("");
+				//}
 				int pos = ChatClient.cta.getText().length(); //스크롤 자동으로 내리기 
 			//	System.out.println(pos);
 				ChatClient.cta.setCaretPosition(pos);
 				SwingProject_1.cta.setCaretPosition(pos-15);
 				SwingProject_2.cta.setCaretPosition(pos-15);
 				SwingProject_state.cta.setCaretPosition(pos-15);
-				ChartFrame.cta.setCaretPosition(pos-15);
+				//ChartFrame.cta.setCaretPosition(pos-15);
 		}
 	}
 	};
@@ -63,7 +63,7 @@ public class ChatAction extends Thread implements Runnable {
 				SwingProject_state.cta.append(str);
 				SwingProject_1.cta.append(str);
 				SwingProject_2.cta.append(str);
-				ChartFrame.cta.append(str);
+				//ChartFrame.cta.append(str);
 				ChatClient.ctf.requestFocus();
 				if(str.substring(0,4).equals("[회원]")) {
 				Runnable tt = new ColorThread();
@@ -96,4 +96,4 @@ public class ChatAction extends Thread implements Runnable {
 	}
 	
 	
-}
+};}

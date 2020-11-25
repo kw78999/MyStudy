@@ -72,15 +72,15 @@ public class ChatClient {
 		  mpanel. setBackground(bg);
 		  mpanel. setBorder(jtx2);
 		  chatScroll = new JScrollPane(cta);
-		  ChatAction ca = new ChatAction();
+		  //ChatAction ca = new ChatAction();
 		  
 				
 		  //cta.setEnabled(false);
 		  cta.setForeground(Color.black);
 		  
-		  cbtn.addActionListener(ca.acc);
-			cbtn.setBackground(bg);
-		  ctf.addActionListener(ca.acc);
+		  //cbtn.addActionListener(ca.acc);
+			cbtn.setBackground(bg);   //떄문에 글자가 파란색인가?
+		 // ctf.addActionListener(ca.acc);
 		  cbtn.setBounds(455, 220, 80,30);
 		  ctf.setBounds(20, 220, 435, 30);
 		  chatScroll.setBounds(20,30	, 515, 190);
@@ -89,7 +89,7 @@ public class ChatClient {
 		  mpanel. add(ctf);
 		  mpanel. add(chatScroll);
 		  mpanel. validate();//갱신
-		  ca.connect();  //생성과 동시에 서버와 커넥트 
+		 // ca.connect();  //생성과 동시에 서버와 커넥트 
 		//  ca.out.println("관리자");
 		  }
 

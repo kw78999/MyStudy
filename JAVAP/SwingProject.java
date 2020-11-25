@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
 
@@ -182,6 +183,8 @@ public class  SwingProject implements ActionListener{
 			table1.getColumnModel().getColumn(3).setPreferredWidth(150);
 			table1.getColumnModel().getColumn(4).setPreferredWidth(110);
 			table1.getColumnModel().getColumn(5).setPreferredWidth(80);
+			JTableHeader header = table1.getTableHeader();            //테이블 헤더 색상 
+		    header.setBackground(new  Color(170,220,255));
 	       table1.addMouseListener(book);
 	       table1.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 		    table1.setRowHeight(25);
@@ -244,6 +247,8 @@ public class  SwingProject implements ActionListener{
         table.getColumnModel().getColumn(4).setPreferredWidth(80);
         table.getColumnModel().getColumn(5).setPreferredWidth(70);
         table.getColumnModel().getColumn(6).setPreferredWidth(100);
+        JTableHeader header = table.getTableHeader();            //테이블 헤더 색상 
+	    header.setBackground(new  Color(170,220,255));
         table.addMouseListener(member);
         table.setFont(new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 20) );
 	    table.setRowHeight(25);
@@ -293,12 +298,11 @@ public class  SwingProject implements ActionListener{
 		SwingProject_1 sp_1 = new SwingProject_1();
 		SwingProject_2 sp_2 = new SwingProject_2();
 		SwingProject_state sp_s = new SwingProject_state();
-		ChartFrame cf = new ChartFrame();
-		t.addMouseListener(color);
+		//ChartFrame cf = new ChartFrame();
 		t.addTab("대출/반납",ti.whome3,t1);
 		t.addTab("도서관리",ti.book3,sp_1.t_1);
 		t.addTab("회원관리",ti.mem3,sp_2.t_2);
-		t.addTab("이용통계",ti.sta3 ,cf);
+		//t.addTab("이용통계",ti.sta3 ,cf);
 		
 		t.setFont( new Font(  "잘풀리는오늘 Medium", Font.PLAIN, 18) );
 		t.setBackground(cor);
@@ -499,43 +503,7 @@ public class  SwingProject implements ActionListener{
 		 frame.setLocationRelativeTo(null);
 		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	 MouseListener color = new MouseListener() {
-		 Testicon ti = new Testicon();
-		@Override
-		public void mouseReleased(MouseEvent arg0) {}	
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			if(t.getSelectedIndex()==0) {
-				t.setIconAt(0,ti.whome3);
-				t.setIconAt(1,ti.book3);
-				t.setIconAt(2,ti.mem3);
-				t.setIconAt(3,ti.sta3);
-			}else if(t.getSelectedIndex()==1){
-				t.setIconAt(0, ti.home3);
-				t.setIconAt(1, ti.wbook3);
-				t.setIconAt(2, ti.mem3);
-				t.setIconAt(3, ti.sta3);
-			}else if(t.getSelectedIndex()==2) {
-				t.setIconAt(0, ti.home3);
-				t.setIconAt(1, ti.book3);
-				t.setIconAt(2, ti.wmem3);
-				t.setIconAt(3, ti.sta3);
-			}else if(t.getSelectedIndex()==3) {
-				t.setIconAt(0, ti.home3);
-				t.setIconAt(1, ti.book3);
-				t.setIconAt(2, ti.mem3);
-				t.setIconAt(3, ti.wsta3);
-			}
-		}
-		@Override
-		public void mouseExited(MouseEvent arg0) {}
-		@Override
-		public void mouseEntered(MouseEvent arg0) {}
-		@Override
-		public void mouseClicked(MouseEvent arg0) {
-			
-			}
-	};
+	 
 	ActionListener memberscan = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
