@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style type="text/css">
+h3,li{color:brown;}
+div>div>strong { background: yellow;}/*자식 셀렉터*/
+ul strong{color:dodgerblue;}  /*자손 셀렉터*/
+.warning{color:red;}                /*클래스 셀렉터*/ 
+body.main{background: aliceblue;}
+#list {background:mistyrose;} /*아이디 셀렉터*/
+#list span{color:forestgreen;}
+h3:first-letter{color:red;}
+li:hover{background: yellowgreen;}
+</style>
+</head>
+<body class ="main">
+<h3>Web Programming</h3>
+<hr>
+<div> 
+	<div>2학기 <strong>학습 내용</strong>입니다.</div>
+	<ul id="list">
+		<li ><span>HTML5</span></li>
+		<li><strong>CSS</strong></li>
+		<li>JAVASCRIPT</li>
+	</ul>
+	<div class="warning">60점 이하는 F</div>
+</div>
+</body>
+</html>
