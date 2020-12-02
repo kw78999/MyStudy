@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style type="text/css">
+input[type=text]{color:red;}
+input:hover,textarea:hover {background: aliceblue;}
+input[type=text]:focus,input[type=email]:focus{font-size: 120%;}
+label{display:block;/*새로운 라인 시작*/padding:10px;}
+</style>
+</head>
+<body>
+<form>
+	<label>
+		<span>Name</span>
+		<input type="text" placeholder="Elvis"><br>
+	</label>
+<label>
+		<span>Email</span>
+		<input type="email" placeholder="elvis@graceland.com"><br>
+	</label>
+	<label>
+		<span>Comment</span><textarea placeholder="메시지를 남겨주세요"></textarea>
+	</label>
+	<label>
+		<span></span><input type="submit" value="submit">
+	</label>
+</form>
+</body>
+</html>

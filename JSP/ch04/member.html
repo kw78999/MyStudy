@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>회원가입</title>
+<style type="text/css">
+body{background:aliceblue;font-size: 18px ;font-size: large;}
+table{background-image: url('test1.jpg');
+background-repeat: no-repeat;
+			background-size: cover;}
+ input[type=button],[type=reset]{background: aliceblue;
+ 										}
+ input:focus{font-size: 110%;background:rgb(129,166,250);}
+ #top{color:white;}
+ #top tr:hover {background: aliceblue;color:rgb(0,115,230);}
+ td{border : 2px solid white;}
+</style>
+</head>
+<body >
+
+	<div align="center">
+		<br /><br />
+		<form name="regFrm" method="post" action="memberProc.jsp">
+			<table cellpadding="0">
+				<tr id="top">
+					<td bgcolor="#99b8d9">
+						<table border="8" bordercolor=white cellspacing="0" cellpadding="2" width="600">
+							<tr bgcolor="#99b8d9"id="top">
+								<td colspan="10"><b>회원 가입</b></td>
+							</tr>
+							<tr id="top">
+								<td width="20%" id="top1" >아이디</td>
+								<td width="50%">
+									<input name="id" size="15"> 
+									<input type="button" value="ID중복확인" onClick="idCheck(this.form.id.value)">
+								</td>
+								<td width="30%">아이디를 적어 주세요.</td>
+							</tr>
+							<tr id="top">
+								<td >패스워드</td>
+								<td><input type="password" name="pwd" size="15"></td>
+								<td >패스워드를 적어주세요.</td>
+							</tr>
+							<tr id="top">
+								<td >패스워드 확인</td>
+								<td><input type="password" name="repwd" size="15"></td>
+								<td >패스워드를 확인합니다.</td>
+							</tr>
+							<tr id="top">
+								<td>이름</td>
+								<td><input name="name" size="15">
+								</td>
+								<td >이름을 적어주세요.</td>
+							</tr>
+							<tr id="top">
+								<td >성별</td>
+								<td >
+									남<input type="radio" name="gender" value="1" checked> 
+									여<input type="radio" name="gender" value="2">
+								</td>
+								<td >성별을 선택 하세요.</td>
+							</tr>
+							<tr id="top">
+								<td>생년월일</td>
+								<td ><input name="birthday" size="6">
+									ex)830815</td>
+								<td >생년월일를 적어 주세요.</td>
+							</tr>
+							<tr id="email">
+								<td style="color:rgb(109,166,250)">Email</td>
+								<td><input name="email" size="30">
+								</td>
+								<td style="color:rgb(109,166,250)">이메일를 적어 주세요.</td>
+							</tr>
+							<tr>
+								<td style="color:rgb(109,166,250)">우편번호</td>
+								<td><input name="zipcode" size="5" readonly>
+									<input type="button" value="우편번호찾기" onClick="zipSearch()">
+								</td>
+								<td style="color:rgb(109,166,250)">우편번호를 검색하세요.</td>
+							</tr>
+							<tr>
+								<td style="color:rgb(109,166,250)">주소</td>
+								<td><input name="address" size="45"></td>
+								<td style="color:rgb(109,166,250)">주소를 적어 주세요.</td>
+							</tr>
+							<tr>
+								<td style="color:rgb(40,148,255)">취미</td>
+								<td style="color:rgb(40,148,255)">인터넷<input type="checkbox" name="hobby" value="인터넷">
+									여행<input type="checkbox" name="hobby" value="여행"> 게임<input
+									type="checkbox" name="hobby" value="게임"> 영화<input
+									type="checkbox" name="hobby" value="영화"> 운동<input
+									type="checkbox" name="hobby" value="운동">
+								</td>
+								<td style="color:rgb(40,148,255)">취미를 선택 하세요.</td>
+							</tr>
+							<tr>
+								<td style="color:rgb(0,115,230)">직업</td>
+								<td style="color:rgb(0,115,230)"><select name=job>
+										<option value="0" selected>선택하세요.
+										<option value="회사원">회사원
+										<option value="연구전문직">연구전문직
+										<option value="교수학생">교수학생
+										<option value="일반자영업">일반자영업
+										<option value="공무원">공무원
+										<option value="의료인">의료인
+										<option value="법조인">법조인
+										<option value="종교,언론,에술인">종교.언론/예술인
+										<option value="농,축,수산,광업인">농/축/수산/광업인
+										<option value="주부">주부
+										<option value="무직">무직
+										<option value="기타">기타
+								</select></td>
+								<td style="color:rgb(0,115,230)">직업을 선택 하세요.</td>
+							</tr>
+							<tr>
+								<td colspan="3" align="center">
+								   <input type="button" value="회원가입">
+								    &nbsp; &nbsp; 
+								    <input type="reset" value="다시쓰기">
+								    &nbsp; &nbsp; 
+								    <input type="button" value="로그인">
+								 </td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
