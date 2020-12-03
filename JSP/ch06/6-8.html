@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var v;
+	function init() {
+		//alert(1);
+		v = document.getElementById("p1");
+		v.onmouseover = over; //over() <- X
+		v.onmouseout = out;
+	}
+	function over() {
+		v.style.backgroundColor = "green";
+	}
+	function out() {
+		v.style.backgroundColor = "white";
+	}
+</script>
+</head>
+<body onload="init()">
+<p onmouseover="this.style.backgroundColor='orchid'" 
+      onmouseout="this.style.backgroundColor='white'">
+마우스를 올리면 배경색이 orchid로 변경</p>
+<p id="p1">마우스를 올리면 배경색이 green로 변경</p>
+</body>
+</html>
+
+
+
+

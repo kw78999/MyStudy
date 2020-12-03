@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>for문을 이용해서 10px~35px 크기를 출력</h3>
+<script type="text/javascript">
+	for(i=0;i<=35;i+=5){
+		document.write("<span ");
+		document.write("style='font-size:"+i+"px'>");
+		document.write(i +"px");
+		document.write("</span><br>");
+	}
+	document.write("<p>");
+	subject = ["Java","DB","HTML","CSS","자바스크립트"];
+	//alert(subject.length);
+	//for문과 table을 이용해서 과목들을 출력하세요.
+	str = "<table border='1'>";
+	str+="<tr><td>순번</td><td>과목</td></tr>";
+	for(i=0;i<subject.length;i++){
+		str+="<tr><td>"+(i+1)+"</td><td>"
+		+subject[i]+"</td></tr>";
+	}
+	str+="</table>";
+	document.write(str);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

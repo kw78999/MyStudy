@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function cal() {
+		f = document.frm;
+		a = f.exp.value;
+		//alert(a);
+		f.result.value = eval(a);
+	}
+</script>
+</head>
+<body>
+<h3> onclick, 계산기 만들기</h3>
+<hr>
+계산하고자 하는 수식을 입력하고 계산 버튼을 눌러봐요.<br><br>
+<form name="frm">
+	식 <input name="exp" value="1+2*10/3+4">
+	<input type="button" value="계산" onclick="cal()"><p>
+	값 <input name="result">
+</form>
+</body>
+</html>
+
+
+
+
+
