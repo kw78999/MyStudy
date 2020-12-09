@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function send() {
+		f = document.frm;
+		// 폼이름이 없는경우 가져옴 자동으로 배열로 지정됨   f = document.forms[0];
+		f.action = "simpleBean2.jsp";
+		f.submit();
+	}
+</script>
+</head>
+<body>
+<h1>빈즈 액션 태그 Example</h1>
+<form name="frm" action="simpleBean1.jsp">
+msg : <input name="msg" value="빈을 만들자."><br/>
+cnt : <input name="cnt" value="10"><br/>
+<input type="submit" value="Send1">
+<!-- button type은 반드시 onclick 실행 -->
+<input type="button" value="Send2" onclick="send()">
+</form>
+</body>
+</html>
+
+
+
+
