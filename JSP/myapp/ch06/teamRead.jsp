@@ -16,6 +16,8 @@
 			num = Integer.parseInt(request.getParameter("num"));
 			out.println(num);
 			bean = mgr.getTeam(num);
+			//회원정보를 session에 저장
+			session.setAttribute("bean", bean);
 %>
 				<!DOCTYPE html>
 <html>
