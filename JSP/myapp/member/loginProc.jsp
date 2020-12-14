@@ -7,7 +7,7 @@
 	  String pass = request.getParameter("pwd");
 	  String msg = "로그인에 실패 하였습니다.";
 	  
-	  boolean result = mgr.loginmember(id,pass);
+	  boolean result = mgr.loginMember(id,pass);
 	  if(result){
 	    session.setAttribute("idKey",id);
 	    msg = "로그인에 성공 하였습니다.";
