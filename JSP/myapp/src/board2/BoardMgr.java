@@ -50,7 +50,7 @@ public class BoardMgr {
 				content = UtilMgr.replace(content, "<", "&lt;");
 			}
 			//답변을 위한 ref 설정
-			int ref = getMaxNum();
+			int ref = getMaxNum() + 1;
 			/////////////////////////////////////
 			con = pool.getConnection();
 			sql = "insert tblBoard(name,content,subject,ref,pos,depth,";
@@ -299,9 +299,55 @@ public class BoardMgr {
 		}
 		
 	//Board Reply : 답변글 입력
-	
+	public void replyBoard(BoardBean bean) {
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	String sql = null;
+	try {
+		con = pool.getConnection();
+		sql = "insert tblBoard(name,content,subject,ref,pos,depth,regdate,"
+				+ "pass,count,ip)values(?, ?, ?, ?, ?, ?, now(), ?, 0, ?)";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, bean.getName());
+		pstmt.setString(2, bean.getContent());
+		pstmt.setString(3, bean.getSubject());
+		///////////////////////////////////
+		//ref=답변 글들의 그룹컬럼
+		pstmt.setInt(4, bean.getRef());//원글과 동일한 ref값으로 저장 
+		//pos  = 답변글들의 정렬값
+		pstmt.setInt(5, bean.getPos()+1); //원글의 pos +1 
+		//depth = 답변글의 깊이
+		pstmt.setInt(6,bean.getDepth()+1); //원글의 depth +1 
+		///////////////////////////////////
+		pstmt.setString(7, bean.getPass());
+		pstmt.setString(8, bean.getIp());
+		pstmt.executeUpdate();
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		pool.freeConnection(con, pstmt);
+	}
+}
 	//Board Reply Up : 답변글 위치값 조정
-	
+	public void replyUpBoard(int ref,int pos) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "update tblBoard set pos=pos+1 where ref=? and pos>?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,ref);
+			pstmt.setInt(2,pos);
+		    pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
+	}
 	public void post1000(){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -321,10 +367,6 @@ public class BoardMgr {
 		}
 	}
 	
-	public static void main(String[] args) {
-		BoardMgr mgr = new BoardMgr();
-		mgr.post1000();
-	}
 }
 
 

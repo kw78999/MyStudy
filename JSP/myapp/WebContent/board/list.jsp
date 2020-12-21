@@ -4,6 +4,7 @@
 <%@page import="board2.BoardBean"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="mgr" class="board2.BoardMgr"/>
+<jsp:useBean id="cmgr" class="board2.BCommentMgr" />
 <%
 		request.setCharacterEncoding("EUC-KR");
 		int totalRecord = 0;//ÃÑ°Ô½Ã¹°¼ö
@@ -142,6 +143,9 @@
 						int depth = bean.getDepth();//´äº¯ÀÇ ±íÀÌ
 						int count = bean.getCount();//Á¶È¸¼ö
 						String filename = bean.getFilename();//Ã·ºÎÆÄÀÏ
+						//´ñ±Û count
+						int bcount = cmgr.getBCommentCount(num);
+						
 						%>
 						<tr align = "center">
 							<td><%=totalRecord-start-i %></td>
@@ -150,6 +154,9 @@
 							<a href="javascript:read('<%=num%>')"><%=subject %></a>
 							<%if(filename!=null&&!filename.equals("")){ %>
 							<img src="img/icon_file.gif" align="middle">
+							<%} %>
+							<%if(bcount>0){ %>
+								<font color="red">(<%=bcount %>)</font>
 							<%} %>
 							</td>
 							<td><%=name %></td>

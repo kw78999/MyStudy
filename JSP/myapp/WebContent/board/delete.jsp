@@ -3,6 +3,7 @@
 <%@page import="board2.UtilMgr"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="mgr" class="board2.BoardMgr"/>
+<jsp:useBean id="cmgr" class="board2.BCommentMgr"/>
 <html>
 <head>
 <%
@@ -19,7 +20,7 @@
 			if(inPass.equals(dbPass)){//==는 객체의 주소값 비교.
 				mgr.deleteBoard(num, bean.getFilename());
 				//원 게시물이 삭제되면 관려된 댓글 모두 삭제
-
+				cmgr.deleteAllBComment(num);
 				String url = "list.jsp?nowPage="+nowPage;
 				response.sendRedirect(url);
 			}else{%>
