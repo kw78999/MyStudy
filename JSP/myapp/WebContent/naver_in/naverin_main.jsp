@@ -1,29 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
 <title>네이버 지식iN</title>
+<link href="header.css" rel="stylesheet" type="text/css">
 <style>
-
-.naver{
-cursor:pointer;
+.test{
 border:0;
 outline:0;
-width:90px;height:30px;
-background: url("img/naver2.png");
-background-size:90px 30px;
-margin-left: 300px;
-margin-top:30px;
-}
-#nlogin{
-border:0;
-outline:0;
-width:250px;height:60px;
-background: url("img/nlogin.png");
-background-size:250px 60px;
-    cursor: pointer;
+background:url('img/main.png');
+width:100%;
+height:700px;
+background-size:100% 700px;
 }
 #toon{
 border:0;
@@ -69,130 +60,7 @@ background-size:160px 40px;
     left: 158px;
     cursor: pointer;
 }
-.in{
-cursor:pointer;
-border:0;
-outline:0;
-width:70px;height:30px;
-background: url("img/naver.png");
-background-size:70px 30px;
-}
-.text{
-width:200px;
-height:25px;
-border-color: #00d205;
- position: absolute;
-    top: 10px;
-    left: 480px;
-        border-style: solid;
-     outline-color :#00d205  !important;
-     outline-style: solid;
-}
-.text:focus{
-border-color:#00d205;
-}
-.search{
-cursor:pointer;
-border:0;
-outline:0;
-width:35px;
-height:27px;
- position: absolute;
-    top: 42px;
-    left: 650px;
-background: url("img/search.png");
-background-size:35px 27px;
-}
-#loginset{
-position : relative;
-}
-.login{
-cursor:pointer;
-border:1;
-outline:none;
-border-color:#BBBBBB;
-width:70px;
-height:30px;
-margin-left: 1000px;
-background-color: white;
-border-style: solid;
-}
-.menubar{
-cursor:pointer;
-border:0;
-outline:0;
-width:30px;height:30px;
-background: url("img/menubar.png");
-background-size:30px 30px;
- position: absolute;
-    top: -5px;
-    left: 1080px;
-}
-.submenubar{
-margin-left: 260px;
-margin-top:0px;
-border-spacing:40px 0px;
-}
-.td{
-color:#666666;
-margin-left: 50px;
-padding-bottom: 15px;
-padding-top:15px;
-border-bottom:3px solid white;
-}
-.td:hover{
-border-bottom:3px solid #00d205;
-cursor:pointer;
-color: #00d205;
-}
-hr{
-background-color: #dddddd;
-height:1px;
-border:0px;
-}
-#tdbtn{
-position : relative;
-}
-#write{
-cursor:pointer;
-border:0;
-outline:0;
-width:30px;
-height:30px;
-position: absolute;
-    top: 11px;
-    left: 6px;
-background: url("img/write.png");
-background-size:30px 30px;
-}
-#naver1{
-cursor:pointer;
-border:0;
-outline:0;
-width:70px;height:20px;
-background: url("img/naver2.png");
-background-size:70px 20px;
-padding-top: 20px;
-}
-.test{
-border:0;
-outline:0;
-background:url('img/main.png');
-width:100%;
-height:700px;
-background-size:100% 700px;
-}
-#footer{
-color: #cccccc;
-}
-.footerText{
-color:#444444;
-}
-.footerText:hover{
-color:#40c700;
-cursor: pointer;
-text-decoration: underline;
-}
+
 video#bgvid {
 width: 318px;
    border-radius: 30px;
@@ -206,45 +74,23 @@ position : relative;
 #margin{
  margin-left: 300px;
  }
- #menutable{
-  position: absolute;
-    top: 80px;
-    left: 1310px;
-    background-color: white;
-    border:2px solid #dddddd;
-    border-collapse: collapse;
- }
- #menutable th{
- border-bottom: 2px solid #dddddd;
- padding-bottom: 5px;
- color:#40c700;
-  font-size:25px;
- }
-  #menutable th:hover{
-  color:white;
-  background-color:#40c700;
-  font-size:25px;
-  }
- #menutable tr{
- padding-top:10px;
- }
-  #menutable td:hover{
-  text-decoration: underline;
-  }
- #menutable td{
- cursor:pointer;
- padding:8px 8px 8px 8px;
- border-right: 1px solid #dddddd;
- font-size: 14px;
- align:left;
- }
+ #nlogin{
+border:0;
+outline:0;
+width:270px;height:60px;
+background: url("img/nlogin.png");
+background-size:270px 60px;
+    cursor: pointer;
+    margin-left: -10px;
+}
+
  #mainboard{
  border: 1px solid #aaaaaa;
- width:940px;
+ width:970px;
  height:1000px;
  float: left;
  background-color: white;
- margin-left: 20px;
+ margin-left: 0px;
  }
  #profile{
  width:310px;
@@ -256,7 +102,7 @@ position : relative;
  #maincontent{
  width:1300px;
  height:1100px;
- margin: 30px auto;
+ margin: 20px auto;
  }
  #sidebar{
  float:left;
@@ -278,10 +124,11 @@ position : relative;
  #boardtable{
  width:100%;
  }
+
  #boardtable td{
- border-bottom:2px solid #dddddd;
  font-size: 15px;
  height:50px;
+ border-bottom:2px solid #dddddd;
  }
  #boardtable tr:hover{
  background-color: aliceblue;
@@ -305,20 +152,24 @@ position : relative;
  text-decoration: underline;
  }
  .tag{
- background-color:#aad0e8;
+ background-color:rgb(119,188,215,0.3);
  margin-right: 20px;
  margin-bottom:20px;
  }
+ #total{
+ color:#40c700;
+ font-size: 20px;
+ font-weight: 900;
+ }
+ #total_date{
+ font-size: 12px;
+ color:#888;
+ }
+ 
+
 </style>
 <script>
- function dismenu() {
-	var e = document.getElementById("menutable");
-	if(e.style.display=='none'){
-		e.style.display='block';
-	}else{
-		e.style.display='none';
-	}
-}
+ 
  function boardevent(num) {
 	var e = document.getElementById(num);
 	e.style.color='#40c700';
@@ -331,45 +182,12 @@ position : relative;
 	
 </script>
 </head>
-<!--메인 배너-->
 
-<form>
-<div id="mainbanner">
-<input type="button" class="naver" onclick="location.href='naver.com' ">
-<input type="button" class="in" onclick="location.href='naverin.jsp' ">
-<input type="text" class="text" style="margin-top: 30px">
-<input type="submit" class="search" value="">
-<span id="loginset">
-<button class="login">로그인</button>
-<input type="button" class="menubar" onclick="dismenu()">
-</span>
-<hr style="margin-top: 20px;margin-bottom:0px;">
-</div>
-</form>
-
-<!--메뉴바 -->
-<div>
-<table class="submenubar">
-	<tr>
-		<td class="td" align="center" width="20px">홈</td>
-		<td class="td" align="center" width="40px">Q&A</td>
-		<td class="td" align="center" width="70px">답변하기</td>
-		<td class="td" align="center" width="50px">베스트</td>
-		<td class="td" align="center" width="90px">명예의 전당</td>
-		<td style="border-left: 1px solid #cccccc;"></td>
-		<td class="td" align="center" width="50px">프로필</td>
-		<td width="500px"></td>
-		<td id="tdbtn" align="right" width="100px" style="padding-right:25px;
-		background-color:#40c700;color:white;cursor:pointer;">
-		<button id="write"></button>질문하기</td>
-	</tr>
-</table>
-</div>
 
 <body>
+<%@ include file="header.jsp" %>
 <div id="body">
-<hr style="margin-top:0px">
-
+<hr style="margin-top:0px;margin-bottom: 20px;">
 <span class="relative" id="margin">
 <video autoplay loop muted  id="bgvid">
         <source src="img/read.mp4" type="video/mp4">
@@ -460,12 +278,13 @@ position : relative;
 <%
 	for(int i=0;i<10;i++){
 	%>
-	<tr>
-	<td style="font-weight:bold;font-size: 18px;">질문입니다.어떻게할까요??</a></td>
-	<td width="50px" style="color:#888;">답변0</td>
-	<td width="130px" style="color:#888;">엔터테이먼트,예술</td>
-	<td style="text-align: right;color:#888;">방금</td>
+	<tr id="q">
+		<td style="font-weight:bold;font-size: 18px;">질문입니다.어떻게할까요??</a></td>
+		<td width="50px" style="color:#888;">답변0</td>
+		<td width="130px" style="color:#888;">엔터테이먼트,예술</td>
+		<td style="text-align: right;color:#888;">방금</td>
 	</tr>
+	
 	<%
 	}
 %>
@@ -480,7 +299,7 @@ position : relative;
 
 <div style="padding-top: 20px;padding-left: 30px;background-color:aliceblue;height: 169px;">
 <p style="color:#888;">질문과 답변을 하고싶다면,</p>
-<button id="nlogin"/><br><br><br><br>
+<button id="nlogin" type="button" onclick="location.href='../joon/login.jsp' "/><br><br><br><br>
 <p id="new" style="color:#888;text-align: right;font-size: 15px;">회원가입</p>
 </div>
 <hr style="margin-top:0px;">
@@ -489,13 +308,22 @@ position : relative;
 <p style="font-weight: bold">지식iN 인기태그</p>
 <p><span class="tag">#사업자등록증</span>
 <span class="tag">#수입</span>
-<span class="tag">#트위치</span></p>
-<a class="tag">#수능</a>
+<span class="tag">#수능</span></p>
+<p><a class="tag">#트위치</a>
 <a class="tag">#청년대출</a>
-<a class="tag">#유투브</a>
-<a class="tag">#코로나</a>
+<a class="tag">#유투브</a></p>
+<p><a class="tag">#코로나</a>
 <a class="tag">#봉사활동</a>
-<a class="tag">#자기소개서</a>
+<a class="tag">#자기소개서</a></p>
+</div>
+<hr>
+<div style="padding-left: 30px;">
+<h4>오늘의 질문과 답변</h4>
+<span id="total">123,123/123,123</span><br>
+<span  id="total_date">2020.12.28</span>
+<h4>누적 답변수</h4>
+<span id="total">123,123,123,123</span><br>
+<span id="total_date">since 2002</span>
 </div>
 </div>
 
@@ -540,19 +368,5 @@ position : relative;
 		</tr>
 	</table>
 </span>
-<footer>
-<hr style="margin-top:50px;">
-	<br><span id="footer" style="margin-left: 550px;font-size: 14px;">
-	<a class="footerText">네이버 이용약관</a> &nbsp;&nbsp;&nbsp;|
-	&nbsp;&nbsp;&nbsp;<a class="footerText"> 지식iN 서비스</a> &nbsp;&nbsp;&nbsp;|
-	&nbsp;&nbsp;&nbsp; <a class="footerText">운영정책개인정보 </a>&nbsp;&nbsp;&nbsp;| 
-	&nbsp;&nbsp;&nbsp;<a class="footerText">처리방침게시중단요청서비스</a>&nbsp;&nbsp;&nbsp; |
-	&nbsp;&nbsp;&nbsp;<a class="footerText"> 지식iN 고객센터</a>
-	</span>
-	<br><br>
-	<span align="center" style="font-size:12px;display: flex;margin-left: 750px; ">
-	<button id="naver1"></button>
-	 &nbsp;Copyright  &nbsp; <strong>NAVER Corp.</strong>  &nbsp;All Rights Reserved.</span>
-	<br><br><br>
-</footer>
+<%@ include file="footer.jsp" %>
 </html>
