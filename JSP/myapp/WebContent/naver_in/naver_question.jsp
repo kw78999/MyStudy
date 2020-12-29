@@ -20,7 +20,7 @@ margin: 30px auto;
 border: 1px solid #aaa;
 }
 #titletext{
-width: 600px;
+width: 590px;
 height: 40px;
  position: absolute;
     top: 70px;
@@ -54,8 +54,7 @@ border: 2px solid #777;
  border-radius: 7px;
  position: absolute;
  top:800px;
- left:800px;
- display:block;
+ left:900px;
  cursor: pointer;
 }
 #next:hover{
@@ -63,9 +62,9 @@ background-color: aliceblue;
 }
 #tag{
 border: 1px solid #888;
-width: 700px;
+width: 720px;
 height: 100px;
-margin-top: 50px;
+display:none;
 }
 #tag:hover{
 border: 2px solid #40c700;
@@ -88,11 +87,40 @@ height: 40px;
 outline: none;
 cursor: pointer;
 }
+#point{
+border: 1px solid #888;
+width: 720px;
+height: 100px;
+margin-top: 50px;
+display:none;
+}
+#point:hover{
+border: 2px solid #40c700;
+}
+#pointlabel{
+margin-left:20px;
+font-weight: bold;
+font-size: 20px;
+}
+#pointtext{
+margin-top:30px;
+width: 400px;
+height: 30px;
+}
+#addpoint{
+background-color: white;
+border: 1px solid #ccc;
+width:80px;
+height: 40px;
+outline: none;
+cursor: pointer;
+}
 #directory{
 border: 1px solid #888;
-width: 700px;
+width: 720px;
 height: 500px;
 margin-top: 50px;
+display:none;
 }
 #directory:hover{
 border:2px solid #40c700;
@@ -103,6 +131,23 @@ font-size: 20px;
 #directory label:hover{
 color:#40c700;
 font-weight:bold;
+}
+#submit{
+color:#40c700;
+width: 100px;
+height: 50px;
+background-color:white;
+border: 2px solid #777;
+ border-radius: 7px;
+ display:block;
+ cursor: pointer;
+ margin-left: 300px;
+ margin-top: 50px;
+ margin-bottom: 50px;
+ display:none;
+}
+#submit:hover{
+background-color: aliceblue;
 }
 #s1{float:left;width:33%;margin-left: 10px;margin-top: 20px;}
 #s2{float:left;width:33%;margin-top: 20px;}
@@ -122,7 +167,9 @@ font-weight:bold;
  background-color: #fdfdfd;
  cursor: pointer;
  border: 2px solid #777;
+ margin-bottom:120px;
  border-radius: .25em; }
+ 
  .filebox label:hover{
  background-color: aliceblue;
  }
@@ -139,7 +186,8 @@ font-weight:bold;
  border-radius: .25em;
  -webkit-appearance: none;
  /* 네이티브 외형 감추기 */ -moz-appearance: none;
- appearance: none; }
+ appearance: none; 
+  margin-bottom:120px;}
 
 </style>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -160,6 +208,14 @@ $(document).ready(function(){
 function next() {
 	var e = document.getElementById("next");
 	e.style.display = 'none';
+	var e = document.getElementById("tag");
+	e.style.display = 'block';
+	var e = document.getElementById("directory");
+	e.style.display = 'block';
+	var e = document.getElementById("point");
+	e.style.display = 'block';
+	var e = document.getElementById("submit");
+	e.style.display = 'block';
 }
 </script>
 </head>
@@ -173,7 +229,7 @@ function next() {
 <img  src="img/question.png" style="width: 40px;height: 40px;margin-top: 70px;
 margin-left:100px; marborder-radius: 10px;">
 <a style="font-size: 23px;color:#40c700;font-weight: 900;">질문</a>
-<input type="text" id="titletext">
+<input type="text" name="title" id="titletext">
 </div>
 <div id="textarea">
 <textarea id="ta" rows="25" cols="99"
@@ -194,56 +250,62 @@ margin-left:100px; marborder-radius: 10px;">
 
 <div id="directory">
 <span id="s1">
-<input type="radio" id="1" name="directory" value="교육,학문">
+<input type="radio" id="1" name="directory" value="교육,학문" name="directory">
 <label for="1">교육,학문</label><br>
-<input type="radio" id="2" name="directory" value="컴퓨터통신">
+<input type="radio" id="2" name="directory" value="컴퓨터통신" name="directory">
 <label for="2">컴퓨터통신</label><br>
-<input type="radio" id="3" name="directory" value="게임">
+<input type="radio" id="3" name="directory" value="게임" name="directory">
 <label for="3">게임</label><br>
-<input type="radio" id="4" name="directory" value="엔터테이먼트,예술">
+<input type="radio" id="4" name="directory" value="엔터테이먼트,예술" name="directory">
 <label for="4">엔터테이먼트,예술</label><br>
-<input type="radio" id="5" name="directory" value="생활">
+<input type="radio" id="5" name="directory" value="생활" name="directory">
 <label for="5">생활</label><br>
-<input type="radio" id="6" name="directory" value="건강">
+<input type="radio" id="6" name="directory" value="건강" name="directory">
 <label for="6">건강</label><br>
-<input type="radio" id="7" name="directory" value="사회,정치">
+<input type="radio" id="7" name="directory" value="사회,정치" name="directory">
 <label for="7">사회,정치</label><br>
 </span>
 <span id="s2">
-<input type="radio" id="8" name="directory" value="경제">
+<input type="radio" id="8" name="directory" value="경제" name="directory">
 <label for="8">경제</label><br>
-<input type="radio" id="9" name="directory" value="여행">
+<input type="radio" id="9" name="directory" value="여행" name="directory">
 <label for="9">여행</label><br>
-<input type="radio" id="10" name="directory" value="스포츠,레저">
+<input type="radio" id="10" name="directory" value="스포츠,레저" name="directory">
 <label for="10">스포츠,레저</label><br>
-<input type="radio" id="11" name="directory" value="쇼핑">
+<input type="radio" id="11" name="directory" value="쇼핑" name="directory">
 <label for="11">쇼핑</label><br>
-<input type="radio" id="12" name="directory" value="연애,결혼">
+<input type="radio" id="12" name="directory" value="연애,결혼" name="directory">
 <label for="12">연애,결혼</label><br>
-<input type="radio" id="13" name="directory" value="자동차">
+<input type="radio" id="13" name="directory" value="자동차" name="directory">
 <label for="13">자동차</label><br>
-<input type="radio" id="14" name="directory" value="직업,취업">
+<input type="radio" id="14" name="directory" value="직업,취업" name="directory">
 <label for="14">직업,취업</label><br>
 </span>
 <span id="s3">
-<input type="radio" id="15" name="directory" value="안드로이드폰">
+<input type="radio" id="15" name="directory" value="안드로이드폰" name="directory">
 <label for="15">안드로이드폰</label><br>
-<input type="radio" id="16" name="directory" value="사람과 그룹">
+<input type="radio" id="16" name="directory" value="사람과 그룹" name="directory">
 <label for="16">사람과 그룹</label><br>
-<input type="radio" id="17" name="directory" value="대학 입시,진학">
+<input type="radio" id="17" name="directory" value="대학 입시,진학" name="directory">
 <label for="17">대학 입시,진학</label><br>
-<input type="radio" id="18" name="directory" value="자동차구입">
+<input type="radio" id="18" name="directory" value="자동차구입" name="directory">
 <label for="18">자동차구입</label><br>
-<input type="radio" id="19" name="directory" value="모바일게임">
+<input type="radio" id="19" name="directory" value="모바일게임" name="directory">
 <label for="19">모바일게임</label><br>
-<input type="radio" id="20" name="directory" value="영어 공부,시험">
+<input type="radio" id="20" name="directory" value="영어 공부,시험" name="directory">
 <label for="20">영어 공부,시험</label><br>
-<input type="radio" id="21" name="directory" value="스마트폰">
+<input type="radio" id="21" name="directory" value="스마트폰" name="directory">
 <label for="21">스마트폰</label><br>
 </span>
 <hr style="width: 90%;height: 3px; margin-top: 230px;">
 </div>
 
+<div id="point">
+<a id="pointlabel">추가내공</a> <input type="text" id="pointtext" name="point" placeholder="현재 보유내공 : 60">
+<input type="button" value="추가" id="addpoint">
+</div>
+
+<input type="submit" id="submit" value="질문하기">
 </div><!-- title -->
 </form>
 </div><!-- body -->
