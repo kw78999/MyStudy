@@ -14,6 +14,13 @@
 	int nowPage = 1;//현재 페이지
 	int nowBlock = 1;//현재 블럭
 	
+	
+	String dir="전체";
+	if(request.getParameter("dir")!=null){
+		dir = request.getParameter("dir");
+	}
+	
+	
 	totalRecord = mgr.getTotalCount();
 	
 	//요청된 numPerPage 처리
@@ -225,19 +232,39 @@ cursor: pointer;
 </style>
 <script type="text/javascript">
 
- function Cal(date12) {
-	 var a = date12;
-	 return a;
+ function Cal(boardDate) {
+	 let today = new Date();   
+	 let year = today.getFullYear(); // 현재년도
+	 let month = today.getMonth() + 1;  // 현재월
+	 let date = today.getDate();  // 현재날짜
+	 let hours = today.getHours(); // 현재시
+	 let minutes = today.getMinutes();  // 현재분
+	 let seconds = today.getSeconds();  // 현재초
+	 let ymd = boardDate.substring(0,boardDate.lastIndexOf(" "));//게시물 년월일
+	 let h = boardDate.substring(10,13);//게시물 시
+	 let m = boardDate.substring(14,16);//게시물 분
+	 let s = boardDate.substring(17,19);//게시물 초
+	 if(s.substring(0,1)==0)  //한자리수라면 앞의 0자르기
+		 s=s.substring(1,2);
+	 
+	 var b = year+"-"+month+"-"+date;  //현재 년월일
+	 if(b!=ymd){
+	    return ymd;
+	 }else if(hours-h>=2){
+		return hours-h+"시간전";
+	 }else if(hours-h==1){
+		 return m-minutes<=0?"1시간전":minutes+60-m+"분전";
+	 }else if(hours==h){
+		 return minutes==m?seconds-s+"초전":minutes-m+"분전";
+	 }
 }
  function boardevent(num) {
-	var e = document.getElementById(num);
-	e.style.fontWeight= 'bold';
-	e.style.color='#40c700';
+	document.dirFrm.dir.value = num;
+	document.dirFrm.submit();
 }
 	window.onload = function() {
-		boardevent(1);
-		boardevent(101);
 	}
+	
 	function numPerFn(numPerPage) {
 		document.readFrm.numPerPage.value=numPerPage;
 		document.readFrm.submit();
@@ -301,38 +328,44 @@ cursor: pointer;
 <hr style="width:90%;margin-bottom: 20px;">
 <!-- 사이드 메뉴바 -->
 <div id="sidebar">
+<form method="post" name="diFrm">
 	<ul>
-		<li onclick="boardevent(1)" id="1">전체</li>
-		<li onclick="boardevent(2)" id="2">교육,학문</li>
-		<li onclick="boardevent(3)" id="3">컴퓨터통신</li>
-		<li onclick="boardevent(4)" id="4">게임</li>
-		<li onclick="boardevent(5)" id="5">엔터테이먼트,예술</li>
-		<li onclick="boardevent(6)" id="6">생활</li>
-		<li onclick="boardevent(7)" id="7">건강</li>
-		<li onclick="boardevent(8)" id="8">사회,정치</li>
-		<li onclick="boardevent(9)" id="9">경제</li>
-		<li onclick="boardevent(10)" id="10">여행</li>
-		<li onclick="boardevent(11)" id="11">스포츠,레저</li>
-		<li onclick="boardevent(12)" id="12">쇼핑</li>
+		<li onclick="boardevent('전체')" id="전체">전체</li>
+		<li onclick="boardevent('교육,학문')" id="교육,학문">교육,학문</li>
+		<li onclick="boardevent('컴퓨터통신')" id="컴퓨터통신">컴퓨터통신</li>
+		<li onclick="boardevent('게임')" id="게임">게임</li>
+		<li onclick="boardevent('엔터테이먼트,예술')" id="엔터테이먼트,예술">엔터테이먼트,예술</li>
+		<li onclick="boardevent('생활')" id="생활">생활</li>
+		<li onclick="boardevent('건강')" id="건강">건강</li>
+		<li onclick="boardevent('사회,정치')" id="사회,정치">사회,정치</li>
+		<li onclick="boardevent('경제')" id="경제">경제</li>
+		<li onclick="boardevent('여행')" id="여행">여행</li>
+		<li onclick="boardevent('스포츠,레저')" id="스포츠,레저">스포츠,레저</li>
+		<li onclick="boardevent('쇼핑')" id="쇼핑">쇼핑</li>
 	</ul>
 	<hr style="width:80%; margin-top: 30px;margin-bottom: 30px;">
 	<ul style="padding-bottom: 30px;">
-		<li onclick="boardevent(13)" id="13">추천분야</li>
-		<li onclick="boardevent(14)" id="14">연애,결혼</li>
-		<li onclick="boardevent(15)" id="15">자동차</li>
-		<li onclick="boardevent(16)" id="16">직업,취업</li>
-		<li onclick="boardevent(17)" id="17">안드로이드폰</li>
-		<li onclick="boardevent(18)" id="18">사람과 그룹</li>
-		<li onclick="boardevent(19)" id="19">대학 입시,진학</li>
-		<li onclick="boardevent(20)" id="20">자동차구입</li>
-		<li onclick="boardevent(21)" id="21">모바일게임</li>
-		<li onclick="boardevent(22)" id="22">영어 공부,시험</li>
-		<li onclick="boardevent(23)" id="23">스마트폰</li>
+		<label style="font-weight: bold;">추천분야</label>
+		<li onclick="boardevent('연애,결혼')" id="연애,결혼">연애,결혼</li>
+		<li onclick="boardevent('자동차')" id="자동차">자동차</li>
+		<li onclick="boardevent('직업,취업')" id="직업,취업">직업,취업</li>
+		<li onclick="boardevent('안드로이드폰')" id="안드로이드폰">안드로이드폰</li>
+		<li onclick="boardevent('사람과 그룹')" id="사람과 그룹">사람과 그룹</li>
+		<li onclick="boardevent('대학 입시,진학')" id="대학 입시,진학">대학 입시,진학</li>
+		<li onclick="boardevent('자동차구입')" id="자동차구입">자동차구입</li>
+		<li onclick="boardevent('모바일게임')" id="모바일게임">모바일게임</li>
+		<li onclick="boardevent('영어 공부,시험')" id="영어 공부,시험">영어 공부,시험</li>
+		<li onclick="boardevent('스마트폰')" id="스마트폰">스마트폰</li>
 	</ul>
+	</form>
+	<script>
+	var e = document.getElementById('<%=dir%>');
+			e.style.color='#40c700';
+	</script>
 </div>
 <!-- 게시판 -->
 <div id="board" style="margin-left: 30px;">
-<h2>전체</h2>
+<h2><%=dir%></h2>
 <ul id="boardbar">
 	<li style="margin-left: -35px; list-style:none;">
 	        <form name="npFrm" method="post">
@@ -363,7 +396,7 @@ cursor: pointer;
 		<td width="130px" style="color:#888;"><%=bean.getDirectory() %></td>
 		<td style="text-align: right;color:#888;" id="test">
 		<script>
-			document.write(Cal(1236));
+			document.write(Cal('<%=bean.getDate()%>'));
 		</script>
 		
 		</td>
@@ -490,6 +523,10 @@ cursor: pointer;
 	<input type="hidden" name="nowPage" value="<%=nowPage%>">
 	<input type="hidden" name="numPerPage" value="<%=numPerPage%>">
 	<input type="hidden" name="num">
+</form>
+
+<form name="dirFrm">
+	<input type="hidden" name="dir" value="<%=dir%>">
 </form>
 
 <%@ include file="footer.jsp" %>
