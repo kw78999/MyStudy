@@ -20,6 +20,11 @@
 		dir = request.getParameter("dir");
 	}
 	
+	int where=9;
+	if(request.getParameter("where")!=null){
+		where = Integer.parseInt(request.getParameter("where"));
+	}
+	
 	
 	totalRecord = mgr.getTotalCount();
 	
@@ -156,8 +161,8 @@ background-size:270px 60px;
  margin-bottom: 100px;
  }
   #boardtable{
- width:100%;
  margin-bottom: 50px;
+ width: 720px;
  }
  #sidebar{
  float:left;
@@ -182,6 +187,7 @@ background-size:270px 60px;
  }
  #boardtable tr:hover{
  background-color: aliceblue;
+ cursor: pointer;
  }
  #boardbar{
  width:95%;
@@ -258,13 +264,14 @@ cursor: pointer;
 		 return minutes==m?seconds-s+"초전":minutes-m+"분전";
 	 }
 }
- function boardevent(num) {
-	document.dirFrm.dir.value = num;
-	document.dirFrm.submit();
-}
-	window.onload = function() {
+	 function boardevent(dir) {
+		document.readFrm.dir.value = dir;
+		document.readFrm.submit();
 	}
-	
+	 function boardlist(where) {
+			document.readFrm.where.value = where;
+			document.readFrm.submit();
+		}
 	function numPerFn(numPerPage) {
 		document.readFrm.numPerPage.value=numPerPage;
 		document.readFrm.submit();
@@ -277,9 +284,10 @@ cursor: pointer;
 		document.readFrm.nowPage.value=<%=pagePerBlock%>*(block-1)+1;
 		document.readFrm.submit();
 	}
-	function read(num) {
-		document.readFrm.num.value = num;
-		document.readFrm.action = "read.jsp";
+	
+	function boardRead(qnum) {
+		document.readFrm.qnum.value = qnum;
+		document.readFrm.action = "boardRead.jsp";
 		document.readFrm.submit();
 	}
 </script>
@@ -361,6 +369,7 @@ cursor: pointer;
 	<script>
 	var e = document.getElementById('<%=dir%>');
 			e.style.color='#40c700';
+			e.style.fontWeight='bold';
 	</script>
 </div>
 <!-- 게시판 -->
@@ -378,25 +387,33 @@ cursor: pointer;
    				</form>
    				<script>document.npFrm.numPerPage.value=<%=numPerPage%></script>
    			</li>
-	<li id="101" style="margin-left: 220px" onclick="boardevent(101)">답변적은순</li>
-	<li id="102" onclick="boardevent(102)">첫질문</li>
-	<li id="103" onclick="boardevent(103)">최신순</li>
-	<li id="104" onclick="boardevent(104)">내공높은순</li>
+   			<form name = "whereFrm" method="post">
+	<li id="9"  style="margin-left: 240px" onclick="boardlist(9)">최신순</li>
+	<li id="7" onclick="boardlist(7)">답변적은순</li>
+	<li id="first" onclick="boardlist('first')">첫질문</li>
+	<li id="6" onclick="boardlist(6)">내공높은순</li>
+	</form>
+		<script>
+	var w = document.getElementById('<%=where%>');
+			w.style.color='#40c700';
+			w.style.fontWeight='bold';
+	</script>
 </ul>
 <hr style="margin-bottom:0px;">
 <table id="boardtable">
 <%
-	Vector<QuestionBean> vlist = mgr.getQuestionList(start,cnt);
+	Vector<QuestionBean> vlist = mgr.getQuestionList(start,cnt,dir,where);
 	for(int i=0;i<vlist.size();i++){
 		QuestionBean bean = vlist.get(i);
 	%>
-	<tr id="q">
-		<td style="font-weight:bold;font-size: 18px;"><%=bean.getTitle() %></td>
+	<tr id="questionBoard" onclick="boardRead('<%=bean.getQnum()%>')">
+		<td style="font-weight:bold;font-size: 18px;"width="330px"><%=bean.getTitle() %> 
+		<span style="color:#40c700;"> [ <%=bean.getPoint() %> ]</span></td>
 		<td width="50px" style="color:#888;">답변<%=bean.getAnswer_count() %></td>
-		<td width="130px" style="color:#888;"><%=bean.getDirectory() %></td>
-		<td style="text-align: right;color:#888;" id="test">
+		<td width="110px" style="color:#888;"><%=bean.getDirectory() %></td>
+		<td width="80px" style="text-align: right;color:#888;" id="test">
 		<script>
-			document.write(Cal('<%=bean.getDate()%>'));
+			document.write(Cal('<%=bean.getDate()%>'));  //날짜계산함수
 		</script>
 		
 		</td>
@@ -522,11 +539,9 @@ cursor: pointer;
 <form name="readFrm">
 	<input type="hidden" name="nowPage" value="<%=nowPage%>">
 	<input type="hidden" name="numPerPage" value="<%=numPerPage%>">
-	<input type="hidden" name="num">
-</form>
-
-<form name="dirFrm">
+	<input type="hidden" name="qnum">
 	<input type="hidden" name="dir" value="<%=dir%>">
+	<input type="hidden" name="where" value="<%=where%>">
 </form>
 
 <%@ include file="footer.jsp" %>
