@@ -11,7 +11,7 @@
 	int pagePerBlock = 10;//블럭당 페이지 개수
 	int totalPage = 0;//총 페이지 개수
 	int totalBlock =0;//총 블럭 개수
-	int nowPage = 1;//현재 페이지
+	int nowPage = 1;//현재 페이지 
 	int nowBlock = 1;//현재 블럭
 	
 	
@@ -26,7 +26,7 @@
 	}
 	
 	
-	totalRecord = mgr.getTotalCount();
+	totalRecord = mgr.getTotalCount(dir);
 	
 	//요청된 numPerPage 처리
 	if(request.getParameter("numPerPage")!=null){
@@ -246,16 +246,35 @@ cursor: pointer;
 	 let hours = today.getHours(); // 현재시
 	 let minutes = today.getMinutes();  // 현재분
 	 let seconds = today.getSeconds();  // 현재초
-	 let ymd = boardDate.substring(0,boardDate.lastIndexOf(" "));//게시물 년월일
+	 
+	 let y = boardDate.substring(0,4); //게시글 년도
+	 let mon ="";                     //게시글 월
+	 let d ="";                     //게시글 일
+	 
+	 if(boardDate.substring(5,6)==0){     //한자리 수라면 0 제거
+		 mon = boardDate.substring(6,7);
+	 }else{
+		 mon = boardDate.substring(5,7);
+	 }
+	 
+	 if(boardDate.substring(8,9)==0){     //한자리 수라면 0 제거
+		 d = boardDate.substring(9,10);
+	 }else{
+		 d = boardDate.substring(8,10);
+	 }
+
 	 let h = boardDate.substring(10,13);//게시물 시
 	 let m = boardDate.substring(14,16);//게시물 분
 	 let s = boardDate.substring(17,19);//게시물 초
+	 
 	 if(s.substring(0,1)==0)  //한자리수라면 앞의 0자르기
 		 s=s.substring(1,2);
 	 
-	 var b = year+"-"+month+"-"+date;  //현재 년월일
-	 if(b!=ymd){
-	    return ymd;
+	 var nymd = year+"-"+month+"-"+date;  //현재 년월일
+	 var bymd = y+"-"+mon+"-"+d;  //게시글 년월일
+	 
+	 if(nymd!=bymd){
+	    return bymd;
 	 }else if(hours-h>=2){
 		return hours-h+"시간전";
 	 }else if(hours-h==1){
@@ -266,6 +285,7 @@ cursor: pointer;
 }
 	 function boardevent(dir) {
 		document.readFrm.dir.value = dir;
+		document.readFrm.nowPage.value= 1;
 		document.readFrm.submit();
 	}
 	 function boardlist(where) {
