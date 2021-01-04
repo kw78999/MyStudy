@@ -9,10 +9,10 @@
 			String msg = "등록실패";
 			String url = "naverin_main.jsp";
 			 
-			if(result){
+			if(result){ 
 			msg = "답변이 작성 되었습니다.";
 			url = "boardRead.jsp";
-			mgr.answerAdd(bean.getQnum()); 
+			mgr.answerAdd(bean.getQnum(),1); 
 			}
 %>
 <script type="text/javascript">

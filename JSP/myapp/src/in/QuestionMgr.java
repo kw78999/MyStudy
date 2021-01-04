@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+
 import in.UtilMgr;
 import in.DBConnectionMgr;
 
 public class QuestionMgr {
 
 	private DBConnectionMgr pool;
-	public static final String SAVEFOLDER = "C:/Jsp/naver/WebContent/in/fileupload/";
+	public static final String SAVEFOLDER = "C:/Jsp/naver/WebContent/naver/in/fileupload/";
 	public static final String ENCTYPE = "EUC-KR";
 	public static int MAXSIZE = 10*1024*1024;//10MB
 	
@@ -53,14 +54,16 @@ public class QuestionMgr {
 				/////////////////////////////////////
 				con = pool.getConnection();
 				sql = "insert in_question(id,title,content,directory,";
-				sql += "point,date)";
-				sql += "values(?, ?, ?, ?, ?, now())";
+				sql += "point,date,filename,filesize)";
+				sql += "values(?, ?, ?, ?, ?, now(),?,?)";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1,"test");
+				pstmt.setString(1,multi.getParameter("id"));
 				pstmt.setString(2, multi.getParameter("title"));
 				pstmt.setString(3, content);
 				pstmt.setString(4, multi.getParameter("directory"));
 				pstmt.setString(5, multi.getParameter("point"));
+				pstmt.setString(6, filename);
+				pstmt.setInt(7, filesize);
 				pstmt.executeUpdate();
 
 			} catch (Exception e) {
@@ -118,6 +121,8 @@ public class QuestionMgr {
 				bean.setDirectory(rs.getString("directory"));
 				bean.setDate(rs.getString("date"));
 				bean.setPoint(rs.getInt("point"));
+				bean.setFilename(rs.getString("filename"));
+				bean.setFilesize(rs.getInt("filesize"));
 				vlist.addElement(bean);
 			}
 		} catch (Exception e) {
@@ -177,6 +182,8 @@ public class QuestionMgr {
 				bean.setAnswer_count(rs.getInt("answer_count"));
 				bean.setHits(rs.getInt("hits")+1);
 				bean.setPoint(rs.getInt("point"));
+				bean.setFilename(rs.getString("filename"));
+				bean.setFilesize(rs.getInt("filesize"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -186,16 +193,17 @@ public class QuestionMgr {
 		return bean;
 	}
 	//답변시 답변수 +1
-	public void answerAdd(int qnum){
+	public void answerAdd(int qnum,int cnt){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "update in_question set answer_count = answer_count+1 where qnum = ?";
+			sql = "update in_question set answer_count = answer_count+? where qnum = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1,qnum);
+			pstmt.setInt(1,cnt);
+			pstmt.setInt(2,qnum);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -224,10 +232,74 @@ public class QuestionMgr {
 			}
 			return;
 		}
+		//질문 삭제
+		//GuestBook Delete
+		public void deleteQuestion(int qnum) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				con = pool.getConnection();
+				sql = "delete from in_question where qnum=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, qnum);
+			    pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt);
+			}
+			return;
+		}
 		
-	
-	
-	
-	
+		//질문 수정
+		public void updateQuestion(MultipartRequest multi) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				con = pool.getConnection();
+				int qnum=Integer.parseInt(multi.getParameter("qnum"));
+				String title=multi.getParameter("title");
+				String directory=multi.getParameter("directory");
+				String content=multi.getParameter("content");
+				String filename=multi.getFilesystemName("filename");
+				
+				if(filename!=null&&!filename.equals("")) {
+					//파일이 업로드 수정이되면 기존에 파일은 삭제한다
+					QuestionBean bean = boardRead(qnum); 
+					String tempfile=bean.getFilename();
+					if(tempfile!=null&&!tempfile.equals("")) {
+						 //기존에 파일이 있다면
+						File f = new File(SAVEFOLDER+tempfile);
+						if(f.exists()) {
+							UtilMgr.delete(SAVEFOLDER+tempfile);
+						}
+					}
+					int filesize = (int)multi.getFile("filename").length();
+					sql = "update in_question set title=?, content=?, directory=?, filename=?, filesize=? where qnum=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setString(3, directory);
+					pstmt.setString(4, filename);
+					pstmt.setInt(5, filesize);
+					pstmt.setInt(6,qnum);
+				}else {
+					sql = "update in_question set title=?, content=?, directory=? where qnum=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, title);
+					pstmt.setString(2, content);
+					pstmt.setString(3, directory);
+					pstmt.setInt(4, qnum);
+				}
+				pstmt.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt);
+			}
+		}
 }
 
