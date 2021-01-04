@@ -129,7 +129,7 @@ public class QuestionMgr {
 	}
 	
 	
-	public int getTotalCount() {
+	public int getTotalCount(String dir) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -137,9 +137,14 @@ public class QuestionMgr {
 		int totalCount = 0;
 		try {
 			con = pool.getConnection();
+			if(dir.equals("전체")) {
 				sql = "select count(*) from in_question";
 				pstmt = con.prepareStatement(sql);
-			
+			}else {
+				sql = "select count(*) from in_question where directory =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, dir);
+			}
 			rs = pstmt.executeQuery();
 			if(rs.next()) totalCount = rs.getInt(1);
 		} catch (Exception e) {
@@ -150,7 +155,7 @@ public class QuestionMgr {
 		return totalCount;
 	}
 	
-	
+	//게시물 하나 가져오기
 	public QuestionBean boardRead(int qnum){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -170,7 +175,7 @@ public class QuestionMgr {
 				bean.setDate(rs.getString("date"));
 				bean.setId(rs.getString("id"));
 				bean.setAnswer_count(rs.getInt("answer_count"));
-				bean.setHits(rs.getInt("hits"));
+				bean.setHits(rs.getInt("hits")+1);
 				bean.setPoint(rs.getInt("point"));
 			}
 		} catch (Exception e) {
@@ -180,29 +185,49 @@ public class QuestionMgr {
 		}
 		return bean;
 	}
-	
-	public boolean insertAnswer(AnswerBean bean) {
+	//답변시 답변수 +1
+	public void answerAdd(int qnum){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert in_answer(qnum,id,content,date) values(?,?,?,now())";
+			sql = "update in_question set answer_count = answer_count+1 where qnum = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1,bean.getQnum());
-			pstmt.setString(2,"session등록하세요");
-			pstmt.setString(3,bean.getContent());
-			if(pstmt.executeUpdate()==1)flag=true;
-
+			pstmt.setInt(1,qnum);
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return flag;
+		return;
 	}
+	
+	//조회수 +1
+		public void hitsAdd(int qnum){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			try {
+				con = pool.getConnection();
+				sql = "update in_question set hits = hits+1 where qnum = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1,qnum);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return;
+		}
+		
+	
+	
+	
 	
 }
 
