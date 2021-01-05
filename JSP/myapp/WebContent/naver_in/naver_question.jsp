@@ -83,9 +83,8 @@ height: 50px;
 background-color:white;
 border: 2px solid #777;
  border-radius: 7px;
- position: absolute;
- top:800px;
- left:900px;
+ margin-bottom:50px;
+ margin-left:300px;
  cursor: pointer;
 }
 #next:hover{
@@ -183,14 +182,13 @@ border: 2px solid #777;
  margin-bottom: 50px;
  display:none;
 }
-#submit:hover{
-background-color: aliceblue;
-}
-
+#submit:hover{background-color: aliceblue;}
+#fileup2{display: none;}
+#image_container{display: none;}
+#image_container2{display:none;}
 #s1{float:left;width:33%;margin-left: 10px;margin-top: 20px;}
 #s2{float:left;width:33%;margin-top: 20px;}
 #s3{float:left;width:30%;margin-top: 20px;}
-
 
 .filebox input[type="file"] {
  /* 파일 필드 숨기기 */ position: absolute;
@@ -199,6 +197,7 @@ background-color: aliceblue;
     clip:rect(0,0,0,0); border: 0; }
     
 .filebox label {
+ width:50px;
  display: inline-block;
  padding: .5em .75em;
  color: #40c700; font-size: inherit;
@@ -207,7 +206,6 @@ background-color: aliceblue;
  background-color: #fdfdfd;
  cursor: pointer;
  border: 2px solid #777;
- margin-bottom:120px;
  border-radius: .25em; }
  
  .filebox label:hover{
@@ -226,8 +224,7 @@ background-color: aliceblue;
  border-radius: .25em;
  -webkit-appearance: none;
  /* 네이티브 외형 감추기 */ -moz-appearance: none;
- appearance: none; 
-  margin-bottom:120px;}
+ appearance: none; }
   
 .filebox .upload-name2 {
  display: inline-block;
@@ -242,8 +239,7 @@ background-color: aliceblue;
  border-radius: .25em;
  -webkit-appearance: none;
  /* 네이티브 외형 감추기 */ -moz-appearance: none;
- appearance: none; 
-  margin-bottom:120px;}
+ appearance: none; 	}
   
 </style>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -265,18 +261,18 @@ var i = document.getElementById("imgtest");
  function setThumbnail(event) {
 	var reader = new FileReader();
 	reader.onload = function(event) {
-		if(document.getElementById("imgtest")==null){
-			var img = document.createElement("img");
-			img.style.width='200px';
-			img.style.height='200px';
-			img.id = "imgtest";
+		alert(event.target.result);
+		var md = document.getElementById("mfile");
+		md.style.height="400px";
+		var view = document.getElementById("image_container");
+		view.style.display="block";
+		var view = document.getElementById("fileup2");
+		view.style.display="block";
+		
+			var img = document.getElementById("imgtest");
 			img.setAttribute("src", event.target.result);
-			document.querySelector("div#image_container").appendChild(img);
-		 }else{
-			var tt = document.getElementById("imgtest");
-			tt.setAttribute("src", event.target.result);
-			document.querySelector("div#image_container").appendChild(img);
-		 }
+			//document.querySelector("div#image_container").appendChild(img);
+		 
 		};
 		reader.readAsDataURL(event.target.files[0]);
 		}
@@ -284,18 +280,14 @@ var i = document.getElementById("imgtest");
  function setThumbnail2(event) {
 		var reader = new FileReader();
 		reader.onload = function(event) {
-			if(document.getElementById("imgtest2")==null){
-				var img = document.createElement("img");
-				img.style.width='200px';
-				img.style.height='200px';
-				img.id = "imgtest2";
-				img.setAttribute("src", event.target.result);
-				document.querySelector("div#image_container").appendChild(img);
-			 }else{
+			var view = document.getElementById("image_container2");
+			view.style.display="block";
+			var md = document.getElementById("mfile");
+			md.style.height="400px";
 				var tt = document.getElementById("imgtest2");
 				tt.setAttribute("src", event.target.result);
-				document.querySelector("div#image_container").appendChild(img);
-			 }
+				document.querySelector("div#image_container2").appendChild(img);
+			 
 			};
 			reader.readAsDataURL(event.target.files[0]);
 			}
@@ -328,7 +320,7 @@ $(document).ready(function(){
 	});
 	});
 	
-function next() {
+function nextt(){
 	var e = document.getElementById("next");
 	e.style.display = 'none';
 	var e = document.getElementById("tag");
@@ -361,23 +353,37 @@ margin-left:100px;border-radius: 10px;">
 </div>
 <div id="textarea">
 
+<input type="hidden" value="2" name="content">
 <div contentEditable="true" style="border: 2px solid #40c700;width: 90%;min-height: 400px;" name="ctEd">
-  <div id="image_container"></div>
+ 
 </div>
+<h2 style="margin-top: 50px;">파일 업로드</h2>
 
-<div class="filebox"> 
-<input type="text" class="upload-name" value="파일선택1" disabled="disabled">
+<div id="mfile" style="width: 720px;height:50px;margin-bottom:50px;">
+<div class="filebox" style="float: left;"> 
+<input type="text" class="upload-name" value="파일선택1" disabled="disabled" id="disnone">
 <label for="ex_filename">업로드</label> 
 <input type="file" id="ex_filename" class="upload-hidden" name="filename1"
- accept="image/*" onchange="setThumbnail(event);">
+  onchange="setThumbnail(event);">
+ <div id="image_container" style="width: 285px;height: 300px;">
+ <img src="img/question.png" style="width: 285px;height: 300px;" id="imgtest">
+ <input type="text" style="width: 275px;height:30px;border:3px solid #40c700;" palceholder="이미지 정보입력">
+ </div>
+ </div>
  
+ <div class="filebox" style="float:right;" id="fileup2">
 <input type="text" class="upload-name2" value="파일선택2" disabled="disabled">
 <label for="ex_filename2">업로드</label> 
 <input type="file" id="ex_filename2" class="upload-hidden2" name="filename2"
  accept="image/*" onchange="setThumbnail2(event);">
- 
+ <div id="image_container2" style="width: 285px;height: 300px;">
+ <img style="width: 285px;height: 300px;" id="imgtest2">
+<input type="text"  style="width: 275px;height:30px;border:3px solid #40c700;" palceholder="이미지 정보입력">
 </div>
-<input type="hidden" value="2" name="content">
+</div>
+
+</div>
+<button type="button" id="next" onclick="nextt()">다음</button>
 
 
 
@@ -449,7 +455,7 @@ margin-left:100px;border-radius: 10px;">
 </div><!-- title -->
 </form>
 </div><!-- body -->
-<button id="next" onclick="next()">다음</button>
+
 
 
 
