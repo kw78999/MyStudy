@@ -133,6 +133,10 @@ float:left;
 </style>
 
 <script>
+function imgcal(con) {
+	var e = con;
+	return e;
+}
 function update(aid) {
 	var e = document.getElementById(aid);
 	
@@ -221,7 +225,13 @@ function Cal(boardDate) {
 	</td></tr>
 	<%} %>
 	<tr><td colspan="4" style="padding-top: 50px;padding-bottom: 30px;border-bottom: 2px solid #40c700;"><pre>
+	<%if(bean.getFilename()!=null){%>
+	<img src="fileupload/<%=bean.getFilename()%>" style="width: 200px;height: 200px;">
+	<%} %>
 	<%=bean.getContent() %>
+	<script>
+	//document.write(imgcal('32'));
+	</script>
 	<pre></td></tr>
 <tr>
 	<td width="100px" style="padding-bottom: 50px; font-weight: bold;" >
@@ -341,6 +351,9 @@ padding-top: 50px;padding-bottom: 50px;border-bottom: 2px solid #40c700;"><pre><
 			<td>³¯¾¾</td>
 			<td>Ã¥</td>
 			<td>½ºÆ÷Ã÷</td>
+		</tr>
+			<tr>
+		<td colspan="4" align="center" style="border-top: 1px solid #888;" onclick="location.href='logout.jsp'">·Î±×¾Æ¿ô</td>
 		</tr>
 	</table>
 </span>

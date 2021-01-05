@@ -190,6 +190,8 @@ background-color: aliceblue;
 #s1{float:left;width:33%;margin-left: 10px;margin-top: 20px;}
 #s2{float:left;width:33%;margin-top: 20px;}
 #s3{float:left;width:30%;margin-top: 20px;}
+
+
 .filebox input[type="file"] {
  /* 파일 필드 숨기기 */ position: absolute;
   width: 1px; height: 1px; padding: 0;
@@ -226,10 +228,78 @@ background-color: aliceblue;
  /* 네이티브 외형 감추기 */ -moz-appearance: none;
  appearance: none; 
   margin-bottom:120px;}
-
+  
+.filebox .upload-name2 {
+ display: inline-block;
+ padding: .5em .75em;
+ /* label의 패딩값과 일치 */ font-size: inherit;
+ font-family: inherit;
+ line-height: normal;
+ vertical-align: middle;
+ background-color: #f5f5f5;
+ border: 1px solid #ebebeb;
+ border-bottom-color: #e2e2e2;
+ border-radius: .25em;
+ -webkit-appearance: none;
+ /* 네이티브 외형 감추기 */ -moz-appearance: none;
+ appearance: none; 
+  margin-bottom:120px;}
+  
 </style>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+
+function hidden() {
+	var contenteditable = document.querySelector('[contenteditable]'),
+    text = contenteditable.textContent;
+
+var i = document.getElementById("imgtest");
+
+//contenteditable.i.removeAttribute('src');
+ var iname = i.name;
+ i = i.name;
+//contenteditable.textContent =text+i.name;
+//document.mFrm.content.value=text+i.src+i.name;
+}
+
+ function setThumbnail(event) {
+	var reader = new FileReader();
+	reader.onload = function(event) {
+		if(document.getElementById("imgtest")==null){
+			var img = document.createElement("img");
+			img.style.width='200px';
+			img.style.height='200px';
+			img.id = "imgtest";
+			img.setAttribute("src", event.target.result);
+			document.querySelector("div#image_container").appendChild(img);
+		 }else{
+			var tt = document.getElementById("imgtest");
+			tt.setAttribute("src", event.target.result);
+			document.querySelector("div#image_container").appendChild(img);
+		 }
+		};
+		reader.readAsDataURL(event.target.files[0]);
+		}
+ 
+ function setThumbnail2(event) {
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			if(document.getElementById("imgtest2")==null){
+				var img = document.createElement("img");
+				img.style.width='200px';
+				img.style.height='200px';
+				img.id = "imgtest2";
+				img.setAttribute("src", event.target.result);
+				document.querySelector("div#image_container").appendChild(img);
+			 }else{
+				var tt = document.getElementById("imgtest2");
+				tt.setAttribute("src", event.target.result);
+				document.querySelector("div#image_container").appendChild(img);
+			 }
+			};
+			reader.readAsDataURL(event.target.files[0]);
+			}
+ 
 $(document).ready(function(){
 	var fileTarget = $('.filebox .upload-hidden');
 	
@@ -243,6 +313,21 @@ $(document).ready(function(){
 	$(this).siblings('.upload-name').val(filename);
 	});
 	});
+	
+$(document).ready(function(){
+	var fileTarget2 = $('.filebox .upload-hidden2');
+	
+	fileTarget2.on('change', function(){ // 값이 변경되면
+		if(window.FileReader){ // modern browser
+			var filename2 = $(this)[0].files[0].name;
+		} else { // old IE
+			var filename2 = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
+			}
+	// 추출한 파일명 삽입
+	$(this).siblings('.upload-name2').val(filename2);
+	});
+	});
+	
 function next() {
 	var e = document.getElementById("next");
 	e.style.display = 'none';
@@ -264,7 +349,7 @@ function dir(id) {
 <body>
 <%@ include file="header.jsp" %>
 <div id="body"> 
-<form id="Frm" method="post" action="question" enctype="multipart/form-data">
+<form id="Frm" method="post" action="question" enctype="multipart/form-data" name="mFrm">
 <input type="hidden" value="<%=id%>" name="id">
 <hr style="margin-top:0px;margin-bottom: 20px;">
 <div id="title">
@@ -275,25 +360,36 @@ margin-left:100px;border-radius: 10px;">
 <input type="text" name="title" id="titletext">
 </div>
 <div id="textarea">
-<textarea id="ta" rows="25" cols="99"
- name="content" placeholder=" 
-    
-    <%=id%>님 궁금한 내용을 질문해 주세요."></textarea><br>
+
+<div contentEditable="true" style="border: 2px solid #40c700;width: 90%;min-height: 400px;" name="ctEd">
+  <div id="image_container"></div>
+</div>
 
 <div class="filebox"> 
-<input type="text" class="upload-name" value="파일선택" disabled="disabled">
+<input type="text" class="upload-name" value="파일선택1" disabled="disabled">
 <label for="ex_filename">업로드</label> 
-<input type="file" id="ex_filename" class="upload-hidden" name="filename">
+<input type="file" id="ex_filename" class="upload-hidden" name="filename1"
+ accept="image/*" onchange="setThumbnail(event);">
+ 
+<input type="text" class="upload-name2" value="파일선택2" disabled="disabled">
+<label for="ex_filename2">업로드</label> 
+<input type="file" id="ex_filename2" class="upload-hidden2" name="filename2"
+ accept="image/*" onchange="setThumbnail2(event);">
+ 
 </div>
+<input type="hidden" value="2" name="content">
+
+
 
 <div id="tag">
 <a id="taglabel">태그</a> <input type="text" id="tagtext">
-<input type="button" value="추가" id="add">
+<input type="button" value="추가" id="add"">
+<a href="javascript:hidden()">test</a>
 </div>
 
 <div id="directory">
 <h2 style="margin-left: 30px;">카테고리</h2>
-<hr style="width: 80%;height: 3px;">
+<hr style="width: 80%;height: 3px;margin-left: 0px;">
 <span id="s1">
 <input type="radio" id="1" name="directory" value="교육,학문" name="directory">
 <label for="1" id="l1"><span></span>교육,학문</label><br>
@@ -393,6 +489,9 @@ margin-left:100px;border-radius: 10px;">
 			<td>날씨</td>
 			<td>책</td>
 			<td>스포츠</td>
+		</tr>
+			<tr>
+		<td colspan="4" align="center" style="border-top: 1px solid #888;" onclick="location.href='logout.jsp'">로그아웃</td>
 		</tr>
 	</table>
 </span>

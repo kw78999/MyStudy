@@ -41,12 +41,14 @@ public class QuestionMgr {
 				MultipartRequest multi = 
 						new MultipartRequest(req, SAVEFOLDER,MAXSIZE,ENCTYPE
 								,new DefaultFileRenamePolicy());
-				String filename = null;
+				String filename1 = null;
+				String filename2 = null;
 				int filesize = 0;
-				if(multi.getFilesystemName("filename")!=null) {
+				if(multi.getFilesystemName("filename1")!=null) {
 					//게시물에 파일 업로드
-					filename = multi.getFilesystemName("filename");
-					filesize = (int)multi.getFile("filename").length();
+					filename1 = multi.getFilesystemName("filename1");
+					filename2 = multi.getFilesystemName("filename2");
+					filesize = (int)multi.getFile("filename1").length();
 				}
 				String content  = multi.getParameter("content");
 				content = UtilMgr.replace(content, "<", "&lt;");
@@ -62,7 +64,7 @@ public class QuestionMgr {
 				pstmt.setString(3, content);
 				pstmt.setString(4, multi.getParameter("directory"));
 				pstmt.setString(5, multi.getParameter("point"));
-				pstmt.setString(6, filename);
+				pstmt.setString(6, filename1+filename2);
 				pstmt.setInt(7, filesize);
 				pstmt.executeUpdate();
 
@@ -233,7 +235,6 @@ public class QuestionMgr {
 			return;
 		}
 		//질문 삭제
-		//GuestBook Delete
 		public void deleteQuestion(int qnum) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
