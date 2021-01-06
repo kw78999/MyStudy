@@ -245,23 +245,13 @@ border: 2px solid #777;
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 
-function hidden() {
-	var contenteditable = document.querySelector('[contenteditable]'),
-    text = contenteditable.textContent;
 
-var i = document.getElementById("imgtest");
-
-//contenteditable.i.removeAttribute('src');
- var iname = i.name;
- i = i.name;
-//contenteditable.textContent =text+i.name;
-//document.mFrm.content.value=text+i.src+i.name;
-}
 
  function setThumbnail(event) {
+	 
 	var reader = new FileReader();
 	reader.onload = function(event) {
-		alert(event.target.result);
+		
 		var md = document.getElementById("mfile");
 		md.style.height="400px";
 		var view = document.getElementById("image_container");
@@ -276,7 +266,14 @@ var i = document.getElementById("imgtest");
 		};
 		reader.readAsDataURL(event.target.files[0]);
 		}
- 
+ function setT() {
+	 var md = document.getElementById("mfile");
+		md.style.height="100px";
+		var view = document.getElementById("image_container");
+		view.style.display="none";
+		var view = document.getElementById("fileup2");
+		view.style.display="block";
+}
  function setThumbnail2(event) {
 		var reader = new FileReader();
 		reader.onload = function(event) {
@@ -286,14 +283,24 @@ var i = document.getElementById("imgtest");
 			md.style.height="400px";
 				var tt = document.getElementById("imgtest2");
 				tt.setAttribute("src", event.target.result);
-				document.querySelector("div#image_container2").appendChild(img);
+				//document.querySelector("div#image_container2").appendChild(img);
 			 
 			};
 			reader.readAsDataURL(event.target.files[0]);
 			}
  
+ 
+ function setT2() {
+	 var md = document.getElementById("mfile");
+		md.style.height="100px";
+		var view = document.getElementById("image_container2");
+		view.style.display="none";
+}
+ 
+ 
 $(document).ready(function(){
 	var fileTarget = $('.filebox .upload-hidden');
+	var fileTarget2 = $('.filebox .upload-hidden2');
 	
 	fileTarget.on('change', function(){ // 값이 변경되면
 		if(window.FileReader){ // modern browser
@@ -301,13 +308,27 @@ $(document).ready(function(){
 		} else { // old IE
 			var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
 			}
+	
+	var fileType=filename.substring(filename.length-3,filename.length); //파일확장자 추출
+	var ktype2="";
+	if(document.getElementById('disnone2').value!=null){
+	var  k2 = document.getElementById('disnone2').value;
+	 ktype2=k2.substring(k2.length-3,k2.length);
+	}
+	
+	if(fileType=='jpg'||fileType=='png'){   //파일확장자 검사하여 미리보기 끄고 켜기
+		setThumbnail(event);
+	}else{
+		if(ktype2=='jpg'||ktype2=='png'){
+			var view2 = document.getElementById("image_container");
+			view2.style.display="none";
+		}else{
+		setT();
+		}
+	}
 	// 추출한 파일명 삽입
 	$(this).siblings('.upload-name').val(filename);
 	});
-	});
-	
-$(document).ready(function(){
-	var fileTarget2 = $('.filebox .upload-hidden2');
 	
 	fileTarget2.on('change', function(){ // 값이 변경되면
 		if(window.FileReader){ // modern browser
@@ -315,9 +336,27 @@ $(document).ready(function(){
 		} else { // old IE
 			var filename2 = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
 			}
+		var fileType2=filename2.substring(filename2.length-3,filename2.length); //파일확장자 추출
+		var  k = document.getElementById('disnone').value;
+		var ktype=k.substring(k.length-3,k.length);
+		
+	
+		
+		if(fileType2=='jpg'||fileType2=='png'){   //파일확장자 검사하여 미리보기 끄고 켜기
+			setThumbnail2(event);
+		}else{
+			if(ktype=='jpg'||ktype=='png'){
+					var view = document.getElementById("image_container2");
+					view.style.display="none";
+			}else{
+			setT2();
+			}
+		}
+	
 	// 추출한 파일명 삽입
 	$(this).siblings('.upload-name2').val(filename2);
 	});
+	
 	});
 	
 function nextt(){
@@ -344,41 +383,42 @@ function dir(id) {
 <form id="Frm" method="post" action="question" enctype="multipart/form-data" name="mFrm">
 <input type="hidden" value="<%=id%>" name="id">
 <hr style="margin-top:0px;margin-bottom: 20px;">
+
 <div id="title">
+
 <div>
 <img  src="img/question.png" style="width: 40px;height: 40px;margin-top: 70px;
 margin-left:100px;border-radius: 10px;">
 <a style="font-size: 23px;color:#40c700;font-weight: 900;">질문</a>
 <input type="text" name="title" id="titletext">
 </div>
+
 <div id="textarea">
+<textarea rows="20" cols="100" name="content" id="ta" placeholder="
 
-<input type="hidden" value="2" name="content">
-<div contentEditable="true" style="border: 2px solid #40c700;width: 90%;min-height: 400px;" name="ctEd">
- 
-</div>
+     <%=id%>님 질문해주세요."></textarea>
+
+
 <h2 style="margin-top: 50px;">파일 업로드</h2>
+<div id="mfile" style="width: 720px;height:100px;margin-bottom:50px;">
 
-<div id="mfile" style="width: 720px;height:50px;margin-bottom:50px;">
-<div class="filebox" style="float: left;"> 
-<input type="text" class="upload-name" value="파일선택1" disabled="disabled" id="disnone">
+<div class="filebox" style="float: left;" > 
+<input type="text" class="upload-name" value="파일명" disabled="disabled" id="disnone">
 <label for="ex_filename">업로드</label> 
-<input type="file" id="ex_filename" class="upload-hidden" name="filename1"
-  onchange="setThumbnail(event);">
+<input type="file" id="ex_filename" class="upload-hidden" name="filename1">
  <div id="image_container" style="width: 285px;height: 300px;">
  <img src="img/question.png" style="width: 285px;height: 300px;" id="imgtest">
- <input type="text" style="width: 275px;height:30px;border:3px solid #40c700;" palceholder="이미지 정보입력">
+ <input type="text" name="filedata"  style="width: 275px;height:30px;border:3px solid #40c700;" placeholder="이미지 정보입력">
  </div>
  </div>
  
  <div class="filebox" style="float:right;" id="fileup2">
-<input type="text" class="upload-name2" value="파일선택2" disabled="disabled">
+<input type="text" class="upload-name2" value="파일명" disabled="disabled" id="disnone2">
 <label for="ex_filename2">업로드</label> 
-<input type="file" id="ex_filename2" class="upload-hidden2" name="filename2"
- accept="image/*" onchange="setThumbnail2(event);">
+<input type="file" id="ex_filename2" class="upload-hidden2" name="filename2">
  <div id="image_container2" style="width: 285px;height: 300px;">
  <img style="width: 285px;height: 300px;" id="imgtest2">
-<input type="text"  style="width: 275px;height:30px;border:3px solid #40c700;" palceholder="이미지 정보입력">
+<input type="text"  name="filedata2" style="width: 275px;height:30px;border:3px solid #40c700;" placeholder="이미지 정보입력">
 </div>
 </div>
 
@@ -390,7 +430,6 @@ margin-left:100px;border-radius: 10px;">
 <div id="tag">
 <a id="taglabel">태그</a> <input type="text" id="tagtext">
 <input type="button" value="추가" id="add"">
-<a href="javascript:hidden()">test</a>
 </div>
 
 <div id="directory">
@@ -450,10 +489,10 @@ margin-left:100px;border-radius: 10px;">
 <a id="pointlabel">추가내공</a> <input type="text" id="pointtext" name="point" placeholder="현재 보유내공 : 60">
 <input type="button" value="추가" id="addpoint">
 </div>
-
 <input type="submit" id="submit" value="질문하기">
 </div><!-- title -->
 </form>
+
 </div><!-- body -->
 
 
