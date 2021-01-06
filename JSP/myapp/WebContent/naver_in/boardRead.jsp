@@ -279,7 +279,10 @@ function Cal(boardDate) {
 	<%} %>
 	
 	
-	<%if(bean.getFilename()!=null){%>
+	<%if(bean.getFilename()!=null&&!bean.getFilename().equals("")){
+	String f1 = bean.getFilename();
+	String fn1 = f1.substring(f1.length()-3,f1.length());
+	if(fn1.equals("jpg")||fn1.equals("png")){%>
 	<tr><td width="400px">
 	
 	<span>
@@ -290,9 +293,12 @@ function Cal(boardDate) {
 	<%} %>
 	</span>
 	</td>
-	<%} %>
+	<%} }%>
 	
-	<%if(bean.getFilename2()!=null){%>
+	<%if(bean.getFilename2()!=null&&!bean.getFilename2().equals("")){
+	String f2 = bean.getFilename2();
+	String fn2 = f2.substring(f2.length()-3,f2.length());
+	if(fn2.equals("jpg")||fn2.equals("png")){%>
 	<td>
 	<span>
 	<img  class="fileimg" src="fileupload/<%=bean.getFilename2()%>" 
@@ -302,8 +308,9 @@ function Cal(boardDate) {
 	<%} %>
 	</span>
 	</td>
-	<% }%>
+	<% }}%>
 	</tr>
+	
 	<tr><td colspan="4" style="padding-top: 50px;padding-bottom: 30px;border-bottom: 2px solid #40c700;"><pre>
 	<%=bean.getContent() %>
 	</pre></td></tr>

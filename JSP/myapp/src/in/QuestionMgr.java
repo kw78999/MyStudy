@@ -267,7 +267,62 @@ public class QuestionMgr {
 			}
 			return;
 		}
-		
+		//파일1 삭제
+		public void deleteFile1(int qnum) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try { 
+				QuestionBean bean = boardRead(qnum); 
+				 String tempfile=bean.getFilename();
+				 File f = new File(SAVEFOLDER+tempfile);
+					if(f.exists()) {
+						UtilMgr.delete(SAVEFOLDER+tempfile);
+					}
+			 
+				con = pool.getConnection();
+				sql = "update in_question set filename=?,filedata=?,filesize=? where qnum=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "");
+				pstmt.setString(2, "");
+				pstmt.setInt(3,0);
+				pstmt.setInt(4, qnum);
+			    pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt);
+			}
+			return;
+		}
+		//파일2 삭제
+				public void deleteFile2(int qnum) {
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					String sql = null;
+					try { 
+						QuestionBean bean = boardRead(qnum); 
+						 String tempfile2=bean.getFilename2();
+						 File f = new File(SAVEFOLDER+tempfile2);
+							if(f.exists()) {
+								UtilMgr.delete(SAVEFOLDER+tempfile2);
+							}
+					 
+						con = pool.getConnection();
+						sql = "update in_question set filename2=?,filedata2=?,filesize2=? where qnum=?";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, "");
+						pstmt.setString(2, "");
+						pstmt.setInt(3,0);
+						pstmt.setInt(4, qnum);
+					    pstmt.executeUpdate();
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						pool.freeConnection(con, pstmt);
+					}
+					return;
+				}
 		//질문 수정
 		public void updateQuestion(MultipartRequest multi) {
 			Connection con = null;
@@ -280,13 +335,11 @@ public class QuestionMgr {
 				String directory=multi.getParameter("directory");
 				String content=multi.getParameter("content");
 				String filename=multi.getFilesystemName("filename1");
-				String filedata=multi.getFilesystemName("filedata");
 				String filename2=multi.getFilesystemName("filename2");
-				String filedata2=multi.getFilesystemName("filedata2");
-				System.out.println("file1data"+filedata);
-				System.out.println("filename"+filename);
-				System.out.println("file2data"+filedata2);
-				System.out.println("filename2"+filename2);
+				String filedata=multi.getParameter("filedata");
+				String filedata2=multi.getParameter("filedata2");
+				String del=multi.getParameter("delete");
+				
 				
 				if(filename!=null&&!filename.equals("")) {  //파일1을 수정할때 
 					if(filename2==null||filename2.equals("")) {   //파일 2는 수정 하지않을때 
@@ -312,6 +365,7 @@ public class QuestionMgr {
 					pstmt.setString(7, filedata2);
 					pstmt.setInt(8,qnum);
 					System.out.println("1수정2수정아님");
+					
 					}else if(filename2!=null&&!filename.equals("")) { //파일 2도 수정할때 
 						QuestionBean bean = boardRead(qnum); 
 						String tempfile=bean.getFilename();
@@ -350,6 +404,13 @@ public class QuestionMgr {
 					 if(filename2!=null&&!filename2.equals("")) {    //파일 2는 수정할때
 						 QuestionBean bean = boardRead(qnum); 
 						 String tempfile2=bean.getFilename2();
+						 if(del.equals("delete")) {
+							 String tempfile=bean.getFilename();
+							 File f = new File(SAVEFOLDER+tempfile);
+								if(f.exists()) {
+									UtilMgr.delete(SAVEFOLDER+tempfile);
+								}
+						 }
 						 if(tempfile2!=null&&!tempfile2.equals("")) {
 							 //기존에 파일이 있다면
 							File f2 = new File(SAVEFOLDER+tempfile2);
@@ -370,6 +431,15 @@ public class QuestionMgr {
 							pstmt.setInt(8,qnum);
 							System.out.println("1수정아님2수정");
 					 }else {  //파일 1, 2 모두 수정하지 않을때 
+						 QuestionBean bean = boardRead(qnum); 
+						 if(del.equals("delete")){
+							 String tempfile=bean.getFilename();
+							 File f = new File(SAVEFOLDER+tempfile);
+								if(f.exists()) {
+									UtilMgr.delete(SAVEFOLDER+tempfile);
+								}
+						 }
+						 System.out.println(del);
 							sql = "update in_question set title=?, content=?, directory=?,filedata=?,filedata2=? where qnum=?";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1, title);
@@ -390,5 +460,6 @@ public class QuestionMgr {
 				pool.freeConnection(con, pstmt);
 			}
 		}
+		
 }
 
