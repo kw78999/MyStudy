@@ -491,7 +491,7 @@ margin-left:100px;border-radius: 10px;">
 	if(fn1.equals("jpg")||fn1.equals("png")){%>
 	<img class="fileimg" src="fileupload/<%=bean.getFilename()%>"
 	 onclick="doImgPop('fileupload/<%=bean.getFilename()%>')"><br><%} %>
-	 <input type="text" class="oldfiledata" name="ofiledata" placeholder="이미지 정보">
+	 <input type="text" class="oldfiledata" name="ofiledata" placeholder="이미지 정보" value="<%=bean.getFiledata()%>">
 	</span>
 	</td>
 	<td width="200px" style="margin-top: -100px;"><button type="button"
@@ -513,7 +513,7 @@ margin-left:100px;border-radius: 10px;">
 	if(fn2.equals("jpg")||fn2.equals("png")){%> 
 	<img  class="fileimg" src="fileupload/<%=bean.getFilename2()%>" 
 	onclick="doImgPop('fileupload/<%=bean.getFilename2()%>')"><br><%} %>
-	 <input type="text" class="oldfiledata" name="ofiledata2" placeholder="이미지 정보">
+	 <input type="text" class="oldfiledata" name="ofiledata2" placeholder="이미지 정보" value="<%=bean.getFiledata2()%>">
 	</span>
 	</td>
 	<td  width="100px" style="margin-top: -100px;"><button type="button" id="debtn2" 
