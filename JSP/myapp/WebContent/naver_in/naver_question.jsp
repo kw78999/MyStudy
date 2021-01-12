@@ -7,7 +7,7 @@ if(session.getAttribute("id")==null){
 	
  response.sendRedirect("../member/login.jsp?returnPage=../in/naver_question.jsp");
 }else{
-
+  
 String id = (String)session.getAttribute("id");
 MemberBean mbean = mgr.memberRead(id);
 %>
@@ -18,11 +18,30 @@ MemberBean mbean = mgr.memberRead(id);
 <title>질문하기</title>
 <link href="header.css" rel="stylesheet" type="text/css">
 <style>
-
+.tagli{
+float: left;
+ margin-left: 20px;
+ margin-top:10px;
+ list-style: none;
+font-size:20px;
+}
+#sharp{
+position: absolute;
+left:14px;
+top:7px;
+font-weight: bold;
+color: #40c700;
+}
+#myInput{
+width: 250px;
+height: 30px;
+padding-left: 30px;
+}
 .autocomplete {
   /*the container must be positioned relative:*/
   position: relative;
   display: inline-block;
+  margin-top: 30px;
 }
 .autocomplete-items {
   position: absolute;
@@ -41,7 +60,8 @@ MemberBean mbean = mgr.memberRead(id);
   border-bottom: 1px solid #d4d4d4;
 }
 .autocomplete-items div:hover {
-  background-color: #e9e9e9;
+  background-color: #40c700;
+  color:white;
 }
 .autocomplete-active {
   background-color: DodgerBlue !important;
@@ -585,16 +605,18 @@ margin-left:100px;border-radius: 10px;">
 
 
 <div id="tag">
-<a id="taglabel">태그</a> <input type="text" id="tagtext" onkeypress="tag()">
-<input type="button" value="추가" id="add"">
-</div>
-
-<form autocomplete="off" action="">
+<a id="taglabel" style="margin-top: 20px;">태그</a> 
+<form  action="">
   <div class="autocomplete" style="width:300px;">
-    <input id="myInput" type="text" name="myCountry" placeholder="Country">
+  <span id="sharp">#</span>
+    <input id="myInput" type="text" name="myCountry" placeholder="Country" autocomplete="off">
   </div>
   <input type="submit">
+  
 </form>
+</div>
+
+
 
 <script>
 var countries = ["Afghanistan","Albania"
@@ -621,14 +643,31 @@ function autocomplete(inp, arr) {
 	          b.innerHTML += arr[i].substr(val.length)
 	          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
 	              b.addEventListener("click", function(e) {
-	              inp.value = this.getElementsByTagName("input")[0].value;
-	              closeAllLists();
-	          });
+	            	  inp.value = this.getElementsByTagName("input")[0].value;
+		              
+		              var t = document.getElementById("tag");
+		              if(document.getElementById("tagul")==null){
+		              	  var s = document.createElement("ul");
+		              }else{
+		            	  var s = document.getElementById("tagul");
+		              }
+		              if(s.childElementCount<5){
+		              var s1 = document.createElement("li");
+		              t.style.height="165px";
+		              s.id="tagul";
+		              s1.setAttribute("class","tagli");
+		              s1.style.backgroundColor="rgb(119,188,215,0.4)";
+		              s1.innerHTML = "<b>#</b>"+this.getElementsByTagName("input")[0].value;
+		              t.appendChild(s);
+		              s.appendChild(s1);
+		              }else{
+		            	  alert("태그는 5개 까지만 선택가능 합니다.");
+		              }
+		              closeAllLists();
+		         	  });
 	          a.appendChild(b);
 	        }
 	      }
-	      
-	      
 	  });
 	  
 	  
