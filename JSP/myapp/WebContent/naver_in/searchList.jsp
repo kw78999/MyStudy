@@ -70,7 +70,6 @@
 <title>검색 결과</title>
 <link href="header.css" rel="stylesheet" type="text/css">
 <style>
-td{border: 1px solid red;}
 .tagA{
 background: rgb(119,188,215,0.3);
 }

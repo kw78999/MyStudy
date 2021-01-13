@@ -28,7 +28,7 @@
 .okbtn{
 width: 100px;
 height: 50px;
-background-color: #40c700;
+background-color: brown;
 border: 0px;
 color:white;
 outline: none;
@@ -36,16 +36,18 @@ cursor: pointer;
 font-size: 20px;
 font-weight: bold;
 border-radius: 10px;
-margin-right: 570px;
+margin-left: 0px;
 }
 .tagA{
 text-decoration: none;
+color:#555;
+background-color: rgb(119,188,215,0.3);
 }
 .tagA:visited{
 color:blue;
 }
 .tagA:hover{
-background-color: rgb(119,188,215,0.3);
+background-color: rgb(119,188,215,0.6);
 }
  #nlogin{
 border:0;
@@ -307,9 +309,6 @@ function colorup2() {
 	var e = document.getElementById("answer2");
 	var e2 = document.getElementById("qap");
 	e2.style.color="rgb("+c+","+c+","+c+")";
-	if(e2.style.fontSize!="30px"){
-	e2.style.fontSize=18+cn/15+"px";//18
-     }
 	e.style.background="linear-gradient(to right, white, rgba("+a+",255,"+b+",0.6))";
 }
 function colordown() {
@@ -317,7 +316,6 @@ function colordown() {
 	var e = document.getElementById("answer2");
 	var e2 = document.getElementById("qap");
 	e2.style.color="rgb(100,100,100)";
-	e2.style.fontSize="18px";
 	e.style.background=" linear-gradient(to right, white, rgba(255,255,255,0.5))";
 }
 </script> 
@@ -419,7 +417,7 @@ function colordown() {
 </div>
 <%if(id==null||id.equals("")){ %>
 <div id="answer2" onmousemove="colorup()" onmouseleave="colordown()">
-<p id="qap" style="color:rgb(100,100,100);margin: 50px auto;font-weight: bold;font-size:18px;"align="center">질문과 답변을 하고싶다면,</p>
+<p id="qap" style="color:rgb(100,100,100);margin: 50px auto;font-weight: bold;font-size:30px;"align="center">질문과 답변을 하고싶다면,</p>
 <button id="nlogin" type="button" onclick="location.href='../member/login.jsp?returnPage=../in/boardRead.jsp?qnum=<%=qnum%>' "/><br><br><br><br><br>
 
 </div>
@@ -455,14 +453,22 @@ function colordown() {
 	int aid = 100+i;
 	%>
 	
-<div class="answerList"
+<div class="answerList" 
 <%if(abean.getAnum()==cho){ %>
-style="background: green;"
-<%} %>
->
+ style="border: 5px solid #FFE146;"
+<%} %>>
 <table id="aTable">
-<tr><td><img  src="img/question.png" style="width: 40px;height: 40px;border-radius: 10px;">
-	<a style="font-size: 25px;font-weight: bold;color:#444;"><%=abean.getId()%>님 답변</a><a style="margin-left: 350px;">[<%=abean.getGrade() %> 등급]</a></td></tr>
+<tr><td>
+<%if(abean.getAnum()==cho){ %>
+<img  src="img/choice.jpeg" style="width: 40px;height: 40px;border-radius: 10px;">
+<%}else{ %>
+<img  src="img/question.png" style="width: 40px;height: 40px;border-radius: 10px;">
+<%} %>
+	<a style="font-size: 25px;font-weight: bold;color:#444;"><%=abean.getId()%>님 답변</a>
+	<%if(id.equals(bean.getId())&&bean.getChoice()==null){ %> <!-- 채택 안했다면 채택버튼 -->
+<button type="button" class="okbtn" onclick="location.href='choice.jsp?anum=<%=abean.getAnum()%>&qnum=<%=qnum%>'">채택하기!</button>
+<%} %>
+	<a style="margin-left: 300px;">[<%=abean.getGrade() %> 등급]</a></td></tr>
 <tr><td id="<%=aid%>" width="800px"style="display:block;
 padding-top: 50px;padding-bottom: 50px;border-bottom: 2px solid #40c700;"><pre><%=abean.getContent() %></pre></td></tr>
 
@@ -482,9 +488,6 @@ padding-top: 50px;padding-bottom: 50px;border-bottom: 2px solid #40c700;"><pre><
  
  
 <tr><td  align="right" style="padding-bottom:50px;">
-<%if(id.equals(bean.getId())&&bean.getChoice()==null){ %> <!-- 채택 안했다면 채택버튼 -->
-<button type="button" class="okbtn" onclick="location.href='choice.jsp?anum=<%=abean.getAnum()%>&qnum=<%=qnum%>'">채택하기!</button>
-<%} %>
 <%if(id.equals(abean.getId())){ %> <!-- 자신이 쓴댓글은 수정 삭제 -->
 	<a id="tag" href="javascript:update(<%=aid%>)">[수정]</a>
 	<a id="tag" href="delete_a.jsp?anum=<%=abean.getAnum()%>&qnum=<%=qnum%>">[삭제]</a>

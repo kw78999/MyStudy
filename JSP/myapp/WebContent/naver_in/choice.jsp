@@ -6,7 +6,7 @@
 	int qnum = Integer.parseInt(request.getParameter("qnum"));
 	String msg = "채택실패";
 	String url = "naverin_main.jsp";
-	if(amgr.choiceAnswer(anum, qnum)){
+	if(amgr.choiceAnswer(anum,qnum)){
 		msg="답변을 채택 하였습니다.";
 		url="boardRead.jsp?qnum="+qnum;
 	}
