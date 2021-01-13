@@ -95,6 +95,13 @@ background: linear-gradient(to right, white, rgba(255,255,255,0.5));
 margin: 20px auto;
 border: 1px solid #ddd;
 }
+.answer3{
+width: 900px;
+height: 220px;
+background-color:white; 
+margin: 20px auto;
+border: 1px solid #ddd;
+}
 #aTable{
 width:800px;
 height:90%;
@@ -420,6 +427,14 @@ function colordown() {
 <p id="qap" style="color:rgb(100,100,100);margin: 50px auto;font-weight: bold;font-size:30px;"align="center">질문과 답변을 하고싶다면,</p>
 <button id="nlogin" type="button" onclick="location.href='../member/login.jsp?returnPage=../in/boardRead.jsp?qnum=<%=qnum%>' "/><br><br><br><br><br>
 
+</div>
+<%}else if(id.equals(bean.getId())&&bean.getAnswer_count()==0){ %>
+<div class="answer3">
+답변을 기다리는 중
+</div>
+<%}else if(id.equals(bean.getId())&&bean.getAnswer_count()>0){ %>
+<div class="answer3">
+채택하세요
 </div>
 <%}else{ %>
 <div id="answer">
