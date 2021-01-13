@@ -39,8 +39,8 @@ background-repeat: no-repeat;
 background-size: 100% 100%;
 color:white;"
  width="1000px" height="350px;"align="center"><p style="font-size: 50px;padding-top: -100px;">명예의 전당</p>
-<p id="day" style="font-size: 30px;"></p>
-<p id="timer" style="font-size: 30px;"></p></td></tr>
+<p id="day" style="font-size: 40px;"></p>
+<p id="timer" style="font-size: 50px;"></p></td></tr>
 
 </table>
 

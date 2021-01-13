@@ -66,8 +66,8 @@ public class QuestionMgr {
 				/////////////////////////////////////
 				con = pool.getConnection();
 				sql = "insert in_question(id,title,content,directory,";
-				sql += "point,date,filename,filedata,filesize,filename2,filedata2,filesize2)";
-				sql += "values(?, ?, ?, ?, ?, now(),?,?,?,?,?,?)";
+				sql += "point,date,filename,filedata,filesize,filename2,filedata2,filesize2,tag)";
+				sql += "values(?, ?, ?, ?, ?, now(),?,?,?,?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1,multi.getParameter("id"));
 				pstmt.setString(2, multi.getParameter("title"));
@@ -80,6 +80,18 @@ public class QuestionMgr {
 				pstmt.setString(9, filename2);
 				pstmt.setString(10, multi.getParameter("filedata2"));
 				pstmt.setInt(11, filesize2);
+				
+				if(multi.getParameterValues("tag")!=null) {
+				String tag[] = multi.getParameterValues("tag");
+				String taglist="";
+				for (int i = 0; i < tag.length; i++) {
+				taglist += tag[i];
+				}
+				pstmt.setString(12, taglist);
+				}else {
+					pstmt.setString(12,"");
+				}
+				
 				pstmt.executeUpdate();
 				pstmt.close();
 				
@@ -136,6 +148,7 @@ public class QuestionMgr {
 					bean.setDate(rs.getString("date"));
 					bean.setPoint(rs.getInt("point"));
 					bean.setFilename(rs.getString("filename"));
+					bean.setTag(rs.getString("tag"));
 					vlist.addElement(bean);
 				}
 			} catch (Exception e) {
@@ -204,6 +217,7 @@ public class QuestionMgr {
 							bean.setDate(rs.getString("date"));
 							bean.setPoint(rs.getInt("point"));
 							bean.setFilename(rs.getString("filename"));
+							bean.setTag(rs.getString("tag"));
 							vlist.addElement(bean);
 						}
 					} catch (Exception e) {
@@ -234,7 +248,7 @@ public class QuestionMgr {
 					}
 					return totalCount;
 				}
-		// 게시물 가져오기
+		// 게시물 리스트 가져오기
 	public Vector<QuestionBean> getQuestionList(int start,int end,String dir,int where){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -349,6 +363,8 @@ public class QuestionMgr {
 				bean.setFilename2(rs.getString("filename2"));
 				bean.setFiledata2(rs.getString("filedata2"));
 				bean.setFilesize2(rs.getInt("filesize2"));
+				bean.setTag(rs.getString("tag"));
+				bean.setChoice(rs.getString("choice"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -510,7 +526,7 @@ public class QuestionMgr {
 						}
 					}
 					int filesize = (int)multi.getFile("filename1").length();
-					sql = "update in_question set title=?, content=?, directory=?, filename=?,filedata=?, filesize=?,filedata2=? where qnum=?";
+					sql = "update in_question set title=?, content=?, directory=?, filename=?,filedata=?, filesize=?,filedata2=?,tag=? where qnum=?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, title);
 					pstmt.setString(2, content);
@@ -519,7 +535,17 @@ public class QuestionMgr {
 					pstmt.setString(5, filedata);
 					pstmt.setInt(6, filesize);
 					pstmt.setString(7, ofiledata2);
-					pstmt.setInt(8,qnum);
+					if(multi.getParameterValues("tag")!=null) {
+					String tag[] = multi.getParameterValues("tag");
+					String taglist="";
+					for (int i = 0; i < tag.length; i++) {
+					taglist += tag[i];
+					}
+					pstmt.setString(8, taglist);
+					}else {
+						pstmt.setString(8,"");
+					}
+					pstmt.setInt(9,qnum);
 					System.out.println("1수정2수정아님");
 					
 					}else if(filename2!=null&&!filename.equals("")) { //파일 2도 수정할때 
@@ -542,7 +568,7 @@ public class QuestionMgr {
 						}
 						int filesize = (int)multi.getFile("filename1").length();
 						int filesize2 = (int)multi.getFile("filename2").length();
-						sql = "update in_question set title=?, content=?, directory=?, filename=?,filedata=?, filesize=?, filename2=?,filedata2=?, filesize2=?  where qnum=?";
+						sql = "update in_question set title=?, content=?, directory=?, filename=?,filedata=?, filesize=?, filename2=?,filedata2=?, filesize2=?,tag=?  where qnum=?";
 						pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, title);
 						pstmt.setString(2, content);
@@ -553,7 +579,17 @@ public class QuestionMgr {
 						pstmt.setString(7, filename2);
 						pstmt.setString(8, filedata2);
 						pstmt.setInt(9, filesize2);
-						pstmt.setInt(10,qnum);
+						if(multi.getParameterValues("tag")!=null) {
+						String tag[] = multi.getParameterValues("tag");
+						String taglist="";
+						for (int i = 0; i < tag.length; i++) {
+						taglist += tag[i];
+						}
+						pstmt.setString(10, taglist);
+						}else {
+							pstmt.setString(10,"");
+						}
+						pstmt.setInt(11,qnum);
 						System.out.println("1수정2수정");
 					}
 				}else if(filename==null||filename.equals("")) {   //파일 1는 수정 하지않을때 
@@ -569,7 +605,7 @@ public class QuestionMgr {
 							}
 						}
 							int filesize2 = (int)multi.getFile("filename2").length();
-							sql = "update in_question set title=?, content=?, directory=?,filedata=?, filename2=?,filedata2=?, filesize2=?  where qnum=?";
+							sql = "update in_question set title=?, content=?, directory=?,filedata=?, filename2=?,filedata2=?, filesize2=?,tag=?  where qnum=?";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1, title);
 							pstmt.setString(2, content);
@@ -578,17 +614,37 @@ public class QuestionMgr {
 							pstmt.setString(5, filename2);
 							pstmt.setString(6, filedata2);
 							pstmt.setInt(7, filesize2);
-							pstmt.setInt(8,qnum);
+							if(multi.getParameterValues("tag")!=null) {
+							String tag[] = multi.getParameterValues("tag");
+							String taglist="";
+							for (int i = 0; i < tag.length; i++) {
+							taglist += tag[i];
+							}
+							pstmt.setString(8, taglist);
+							}else {
+								pstmt.setString(8,"");
+							}
+							pstmt.setInt(9,qnum);
 							System.out.println("1수정아님2수정");
 					 }else {  //파일 1, 2 모두 수정하지 않을때 
-							sql = "update in_question set title=?, content=?, directory=?,filedata=?,filedata2=? where qnum=?";
+							sql = "update in_question set title=?, content=?, directory=?,filedata=?,filedata2=?,tag=? where qnum=?";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1, title);
 							pstmt.setString(2, content);
 							pstmt.setString(3, directory);
 							pstmt.setString(4, ofiledata);
 							pstmt.setString(5, ofiledata2);
-							pstmt.setInt(6, qnum);
+							if(multi.getParameterValues("tag")!=null) {
+							String tag[] = multi.getParameterValues("tag");
+							String taglist="";
+							for (int i = 0; i < tag.length; i++) {
+							taglist += tag[i];
+							}
+							pstmt.setString(6, taglist);
+							}else {
+								pstmt.setString(6,"");
+							}
+							pstmt.setInt(7, qnum);
 							System.out.println("1수정아님2수정아님");
 						}
 				}

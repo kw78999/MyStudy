@@ -183,4 +183,24 @@ public class AnswerMgr {
 					}
 					return cnt;
 				}
+				//답변 채택
+				public boolean choiceAnswer(int anum,int qnum) {
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					String sql = null;
+					boolean flag=false;
+					try {
+						con = pool.getConnection();
+						sql = "update in_question set choice=? where qnum=?";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setInt(1, anum);
+						pstmt.setInt(2, qnum);
+						if(pstmt.executeUpdate()==1)flag=true;
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						pool.freeConnection(con, pstmt);
+					}return flag;
+				}
 }
