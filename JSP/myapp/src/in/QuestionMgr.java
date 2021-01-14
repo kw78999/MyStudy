@@ -667,7 +667,10 @@ public class QuestionMgr {
 			MemberBean bean = new MemberBean();
 			try {
 				con = pool.getConnection();
-				sql = "select * from navermember where id = ?";
+				sql = "SELECT questionCnt,answerCnt,inPoint,RANK FROM(SELECT *,( @rank := @rank + 1 ) AS RANK "
+						+ "FROM navermember AS a,( SELECT @rank := 0 ) AS b "
+						+ "oRder BY a.inPoint DESC) AS r "
+						+ "WHERE r.id=?;";    //랭크 컬럼 임의로 만들고 순위 매긴 테이블에서 아이디로 데이터 추출하기
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1,id);
 				rs = pstmt.executeQuery();
@@ -675,6 +678,7 @@ public class QuestionMgr {
 					bean.setQuestionCnt(rs.getInt("questionCnt"));
 					bean.setAnswerCnt(rs.getInt("answerCnt"));
 					bean.setInPoint(rs.getInt("inPoint"));
+					bean.setGender(rs.getString("rank"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -685,7 +689,8 @@ public class QuestionMgr {
 		}
 		
 		
-		//통합검색결과페이지에 5개 뿌리기
+	
+				//통합검색결과페이지에 5개 뿌리기
 				public Vector<QuestionBean> getSearchIn(String keyWord) {
 					Connection con = null;
 					PreparedStatement pstmt = null;
@@ -694,9 +699,9 @@ public class QuestionMgr {
 					Vector<QuestionBean> vlist = new Vector<QuestionBean>();
 					try {
 						con = pool.getConnection();
-						sql = "select * from in_question order by ?  limit 0,5";
+						sql = "select * from in_question where title like ? limit 0,5";
 						pstmt = con.prepareStatement(sql);
-						pstmt.setString(1, keyWord);
+						pstmt.setString(1, "%"+keyWord+"%");
 						rs = pstmt.executeQuery();
 						while(rs.next()) {
 							QuestionBean bean = new QuestionBean();
@@ -713,6 +718,35 @@ public class QuestionMgr {
 					return vlist;
 				}
 		
+		//지식인 검색결과 페이지에 10개 뿌리고 페이징 처리
+				public Vector<QuestionBean> getSearchInOnly(String keyWord, int start, int cnt) {
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					String sql = null;
+					Vector<QuestionBean> vlist = new Vector<QuestionBean>();
+					try {
+						con = pool.getConnection();
+						sql = "select * from in_question where title like ? limit ?, ?";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, "%"+keyWord+"%");
+						pstmt.setInt(2, start);
+						pstmt.setInt(3, cnt);
+						rs = pstmt.executeQuery();
+						while(rs.next()) {
+							QuestionBean bean = new QuestionBean();
+							bean.setTitle(rs.getString("title"));
+							bean.setContent(rs.getString("content"));
+							bean.setQnum(rs.getInt("qnum"));
+							vlist.addElement(bean);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						pool.freeConnection(con, pstmt, rs);
+					}
+					return vlist;
+				}
 		
 }
 
