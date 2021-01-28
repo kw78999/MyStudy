@@ -455,10 +455,9 @@ function colorup2() {
 	</td>
 	<% }}%>
 	</tr>
-	
-	<tr><td colspan="4" style="padding-top: 50px;padding-bottom: 30px;"><pre>
+	<tr><td colspan="4" style="padding-top: 50px;padding-bottom: 30px;white-space:pre-line;padding-right: 30px;padding-left: 30px;">
 	<%=bean.getContent() %>
-	</pre></td></tr>
+	</td></tr>
 	<tr><td colspan="4" style="padding-bottom: 20px;border-bottom: 2px solid #40c700;">&nbsp;&nbsp;&nbsp;
 	<%if(bean.getTag()!=null){
 	String[] tagArray = bean.getTag().split("#");
