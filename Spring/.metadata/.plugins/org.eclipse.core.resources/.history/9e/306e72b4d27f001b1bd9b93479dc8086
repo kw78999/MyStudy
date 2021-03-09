@@ -1,0 +1,5 @@
+package co.bit.springNote.dto;
+
+public class NoteDto {
+
+}

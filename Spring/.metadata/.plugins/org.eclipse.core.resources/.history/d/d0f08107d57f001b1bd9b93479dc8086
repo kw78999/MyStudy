@@ -1,0 +1,5 @@
+package co.bit.springNote.dao;
+
+public class NoteDao {
+
+}

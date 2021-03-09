@@ -1,0 +1,22 @@
+package com.bit.springBoard.dao;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class BoardDao {
+
+		DataSource ds;
+
+		public BoardDao() {
+			try {
+				//server.xml에 선언한 DB리소스 사용방법 JNDI (java nameing ~~)
+				Context context = new InitialContext();
+				ds = (DataSource)context.
+						lookup("java:comp/env/jdbc/Oracle11g");
+			}catch(Exception e) {
+				System.out.println("here");
+				e.printStackTrace();
+			}
+		}
+}

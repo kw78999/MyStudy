@@ -1,0 +1,20 @@
+package com.bit.myapp;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class FormController {
+	@RequestMapping(value = "/list")
+	public String list(HttpServletRequest req,Model model) {
+		req.setCharacterEncoding("UTF-8");
+		String name = req.getParameter("name");
+		model.addAttribute("name",name);
+		
+		return "list"; //views/list.jsp 호출한다 -> 저장 -> server restart
+	}
+	
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.bit.springNote2.dao.IDao">
+	<!-- id값은 IDao의 메소드명과 동일해야 한다. -->
+	<select id="listDao" resultType="com.bit.springNote2.dto.note2dto">
+		select * from tblNote order by id desc
+	</select>
+
+	<insert id="writeDao">
+		insert into tblNote(id,writer,content)
+		values(tblNoteSeq.nextval,#{param1},#{param2})
+	</insert>
+
+	<delete id="deleteDao">
+		delete from tblNote where id=#{param1}
+	</delete>
+</mapper>
+
+
+

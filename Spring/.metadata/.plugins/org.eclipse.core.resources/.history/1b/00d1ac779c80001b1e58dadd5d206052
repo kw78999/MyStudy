@@ -1,0 +1,5 @@
+package com.bit.springBoard.command;
+
+public class BoardModifyCommand {
+
+}

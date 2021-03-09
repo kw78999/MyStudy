@@ -1,0 +1,5 @@
+package com.bit.springBoard.dao;
+
+public class BoardDao {
+
+}

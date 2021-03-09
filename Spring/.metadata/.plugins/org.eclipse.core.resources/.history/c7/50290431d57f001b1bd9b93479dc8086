@@ -1,0 +1,13 @@
+package co.bit.springNote.command;
+
+import org.springframework.ui.Model;
+
+public class NoteWriteCommand implements NoteCommand {
+
+	@Override
+	public void execute(Model model) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

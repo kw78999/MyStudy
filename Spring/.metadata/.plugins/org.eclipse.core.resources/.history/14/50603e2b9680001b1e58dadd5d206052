@@ -1,0 +1,5 @@
+package com.bit.springBoard.controller;
+
+public class BoardController {
+
+}

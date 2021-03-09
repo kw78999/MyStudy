@@ -1,0 +1,5 @@
+package com.bit.springBoard.dto;
+
+public class BoardDto {
+
+}

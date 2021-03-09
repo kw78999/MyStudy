@@ -1,0 +1,5 @@
+package com.bit.springNote2.controller;
+
+public class NoteController {
+
+}

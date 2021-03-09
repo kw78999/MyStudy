@@ -1,0 +1,5 @@
+package com.bit.myapp.dto;
+
+public class MemberDto {
+
+}
