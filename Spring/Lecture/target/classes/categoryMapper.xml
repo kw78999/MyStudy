@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cos.domain.category">
+	<select id="selectGubun1" resultType="com.cos.domain.CategoryVO">
+		SELECT * FROM category WHERE ctGubun1 = #{ctGubun1}
+	</select>
+	<insert id="insert">
+		INSERT INTO category(ctGubun1, ctGubun2, ctWriteDate,
+		 userID) VALUES(#{ctGubun1}, #{ctGubun2}, now(), "admin")
+	</insert>
+</mapper>

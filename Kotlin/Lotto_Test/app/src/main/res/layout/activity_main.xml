@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="번호 6개 선택하세요."
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        />
+    <TableLayout
+        android:stretchColumns="*"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+            <Button
+                android:text="1"
+                android:id="@+id/b1"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"/>
+            <Button
+                android:id="@+id/b2"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="2"/>
+            <Button
+                android:id="@+id/b3"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="3"/>
+            <Button
+                android:id="@+id/b4"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="4"/>
+            <Button
+                android:id="@+id/b5"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/b6"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b7"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b8"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b9"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/b10"
+                android:text="1"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/b11"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b12"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b13"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b14"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b15"
+                android:text="1"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/b16"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b17"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b18"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b19"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:text="1"/>
+            <Button
+                android:id="@+id/b20"
+                android:text="1"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"/>
+        </TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="나의 번호"
+            android:textSize="15dp"
+            android:layout_margin="10dp"
+            android:gravity="center"/>
+
+    </TableLayout>
+    <TableLayout
+        android:layout_width="410dp"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="*"
+
+        >
+        <TableRow
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:id="@+id/rLay">
+
+        </TableRow>
+    </TableLayout>
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="시뮬레이션 시작"
+        android:layout_margin="30dp"
+        android:id="@+id/Start"
+        />
+
+
+
+
+</LinearLayout>
+</ScrollView>

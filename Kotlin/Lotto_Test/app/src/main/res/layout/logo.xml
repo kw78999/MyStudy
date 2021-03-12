@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:text="나의 번호"
+    android:textSize="20dp"
+    android:textColor="@color/black"
+    />
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:textSize="25dp"
+    android:layout_margin="10dp"
+    android:textColor="@color/black"
+    android:id="@+id/edt1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="추첨 번호"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/black"
+        />
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <TableRow
+        android:gravity="center">
+        <Button
+            android:id="@+id/lo1"
+            android:layout_margin="5dp"
+            android:layout_width="60dp"/>
+        <Button
+            android:id="@+id/lo2"
+            android:layout_margin="5dp"
+            android:layout_width="60dp"/>
+        <Button
+            android:id="@+id/lo3"
+            android:layout_margin="5dp"
+            android:layout_width="60dp"/>
+        <Button
+            android:id="@+id/lo4"
+            android:layout_margin="5dp"
+            android:layout_width="60dp"/>
+        <Button
+            android:id="@+id/lo5"
+            android:layout_margin="5dp"
+            android:layout_width="60dp"/>
+        <Button
+            android:id="@+id/lo6"
+            android:layout_margin="5dp"
+            android:layout_width="60dp"/>
+    </TableRow>
+
+</TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:id="@+id/Result"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:id="@+id/Result2"/>
+
+
+</LinearLayout>
