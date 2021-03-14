@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cos.domain.member">
+	<!-- 회원가입 -->
+	<insert id="insert">
+		INSERT member(id,pwd)VALUES
+		(#{id},#{pwd})
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="login" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM member WHERE id = #{id} 
+		and pwd = #{pwd}
+	</select>
+	
+</mapper>

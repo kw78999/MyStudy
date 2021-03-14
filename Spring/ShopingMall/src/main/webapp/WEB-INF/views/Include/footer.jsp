@@ -19,7 +19,7 @@ font-weight: bold;
 <body>
 <hr>
 <div class="footer_div">
-<a>MyHome 부산광역시 북구 덕천동 테스트 1024 번지</a><br>
+<a>MyHome 부산광역시 해운대구 광안동 해변로 1024 번지</a><br>
 <a>hosting (주)Self_Hosting</a><br>
 <a>TEL 010-1024-2048</a><br>
 <a>Bank Info SSD은행 3318-48212-04</a>

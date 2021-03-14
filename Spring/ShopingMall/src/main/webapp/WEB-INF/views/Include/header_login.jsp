@@ -18,12 +18,14 @@ body{min-width:530px; }
 .index{
 font-size: 5rem;
 width: 100%;
-background-color: brown;
 height: 200px;
 text-align: center;
+margin-top: 30px;
+}
+.index_text{
+text-decoration: none;
 }
 .nav{
-background-color: olive;
 width: 100%;
 height: 60px;
 font-size: 2rem;
@@ -44,13 +46,13 @@ margin-left: 30px;
 <div class="nav">
 	<ul class="nav_ul">
 		<li><a href="login">Login</a></li>
-		<li>Join</li>
+		<li><a href="join">Join</a></li>
 		<li>Cart</li>
 		<li>MyPage</li>
 	</ul>
 </div>
 <div class="index">
-	<a href="index">LIPHOP</a>
+	<a href="index" class="index_text">LIPHOP</a>
 </div>
 
 

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>	
-<meta name="viewport" content="width=device-width,initial-scale=1" />	
 <meta charset="UTF-8">
 
 <style>
@@ -15,15 +15,18 @@ body{min-width:530px; }
 .index{
 font-size: 5rem;
 width: 100%;
-background-color: brown;
 height: 200px;
 text-align: center;
+margin-top: 30px;
+}
+.index_text{
+text-decoration: none;
 }
 .nav{
-background-color: olive;
 width: 100%;
 height: 60px;
 font-size: 2rem;
+text-align: right;	
 
 }
 .nav_ul{
@@ -35,13 +38,13 @@ float: left;
 margin-left: 30px;
 }
 .category{
-background-color: green;
 height: 100px;
 float: left; 
 width: 100%;
  margin: 0 auto; 
 text-align: center;
 font-size: 2rem;
+background-color: #ddd;
 }
 .category_ul{
 list-style-type: none;
@@ -63,14 +66,23 @@ display:inline-block;
 <body>
 <div class="nav">
 	<ul class="nav_ul">
-		<li><a href="login">Login</a></li>
-		<li>Join</li>
+	
+		<c:if test="${sessionScope.id!=null}">
+			<li><a href="logout" onc>로그아웃(${sessionScope.id})</a></li>
+		</c:if>
+		<c:if test="${sessionScope.id==null}">
+			<li><a href="login">Login</a></li>
+			<li><a href="join">Join</a></li>
+		</c:if>
+		
+		
 		<li>Cart</li>
 		<li>MyPage</li>
+		
 	</ul>
 </div>
 <div class="index">
-	<a href="index">LIPHOP</a>
+	<a href="index" class="index_text">LIPHOP</a>
 </div>
 
 <div class="category">
