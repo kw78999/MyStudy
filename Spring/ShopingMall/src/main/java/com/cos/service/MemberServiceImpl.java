@@ -1,6 +1,8 @@
 package com.cos.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,12 @@ public class MemberServiceImpl implements MemberService {
 		@Override
 		public int login(MemberVO member) throws Exception {
 			return dao.login(member);
+		}
+		@Override
+		public int idCheck(String id) throws Exception {
+			int  cnt = dao.idCheck(id);
+			
+		return cnt;
 		}
 		
 }

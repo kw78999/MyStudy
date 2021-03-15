@@ -1,5 +1,8 @@
 package com.cos.persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,6 +25,13 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public int login(MemberVO member) throws Exception {
 		return session.selectOne(namespace+".login", member);
+	}
+	@Override
+	public int idCheck(String id) throws Exception {
+		int cnt = session.selectOne(namespace+".idCheck",id);
+		
+		
+		return cnt;
 	}
 		
 }

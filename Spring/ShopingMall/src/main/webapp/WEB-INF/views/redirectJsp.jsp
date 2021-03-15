@@ -3,10 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="UTF-8">
 </head>
 <body>
-<a href="index">index</a>
+<script>
+var msg="${msg}";
+var url="${url}";
+alert(msg);
+location.href=url;
+
+</script>
 </body>
 </html>

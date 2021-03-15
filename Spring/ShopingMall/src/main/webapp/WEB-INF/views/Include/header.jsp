@@ -68,7 +68,7 @@ display:inline-block;
 	<ul class="nav_ul">
 	
 		<c:if test="${sessionScope.id!=null}">
-			<li><a href="logout" onc>로그아웃(${sessionScope.id})</a></li>
+			<li><a href="logout" onc>로그아웃</a></li>
 		</c:if>
 		<c:if test="${sessionScope.id==null}">
 			<li><a href="login">Login</a></li>

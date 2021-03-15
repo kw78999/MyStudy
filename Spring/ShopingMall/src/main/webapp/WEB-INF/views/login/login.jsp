@@ -75,7 +75,7 @@ text-align: center;
 			<input id="pwd" name="pwd"class="textfield">
 			<div class="login_form_submit">
 				<input type="button" value="Join" class="login_btn" onclick="location.href='join'">
-				<input type="submit" value="login" class="login_btn"><br>
+				<input type="submit" value="Login" class="login_btn"><br>
 				<a href="">Forgot Password?</a>
 			</div>
 			
