@@ -108,31 +108,29 @@ height: 30px;
 		<tr>
 		<td class="joinName">주소</td>
 		<td class="join_single_form">
-		<input type="text" disabled="disabled" placeholder="우편번호" id="zip1" class="zipCode">
+		<input type="text"  placeholder="우편번호" id="zip1" class="zipCode" name="zip1">
 		<button type="button" onclick="execPostcode()">우편번호 찾기</button><br>
-		<input type="text" disabled="disabled" placeholder="주소" id="zip2" class="zipCode"><br>
-		<input type="text" placeholder="상세 주소" id="zip3" class="zipCode">
-		<input type="hidden" placeholder="참고 항목" id="zip4" class="zipCode">
-		
-		
-		
+		<input type="text"  placeholder="주소" id="zip2" class="zipCode" name="zip2"><br>
+		<input type="text" placeholder="상세 주소" id="zip3" class="zipCode" onblur="zipCheck()" name="zip3">
+		<div id="zdiv" class="cdiv"></div>
 		</td>	
 		</tr>
 		<tr>
 		<td class="joinName">이메일</td>
-		<td class="join_single_form"><input type="text" class="signInput_email"  autocomplete="off" onblur="">
+		<td class="join_single_form"><input type="text" id="email" name="email"class="signInput_email"  autocomplete="off" onblur="emailCheck()" maxlength="15">
 		@ <select name="emailSelect" class="signInput_email_select">
 		 <option value="gmail.com">gmail.com
 		 <option value="naver.com">naver.com
 		 <option value="daum.com">daum.com
 		 </select>
+		 <div id="ediv" class="cdiv"></div>
 		</td>
 		</tr>
 		<tr>
 		<td class="joinName">핸드폰</td>
 		<td class="join_single_form"><input type="text" class="signInput_3" value="010" disabled="disabled"> -
-		<input type="text" class="signInput_3" onblur="phoneCheck()" name="phone1"> - 
-		<input type="text" class="signInput_3" onblur="phoneCheck2()" name="phone2">
+		<input type="text" class="signInput_3" onblur="phoneCheck()" name="phone1" maxlength="4"> - 
+		<input type="text" class="signInput_3" onblur="phoneCheck2()" name="phone2" maxlength="4">
 		<div id="pndiv" class="cdiv"></div>
 		</td>
 		</tr>
@@ -141,16 +139,30 @@ height: 30px;
 	
 	
 	
-		<input type="submit" value="회원가입">
-		<c:forEach items="${list}" var="i">
-		${i }<br>
-		</c:forEach>
-		<input type="hidden" id="idList" value="<c:out value="${list }"/>">
+		<input type="button" value="회원가입" onclick="check()">
 </form>
 <script type="text/javascript">
 
 var frm = document.joinfrm;
 
+
+function idCheck(){
+	id = frm.id.value;
+	var idc = document.getElementById("idc");
+	var idcc=/^[0-9a-zA-Z]{8,12}$/;
+	
+	if(id.length<8||id.length>12){
+		idc.style.color="red";
+		idc.innerHTML="아이디 길이는 8~12자로 해주세요.";
+		return false;
+	}else if(!idcc.test(id)){
+			idc.style.color="red";
+			idc.innerHTML="아이디는 영문과 숫자로만 조합하세요.";
+			return false;
+		}else{
+			return true;
+		}
+	}
 
 
 	
@@ -289,7 +301,43 @@ var frm = document.joinfrm;
 		}
 	}
 	
-	
+	function zipCheck() {
+		var zdiv=document.getElementById("zdiv");
+		var zip1 = frm.zip1.value;
+		var zip3 = frm.zip3.value;
+		
+		if(zip1.length==0){
+			zdiv.style.color="red"
+		 	zdiv.innerHTML="주소를 입력 하세요"
+		 	return false;
+		}else if(zip3.length==0){
+			zdiv.style.color="red"
+			zdiv.innerHTML="상세 주소를 입력 하세요"
+				return false;
+		}else{
+			zdiv.style.color="#40c700"
+			zdiv.innerHTML="확인"
+				return true;
+		}
+	}
+	function emailCheck() {
+		var ediv=document.getElementById("ediv");
+		e=frm.email.value;
+		
+		var echeck = /^([a-zA-Z0-9]{5,15})$/;
+		
+		if(echeck.test(e)){
+			ediv.style.color="#40c700"
+				ediv.innerHTML="확인"
+				return true;
+		}else{
+			
+			ediv.style.color="red"
+				ediv.innerHTML="이메일을 확인해주세요"
+				return false;
+		}
+		
+	}
 	
 	function phoneCheck() {
 		var pndiv=document.getElementById("pndiv");
@@ -336,8 +384,8 @@ var frm = document.joinfrm;
 		birth1 = frm.birth1.value;
 		birth2 = frm.birth2.value;
 		birth3 = frm.birth3.value;
-		gender = frm.gender.value;
-		phone = frm.phone.value;
+		phone1 = frm.phone1.value;
+		phone2 = frm.phone2.value;
 		
 		if(id.replace(/(^\s*)|(\s*$)/, "").trim()=="") {
 			msg="아이디를 입력해주세요";
@@ -367,16 +415,16 @@ var frm = document.joinfrm;
 			msg="생년월일을 입력하세요";
 			frm.birth1.focus();
 			flag = false;
-		} else if(gender=="성별"){
-			msg="성별을 입력하세요";
-			frm.gender.focus();
-			flag = false;
-		} else if(phone.trim()==""){
+		} else if(phone1.trim()==""){
 			msg="휴대전화를 입력하세요";
-			frm.phone.focus();
+			frm.phone1.focus();
+			flag = false;
+		}else if(phone2.trim()==""){
+			msg="휴대전화를 입력하세요";
+			frm.phone2.focus();
 			flag = false;
 		}else if(!idCheck()){
-			msg="아이디를 확인하세요";
+			msg="아이디를 확인하세요123";
 			frm.id.focus();
 			flag = false;
 		}else if(!pwCheck()){
@@ -387,7 +435,7 @@ var frm = document.joinfrm;
 			msg="비밀번호를 확인하세요";
 			frm.pwd2.focus();
 			flag = false;
-		}else if(!nCheck()){
+		}else if(!nameCheck()){
 			msg="이름을 확인하세요";
 			frm.name.focus();
 			flag = false;
@@ -400,12 +448,19 @@ var frm = document.joinfrm;
 		}else if(!ddCheck()){
 			msg="날짜를 확인하세요";
 			flag = false;
-		}else if(!pnumCheck()){
-			msg="핸드폰 번호를 확인하세요";
-			frm.phone.focus();
+		}else if(!zipCheck()){
+			msg="주소를 확인하세요";
 			flag = false;
-		}else if(idarr2.indexOf(id)>=0){
-				msg="아이디가 이미 존재합니다"
+		}else if(!emailCheck()){
+			msg="이메일을 확인하세요";
+			flag = false;
+		}else if(!phoneCheck()){
+			msg="핸드폰 번호를 확인하세요";
+			frm.phone1.focus();
+			flag = false;
+		}else if(!phoneCheck2()){
+			msg="핸드폰 번호를 확인하세요";
+			frm.phone2.focus();
 			flag = false;
 		}
 		alert(msg);
@@ -450,6 +505,7 @@ $(document).ready(function(){
 		}else{
 			idc.style.color="red";
 			idc.innerHTML="영문과 숫자 8~12자로 해주세요.";
+			tr_light("tr_id");
 		}
 	}); 
 })
@@ -475,9 +531,7 @@ function execPostcode() {
 				if(extraAddr !== ''){
 					extraAddr = ' (' + extraAddr + ')';
 				}
-					document.getElementById("zip4").value = extraAddr;
 			} else {
-				document.getElementById("zip4").value = '';
 			}
 			document.getElementById('zip1').value = data.zonecode;
 			document.getElementById("zip2").value = addr;

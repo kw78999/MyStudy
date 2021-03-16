@@ -1,0 +1,14 @@
+CREATE TABLE `member` (
+	`id` VARCHAR(15) NOT NULL COLLATE 'euckr_korean_ci',
+	`pwd` VARCHAR(15) NOT NULL DEFAULT '0' COLLATE 'euckr_korean_ci',
+	`name` VARCHAR(5) NOT NULL COLLATE 'euckr_korean_ci',
+	`birth` DATE NOT NULL,
+	`zipCode` VARCHAR(50) NOT NULL COLLATE 'euckr_korean_ci',
+	`email` VARCHAR(30) NOT NULL COLLATE 'euckr_korean_ci',
+	`phone` VARCHAR(15) NOT NULL DEFAULT '' COLLATE 'euckr_korean_ci',
+	`emailCheck` INT NULL DEFAULT '0',
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='euckr_korean_ci'
+ENGINE=InnoDB
+;

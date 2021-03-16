@@ -7,8 +7,8 @@
 <mapper namespace="com.cos.domain.member">
 	<!-- 회원가입 -->
 	<insert id="insert">
-		INSERT member(id,pwd)VALUES
-		(#{id},#{pwd})
+		INSERT member(id,pwd,name,birth,zipCode,email,phone)VALUES
+		(#{id},#{pwd},#{name},#{birth},#{zipCode},#{email},#{phone})
 	</insert>
 	
 	<!-- 로그인 -->
