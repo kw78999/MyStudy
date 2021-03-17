@@ -49,8 +49,8 @@ height: 500px;
 <div class="main_Product">
 <h1>New Product</h1>
 	<ul class="product_Ul">
-		<li><div class="product">
-		<img src="resources/img/p1.jpg" class="product_img" onclick="location:href='productDetails'">
+		<li><div class="product" >
+		<img src="resources/img/p1.jpg" class="product_img"onclick="location.href='productDetails'">
 		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
 		</div></li>
 		<li><div class="product">

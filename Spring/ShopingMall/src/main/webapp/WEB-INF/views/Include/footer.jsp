@@ -4,7 +4,6 @@
 <html>
 <head>
 <style>
-hr{margin-top: 100px;}
 .footer_div{
 width:100%;
 text-align: center;
@@ -17,7 +16,7 @@ font-weight: bold;
 <meta charset="UTF-8">
 </head>
 <body>
-<hr>
+<hr style="margin-top: 100px;">
 <div class="footer_div">
 <a>MyHome 부산광역시 해운대구 광안동 해변로 1024 번지</a><br>
 <a>hosting (주)Self_Hosting</a><br>

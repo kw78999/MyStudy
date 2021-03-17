@@ -141,4 +141,38 @@ public class MemberController {
 		return "redirectJsp";
 	}
 	
+	//비동기 통신을 위한 ResPonseBody
+	@ResponseBody
+	@RequestMapping(value="emailJoin",method=RequestMethod.GET)
+	public int emailJoin(HttpServletRequest req,HttpSession session)  throws IOException {
+		System.out.println("ajax test");
+		
+		
+		
+			String code=req.getParameter("code");
+			
+			if(session.getAttribute("joinCode")==null) {
+				System.out.println("시간초과 입니다");
+				System.out.println("session---"+session.getAttribute("joinCode"));
+				System.out.println("code---"+code);
+				System.out.println("-------------------------");
+				return 0;
+			}else{
+				if(session.getAttribute("joinCode").toString().equals(code)) {
+					System.out.println("승인");
+					System.out.println("session---"+session.getAttribute("joinCode"));
+					System.out.println("code---"+code);
+					System.out.println("-------------------------");
+					return 1;
+				}else {
+					System.out.println("입력값 아님");
+					System.out.println("session---"+session.getAttribute("joinCode"));
+					System.out.println("code---"+code);
+					System.out.println("-------------------------");
+					return 2;
+				}
+		}
+		
+	}
+	
 }
