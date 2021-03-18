@@ -45,12 +45,14 @@ public class MemberController {
 		return "login/join";
 	}
 	//비동기 통신을 위한 ResPonseBody
+	//아이디 중복체크
 	@ResponseBody
 	@RequestMapping(value="idCheck",method=RequestMethod.GET)
 	public int idCheck(@RequestParam("id")String id) throws Exception {
 		int cnt = memberService.idCheck(id);
 		return cnt; 
 	}
+	//회원가입
 	@RequestMapping(value = "newJoin", method = RequestMethod.POST)
 	public String newJoin(MemberVO member,HttpServletRequest req,Model model) throws Exception{
 		//3개의 날짜변수 가공하여 member로 넘기기
@@ -78,7 +80,7 @@ public class MemberController {
 		model.addAttribute("email",email+"@"+emailSelect);
 		return "forward:mailSend";
 	}
-	//메일보내기 
+	//메일보내고 인증받기
 	@RequestMapping(value="/mailSend",method = RequestMethod.POST)
 	public String mailSend(final MemberVO member,Model model,final HttpServletRequest req) throws Exception {
 		
@@ -111,6 +113,7 @@ public class MemberController {
 		return "redirect:emailCheck";
 		
 	}
+	//정보가지고 이메일 체크하러 감.
 	@RequestMapping(value="emailCheck",method=RequestMethod.GET)
 	public String emailCheck(Model model,HttpServletRequest req) {
 		model.addAttribute("memberId",req.getParameter("memberId"));
@@ -120,17 +123,31 @@ public class MemberController {
 		return "login/emailCheck"; 
 	}
 	
+	//이메일 인증 승인됨
+	@RequestMapping(value="emailCertify",method=RequestMethod.GET)
+	public String emailCertify(Model model,HttpServletRequest req) throws Exception {
+		String id = req.getParameter("id");
+		memberService.emailCheck(id);
+		
+		return "login/login"; 
+	}
+	
+	//로그인
 	@RequestMapping(value = "/newLogin", method = RequestMethod.POST)
-	public String newLogin(MemberVO member, 
+	public String newLogin(MemberVO member, Model model,
 			HttpServletRequest req) throws Exception{
 		int cnt = memberService.login(member);
 		if(cnt==1) {
 			HttpSession session = req.getSession();
 			session.setAttribute("id", member.getId());
-			
+			return "redirect:index";
+		}else {
+			model.addAttribute("msg","로그인 정보가 다릅니다.");
+			model.addAttribute("url","login");
+			return "redirectJsp";
 		}
-		return "redirect:index";
 	}
+	//로그아웃
 	@RequestMapping(value="logout",method=RequestMethod.GET)
 	public String userLogout(HttpServletRequest req,Model model) throws IOException {
 		req.getSession().invalidate();
@@ -142,33 +159,21 @@ public class MemberController {
 	}
 	
 	//비동기 통신을 위한 ResPonseBody
+	//인증코드 검증
 	@ResponseBody
 	@RequestMapping(value="emailJoin",method=RequestMethod.GET)
 	public int emailJoin(HttpServletRequest req,HttpSession session)  throws IOException {
-		System.out.println("ajax test");
-		
-		
 		
 			String code=req.getParameter("code");
-			
+			//시간초과
 			if(session.getAttribute("joinCode")==null) {
-				System.out.println("시간초과 입니다");
-				System.out.println("session---"+session.getAttribute("joinCode"));
-				System.out.println("code---"+code);
-				System.out.println("-------------------------");
 				return 0;
 			}else{
+				//승인
 				if(session.getAttribute("joinCode").toString().equals(code)) {
-					System.out.println("승인");
-					System.out.println("session---"+session.getAttribute("joinCode"));
-					System.out.println("code---"+code);
-					System.out.println("-------------------------");
 					return 1;
+				//인증코드 틀림
 				}else {
-					System.out.println("입력값 아님");
-					System.out.println("session---"+session.getAttribute("joinCode"));
-					System.out.println("code---"+code);
-					System.out.println("-------------------------");
 					return 2;
 				}
 		}

@@ -8,21 +8,20 @@
 <meta charset="UTF-8">
 <title>상품 정보</title>
 <link rel="stylesheet" media="screen and (max-width: 1024px)" href="resources/css/product_mobile.css" />
-<link rel="stylesheet" media="screen and (min-width: 1025px)" href="resources/css/product_desk.css" />
-</head>
+<link rel="stylesheet" media="screen and (min-width: 1025px)" href="resources/css/product_desk.css" /></head>
 <body onload="init();">
 <script language="JavaScript">
 
 var sell_price;
 var amount;
-
+//수량 및 가격 측정 메소드
 function init () {
 	sell_price = document.form.sell_price.value;
 	amount = document.form.amount.value;
 	document.form.sum.value = sell_price;
 	change();
 }
-
+//수량 및 가격 측정 메소드
 function add () {
 	hm = document.form.amount;
 	sum = document.form.sum;
@@ -30,7 +29,7 @@ function add () {
 
 	sum.value = parseInt(hm.value) * sell_price;
 }
-
+//수량 및 가격 측정 메소드
 function del () {
 	hm = document.form.amount;
 	sum = document.form.sum;
@@ -39,7 +38,7 @@ function del () {
 			sum.value = parseInt(hm.value) * sell_price;
 		}
 }
-
+//수량 및 가격 측정 메소드
 function change () {
 	hm = document.form.amount;
 	sum = document.form.sum;
@@ -123,11 +122,10 @@ function change () {
 			<td>%%%%%%</td>	
 		</tr>
 	</table>
-	
-	<div class="mainContent">
-		mainContent
-	</div>
-	
+		<div class="mainContent">
+			mainContent
+		
+		</div>
 	<div class="size">
 		<h2>size (cm)</h2>
 		<table class="size_table">
@@ -191,7 +189,37 @@ function change () {
 	</div>
 
 
-
+<!-- Naver Smart Editor 2 -->
+<script>
+  var form = document.w_form;
+  var oEditors = [];
+  nhn.husky.EZCreator.createInIFrame({
+      oAppRef: oEditors,
+      elPlaceHolder: "textAreaContent",
+      sSkinURI: "resources/editor/SmartEditor2Skin.html",
+      fCreator: "createSEditor2"
+  });
+   
+  // submit
+  function submitContents(elClickedObj) {
+      // 에디터의 내용이 textarea에 적용된다.
+      oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", [ ]);
+      var con = document.w_form.lcContent;
+      con.value = document.getElementById("textAreaContent").value;
+      try {
+          elClickedObj.form.submit();
+      } catch(e) {
+       
+      }
+  }
+   
+  // textArea에 이미지 첨부
+  function pasteHTML(filepath){
+      var sHTML = '<img src="<%=request.getContextPath()%>/resources/editor/upload/'+ filepath + '">';
+	  oEditors.getById["textAreaContent"].exec("PASTE_HTML", [ sHTML ]);
+  }
+</script>
+<!-- Naver Smart Editor 2 END-->
 
 <%@include file="../Include/footer.jsp" %>
 </body>

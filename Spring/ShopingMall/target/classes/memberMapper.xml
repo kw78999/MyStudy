@@ -23,4 +23,8 @@
 	where id=#{id}
 	</select>
 	
+	<!-- 이메일 인증 -->
+	<update id="emailCheck" >
+	update member set emailCheck = 1 where id = #{id}
+	</update>
 </mapper>

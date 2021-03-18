@@ -46,7 +46,7 @@ function test() {
 					alert("시간초과");  //세션이 소멸되어 시간초과
 				}else if(data==1){
 					alert("승인");
-					location.href="login"
+					location.href="emailCertify?id=${memberId}";
 				}else{
 					alert("코드가 틀립니다.");
 				}

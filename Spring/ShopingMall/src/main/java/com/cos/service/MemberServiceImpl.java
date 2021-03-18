@@ -29,5 +29,10 @@ public class MemberServiceImpl implements MemberService {
 			
 		return cnt;
 		}
+		@Override
+		public void emailCheck(String id) throws Exception {
+			dao.emailCheck(id);
+		
+		}
 		
 }

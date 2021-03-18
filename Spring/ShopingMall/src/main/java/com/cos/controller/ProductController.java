@@ -11,6 +11,9 @@ public class ProductController {
 	public String productDetails() {
 		return "product/productDetails";
 	}
-	
+	@RequestMapping(value="productUpload",method=RequestMethod.GET)
+	public String productUpload() {
+		return "product/productUpload";
+	}
 	
 }

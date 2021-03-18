@@ -33,5 +33,10 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return cnt;
 	}
+	@Override
+	public void emailCheck(String id) throws Exception {
+		session.update(namespace+".emailCheck",id);
+		
+	}
 		
 }

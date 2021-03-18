@@ -70,9 +70,9 @@ text-align: center;
 	<div class="login_form">
 		<form action="newLogin" method="POST">
 			<label for="id">ID</label><br>
-			<input id="id" name="id"class="textfield"><br>
+			<input type="text" id="id" name="id"class="textfield" autocomplete="off"><br>
 			<label for="pwd">Password</label><br>
-			<input id="pwd" name="pwd"class="textfield">
+			<input  type="text" id="pwd" name="pwd"class="textfield" autocomplete="off">
 			<div class="login_form_submit">
 				<input type="button" value="Join" class="login_btn" onclick="location.href='join'">
 				<input type="submit" value="Login" class="login_btn"><br>

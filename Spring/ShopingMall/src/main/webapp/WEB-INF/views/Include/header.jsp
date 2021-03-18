@@ -71,14 +71,21 @@ display:inline-block;
 			<li><a href="logout" onc>로그아웃</a></li>
 		</c:if>
 		<c:if test="${sessionScope.id==null}">
-			<li><a href="login">Login</a></li>
-			<li><a href="join">Join</a></li>
+			<c:if test="${sessionScope.id!='admin' }">
+				<li><a href="login">Login</a></li>
+				<li><a href="join">Join</a></li>
+			</c:if>
 		</c:if>
-		
-		
-		<li>Cart</li>
-		<li>MyPage</li>
-		
+		<c:if test="${sessionScope.id=='admin' }">
+			<li><a href="productUpload">상품 등록</a></li>
+			<li><a href="productUpload"> 관리</a></li>
+		</c:if>
+		<c:if test="${sessionScope.id!=null}">
+			<c:if test="${sessionScope.id!='admin' }">
+				<li>Cart</li>
+				<li>MyPage</li>
+			</c:if>
+		</c:if>
 	</ul>
 </div>
 <div class="index">

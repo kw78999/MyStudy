@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>ShopingMall Index</title>
 <style>
-
 .main_Image{ 
 width: 100%;
 }
@@ -34,8 +33,6 @@ margin-right: 20px;
 .product{
 width: 350px;
 height:620px;
-
-
 }
 .product_img{
 width: 350px;

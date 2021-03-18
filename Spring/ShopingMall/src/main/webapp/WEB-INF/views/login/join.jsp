@@ -10,8 +10,9 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <meta charset="UTF-8">
 <title>Join</title>	
-
 <style>
+
+
 .join{
 width: 100%;
 text-align: center;
@@ -20,7 +21,7 @@ text-align: center;
 list-style-type: none;
 }
 .joinTable{
-width: 70%;
+width: 40%;
 height: 100%;
 margin: auto;
 }
@@ -74,7 +75,7 @@ height: 30px;
 	
 	<table class="joinTable">
 		<tr>
-		<td class="joinName" style="border: 1px solid #40c700;" id="tr_id">아이디</td>
+		<td class="joinName" style="border: 1px solid #40c700;" id="tr_id"><span>아이디</span></td>
 		<td class="join_single_form"><input type="text" name="id" class="signInput" autocomplete="off">
 		<div id="idc" class="cdiv"></div></td>
 		</tr>
