@@ -3,7 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<script>
+window.onload=function(){
+	location.href="index";	
+}
+</script>
+<meta charset="UTF-8">
 </head>
 <body>
 <a href="index">index</a>
