@@ -6,15 +6,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Email 인증</title>
 <style type="text/css">
 .emailCheck{
-width: 70%;
+width: 1000px;
 height: 400px;
-border: 1px solid blue;
-margin: auto;
 text-align: center;
-margin-top: 200px;
+position:absolute;
+top: 500px;
+left:300px;
+border: 50px solid white;
+border-radius: 500px;
+font-size: 2rem;
+
 }
 .CheckText{
 width: 300px;
@@ -23,6 +27,11 @@ height: 50px;
 .joinCode_btn{
 width: 100px;
 height: 50px;
+}
+.video{
+width: 100%;
+margin: auto;
+border-radius:100px; 
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -78,6 +87,8 @@ window.onload = function TimerStart(){ tid=setInterval('msg_time()',1000) };
 </script>
 </head>
 <body>
+<video src="resources/img/lo.mp4" autoplay loop muted class="video">
+</video>
 <div class="emailCheck">
 <h2>${memberId}님 가입을 축하합니다.</h2>
 <h4>${email} 로 인증번호가 전송되었습니다.</h4>
@@ -89,7 +100,6 @@ window.onload = function TimerStart(){ tid=setInterval('msg_time()',1000) };
 인증번호 : <input type="text" class="joinCode_text" id="joinCode_text" maxlength="4" name="code">
 <button class="joinCode_btn"  onclick="test()" name="joinCode_btn">인증</button>
 ${sessionScope.joinCode }
-
 
 
 </div>

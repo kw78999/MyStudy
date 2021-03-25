@@ -68,12 +68,12 @@ function delthis(obj) {
 //옵션 상품 펼치고 접는 버튼
 function openThis(obj) {
 	//접기
-	if(obj.parentNode.style.height=='150px'){
+	if(obj.parentNode.style.height=='180px'){
 		obj.parentNode.style.height = '60px';
 		obj.parentNode.lastChild.style.display='none';
 	//펼치기
 	}else{
-		obj.parentNode.style.height = '150px';
+		obj.parentNode.style.height = '180px';
 		obj.parentNode.lastChild.style.display='block';
 	}
 }
@@ -81,13 +81,15 @@ function openThis(obj) {
 //메인 상품 펼치고 접는 버튼
 function mainOpenThis(obj) {
 	//접기
-	if(obj.parentNode.style.height=='150px'){
+	if(obj.parentNode.style.height=='180px'){
 		obj.parentNode.style.height = '60px';
 		obj.nextSibling.nextSibling.style.display='none';
 	//펼치기
 	}else{
-		obj.parentNode.style.height = '150px';
+		obj.parentNode.style.height = '180px';
 		obj.nextSibling.nextSibling.style.display='block';
+		obj.parentNode.firstChild.style.display='block';
+		alert(obj.parentNode.firstChild);
 	}
 }
 
@@ -184,7 +186,6 @@ margin: auto;
 border:1px solid red;
 width:90%;
 height:60px;
-text-align: right;
 }
 .product_parent_ul{
 list-style-type: none;
@@ -286,6 +287,10 @@ border: 20px solid #40c700;
 background-color:#40c700;
 border-radius: 50px;
 }
+.product_detail_span{
+margin-right: 30px;
+font-size: 2rem;
+}
 </style>
 </head>
 <body>
@@ -308,6 +313,11 @@ border-radius: 50px;
 		<li class="product_parent_li" id="product_parent_li">
 		<!-- 대표상품 -->
 			<div class="product_Main">
+			
+				<span class="product_detail_span">Color : </span>
+				<span class="product_detail_span">Size : </span>
+				<span class="product_detail_span">Stock : </span>
+				<span class="product_detail_span">Price : </span>
 				<button onclick="mainOpenThis(this)">펼치기</button>
 				<table class="product_table" id="product_table">
 					<tr>
