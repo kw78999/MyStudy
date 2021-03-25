@@ -7,6 +7,7 @@ public class ProductVO {
 	private int pNum;
 	private String pName;
 	private String thumbnail;
+	private String detailSize;
 	private String size;
 	private String color;
 	private int price;
@@ -15,7 +16,7 @@ public class ProductVO {
 	private String categorySub;
 	private String texture;
 	private String content;
-	private String charater;
+	private String character1;
 	
 	
 }

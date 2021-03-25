@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cos.domain.product">
+	<!-- 회원가입 -->
+	<insert id="upload">
+		INSERT product(pName,size,detailSize,color,price,stock,category,categorySub,content,character1)VALUES
+		(#{pName},#{size},#{detailSize},#{color},#{price},#{stock},#{category},#{categorySub},#{content},#{character1})
+	</insert>
+	
+	
+</mapper>

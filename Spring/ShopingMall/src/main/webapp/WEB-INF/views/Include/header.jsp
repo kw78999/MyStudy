@@ -77,8 +77,8 @@ display:inline-block;
 			</c:if>
 		</c:if>
 		<c:if test="${sessionScope.id=='admin' }">
-			<li><a href="productUpload">상품 등록</a></li>
-			<li><a href="productUpload"> 관리</a></li>
+			<li><a href="productUploadPage">상품 등록</a></li>
+			<li><a href="productUploadPage"> 관리</a></li>
 		</c:if>
 		<c:if test="${sessionScope.id!=null}">
 			<c:if test="${sessionScope.id!='admin' }">

@@ -31,6 +31,7 @@ function subCategoryView() {
 	var subCategory = document.getElementsByClassName('subCategory');
 	for (var i=0; i<subCategory.length; i++) {
 		subCategory[i].style.display='none';
+		subCategory[i].setAttribute("name","");
 		}
 	
 }
@@ -43,21 +44,27 @@ function category_change(obj) {
 	if(obj.value=="Outer"){
 		subCategoryView();
 		document.getElementById("outer").style.display = 'block';
+		document.getElementById("outer").setAttribute("name","categorySub");
 	}else if(obj.value=="Top"){
 		subCategoryView();
 		document.getElementById("top").style.display = 'block';
+		document.getElementById("top").setAttribute("name","categorySub");
 	}else if(obj.value=="Bottom"){
 		subCategoryView();
 		document.getElementById("bottom").style.display = 'block';
+		document.getElementById("bottom").setAttribute("name","categorySub");
 	}else if(obj.value=="Set"){
 		subCategoryView();
 		document.getElementById("set").style.display = 'block';
+		document.getElementById("set").setAttribute("name","categorySub");
 	}else if(obj.value=="Acc"){
 		subCategoryView();
 		document.getElementById("acc").style.display = 'block';
+		document.getElementById("acc").setAttribute("name","categorySub");
 	}else if(obj.value=="One Piace"){
 		subCategoryView();
 		document.getElementById("onepiace").style.display = 'block';
+		document.getElementById("onepiace").setAttribute("name","categorySub");
 	}
 	
 	
@@ -353,7 +360,7 @@ function createDiv() {
 </div>
 
 <hr class =" hrClass">
-
+<form name="w_form" method="post" action="productUpload">
 <div class="product_name">
 		<a>상품 이름</a>
 		<input type="text" name="pName" class="pName">
@@ -367,50 +374,51 @@ function createDiv() {
 	<td colspan="2">카테고리</td>
 	</tr>
 	<tr>
-		<td width="400px"><select id="product_category" class="product_category" onchange="category_change(this)">
+		<td width="400px">
+		<select id="product_category" class="product_category" onchange="category_change(this)" name="category">
 		 <option id="select">선택</option>
-		 <option>Outer</option>
-		 <option>Top</option>
-		 <option>Bottom</option>
-		 <option>Set</option>
-		 <option>Acc</option>
-		 <option>One Piace</option>
+		 <option value="Outer">Outer</option>
+		 <option value="Top">Top</option>
+		 <option value="Bottom">Bottom</option>
+		 <option value="Set">Set</option>
+		 <option value="Acc">Acc</option>
+		 <option value="One Piace">One Piace</option>
 		 </select></td>
 		<td width="400px" align="center">
-		<select id="outer" class="subCategory"> 
-		<option>JACKET</option>
-		<option>JUMPER</option>
-		<option>CARDIGAN</option>
-		<option>COAT</option>
-		<option>VEST</option>	
+		<select id="outer" class="subCategory" name="categorySub"> 
+		<option value="JACKET">JACKET</option>
+		<option value="JUMPER">JUMPER</option>
+		<option value="CARDIGAN">CARDIGAN</option>
+		<option value="COAT">COAT</option>
+		<option value="VEST">VEST</option>	
 		</select>
-		<select id="top" class="subCategory"> 
-		<option>TEE</option>
-		<option>KNIT</option>
-		<option>SLEEVELESS</option>
-		<option>BLOUSE</option>
-		<option>HOOD</option>	
-		<option>BASIC</option>	
+		<select id="top" class="subCategory" name="categorySub"> 
+		<option value="TEE">TEE</option>
+		<option value="KNIT">KNIT</option>
+		<option value="SLEEVELESS">SLEEVELESS</option>
+		<option value="BLOUSE">BLOUSE</option>
+		<option value="HOOD">HOOD</option>	
+		<option value="BASIC">BASIC</option>	
 		</select>
-		<select id="bottom" class="subCategory"> 
-		<option>MISS BUMBUM</option>
-		<option>PANTS</option>
-		<option>LEGGINGS</option>
-		<option>JEANS</option>
-		<option>SHORTS</option>	
-		<option>SKIRT</option>	
+		<select id="bottom" class="subCategory" name="categorySub"> 
+		<option value="MISS BUMBUM">MISS BUMBUM</option>
+		<option value="PANTS">PANTS</option>
+		<option value="LEGGINGS">LEGGINGS</option>
+		<option value="JEANS">JEANS</option>
+		<option value="SHORTS">SHORTS</option>	
+		<option value="SKIRT">SKIRT</option>	
 		</select>
-		<select id="set" class="subCategory"> 
-		<option>SET</option>
+		<select id="set" class="subCategory" name="categorySub"> 
+		<option value="SET">SET</option>
 		</select>
-		<select id="onepiace" class="subCategory"> 
-		<option>DRESS</option>
-		<option>JUMP-SUIT</option>
+		<select id="onepiace" class="subCategory" name="categorySub"> 
+		<option value="DRESS">DRESS</option>
+		<option value="JUMP-SUIT">JUMP-SUIT</option>
 		</select>
-		<select id="acc" class="subCategory"> 
-		<option>JEWERLY</option>
-		<option>LINGERIE</option>
-		<option>HAT</option>
+		<select id="acc" class="subCategory" name="categorySub"> 
+		<option value="JEWERLY">JEWERLY</option>
+		<option value="LINGERIE">LINGERIE</option>
+		<option value="HAT">HAT</option>
 		</select>
 		</td>
 	</tr>
@@ -419,7 +427,7 @@ function createDiv() {
 		<td colspan="2">상품 정보</td>
 	</tr>
 	<tr>
-	<td colspan="2"><textarea class="detail_area" placeholder="간단한 상품 정보"></textarea></td>
+	<td colspan="2"><textarea class="detail_area" placeholder="간단한 상품 정보" name="character1" ></textarea></td>
 	</tr>
 	</table>
 	
@@ -441,16 +449,16 @@ function createDiv() {
 					<div class="product_detail_div_option">Stock : </div>
 					<div class="product_detail_div_option">Price : </div>
 				</div>
-				<button onclick="mainOpenThis(this)" class="openBtn" id="openBtn" 
+				<button type="button"onclick="mainOpenThis(this)" class="openBtn" id="openBtn" 
 				onmouseover="openOver(this)" onmouseout="mouseOut(this)">펼치기</button>
 				<table class="product_table" id="product_table">
 					<tr>
-						<td class="tdMargin">Color <input type="text" class="inputText" id="detail_color"></td>
-						<td>Size  <input type="text" class="inputText" id="detail_size"></td>
+						<td class="tdMargin">Color <input type="text" class="inputText" id="detail_color" name="color"></td>
+						<td>Size  <input type="text" class="inputText" id="detail_size" name="size"></td>
 					</tr> 
 					<tr>
-						<td class="tdMargin">Stock <input type="text" class="inputText" id="detail_stock"></td>
-						<td>Price <input type="text" class="inputText" id="detail_price"></td>
+						<td class="tdMargin">Stock <input type="text" class="inputText" id="detail_stock" name="stock"></td>
+						<td>Price <input type="text" class="inputText" id="detail_price" name="price"></td>
 					</tr>
 				</table>
 				
@@ -464,12 +472,12 @@ function createDiv() {
 						<td>총길이</td>
 					</tr>
 					<tr>
-						<td><input type="text" class="size_text" maxlength="5"></td>
-						<td><input type="text" class="size_text" maxlength="5"></td>
-						<td><input type="text" class="size_text" maxlength="5"></td>
-						<td><input type="text" class="size_text" maxlength="5"></td>
-						<td><input type="text" class="size_text" maxlength="5"></td>
-						<td><input type="text" class="size_text" maxlength="5"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
 					</tr>
 				</table>
 				
@@ -525,12 +533,12 @@ function createDiv() {
 
 
 <div class="container">
-		<form name="w_form" method="post" action="lectureWrite">
+		
 		<input type="hidden" name="filepath" value="/editor/upload/" /> 
-		<textarea name="lcContent" id="textAreaContent" style="width: 100%" rows="15" cols="80"></textarea>
+		<textarea name="content" id="textAreaContent" style="width: 100%" rows="15" cols="80"></textarea>
 		<button class="form-control foode-btn" type="button" onclick="submitContents(this)">글쓰기</button>
-		</form>
 </div>
+</form>
 		
 		
 		
@@ -552,7 +560,7 @@ function createDiv() {
   function submitContents(elClickedObj) {
       // 에디터의 내용이 textarea에 적용된다.
       oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", [ ]);
-      var con = document.w_form.lcContent;
+      var con = document.w_form.content;
       con.value = document.getElementById("textAreaContent").value;
       try {
           elClickedObj.form.submit();
