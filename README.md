@@ -9,11 +9,11 @@
 * Swing
 * DBConnetion 
 ## JSP
-*HTML5
-*CSS
-*JavaScript
-*JavaServerPage
-*Board
-*Member
-*Event
+* HTML5
+* CSS
+* JavaScript
+* JavaServerPage
+* Board
+* Member
+* Event
 
