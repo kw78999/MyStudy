@@ -13,7 +13,21 @@
 * CSS
 * JavaScript
 * JavaServerPage
+* MVC Model_1
 * Board
 * Member
 * Event
-
+## Kotlin
+* Basic
+* Layout
+* View & Widget
+* Intent
+* Adapter
+## Python
+* Baisc
+* Linux & Raspberry Pi
+## Spring
+* MVC Model_2
+* lombok & Mybatis DBConnetion
+* Maven
+* Ajax
