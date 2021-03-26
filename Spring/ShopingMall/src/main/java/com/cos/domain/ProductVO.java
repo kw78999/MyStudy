@@ -1,5 +1,6 @@
 package com.cos.domain;
 
+
 import lombok.Data;
 
 @Data

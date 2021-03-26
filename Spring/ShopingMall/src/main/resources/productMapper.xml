@@ -7,8 +7,8 @@
 <mapper namespace="com.cos.domain.product">
 	<!-- 회원가입 -->
 	<insert id="upload">
-		INSERT product(pName,size,detailSize,color,price,stock,category,categorySub,content,character1)VALUES
-		(#{pName},#{size},#{detailSize},#{color},#{price},#{stock},#{category},#{categorySub},#{content},#{character1})
+		INSERT product(pName,thumbnail,size,detailSize,color,price,stock,category,categorySub,content,character1)VALUES
+		(#{pName},#{thumbnail},#{size},#{detailSize},#{color},#{price},#{stock},#{category},#{categorySub},#{content},#{character1})
 	</insert>
 	
 	
