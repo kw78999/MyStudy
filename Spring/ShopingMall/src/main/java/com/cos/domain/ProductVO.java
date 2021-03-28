@@ -15,7 +15,6 @@ public class ProductVO {
 	private int stock;
 	private String category;
 	private String categorySub;
-	private String texture;
 	private String content;
 	private String character1;
 	

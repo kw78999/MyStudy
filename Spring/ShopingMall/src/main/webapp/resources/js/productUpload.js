@@ -57,6 +57,47 @@ function category_change(obj) {
 	
 	
 }
+var srcArray=[3];
+var playThumbnail = null;
+
+function StopInterval() {
+    if(playThumbnail != null) {
+        clearInterval(playThumbnail);
+    }
+}
+
+//썸네일 미리보기
+function thumbnail_img(index,src) {
+	
+	//인덱스값과 소스받아서 적용
+	srcArray[index] = src;
+	var idx=0;
+	var thumbnail_img = document.getElementById("thumbnail_img");
+	
+	//사진을 추가할떄마다 인터벌 메소드가 실행되기떄문에
+	//기존 인터벌 정지하고 다시실행 
+	StopInterval();
+	playThumbnail = setInterval(function() {
+		
+		if(typeof srcArray[2]=="undefined" || srcArray[2] == null){
+			if(idx==2)idx=0;//3번쨰 이미지 없으면 1과 2만 반복
+		}else{
+			if(idx==3)idx=0;//배열길이가 3 이기때문에 무한반복
+		}
+		
+		//배열요소(이미지 데이터)가 존재한다면 적용하고 인터벌
+		if(typeof srcArray[idx] == "undefined" || srcArray[idx] == null){
+			
+		}else{
+			thumbnail_img.setAttribute("src",srcArray[idx]);
+			
+		}
+		
+		idx++;
+	}, 2000);
+	
+}
+
 
 function setThumbnail(event) {
 	 
@@ -69,8 +110,7 @@ function setThumbnail(event) {
 		var img = document.getElementById("thumbnail_imgtest");
 		img.setAttribute("src", event.target.result);
 		
-		var thumbnail_img = document.getElementById("thumbnail_img");
-		thumbnail_img.setAttribute("src", event.target.result);
+		thumbnail_img(0,event.target.result);
 		
 		};
 		reader.readAsDataURL(event.target.files[0]);
@@ -105,6 +145,7 @@ if(fileType=='jpg'||fileType=='png'||fileType=='gif'){   //파일확장자 검�
 
 // 추출한 파일명 삽입
 		$(this).siblings('.upload-name').val(filename);
+		document.getElementById('mfile2').style.display='block';
 	});
 });
 
@@ -132,6 +173,7 @@ if(fileType=='jpg'||fileType=='png'||fileType=='gif'){   //파일확장자 검�
 
 // 추출한 파일명 삽입
 		$(this).siblings('.upload-name2').val(filename);
+		document.getElementById('mfile3').style.display='block';
 	});
 });
 //썸네일 2
@@ -146,8 +188,7 @@ function setThumbnail2(event) {
 		var img = document.getElementById("thumbnail_imgtest2");
 		img.setAttribute("src", event.target.result);
 		
-		var thumbnail_img = document.getElementById("thumbnail_img");
-		thumbnail_img.setAttribute("src", event.target.result);
+		thumbnail_img(1, event.target.result);
 		
 		};
 		reader.readAsDataURL(event.target.files[0]);
@@ -196,8 +237,7 @@ function setThumbnail3(event) {
 		var img = document.getElementById("thumbnail_imgtest3");
 		img.setAttribute("src", event.target.result);
 		
-		var thumbnail_img = document.getElementById("thumbnail_img");
-		thumbnail_img.setAttribute("src", event.target.result);
+		thumbnail_img(2, event.target.result);
 		
 		};
 		reader.readAsDataURL(event.target.files[0]);
@@ -291,6 +331,7 @@ function mainOpenThis(obj) {
 	}
 }
 
+var optionIndex = 0;
 //옵션추가시 div생성
 function createDiv() {
 	var parent_div = document.getElementById("product_parent_div");
@@ -359,11 +400,11 @@ function createDiv() {
        var str=document.createElement('tr');
        var std=document.createElement('td');
        var std2=document.createElement('td');
-       
-       ftd.innerHTML="Color <input type='text' class='inputText'>";
-       ftd2.innerHTML="Size <input type='text' class='inputText'>";
-       std.innerHTML="Stock <input type='text' class='inputText'>";
-       std2.innerHTML="Price <input type='text' class='inputText'>";
+        
+       ftd.innerHTML="Color <input type='text' class='inputText' name='list["+optionIndex+"].oColor' autocomplete='off'>";
+       ftd2.innerHTML="Size <input type='text' class='inputText' name='list["+optionIndex+"].oSize' autocomplete='off'>";
+       std.innerHTML="Stock <input type='text' class='inputText' name='list["+optionIndex+"].oStock' autocomplete='off'>";
+       std2.innerHTML="Price <input type='text' class='inputText' name='list["+optionIndex+"].oPrice' autocomplete='off'>";
        
        otionTable.appendChild(ftr);
        otionTable.appendChild(str);
@@ -410,12 +451,12 @@ function createDiv() {
        std5=document.createElement('td');
        std6=document.createElement('td');
        
-       std1.innerHTML='<input type="text" class="size_text" maxlength="5">';
-       std2.innerHTML='<input type="text" class="size_text" maxlength="5">';
-       std3.innerHTML='<input type="text" class="size_text" maxlength="5">';
-       std4.innerHTML='<input type="text" class="size_text" maxlength="5">';
-       std5.innerHTML='<input type="text" class="size_text" maxlength="5">';
-       std6.innerHTML='<input type="text" class="size_text" maxlength="5">';
+       std1.innerHTML='<input type="text" class="size_text" maxlength="5" name="list['+optionIndex+'].oDetailSize" autocomplete="off">';
+       std2.innerHTML='<input type="text" class="size_text" maxlength="5" name="list['+optionIndex+'].oDetailSize" autocomplete="off">';
+       std3.innerHTML='<input type="text" class="size_text" maxlength="5" name="list['+optionIndex+'].oDetailSize" autocomplete="off">';
+       std4.innerHTML='<input type="text" class="size_text" maxlength="5" name="list['+optionIndex+'].oDetailSize" autocomplete="off">';
+       std5.innerHTML='<input type="text" class="size_text" maxlength="5" name="list['+optionIndex+'].oDetailSize" autocomplete="off">';
+       std6.innerHTML='<input type="text" class="size_text" maxlength="5" name="list['+optionIndex+'].oDetailSize" autocomplete="off">';
        
        str.appendChild(std1);
        str.appendChild(std2);
@@ -439,4 +480,6 @@ function createDiv() {
        mainDiv.appendChild(otionTable);
        mainDiv.appendChild(sizeTable);
        
+       //index 하나 증가
+       optionIndex++;
 }

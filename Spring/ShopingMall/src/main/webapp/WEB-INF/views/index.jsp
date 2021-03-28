@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="Include/header.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -50,34 +51,13 @@ height: 500px;
 		<img src="resources/img/p1.jpg" class="product_img"onclick="location.href='productDetails'">
 		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
 		</div></li>
-		<li><div class="product">
-		<img src="resources/img/p3.jpg" class="product_img">
-		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
-		</div></li>
-		<li><div class="product">
-		<img src="resources/img/p4.jpg" class="product_img">
-		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
-		</div></li>
-		<li><div class="product">
-		<img src="resources/img/p5.gif" class="product_img">
-		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
-		</div></li>
-		<li><div class="product">
-		<img src="resources/img/p5.gif" class="product_img">
-		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
-		</div></li>
-		<li><div class="product">
-		<img src="resources/img/p4.jpg" class="product_img">
-		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
-		</div></li>
-		<li><div class="product">
-		<img src="resources/img/p4.jpg" class="product_img">
-		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
-		</div></li>
-		<li><div class="product">
-		<img src="resources/img/p4.jpg" class="product_img">
-		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
-		</div></li>
+			<c:forEach items="${list}" var="product">
+                    <tr>
+                     <td><c:out value="${product.stock}" /> </td><br><br>
+                     <td><c:out value="${product.PName}" /> </td><br><br>
+                     
+                      </tr>
+             </c:forEach>
 	</ul>
 
 </div>

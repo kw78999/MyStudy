@@ -36,15 +36,16 @@
 	</tr>
 	<tr>
 		<td width="400px">
-		<select id="product_category" class="product_category" onchange="category_change(this)" name="category">
-		 <option id="select">선택</option>
-		 <option value="Outer">Outer</option>
-		 <option value="Top">Top</option>
-		 <option value="Bottom">Bottom</option>
-		 <option value="Set">Set</option>
-		 <option value="Acc">Acc</option>
-		 <option value="One Piace">One Piace</option>
-		 </select></td>
+			<select id="product_category" class="product_category" onchange="category_change(this)" name="category">
+			 <option id="select">선택</option>
+			 <option value="Outer">Outer</option>
+			 <option value="Top">Top</option>
+			 <option value="Bottom">Bottom</option>
+			 <option value="Set">Set</option>
+			 <option value="Acc">Acc</option>
+			 <option value="One Piace">One Piace</option>
+			</select>
+		</td>
 		<td width="400px" align="center">
 		<select id="outer" class="subCategory" name="categorySub"> 
 		<option value="JACKET">JACKET</option>
@@ -95,6 +96,101 @@
 	
 </div>
 
+<table class="textureTable">
+	<tr>
+		<td class="textureTable_ftd">촉감</td>
+		<td class="textureTable_std">
+			<input type="radio" value="rough" id="t1" name="touch" class="radioBtn">
+			<label for="t1"><a class="radioLabel">까슬함</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="middle" id="t2" name="touch" class="radioBtn">
+			<label for="t2"><a class="radioLabel">적당함</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="soft" id="t3" name="touch" class="radioBtn">
+			<label for="t3"><a class="radioLabel">부드러움</a></label>
+		</td>
+	</tr>
+	<tr>
+		<td class="textureTable_ftd">신축성</td>
+		<td class="textureTable_std">
+			<input type="radio" value="high" id="t4" name="stretch" class="radioBtn">
+			<label for="t4"><a class="radioLabel">좋음</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="middle" id="t5" name="stretch" class="radioBtn">
+			<label for="t5"><a class="radioLabel">약간</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="none" id="t6" name="stretch" class="radioBtn">
+			<label for="t6"><a class="radioLabel">없음</a></label>
+		</td>
+	</tr>
+	<tr>
+		<td class="textureTable_ftd">비침</td>
+		<td class="textureTable_std">
+			<input type="radio" value="high" id="t7" name="transparent" class="radioBtn">
+			<label for="t7"><a class="radioLabel">많이 비침</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="middle" id="t8" name="transparent" class="radioBtn">
+			<label for="t8"><a class="radioLabel">약간 비침</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="none" id="t9" name="transparent" class="radioBtn">
+			<label for="t9"><a class="radioLabel">비침 없음</a></label>
+		</td>
+	</tr>
+	<tr>
+		<td class="textureTable_ftd">광택감</td>
+		<td class="textureTable_std">
+			<input type="radio" value="high" id="t10" name="gloss" class="radioBtn">
+			<label for="t10"><a class="radioLabel">광택 있음</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="middle" id="t11" name="gloss" class="radioBtn">
+			<label for="t11"><a class="radioLabel">약간 있음</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="none" id="t12" name="gloss" class="radioBtn">
+			<label for="t12"><a class="radioLabel">광택 없음</a></label>
+		</td>
+	</tr>
+	<tr>
+		<td class="textureTable_ftd">두께감</td>
+		<td class="textureTable_std">
+			<input type="radio" value="high" id="t13" name="thickness" class="radioBtn">
+			<label for="t13"><a class="radioLabel">두꺼움</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="middle" id="t14" name="thickness" class="radioBtn">
+			<label for="t14"><a class="radioLabel">적당함</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="none" id="t15" name="thickness" class="radioBtn">
+			<label for="t15"><a class="radioLabel">얇음</a></label>
+		</td>
+	</tr>
+	<tr>
+		<td class="textureTable_ftd">안감</td>
+		<td class="textureTable_std">
+			<input type="radio" value="high" id="t16" name="lining" class="radioBtn">
+			<label for="t16"><a class="radioLabel">전체안감</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="middle" id="t17" name="lining" class="radioBtn">
+			<label for="t17"><a class="radioLabel">부분안감</a></label>
+		</td>
+		<td class="textureTable_std">
+			<input type="radio" value="none" id="t18" name="lining" class="radioBtn">
+			<label for="t18"><a class="radioLabel">안감없음</a></label>
+		</td>
+	</tr>
+</table>
+
+
+
 
 <!--상품등록 div  -->
 <div class="product_parent_div" id="product_parent_div">
@@ -114,12 +210,12 @@
 				onmouseover="openOver(this)" onmouseout="mouseOut(this)">펼치기</button>
 				<table class="product_table" id="product_table">
 					<tr>
-						<td class="tdMargin">Color <input type="text" class="inputText" id="detail_color" name="color"></td>
-						<td>Size  <input type="text" class="inputText" id="detail_size" name="size"></td>
+						<td class="tdMargin">Color <input type="text" class="inputText" id="detail_color" name="color" autocomplete="off"></td>
+						<td>Size  <input type="text" class="inputText" id="detail_size" name="size" autocomplete="off"></td>
 					</tr> 
 					<tr>
-						<td class="tdMargin">Stock <input type="text" class="inputText" id="detail_stock" name="stock"></td>
-						<td>Price <input type="text" class="inputText" id="detail_price" name="price"></td>
+						<td class="tdMargin">Stock <input type="text" class="inputText" id="detail_stock" name="stock" autocomplete="off"></td>
+						<td>Price <input type="text" class="inputText" id="detail_price" name="price" autocomplete="off"></td>
 					</tr>
 				</table>
 				
@@ -133,12 +229,12 @@
 						<td>총길이</td>
 					</tr>
 					<tr>
-						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
-						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
-						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
-						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
-						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
-						<td><input type="text" class="size_text" maxlength="5" name="detailSize"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize" autocomplete="off"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize" autocomplete="off"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize" autocomplete="off"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize" autocomplete="off"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize" autocomplete="off"></td>
+						<td><input type="text" class="size_text" maxlength="5" name="detailSize" autocomplete="off"></td>
 					</tr>
 				</table>
 				
@@ -204,7 +300,7 @@
 </div>
 
 
-
+	
 
 
 <div class="container">
@@ -255,6 +351,6 @@
 <%@include file="../Include/footer.jsp" %>
 <!-- 스마트 에디터 크기를 쉽게늘리기위한 빈공간 -->
 <div style="height: 100px;"></div>
-<script type="text/javascript" src="resources/js/productUpload.js" charset="utf-8"></script>
+<script type="text/javascript" src="resources/js/productUpload.js?ver=13" charset="utf-8"></script>
 </body>
 </html>
