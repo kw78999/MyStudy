@@ -39,6 +39,9 @@ height:620px;
 width: 350px;
 height: 500px;
 }
+ .product_img:hover{
+ opacity: 0.8;
+ }
 </style>
 </head>
 <body>
@@ -47,16 +50,17 @@ height: 500px;
 <div class="main_Product">
 <h1>New Product</h1>
 	<ul class="product_Ul">
+	
 		<li><div class="product" >
 		<img src="resources/img/p1.jpg" class="product_img"onclick="location.href='productDetails'">
 		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
 		</div></li>
+		
 			<c:forEach items="${list}" var="product">
-                    <tr>
-                     <td><c:out value="${product.stock}" /> </td><br><br>
-                     <td><c:out value="${product.PName}" /> </td><br><br>
-                     
-                      </tr>
+                    <li><div class="product" >
+					<img src="resources/editor/upload/${product.thumbnail}" class="product_img"onclick="location.href='productDetails'">
+					<br><a>${product.category} > ${product.categorySub }</a><br><a>${product.PName}</a><br><a><b>${product.price}</b></a>
+					</div></li>
              </c:forEach>
 	</ul>
 
