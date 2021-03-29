@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@include file="Include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +66,7 @@ transition: transform .5s;
 }
 </style>
 <script>
-window.onload = function(){
+window.addEventListener('load',function(){
 	//모든 상품이미지 가져오기
 	var imgArray =document.getElementsByClassName('product_img');
 	
@@ -117,7 +116,7 @@ window.onload = function(){
 		
 	}
 	
-}
+});
 	
 
 </script>
@@ -128,7 +127,8 @@ window.onload = function(){
 
 </head>
 <body>
-<img src="resources/img/main.jpg" class="main_Image">
+<%@include file="Include/header.jsp" %>
+<img src="resources/img/main2.jpg" class="main_Image">
 
 <div class="New_Product">
 <h1>New Product</h1>
@@ -147,7 +147,7 @@ window.onload = function(){
 							<div class="product">
 								<div class="product_img_div">
 									<img src="resources/editor/upload/${fn:split(product.thumbnail,',')[0]}"  class="product_img"
-											onclick="location.href='productDetails'">
+											onclick="location.href='productDetails?pNum=${product.PNum}'">
 									<input type="hidden" value=${product.thumbnail }>
 								</div>
 									<a>${product.category} > ${product.categorySub }</a><br><a>${product.PName}</a><br><a><b>${product.price}</b></a>

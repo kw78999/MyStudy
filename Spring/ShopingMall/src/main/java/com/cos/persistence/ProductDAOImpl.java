@@ -25,5 +25,15 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<ProductVO> select() throws Exception {
 		return session.selectList(namespace+".select");
 	}
+	@Override
+		public ProductVO pSelectOne(int pNum) throws Exception {
+			
+			return session.selectOne(namespace+".pSelectOne",pNum);
+		}
+	@Override
+	public ProductTextureVO tSelectOne(int pNum) throws Exception {
+		
+		return session.selectOne(namespace+".tSelectOne",pNum);
+	}
 
 }

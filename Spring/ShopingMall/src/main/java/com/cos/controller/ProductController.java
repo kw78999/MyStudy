@@ -27,7 +27,7 @@ import com.cos.service.ProductService;
 public class ProductController{
 	
 	private static final String FILE_SERVER_PATH =
-			"C:\\Sping\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\ShopingMall\\resources\\editor\\upload";
+			"C:\\Spring\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\ShopingMall\\resources\\editor\\upload";
 					
 	
 	@Inject
@@ -36,9 +36,10 @@ public class ProductController{
 	private ProductOptionServie poService;
 	
 	@RequestMapping(value="productDetails",method=RequestMethod.GET)
-	public String productDetails()  {
-		
-		
+	public String productDetails(HttpServletRequest req,Model model) throws Exception  {
+		int pNum = Integer.parseInt(req.getParameter("pNum"));
+		ProductVO product = pService.pSelectOne(pNum);
+		model.addAttribute("product",product);
 		return "product/productDetails";
 	}
 	

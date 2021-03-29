@@ -25,6 +25,14 @@ public class ProductServiceImpl implements ProductService{
 		
 		return dao.select();
 	}
-
+	@Override
+	public ProductVO pSelectOne(int pNum) throws Exception {
+		return dao.pSelectOne(pNum);
+	} 
+	@Override
+	public ProductTextureVO tSelectOne(int pNum) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.tSelectOne(pNum);
+	}
 	
 }

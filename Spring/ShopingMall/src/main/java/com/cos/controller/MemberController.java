@@ -33,7 +33,7 @@ public class MemberController {
 	@Inject
 	private MemberService memberService;
 	@Inject
-	private JavaMailSenderImpl mailSender;//root_context.xml ¿¡¼­ »ı¼ºÇÑ °´Ã¼ ÁÖÀÔ¹Ş±â
+	private JavaMailSenderImpl mailSender;//root_context.xml ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Ô¹Ş±ï¿½
 	
 	@RequestMapping(value="login",method=RequestMethod.GET)
 	public String login() {
@@ -44,34 +44,34 @@ public class MemberController {
 	public String join() {
 		return "login/join";
 	}
-	//ºñµ¿±â Åë½ÅÀ» À§ÇÑ ResPonseBody
-	//¾ÆÀÌµğ Áßº¹Ã¼Å©
+	//ï¿½ñµ¿±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ResPonseBody
+	//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½Ã¼Å©
 	@ResponseBody
 	@RequestMapping(value="idCheck",method=RequestMethod.GET)
 	public int idCheck(@RequestParam("id")String id) throws Exception {
 		int cnt = memberService.idCheck(id);
 		return cnt; 
 	}
-	//È¸¿ø°¡ÀÔ
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "newJoin", method = RequestMethod.POST)
 	public String newJoin(MemberVO member,HttpServletRequest req,Model model) throws Exception{
-		//3°³ÀÇ ³¯Â¥º¯¼ö °¡°øÇÏ¿© member·Î ³Ñ±â±â
+		//3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ memberï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½
 		String y = req.getParameter("birth1");
 		String m = req.getParameter("birth2");
 		String d = req.getParameter("birth3");
 		DateUtil du = new DateUtil(y,m,d);
 		member.setBirth(du.birthFormat());
-		//3°³ ÁÖ¼Ò ±¸ºĞÀÚ·Î ±¸ºĞÇÏ¸ç ÇÏ³ª·Î °¡°ø
+		//3ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String zip1 = req.getParameter("zip1");
 		String zip2 = req.getParameter("zip2");
 		String zip3 = req.getParameter("zip3");
 		ZipUtil zu = new ZipUtil(zip1, zip2, zip3);
 		member.setZipCode(zu.zipFormat());
-		//ÀÌ¸ŞÀÏ °¡°ø
+		//ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String email = req.getParameter("email");
 		String emailSelect = req.getParameter("emailSelect");
 		member.setEmail(email+"@"+emailSelect);
-		//Æù³Ñ¹ö °¡°ø
+		//ï¿½ï¿½ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String phone1 = req.getParameter("phone1");
 		String phone2 = req.getParameter("phone2");
 		member.setPhone("010-"+phone1+"-"+phone2);
@@ -80,7 +80,7 @@ public class MemberController {
 		model.addAttribute("email",email+"@"+emailSelect);
 		return "forward:mailSend";
 	}
-	//¸ŞÀÏº¸³»°í ÀÎÁõ¹Ş±â
+	//ï¿½ï¿½ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ş±ï¿½
 	@RequestMapping(value="/mailSend",method = RequestMethod.POST)
 	public String mailSend(final MemberVO member,Model model,final HttpServletRequest req) throws Exception {
 		
@@ -89,31 +89,31 @@ public class MemberController {
 				final MimeMessageHelper helper = 
 						new MimeMessageHelper(mimeMessage, true, "UTF-8"); 
 				
-		//ÀÎÁõÄÚµå ¼¼¼Ç¿¡´ã¾Æ Á¦ÇÑ½Ã°£ ¼³Á¤ÇÏ±â		
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½		
 		Random rd = new Random();
 		int joinCode = rd.nextInt(9000)+1000;
 		HttpSession session = req.getSession();
 		session.setAttribute("joinCode", joinCode);
-		session.setMaxInactiveInterval(300);  //ÀÎÁõÄÚµå À¯È¿½Ã°£ 300ÃÊ
+		session.setMaxInactiveInterval(300);  //ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½È¿ï¿½Ã°ï¿½ 300ï¿½ï¿½
 		
-		//¸ŞÀÏÁ¤º¸ ¼ÂÆÃ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String email = req.getParameter("email");
 		String emailSelect = req.getParameter("emailSelect");
 		helper.setTo(email+"@"+emailSelect);
-		helper.setSubject(member.getId() +" ´Ô °¡ÀÔÀ» ÃàÇÏµå¸³´Ï´Ù."); 
-		helper.setText("ÀÎÁõ¹øÈ£ ÀÔ´Ï´Ù.<br>"+joinCode, true); } };
+		helper.setSubject(member.getId() +" ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµå¸³ï¿½Ï´ï¿½."); 
+		helper.setText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½Ô´Ï´ï¿½.<br>"+joinCode, true); } };
 		
-		//view¿¡¼­ »ç¿ëÇÒ µ¥ÀÌÅÍ¼³Á¤
+		//viewï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½
 		model.addAttribute("memberId",member.getId());
 		model.addAttribute("email",req.getParameter("email")+"@"+req.getParameter("emailSelect"));
 		
-		//¸ŞÀÏº¸³»±â
+		//ï¿½ï¿½ï¿½Ïºï¿½ï¿½ï¿½ï¿½ï¿½
 		mailSender.send(preparator); 
 		
 		return "redirect:emailCheck";
 		
 	}
-	//Á¤º¸°¡Áö°í ÀÌ¸ŞÀÏ Ã¼Å©ÇÏ·¯ °¨.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï·ï¿½ ï¿½ï¿½.
 	@RequestMapping(value="emailCheck",method=RequestMethod.GET)
 	public String emailCheck(Model model,HttpServletRequest req) {
 		model.addAttribute("memberId",req.getParameter("memberId"));
@@ -123,7 +123,7 @@ public class MemberController {
 		return "login/emailCheck"; 
 	}
 	
-	//ÀÌ¸ŞÀÏ ÀÎÁõ ½ÂÀÎµÊ
+	//ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
 	@RequestMapping(value="emailCertify",method=RequestMethod.GET)
 	public String emailCertify(Model model,HttpServletRequest req) throws Exception {
 		String id = req.getParameter("id");
@@ -132,7 +132,7 @@ public class MemberController {
 		return "login/login"; 
 	}
 	
-	//·Î±×ÀÎ
+	//ï¿½Î±ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/newLogin", method = RequestMethod.POST)
 	public String newLogin(MemberVO member, Model model,
 			HttpServletRequest req) throws Exception{
@@ -142,37 +142,37 @@ public class MemberController {
 			session.setAttribute("id", member.getId());
 			return "redirect:index";
 		}else {
-			model.addAttribute("msg","·Î±×ÀÎ Á¤º¸°¡ ´Ù¸¨´Ï´Ù.");
+			model.addAttribute("msg","ë¡œê·¸ì¸ ì„±ê³µ");
 			model.addAttribute("url","login");
 			return "redirectJsp";
 		}
 	}
-	//·Î±×¾Æ¿ô
+	//ï¿½Î±×¾Æ¿ï¿½
 	@RequestMapping(value="logout",method=RequestMethod.GET)
 	public String userLogout(HttpServletRequest req,Model model) throws IOException {
 		req.getSession().invalidate();
 		
-		model.addAttribute("msg","·Î±×¾Æ¿ô µÇ¾ú½À´Ï´Ù.");
+		model.addAttribute("msg","ë¡œê·¸ì•„ì›ƒ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		model.addAttribute("url","index");
 		
 		return "redirectJsp";
 	}
 	
-	//ºñµ¿±â Åë½ÅÀ» À§ÇÑ ResPonseBody
-	//ÀÎÁõÄÚµå °ËÁõ
+	//ï¿½ñµ¿±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ResPonseBody
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
 	@ResponseBody
 	@RequestMapping(value="emailJoin",method=RequestMethod.GET)
 	public int emailJoin(HttpServletRequest req,HttpSession session)  throws IOException {
 		
 			String code=req.getParameter("code");
-			//½Ã°£ÃÊ°ú
+			//ï¿½Ã°ï¿½ï¿½Ê°ï¿½
 			if(session.getAttribute("joinCode")==null) {
 				return 0;
 			}else{
-				//½ÂÀÎ
+				//ï¿½ï¿½ï¿½ï¿½
 				if(session.getAttribute("joinCode").toString().equals(code)) {
 					return 1;
-				//ÀÎÁõÄÚµå Æ²¸²
+				//ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ Æ²ï¿½ï¿½
 				}else {
 					return 2;
 				}

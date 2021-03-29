@@ -14,7 +14,14 @@
 	<select id="select" resultType="com.cos.domain.ProductVO">
 		SELECT * FROM product 
 	</select>
-	
+	<!-- 상품 하나 가져오기 -->
+	<select id="pSelectOne" resultType="com.cos.domain.ProductVO">
+		SELECT * FROM product where pNum = #{param1}
+	</select>
+	<!-- 상품 재질 하나 가져오기 -->
+	<select id="tSelectOne" resultType="com.cos.domain.ProductTextureVO">
+		SELECT * FROM product_texture where pNum = #{param1} 
+	</select>
 	
 	
 </mapper>
