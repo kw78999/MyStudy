@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.cos.domain.ProductVO;
+import com.cos.domain.ProductTextureVO;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO{

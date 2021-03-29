@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cos.domain.ProductVO;
+import com.cos.domain.ProductTextureVO;
 import com.cos.persistence.ProductDAO;
 
 @Service
@@ -24,6 +25,6 @@ public class ProductServiceImpl implements ProductService{
 		
 		return dao.select();
 	}
-	
+
 	
 }

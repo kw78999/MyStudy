@@ -94,7 +94,7 @@ function thumbnail_img(index,src) {
 		}
 		
 		idx++;
-	}, 2000);
+	}, 1000);
 	
 }
 

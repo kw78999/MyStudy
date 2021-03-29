@@ -1,22 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@include file="Include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ShopingMall Index</title>
+
+
+
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
 <style>
 .main_Image{ 
 width: 100%;
 }
-.main_Product{
+.New_Product{
 width: 100%;
 margin:auto;
 align-content: center;
 }
-.main_Product h1{
+.New_Product h1{
 font-size: 4rem;
 margin-bottom: 80px;
 text-align: center;
@@ -32,39 +41,159 @@ margin-left:60px;
 margin-right: 20px;
 }
 .product{
-width: 350px;
-height:620px;
+width:320px;
+height:540px;
+}
+.product_img_div{
+width: 320px;
+height:500px;
+overflow: hidden;   
 }
 .product_img{
-width: 350px;
-height: 500px;
+width: 320px;
+height:500px;
+transform:scale(1.0);       
+transition: transform .5s; 
 }
- .product_img:hover{
- opacity: 0.8;
- }
+.product_img:hover{
+opacity: 0.85;
+cursor:pointer; 
+transform:scale(1.2);   
+transition: transform .5s; 	
+}
+.swiper-container {
+  width: 100%;
+  height: 700px;
+}
 </style>
+<script>
+window.onload = function(){
+	//모든 상품이미지 가져오기
+	var imgArray =document.getElementsByClassName('product_img');
+	
+	for(var i=0; i<imgArray.length; i++) {
+		//상품이미지마다 온로드 시 이벤트
+		imgArray[i].onload = function (obj,str) {
+			//이미지 소스 스플릿
+			var imgSrc = str.split(',');
+		    //3번째 이미지 있는지 검사
+		    if(imgSrc[2]=="" || imgSrc[2] == null){
+		    	if(imgSrc[1]=="" || imgSrc[1] == null){
+		    		//이미지 1개만있음 
+		    		obj.src='resources/editor/upload/'+imgSrc[0];
+		    		
+		    	}else{
+		    		//이미지가 2개있기때문에 2개만 반복
+		    		var idx2 = 0;
+		    		
+		    		playThumbnail = setInterval(function() {
+		    			if(idx2==2){
+		    				idx2=0;
+		    			}
+		    			obj.src = 'resources/editor/upload/'+imgSrc[idx2];
+		    			
+		    			idx2++;
+		    		}, 1500);
+		    		
+		    	}
+			}else{
+				//이미지 3개다 있음 3개 반복
+				var idx = 0;
+				
+				playThumbnail = setInterval(function() {
+					if(idx==3){
+						idx=0;
+					}
+						console.log(imgSrc[idx]);
+						obj.src = 'resources/editor/upload/'+imgSrc[idx];
+						
+					
+					idx++;
+				}, 1500);
+			}
+			//매개변수 이미지 객체,이미지 속성값(hidden으로 가져옴 )
+		}(imgArray[i],imgArray[i].nextSibling.nextSibling.value);
+		
+		
+	}
+	
+}
+	
+
+</script>
+
+
+
+
+
 </head>
 <body>
 <img src="resources/img/main.jpg" class="main_Image">
 
-<div class="main_Product">
+<div class="New_Product">
 <h1>New Product</h1>
-	<ul class="product_Ul">
+	<!-- Slider main container -->
+<div class="swiper-container">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+  
+  
+  <c:forEach var="i" begin="0" end="${fn:length(list)}" step="4">
+    <!-- Slides -->
+    <div class="swiper-slide">
+	    <ul class="product_Ul">
+				<c:forEach items="${list}" var="product" begin="${i }" end="${i+3 }" step="1">
+						<li>
+							<div class="product">
+								<div class="product_img_div">
+									<img src="resources/editor/upload/${fn:split(product.thumbnail,',')[0]}"  class="product_img"
+											onclick="location.href='productDetails'">
+									<input type="hidden" value=${product.thumbnail }>
+								</div>
+									<a>${product.category} > ${product.categorySub }</a><br><a>${product.PName}</a><br><a><b>${product.price}</b></a>
+							</div>
+						</li>
+				</c:forEach>
+		</ul>
+	</div>
+    </c:forEach>
+    
+	</div>
 	
-		<li><div class="product" >
-		<img src="resources/img/p1.jpg" class="product_img"onclick="location.href='productDetails'">
-		<br><a>Category</a><br><a>Product</a><br><a><b>128,000</b></a>
-		</div></li>
-		
-			<c:forEach items="${list}" var="product">
-                    <li><div class="product" >
-					<img src="resources/editor/upload/${product.thumbnail}" class="product_img"onclick="location.href='productDetails'">
-					<br><a>${product.category} > ${product.categorySub }</a><br><a>${product.PName}</a><br><a><b>${product.price}</b></a>
-					</div></li>
-             </c:forEach>
-	</ul>
+  <!-- If we need navigation buttons -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
 
-</div>
+
+</div><!-- New_Product -->
+<script>
+const swiper = new Swiper('.swiper-container', {
+	  // Optional parameters
+	  direction: 'horizontal',
+	 // loop: true,
+	  slidesPerView : 1, // 한 슬라이드에 보여줄 갯수
+	    spaceBetween : 1, // 슬라이드 사이 여백
+	  autoplay : {  // 자동 슬라이드 설정 , 비 활성화 시 false
+	    	  delay : 5000,   // 시간 설정
+	    	  disableOnInteraction : false,  // false로 설정하면 스와이프 후 자동 재생이 비활성화 되지 않음
+	    	},
+	  
+	  // Navigation arrows
+	  navigation: {
+	    nextEl: '.swiper-button-next',
+	    prevEl: '.swiper-button-prev',
+	  },
+	  
+	});
+	
+
+</script>
+
+
+
+
+
+
 
 
 <%@include file="Include/footer.jsp" %>

@@ -19,11 +19,10 @@ public class IndexController {
 	private ProductService pService;
 	
 	
-	@RequestMapping(value="index",method=RequestMethod.GET)
+	@RequestMapping(value="index",method = {RequestMethod.GET, RequestMethod.POST})
 	public String index(Model model) throws Exception {
 		
 		List<ProductVO> list = pService.productSelect();
-		
 		
 		model.addAttribute("list", list);
 		

@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.cos.domain.ProductOptionVO;
-import com.cos.domain.productTextureVO;
+import com.cos.domain.ProductTextureVO;
 
 @Repository
 public class ProductOptionDAOImpl implements ProductOptionDAO{
@@ -21,7 +21,7 @@ public class ProductOptionDAOImpl implements ProductOptionDAO{
 		
 	}
 	@Override
-	public void textureUpload(productTextureVO productTexture) throws Exception {
+	public void textureUpload(ProductTextureVO productTexture) throws Exception {
 	session.insert(namespace+".textureUpload",productTexture);
 		
 	}

@@ -3,7 +3,7 @@ package com.cos.domain;
 import lombok.Data;
 
 @Data
-public class productTextureVO {
+public class ProductTextureVO {
 	private int pNum;
 	private String touch;
 	private String stretch;

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cos.domain.ProductOptionVO;
-import com.cos.domain.productTextureVO;
+import com.cos.domain.ProductTextureVO;
 import com.cos.persistence.ProductOptionDAO;
 
 @Service
@@ -19,7 +19,7 @@ public class ProductOptionServiceImpl implements ProductOptionServie{
 		
 		}
 		@Override
-		public void textureUpload(productTextureVO productTexture) throws Exception {
+		public void textureUpload(ProductTextureVO productTexture) throws Exception {
 			dao.textureUpload(productTexture);
 		
 		}
