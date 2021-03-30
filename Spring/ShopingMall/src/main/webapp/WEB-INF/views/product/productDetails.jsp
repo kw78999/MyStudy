@@ -1,85 +1,167 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../Include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@include file="../Include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>상품 정보</title>
-<link rel="stylesheet" media="screen and (max-width: 1024px)" href="resources/css/product_mobile.css" />
-<link rel="stylesheet" media="screen and (min-width: 1025px)" href="resources/css/product_desk.css" /></head>
-<body onload="init();">
-<script language="JavaScript">
+<link rel="stylesheet" media="screen and (max-width: 1024px)" href="resources/css/product_mobile.css?v5" />
+<link rel="stylesheet" media="screen and (min-width: 1025px)" href="resources/css/product_desk.css?v9" /></head>
+<body onload="init()">
+<script>
 
-var sell_price;
+
+var sellPrice;
 var amount;
-//수량 및 가격 측정 메소드
+
+
+
+
+
+function optionChange(obj) {
+	money=obj.value.split('$');
+	document.getElementById('sellPrice').value = money[1];
+	document.getElementById('amount').value=1;
+	init();
+}
 function init () {
-	sell_price = document.form.sell_price.value;
-	amount = document.form.amount.value;
-	document.form.sum.value = sell_price;
+	sellPrice = document.getElementById('sellPrice').value;
+	amount = document.getElementById('amount').value;
+	document.getElementById('sum').value = sellPrice;
 	change();
 }
-//수량 및 가격 측정 메소드
-function add () {
-	hm = document.form.amount;
-	sum = document.form.sum;
+
+function productAdd () {
+	hm = document.getElementById('amount');
+	sum =document.getElementById('sum');
 	hm.value ++ ;
 
-	sum.value = parseInt(hm.value) * sell_price;
+	sum.value = parseInt(hm.value) * sellPrice;
 }
-//수량 및 가격 측정 메소드
+
 function del () {
-	hm = document.form.amount;
-	sum = document.form.sum;
+	hm = document.getElementById('amount');
+	sum = document.getElementById('sum');
 		if (hm.value > 1) {
 			hm.value -- ;
-			sum.value = parseInt(hm.value) * sell_price;
+			sum.value = parseInt(hm.value) * sellPrice;
 		}
 }
-//수량 및 가격 측정 메소드
+
 function change () {
-	hm = document.form.amount;
-	sum = document.form.sum;
+	hm = document.getElementById('amount');
+	sum = document.getElementById('sum');
 
 		if (hm.value < 0) {
 			hm.value = 0;
 		}
-	sum.value = parseInt(hm.value) * sell_price;
+	sum.value = parseInt(hm.value) * sellPrice;
 }  
+
+
+
+
+window.addEventListener('load',function(){
+	//모든 상품이미지 가져오기
+	var imgArray =document.getElementsByClassName('img');
+	
+	for(var i=0; i<imgArray.length; i++) {
+		//상품이미지마다 온로드 시 이벤트
+		imgArray[i].onload = function (obj,str) {
+			//이미지 소스 스플릿
+			var imgSrc = str.split(',');
+		    //3번째 이미지 있는지 검사
+		    if(imgSrc[2]=="" || imgSrc[2] == null){
+		    	if(imgSrc[1]=="" || imgSrc[1] == null){
+		    		//이미지 1개만있음 
+		    		obj.src='resources/editor/upload/'+imgSrc[0];
+		    		
+		    	}else{
+		    		//이미지가 2개있기때문에 2개만 반복
+		    		var idx2 = 0;
+		    		
+		    		playThumbnail = setInterval(function() {
+		    			if(idx2==2){
+		    				idx2=0;
+		    			}
+		    			obj.src = 'resources/editor/upload/'+imgSrc[idx2];
+		    			
+		    			idx2++;
+		    		}, 1500);
+		    		
+		    	}
+			}else{
+				//이미지 3개다 있음 3개 반복
+				var idx = 0;
+				
+				playThumbnail = setInterval(function() {
+					if(idx==3){
+						idx=0;
+					}
+						console.log(imgSrc[idx]);
+						obj.src = 'resources/editor/upload/'+imgSrc[idx];
+						
+					
+					idx++;
+				}, 1500);
+			}
+			//매개변수 이미지 객체,이미지 속성값(hidden으로 가져옴 )
+		}(imgArray[i],imgArray[i].nextSibling.nextSibling.value);
+		
+		
+	}
+	
+});
+	
 
 </script>
 <body>
-<div class ="category_menu">카테고리 > TOP > OUTER</div>
+					<!--   	${product }
+							${productTexture }
+							${oList }-->
+<div class ="category_menu">카테고리 > ${product.category} > ${product.categorySub}</div>
 
 <div class="details_main">
 	<ul class="details_ul">
 	
 		<li class="img_li">
-			<img  src="resources/img/d1.jpg" class="img">
+			<img  src="resources/editor/upload/${fn:split(product.thumbnail,',')[2]}" class="img">
+			<input type="hidden" value=${product.thumbnail }>
 		</li>
 		
 		<li class="product_li">
 			<div class="product_li_div">
-				<h3>Product Name</h3>
-				128.000 $<br>
+				<h3>${product.PName}</h3>
+				$  ${product.price} <br>
 				<hr class="product_hr"><br>
-				적립금  2000  ( 1% )<br>
-				옵션 <select><option>red</option><option>blue</option></select><br>
+				적립금  2000  ( 1% )<br><br>
+				
+				옵션 <select class="optionSelecter" onchange="optionChange(this)">
+				<option>${product.color } / ${product.size} / ${product.stock }ea / $${product.price}</option>
+				
+				<c:forEach items="${oList}" var="option" begin="0" end="${fn:length(oList)}" step="1">
+						<option>${option.OColor } / ${option.OSize } / ${option.OStock }ea / $${option.OPrice } </option>
+				</c:forEach>
+				
+				</select><br>
 				<hr class="product_hr"><br>
-<!-- form 제거 하세요--><form name="form" method="get">
-				수량 : <input type=hidden name="sell_price" value="5500">
-				<input type="text" name="amount" value="1" size="3" onchange="change();">
-				<input type="button" value=" + " onclick="add();"><input type="button" value=" - " onclick="del();"><br>
-				금액 : <input type="text" name="sum" size="11" readonly>원
-<!-- form 제거 하세요--></form>
+				
+				수량 : <input type=hidden name="sellPrice" value="${product.price}" id="sellPrice">
+				<input type="text" name="amount" value="1" size="3" onchange="change();" id="amount" class="amount">
+				<input type="button" value=" + " onclick="productAdd(this);" class="plusProduct">
+				<input type="button" value=" - " onclick="del();" class="minusProduct">
+				<br>
+				금액 : <input type="text" name="sum" size="11"id="sum" class="sum" value="${product.price }"readonly>원
+				<br>
 				<button type="button" class="product_btn">ADD To Cart</button>
 				<button type="button" class="product_btn">BUY NOW</button>
 				
 				
 				<div class="product_text">
-					상세정보
+					${product.character1 }
 				</div>
 			</div>
 		</li>
@@ -123,7 +205,7 @@ function change () {
 		</tr>
 	</table>
 		<div class="mainContent">
-			mainContent
+			${product.content}
 		
 		</div>
 	<div class="size">
@@ -189,37 +271,7 @@ function change () {
 	</div>
 
 
-<!-- Naver Smart Editor 2 -->
-<script>
-  var form = document.w_form;
-  var oEditors = [];
-  nhn.husky.EZCreator.createInIFrame({
-      oAppRef: oEditors,
-      elPlaceHolder: "textAreaContent",
-      sSkinURI: "resources/editor/SmartEditor2Skin.html",
-      fCreator: "createSEditor2"
-  });
-   
-  // submit
-  function submitContents(elClickedObj) {
-      // 에디터의 내용이 textarea에 적용된다.
-      oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", [ ]);
-      var con = document.w_form.lcContent;
-      con.value = document.getElementById("textAreaContent").value;
-      try {
-          elClickedObj.form.submit();
-      } catch(e) {
-       
-      }
-  }
-   
-  // textArea에 이미지 첨부
-  function pasteHTML(filepath){
-      var sHTML = '<img src="<%=request.getContextPath()%>/resources/editor/upload/'+ filepath + '">';
-	  oEditors.getById["textAreaContent"].exec("PASTE_HTML", [ sHTML ]);
-  }
-</script>
-<!-- Naver Smart Editor 2 END-->
+
 
 <%@include file="../Include/footer.jsp" %>
 </body>

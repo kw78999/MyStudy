@@ -15,4 +15,8 @@
 		INSERT product_texture(pNum,touch,stretch,transparent,gloss,thickness,lining)VALUES
 		(#{pNum},#{touch},#{stretch},#{transparent},#{gloss},#{thickness},#{lining})
 	</insert>
+	<!-- 상품 옵션 리스트 가져오기 -->
+	<select id="optionSelect" resultType="com.cos.domain.ProductOptionVO">
+	SELECT * FROM product_option where pNum = #{param1}
+	</select>
 </mapper>

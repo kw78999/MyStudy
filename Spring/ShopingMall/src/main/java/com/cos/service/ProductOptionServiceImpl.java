@@ -1,5 +1,7 @@
 package com.cos.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,9 @@ public class ProductOptionServiceImpl implements ProductOptionServie{
 		public void textureUpload(ProductTextureVO productTexture) throws Exception {
 			dao.textureUpload(productTexture);
 		
+		}
+		@Override
+		public List<ProductOptionVO> optionSelect(int pNum) throws Exception {
+		return dao.optionSelect(pNum);
 		}
 }

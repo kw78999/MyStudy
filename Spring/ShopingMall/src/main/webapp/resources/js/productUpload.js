@@ -1,7 +1,35 @@
-
+function tableCheck(obj) {
+	obj.querySelector("input").checked='true';
+	var radio = document.getElementsByClassName('radioBtn');
+	for (var i=0; i<radio.length; i++) {
+		if(radio[i].checked){
+			radio[i].parentNode.style.border = '5px solid #D873F1';
+		}else{
+			radio[i].parentNode.style.border = '5px solid silver';
+		}
+		
+	}	
+}
+$(document).ready(function(){
+    // 라디오버튼 클릭시 이벤트 발생
+    $("input:radio").click(function(){
+    	
+    	var radio = document.getElementsByClassName('radioBtn');
+    	for (var i=0; i<radio.length; i++) {
+    		if(radio[i].checked){
+    			radio[i].parentNode.style.border = '5px solid #D873F1';
+    		}else{
+    			radio[i].parentNode.style.border = '5px solid silver';
+    		}
+    		
+    	}
+    	
+        
+    });
+});
 //버튼 마우스 오버 아웃 이벤트
 function openOver(obj) {
-	obj.parentNode.style.border="5px solid green";
+	obj.parentNode.style.border="5px solid #D873F1";
 }
 function delOver(obj) {
 	obj.parentNode.style.border="5px solid brown";
@@ -265,7 +293,7 @@ function openThis(obj) {
 		obj.parentNode.lastChild.style.display='none';
 		obj.parentNode.firstChild.style.display='block';
 		obj.innerHTML="펼치기";
-		obj.style.color="#40c700";
+		obj.style.color="#D873F1";
 		
 		//input value를 optionDiv로 이동시키기 
 		var inp = obj.parentNode.getElementsByTagName('input');//4개
@@ -309,7 +337,7 @@ function mainOpenThis(obj) {
 		size_table.style.display='none';
 		pDiv.style.display='block';
 		obj.innerHTML="펼치기";
-		obj.style.color="#40c700";
+		obj.style.color="#D873F1";
 		
 		//div 속 div노드를 찾아 속성값 적용
 		var divs =detailDiv.getElementsByTagName("div");
@@ -483,3 +511,57 @@ function createDiv() {
        //index 하나 증가
        optionIndex++;
 }
+
+var color=0;
+var color2=254;
+var color3=2;
+
+function startColor(obj) {
+	if(color==0&&color2==254&&color3==2){
+		startInterval = setInterval(function() {
+			color++;
+			if(color<256){
+				var a=255-color/2;
+				var b=255-color;
+				var c=100+color;
+				
+				obj.style.color="rgb("+c+","+c+","+c+")";
+				obj.style.background="linear-gradient(to right, white, rgba("+a+","+b+",255,0.4))";
+			}
+			if(color==255){
+				clearInterval(startInterval);
+				color=0;
+				stopColor(obj);
+			}
+			
+			
+		}, 1);
+	}else{
+	}
+	
+};
+
+
+
+function stopColor(obj) {
+	stopInterval = setInterval(function() {
+		color2--;
+		color3++;
+		if(color2!=0){
+			var a2=139+color3;
+			var c2=250+color3;
+			obj.style.color="rgb(216,115,254)";
+			obj.style.background="linear-gradient(to right, white, rgba("+a2+","+color3+","+c2+",0.3))";
+		}
+		if(color2==0){
+			clearInterval(stopInterval);
+			color3=2;
+			color2=254;
+		}
+	},1);
+}
+
+
+
+
+

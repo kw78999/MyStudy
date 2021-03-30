@@ -5,13 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/productUpload.css" />
+<link rel="stylesheet" href="resources/css/productUpload.css?v23" />
 <script type="text/javascript" src="resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="resources/editor/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 
+<script>
+
+
+</script>
 </head>
 <body>
 <%@include file="../Include/header.jsp" %>
@@ -41,7 +45,6 @@
 			 <option value="Outer">Outer</option>
 			 <option value="Top">Top</option>
 			 <option value="Bottom">Bottom</option>
-			 <option value="Set">Set</option>
 			 <option value="Acc">Acc</option>
 			 <option value="One Piace">One Piace</option>
 			</select>
@@ -70,9 +73,6 @@
 		<option value="SHORTS">SHORTS</option>	
 		<option value="SKIRT">SKIRT</option>	
 		</select>
-		<select id="set" class="subCategory" name="categorySub"> 
-		<option value="SET">SET</option>
-		</select>
 		<select id="onepiace" class="subCategory" name="categorySub"> 
 		<option value="DRESS">DRESS</option>
 		<option value="JUMP-SUIT">JUMP-SUIT</option>
@@ -99,90 +99,95 @@
 <table class="textureTable">
 	<tr>
 		<td class="textureTable_ftd">촉감</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="rough" id="t1" name="touch" class="radioBtn">
 			<label for="t1"><a class="radioLabel">까슬함</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="middle" id="t2" name="touch" class="radioBtn">
 			<label for="t2"><a class="radioLabel">적당함</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="soft" id="t3" name="touch" class="radioBtn">
 			<label for="t3"><a class="radioLabel">부드러움</a></label>
 		</td>
 	</tr>
+	<tr class="none_tr"></tr>
 	<tr>
 		<td class="textureTable_ftd">신축성</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="high" id="t4" name="stretch" class="radioBtn">
 			<label for="t4"><a class="radioLabel">좋음</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="middle" id="t5" name="stretch" class="radioBtn">
 			<label for="t5"><a class="radioLabel">약간</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="none" id="t6" name="stretch" class="radioBtn">
 			<label for="t6"><a class="radioLabel">없음</a></label>
 		</td>
 	</tr>
+	<tr class="none_tr"></tr>
 	<tr>
 		<td class="textureTable_ftd">비침</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="high" id="t7" name="transparent" class="radioBtn">
 			<label for="t7"><a class="radioLabel">많이 비침</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="middle" id="t8" name="transparent" class="radioBtn">
 			<label for="t8"><a class="radioLabel">약간 비침</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="none" id="t9" name="transparent" class="radioBtn">
 			<label for="t9"><a class="radioLabel">비침 없음</a></label>
 		</td>
 	</tr>
+	<tr class="none_tr"></tr>
 	<tr>
 		<td class="textureTable_ftd">광택감</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="high" id="t10" name="gloss" class="radioBtn">
 			<label for="t10"><a class="radioLabel">광택 있음</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="middle" id="t11" name="gloss" class="radioBtn">
 			<label for="t11"><a class="radioLabel">약간 있음</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="none" id="t12" name="gloss" class="radioBtn">
 			<label for="t12"><a class="radioLabel">광택 없음</a></label>
 		</td>
 	</tr>
+	<tr class="none_tr"></tr>
 	<tr>
 		<td class="textureTable_ftd">두께감</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="high" id="t13" name="thickness" class="radioBtn">
 			<label for="t13"><a class="radioLabel">두꺼움</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="middle" id="t14" name="thickness" class="radioBtn">
 			<label for="t14"><a class="radioLabel">적당함</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="none" id="t15" name="thickness" class="radioBtn">
 			<label for="t15"><a class="radioLabel">얇음</a></label>
 		</td>
 	</tr>
+	<tr class="none_tr"></tr>
 	<tr>
 		<td class="textureTable_ftd">안감</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="high" id="t16" name="lining" class="radioBtn">
 			<label for="t16"><a class="radioLabel">전체안감</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="middle" id="t17" name="lining" class="radioBtn">
 			<label for="t17"><a class="radioLabel">부분안감</a></label>
 		</td>
-		<td class="textureTable_std">
+		<td class="textureTable_std" onclick="tableCheck(this)">
 			<input type="radio" value="none" id="t18" name="lining" class="radioBtn">
 			<label for="t18"><a class="radioLabel">안감없음</a></label>
 		</td>
@@ -307,7 +312,8 @@
 		
 		<input type="hidden" name="filepath" value="/editor/upload/" /> 
 		<textarea name="content" id="textAreaContent" style="width: 100%" rows="15" cols="80"></textarea>
-		<button class="form-control foode-btn" type="button" onclick="submitContents(this)">글쓰기</button>
+		<button id="sumbitBtn"class="form-control foode-btn" 
+		type="button" onclick="submitContents(this)" onmouseover="startColor(this)">Upload</button>
 </div>
 </form>
 		
@@ -351,6 +357,6 @@
 <%@include file="../Include/footer.jsp" %>
 <!-- 스마트 에디터 크기를 쉽게늘리기위한 빈공간 -->
 <div style="height: 100px;"></div>
-<script type="text/javascript" src="resources/js/productUpload.js?ver=13" charset="utf-8"></script>
+<script type="text/javascript" src="resources/js/productUpload.js?ver=14" charset="utf-8"></script>
 </body>
 </html>

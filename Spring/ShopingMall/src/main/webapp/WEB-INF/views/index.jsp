@@ -36,7 +36,6 @@ display: table;
 }
 .product_Ul li{
 float: left;
-margin-left:60px;
 margin-right: 20px;
 }
 .product{
@@ -138,11 +137,10 @@ window.addEventListener('load',function(){
   <div class="swiper-wrapper">
   
   
-  <c:forEach var="i" begin="0" end="${fn:length(list)}" step="4">
+				<c:forEach items="${list}" var="product" begin="0" end="${fn:length(list)-1}" step="1">
     <!-- Slides -->
     <div class="swiper-slide">
 	    <ul class="product_Ul">
-				<c:forEach items="${list}" var="product" begin="${i }" end="${i+3 }" step="1">
 						<li>
 							<div class="product">
 								<div class="product_img_div">
@@ -153,11 +151,10 @@ window.addEventListener('load',function(){
 									<a>${product.category} > ${product.categorySub }</a><br><a>${product.PName}</a><br><a><b>${product.price}</b></a>
 							</div>
 						</li>
-				</c:forEach>
 		</ul>
 	</div>
-    </c:forEach>
     
+				</c:forEach>
 	</div>
 	
   <!-- If we need navigation buttons -->
@@ -171,10 +168,23 @@ const swiper = new Swiper('.swiper-container', {
 	  // Optional parameters
 	  direction: 'horizontal',
 	 // loop: true,
-	  slidesPerView : 1, // 한 슬라이드에 보여줄 갯수
-	    spaceBetween : 1, // 슬라이드 사이 여백
+	  slidesPerView : 4, // 한 슬라이드에 보여줄 갯수
+	  spaceBetween : 20, // 슬라이드 사이 여백
+	  breakpoints:{
+		    1:{slidesPerView:1,
+	  			},
+		  	768:{slidesPerView:1,
+		  		},
+		  	900:{slidesPerView:2,
+			  	},
+			1024:{slidesPerView:3,
+				},
+			1424:{slidesPerView:4,
+				},
+			  	
+	  },
 	  autoplay : {  // 자동 슬라이드 설정 , 비 활성화 시 false
-	    	  delay : 5000,   // 시간 설정
+	    	  delay : 3000,   // 시간 설정
 	    	  disableOnInteraction : false,  // false로 설정하면 스와이프 후 자동 재생이 비활성화 되지 않음
 	    	},
 	  

@@ -1,5 +1,7 @@
 package com.cos.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,5 +26,10 @@ public class ProductOptionDAOImpl implements ProductOptionDAO{
 	public void textureUpload(ProductTextureVO productTexture) throws Exception {
 	session.insert(namespace+".textureUpload",productTexture);
 		
+	}
+	@Override
+	public List<ProductOptionVO> optionSelect(int pNum) throws Exception {
+		
+		return session.selectList(namespace+".optionSelect",pNum);
 	}
 }
